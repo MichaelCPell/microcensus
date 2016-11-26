@@ -5,8 +5,10 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ReportCreatorComponent } from './report-creator/report-creator.component';
 import { ReportDefinerComponent } from './report-definer/report-definer.component';
+import { ReportViewerComponent } from './report-viewer/report-viewer.component';
+
+import { COMPILER_PROVIDERS } from '@angular/compiler';
 
 
 
@@ -18,7 +20,8 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ReportDefinerComponent
+    ReportDefinerComponent,
+    ReportViewerComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [COMPILER_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
