@@ -11,7 +11,8 @@ import { Http } from '@angular/http';
 })
 
 export class ReportDefinerComponent implements AfterViewInit {
-   private templateUrl: string = './report-definer.component.html';
+  public reportName:string = "general_demographic_report"
+
 
    @ViewChild('myDynamicContent', { read: ViewContainerRef })
    protected dynamicComponentTarget: ViewContainerRef;
@@ -19,7 +20,6 @@ export class ReportDefinerComponent implements AfterViewInit {
   constructor(protected compiler: RuntimeCompiler, private http: Http) { }
 
   ngAfterViewInit() {
-    let templateUrl = './report-definer.component.html'
     let html;
     var dataOne = [
       { "White": 100 ,
@@ -35,10 +35,10 @@ export class ReportDefinerComponent implements AfterViewInit {
         "Other": 200 }
     ]
 
-    this.http.get("/report_templates/general_demographic_report.html")
+    this.http.get(`/report_templates/${this.reportName}.html`)
       .subscribe(
         (response:any) => {
-          this.createComponentFactory(response._body, {one: dataOne, two: dataTwo})
+          this.createComponentFactory(response._body, {one: dataOne, two: dataTwo}, this.reportName)
             .then((factory) => {
               this
                 .dynamicComponentTarget
@@ -48,9 +48,9 @@ export class ReportDefinerComponent implements AfterViewInit {
       );
   }
 
-  public createComponentFactory(template: string, data:any)
+  public createComponentFactory(template: string, data:any, reportName:string)
     : Promise<any>{
-    let type   = this.createNewComponent(template, data);
+    let type   = this.createNewComponent(template, data, reportName);
     let module = this.createComponentModule(type);
     let factory;
 
@@ -66,20 +66,21 @@ export class ReportDefinerComponent implements AfterViewInit {
   }
 
 
-  protected createNewComponent (tmpl:string, data:any) {
+  protected createNewComponent (tmpl:string, data:any, reportName:string) {
       @Component({
           selector: 'dynamic-component',
           template: tmpl
       })
       class CustomDynamicComponent implements OnInit{
         public data:any = data;
-        constructor(private http: Http){
+        public reportName:string = reportName
 
+        constructor(private http: Http){
         }
 
         ngOnInit(){
           if(this.data){
-            this.http.get("/report_templates/general_demographic_report.js")
+            this.http.get(`/report_templates/${this.reportName}.js`)
             .subscribe(
               (response:any) => {
                 let data = this.data;
