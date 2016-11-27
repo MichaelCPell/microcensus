@@ -13,7 +13,9 @@ import { COMPILER_PROVIDERS } from '@angular/compiler';
 
 
 const appRoutes: Routes = [
-  { path: '', component: ReportDefinerComponent }
+  { path: '', component: ReportDefinerComponent },
+  { path: 'report_viewer', component: ReportViewerComponent }
+
 ]
 
 

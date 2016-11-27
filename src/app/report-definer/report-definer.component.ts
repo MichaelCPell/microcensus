@@ -3,6 +3,9 @@ import {Component, OnInit,
 import {RuntimeCompiler} from '@angular/compiler';
 import * as _ from 'lodash';
 import { Http } from '@angular/http';
+import { ActivatedRoute } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-report-definer',
@@ -12,14 +15,22 @@ import { Http } from '@angular/http';
 
 export class ReportDefinerComponent implements AfterViewInit {
   public reportName:string = "general_demographic_report"
-
+  public route:ActivatedRoute;
 
    @ViewChild('myDynamicContent', { read: ViewContainerRef })
    protected dynamicComponentTarget: ViewContainerRef;
 
-  constructor(protected compiler: RuntimeCompiler, private http: Http) { }
+  constructor(protected compiler: RuntimeCompiler, private http: Http, private route: ActivatedRoute) {
+    this.route = route;
+  }
 
   ngAfterViewInit() {
+    console.log(this.route.params)
+
+    // this.route.params.subscribe((val) => {
+    //   console.log(val);
+    // });
+
     let html;
     var dataOne = [
       { "White": 100 ,
