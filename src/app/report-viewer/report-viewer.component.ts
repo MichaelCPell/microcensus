@@ -4,6 +4,8 @@ import {RuntimeCompiler} from '@angular/compiler';
 import * as _ from 'lodash';
 import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 export class ReportViewerComponent implements AfterViewInit {
   public reportName:string;
-
+  public geom = {"type":"Point","coordinates":[-79.52313700000002,36.09550000000001]}
   @ViewChild('myDynamicContent', { read: ViewContainerRef })
   protected dynamicComponentTarget: ViewContainerRef;
 
@@ -27,31 +29,33 @@ export class ReportViewerComponent implements AfterViewInit {
       .subscribe((params: Params) =>  this.reportName = params["name"])
 
     let html;
-    var dataOne = [
-      { "White": 100 ,
-        "Black or African American": 200,
-        "Asian" : 300 ,
-        "Other": 400 }
-    ];
+    let tempReport;
+    this.http.post("http://localhost:4000", {reportName: this.reportName, geometry: this.geom})
+      .map((res:Response) => res.json())
+        .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
+        .subscribe(
+          data => {
+            tempReport = data;
+          },
+          error =>  this.errorMessage = <any>error,
+          () => {
+            this.report = tempReport;
+            this.http.get(`/report_templates/${this.reportName}.html`)
+              .subscribe(
+                (response:any) => {
+                  this.createComponentFactory(response._body, this.report, this.reportName)
+                    .then((factory) => {
+                      this
+                        .dynamicComponentTarget
+                        .createComponent(factory)
+                    })
+                }
+              );
+          }
+        );
 
-    var dataTwo = [
-      { "White": 200 ,
-        "Black or African American": 200,
-        "Asian" : 200 ,
-        "Other": 200 }
-    ];
 
-    this.http.get(`/report_templates/${this.reportName}.html`)
-      .subscribe(
-        (response:any) => {
-          this.createComponentFactory(response._body, {one: dataOne, two: dataTwo}, this.reportName)
-            .then((factory) => {
-              this
-                .dynamicComponentTarget
-                .createComponent(factory)
-            })
-        }
-      );
+
   }
 
   public createComponentFactory(template: string, data:any, reportName:string)
