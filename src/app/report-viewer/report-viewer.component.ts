@@ -3,8 +3,7 @@ import {Component, OnInit,
 import {RuntimeCompiler} from '@angular/compiler';
 import * as _ from 'lodash';
 import { Http } from '@angular/http';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, Params } from '@angular/router';
 
 
 @Component({
@@ -14,22 +13,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class ReportViewerComponent implements AfterViewInit {
-  public reportName:string = "general_demographic_report"
-  public route:ActivatedRoute;
+  public reportName:string;
 
-   @ViewChild('myDynamicContent', { read: ViewContainerRef })
-   protected dynamicComponentTarget: ViewContainerRef;
+  @ViewChild('myDynamicContent', { read: ViewContainerRef })
+  protected dynamicComponentTarget: ViewContainerRef;
 
   constructor(protected compiler: RuntimeCompiler, private http: Http, private route: ActivatedRoute) {
     this.route = route;
   }
 
   ngAfterViewInit() {
-    console.log(this.route.params)
-
-    // this.route.params.subscribe((val) => {
-    //   console.log(val);
-    // });
+    this.route.params
+      .subscribe((params: Params) =>  this.reportName = params["name"])
 
     let html;
     var dataOne = [
@@ -37,14 +32,14 @@ export class ReportViewerComponent implements AfterViewInit {
         "Black or African American": 200,
         "Asian" : 300 ,
         "Other": 400 }
-    ]
+    ];
 
     var dataTwo = [
       { "White": 200 ,
         "Black or African American": 200,
         "Asian" : 200 ,
         "Other": 200 }
-    ]
+    ];
 
     this.http.get(`/report_templates/${this.reportName}.html`)
       .subscribe(
