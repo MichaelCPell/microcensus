@@ -35,6 +35,7 @@ export class ReportViewerComponent implements AfterViewInit {
         .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
         .subscribe(
           data => {
+            console.log(data)
             tempReport = data;
           },
           error =>  this.errorMessage = <any>error,
