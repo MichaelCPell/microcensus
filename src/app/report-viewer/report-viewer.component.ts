@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-report-view',
-  template: '<template #myDynamicContent> I will be replaced.</template>',
+  templateUrl: './report-viewer.component.html',
   styleUrls: ['./report-viewer.component.css']
 })
 
@@ -57,9 +57,13 @@ export class ReportViewerComponent implements AfterViewInit {
 
 
 
+  };
+
+  public publish(){
+    window.foo = document.documentElement.outerHTML
   }
 
-  public createComponentFactory(template: string, data:any, reportName:string)
+  private createComponentFactory(template: string, data:any, reportName:string)
     : Promise<any>{
     let type   = this.createNewComponent(template, data, reportName);
     let module = this.createComponentModule(type);
@@ -75,9 +79,7 @@ export class ReportViewerComponent implements AfterViewInit {
             });
     });
   }
-
-
-  protected createNewComponent (tmpl:string, data:any, reportName:string) {
+  private createNewComponent (tmpl:string, data:any, reportName:string) {
       @Component({
           selector: 'dynamic-component',
           template: tmpl
@@ -104,7 +106,7 @@ export class ReportViewerComponent implements AfterViewInit {
 
       return CustomDynamicComponent;
   }
-  protected createComponentModule (componentType: any) {
+  private createComponentModule (componentType: any) {
       @NgModule({
         imports: [],
         declarations: [
