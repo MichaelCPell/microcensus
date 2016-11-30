@@ -1,4 +1,11 @@
 <p>
   report-definer works!
-  <a [routerLink]="['/report_viewer/general_demographic_report']">ANALYZE</a>
+
+
+  <select [(ngModel)]="selectedReport">
+    <option>general_demographic_report</option>
+    <option>longitudinal_population_report</option>
+  </select>
+
+  <a [routerLink]="['/report_viewer/' + selectedReport]">ANALYZE</a>
 </p>
