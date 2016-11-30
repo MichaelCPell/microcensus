@@ -6,6 +6,8 @@ import { Http } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import * as AWS from 'aws-sdk';
+
 
 
 @Component({
@@ -60,7 +62,36 @@ export class ReportViewerComponent implements AfterViewInit {
   };
 
   public publish(){
-    window.foo = document.documentElement.outerHTML
+
+    var albumBucketName = 'deletelater123';
+    var bucketRegion = 'us-east-1';
+    var IdentityPoolId = 'us-east-1_USx2I1lHS';
+
+    AWS.config.region = 'us-east-1'; // Region
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
+    });
+
+    var s3 = new AWS.S3({
+      apiVersion: '2006-03-01',
+      params: {Bucket: albumBucketName}
+    });
+
+    var f = new File([document.documentElement.outerHTML], {type: "text/html"})
+    s3.upload({
+      Key: "report.html",
+      Body: f,
+      ACL: 'public-read',
+      ContentType: 'text/html'
+    }, function(err, data) {
+      if (err) {
+        console.log(err)
+        return
+        // return alert('There was an error uploading: ', err.message);
+
+      }
+      alert('Successfully uploaded photo.');
+    });
   }
 
   private createComponentFactory(template: string, data:any, reportName:string)
