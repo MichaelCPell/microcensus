@@ -2,13 +2,12 @@ import {Component, OnInit,
   ViewChild, ViewContainerRef, NgModule, AfterViewInit } from '@angular/core';
 import {RuntimeCompiler} from '@angular/compiler';
 import * as _ from 'lodash';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 import * as AWS from 'aws-sdk';
-
-
 
 @Component({
   selector: 'app-report-view',
@@ -18,6 +17,8 @@ import * as AWS from 'aws-sdk';
 
 export class ReportViewerComponent implements AfterViewInit {
   public reportName:string;
+  public errorMessage:string;
+  public report:any;
   public geom = {"type":"Point","coordinates":[-79.52313700000002,36.09550000000001]}
   @ViewChild('myDynamicContent', { read: ViewContainerRef })
   protected dynamicComponentTarget: ViewContainerRef;
@@ -76,8 +77,9 @@ export class ReportViewerComponent implements AfterViewInit {
       params: {Bucket: albumBucketName}
     });
 
-    var f = new File([document.documentElement.outerHTML], {type: "text/html"})
+    var f = new File([document.documentElement.outerHTML], "new_report.html" ,{type: "text/html"})
     s3.upload({
+      Bucket: albumBucketName,
       Key: "report.html",
       Body: f,
       ACL: 'public-read',

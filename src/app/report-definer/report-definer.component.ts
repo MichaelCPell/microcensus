@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./report-definer.component.css']
 })
 export class ReportDefinerComponent implements OnInit {
+  public selectedReport:string;
+
   constructor() {
     this.selectedReport = "general_demographic_report";
   }
