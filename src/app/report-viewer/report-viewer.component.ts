@@ -57,9 +57,6 @@ export class ReportViewerComponent implements AfterViewInit {
               );
           }
         );
-
-
-
   };
 
   public publish(){
