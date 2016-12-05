@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import * as AWS from 'aws-sdk';
+import { environment } from '../../environments/environment'
 
 @Component({
   selector: 'app-report-view',
@@ -33,7 +34,7 @@ export class ReportViewerComponent implements AfterViewInit {
 
     let html;
     let tempReport;
-    this.http.post("http://localhost:4000", {reportName: this.reportName, geometry: this.geom})
+    this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
         .subscribe(

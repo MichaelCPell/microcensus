@@ -5,6 +5,5 @@
 
 export const environment = {
   production: false,
-  foo: "andrea"
-
+  backend: "https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/prod"
 };
