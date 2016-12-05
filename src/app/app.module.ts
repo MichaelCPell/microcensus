@@ -10,6 +10,7 @@ import { ReportViewerComponent } from './report-viewer/report-viewer.component';
 import { ResearchAreaService } from './shared/research-area.service';
 
 import { COMPILER_PROVIDERS } from '@angular/compiler';
+import { AddressSelectorComponent } from './report-definer/sub_components/address-selector/address-selector.component';
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
@@ -22,7 +23,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     ReportDefinerComponent,
-    ReportViewerComponent
+    ReportViewerComponent,
+    AddressSelectorComponent
   ],
   imports: [
     BrowserModule,
