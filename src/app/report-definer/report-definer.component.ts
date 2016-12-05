@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {environment} from 'environments/environment'
+import {environment} from 'environments/environment';
+import { ResearchAreaService } from '../shared/research-area.service';
 
 @Component({
   selector: 'app-report-definer',
@@ -9,10 +10,13 @@ import {environment} from 'environments/environment'
 export class ReportDefinerComponent implements OnInit {
   public selectedReport:string;
 
-  constructor() {
+  constructor(private researchArea: ResearchAreaService) {
     this.selectedReport = "general_demographic_report";
+
+    this.researchArea = researchArea;
   }
 
   ngOnInit() {
+    console.log(this.researchArea.get())
   }
 };

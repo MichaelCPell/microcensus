@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { ReportDefinerComponent } from './report-definer/report-definer.component';
 import { ReportViewerComponent } from './report-viewer/report-viewer.component';
+import { ResearchAreaService } from './shared/research-area.service';
 
 import { COMPILER_PROVIDERS } from '@angular/compiler';
 
@@ -29,7 +30,9 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [COMPILER_PROVIDERS],
+  providers: [
+    COMPILER_PROVIDERS,
+    ResearchAreaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
