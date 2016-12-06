@@ -11,7 +11,7 @@ export class AddressSelectorComponent implements OnInit {
 
   ngOnInit() {
 
-
+    let element:any = document.getElementById("address")
     let autocomplete = new google.maps.places.Autocomplete(element);
     autocomplete.addListener('place_changed', () => {
       var place = autocomplete.getPlace(autocomplete);
