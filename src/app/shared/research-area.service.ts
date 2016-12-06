@@ -3,9 +3,7 @@ import { Subject }    from 'rxjs/Subject';
 
 @Injectable()
 export class ResearchAreaService {
-  private _zebra:string = "Consistency"
-
-
+  private _place:any;
   private geoJSONfragment = {
     "geometry": {"type":"Point","coordinates":[-79.52313700000002,36.09550000000001]},
     "reportName": "PopulationCount2000"
@@ -13,15 +11,16 @@ export class ResearchAreaService {
 
   constructor() {}
 
-
-
-  get zebra(){
-    return this._zebra
+  get coordinates(){
+    if(this._place){
+      return [this._place.geometry.location.lat(), this._place.geometry.location.lng()];
+    }else{
+      return "Research Area is Undefined"
+    }
   }
 
-  set zebra(value){
-    console.log("Setter was called");
-    this._zebra = value;
+  set place(value){
+    this._place = value;
   }
 
   // public set(object){
