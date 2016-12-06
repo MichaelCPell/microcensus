@@ -1,11 +1,23 @@
-<p>
-  <app-address-selector></app-address-selector>
+<div class="row">
+  <div class="col-md-12">
+    <app-address-selector></app-address-selector>
+  </div>
+</div>
 
+<div class="row">
+  <div class="col-md-12">
+    <select [(ngModel)]="selectedReport">
+      <option>general_demographic_report</option>
+      <option>longitudinal_population_report</option>
+    </select>
+  </div>
+</div>
 
-  <select [(ngModel)]="selectedReport">
-    <option>general_demographic_report</option>
-    <option>longitudinal_population_report</option>
-  </select>
-
-  <a [routerLink]="['/report_viewer/' + selectedReport]">ANALYZE</a>
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <a [routerLink]="['/report_viewer/' + selectedReport]">ANALYZE</a>
+  </div>
+  <div class="col-md-12">
+    {{researchArea.zebra}}
+  </div>
+</div>

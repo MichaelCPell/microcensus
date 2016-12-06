@@ -17,6 +17,6 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.researchArea.get())
+
   }
 };
