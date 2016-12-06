@@ -8,7 +8,8 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import * as AWS from 'aws-sdk';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
+import { ResearchAreaService } from "../shared/research-area.service";
 
 @Component({
   selector: 'app-report-view',
@@ -20,12 +21,20 @@ export class ReportViewerComponent implements AfterViewInit {
   public reportName:string;
   public errorMessage:string;
   public report:any;
-  public geom = {"type":"Point","coordinates":[-79.52313700000002,36.09550000000001]}
+  public geom:any;
   @ViewChild('myDynamicContent', { read: ViewContainerRef })
   protected dynamicComponentTarget: ViewContainerRef;
 
-  constructor(protected compiler: RuntimeCompiler, private http: Http, private route: ActivatedRoute) {
+  constructor(
+    protected compiler: RuntimeCompiler,
+    private http: Http,
+    private route: ActivatedRoute,
+    private researchArea: ResearchAreaService) {
     this.route = route;
+    this.geom = {
+      "type":"Point",
+      "coordinates": this.researchArea.coordinates
+    };
   }
 
   ngAfterViewInit() {
@@ -34,6 +43,7 @@ export class ReportViewerComponent implements AfterViewInit {
 
     let html;
     let tempReport;
+
     this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server error'))

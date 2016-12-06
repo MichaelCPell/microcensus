@@ -13,7 +13,7 @@ export class ResearchAreaService {
 
   get coordinates(){
     if(this._place){
-      return [this._place.geometry.location.lat(), this._place.geometry.location.lng()];
+      return [this._place.geometry.location.lng(), this._place.geometry.location.lat()];
     }else{
       return "Research Area is Undefined"
     }
@@ -22,17 +22,4 @@ export class ResearchAreaService {
   set place(value){
     this._place = value;
   }
-
-  // public set(object){
-  //   console.log("Set is being called");
-  //   console.log(this.zebra)
-  //   this.zebra = "Gazelle"
-  //   // this.geoJSONfragment = object;
-  //   console.log(this.zebra)
-  //
-  //   return true
-  // }
-  //
-  // public
-
 }
