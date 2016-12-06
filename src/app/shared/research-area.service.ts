@@ -14,12 +14,10 @@ export class ResearchAreaService {
   get coordinates(){
     if(this._place){
       return [this._place.geometry.location.lng(), this._place.geometry.location.lat()];
-    }else{
-      return "Research Area is Undefined"
     }
   }
 
-  set place(value){
+  set place(value:any){
     this._place = value;
   }
 }

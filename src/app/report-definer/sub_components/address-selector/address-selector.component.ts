@@ -21,7 +21,7 @@ export class AddressSelectorComponent implements OnInit {
     let autocomplete = new google.maps.places.Autocomplete(element);
 
     autocomplete.addListener('place_changed', () => {
-      this.researchArea.place = autocomplete.getPlace(autocomplete);
+      this.researchArea.place = autocomplete.getPlace();
       this.af.tick();
     });
   }
