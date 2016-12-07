@@ -14,7 +14,9 @@ import { ResearchAreaService } from "../shared/research-area.service";
 @Component({
   selector: 'app-report-view',
   templateUrl: './report-viewer.component.html',
-  styleUrls: ['./report-viewer.component.css']
+  styleUrls: [
+    './report-viewer.component.css',
+    './print.css']
 })
 
 export class ReportViewerComponent implements AfterViewInit {
