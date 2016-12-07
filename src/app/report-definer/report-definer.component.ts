@@ -9,9 +9,13 @@ import { ResearchAreaService } from '../shared/research-area.service';
 })
 export class ReportDefinerComponent implements OnInit {
   public selectedReport:string;
+  public reportTypes:Array<string> = [
+    "general_demographic_report",
+    "longitudinal_population_report"
+  ]
 
   constructor(private researchArea: ResearchAreaService) {
-    this.selectedReport = "general_demographic_report";
+    this.selectedReport = "Select Report";
 
     this.researchArea = researchArea;
   }

@@ -25,11 +25,12 @@
             <div class="col-md-12">
               <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">
-                  Report Type <span class="caret"></span>
+                  {{selectedReport}}<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a href="#">General Demographic Report</a></li>
-                  <li><a href="#">Over 65 Healthcare Coverage Report</a></li>
+                  <li *ngFor="let reportType of reportTypes">
+                    <a (click)="selectedReport = reportType" href="#">{{reportType}}</a>
+                  </li>
                 </ul>
 
                 <!--   OLD, but working
