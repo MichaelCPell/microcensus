@@ -11,6 +11,7 @@ import { ResearchAreaService } from './shared/research-area.service';
 
 import { COMPILER_PROVIDERS } from '@angular/compiler';
 import { AddressSelectorComponent } from './report-definer/sub_components/address-selector/address-selector.component';
+import { MapComponent } from './report-definer/sub_components/map/map.component';
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
@@ -24,7 +25,8 @@ const appRoutes: Routes = [
     AppComponent,
     ReportDefinerComponent,
     ReportViewerComponent,
-    AddressSelectorComponent
+    AddressSelectorComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

@@ -5,11 +5,14 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6">
     <select [(ngModel)]="selectedReport">
       <option>general_demographic_report</option>
       <option>longitudinal_population_report</option>
     </select>
+  </div>
+  <div class="col-md-6">
+    <app-map></app-map>
   </div>
 </div>
 
