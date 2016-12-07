@@ -1,26 +1,57 @@
-<div class="row">
-  <div class="col-md-12">
-    <app-address-selector></app-address-selector>
+<div class="container-fluid">
+  <div class="row second-row">
+    <div class="col-md-12">
+      <h2 class="title centered">Get your own Microcensus Analysis</h2>
+      <br>
+    </div>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-6">
-    <select [(ngModel)]="selectedReport">
-      <option>general_demographic_report</option>
-      <option>longitudinal_population_report</option>
-    </select>
-  </div>
-  <div class="col-md-6">
-    <app-map></app-map>
-  </div>
-</div>
+<div class="container">
+  <div class="row second-row">
+    <div class="col-md-8">
+      <div class ="row">
+        <div class="col-md-12">
+          <app-address-selector></app-address-selector>
+        </div>
+      </div>
+      <div class="row second-row">
+        <!-- <div class="col-md-4">
+          <h4 class="subtitle-new-area">Pick a Mile Radius</h4>
+        </div> -->
+        <div class="col-md-8">
+          <h4 class="subtitle-new-area">Pick a Type of Report</h4>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 100%;">
+                  Report Type <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="#">General Demographic Report</a></li>
+                  <li><a href="#">Over 65 Healthcare Coverage Report</a></li>
+                </ul>
 
-<div class="row">
-  <div class="col-md-12">
-    <a [routerLink]="['/report_viewer/' + selectedReport]">ANALYZE</a>
+                <!--   OLD, but working
+                <select [(ngModel)]="selectedReport">
+                  <option>general_demographic_report</option>
+                  <option>longitudinal_population_report</option>
+                </select>
+                -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <app-map></app-map>
+    </div>
   </div>
-  <div class="col-md-12">
-    {{researchArea.coordinates}}
+  <div class="row last-row">
+    <div class="col-md-12 centered">
+      <button [routerLink]="['/report_viewer/' + selectedReport]"
+              class="btn btn-mc-dark">Analyze this Area!</button>
+    </div>
   </div>
 </div>

@@ -6,24 +6,66 @@
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgtqPde7tpPGfjBw99M4YbSoYV-q9T_R8&libraries=places"></script>
+  <script src="https://use.fontawesome.com/641ca369c7.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <nav class="navbar navbar-inverse">
+    <div class="gradient hidden-xs hidden-sm"></div>
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./index.html"><img src="assets/images/logo-mc-city.png" class="img-responsive" /></a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <li id="nav-reports"><a href="./new_area.html">Make a Report</a></li>
+          <li id="nav-about"><a href="./about.html">About</a></li>
+          <li id="nav-demo"><a href="./demo.html"><button class="btn btn-mc-dark">Request a Demo</button></a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div>
+  </nav>
 
-  <h1>
-    HEADER
-  </h1>
   <div class="container">
     <app-root>Loading...</app-root>
   </div>
-  <h1>
-    FOOTER
-  </h1>
+
+
+  <div class="container" id="footer">
+    <div class="row second-row">
+      <div class="col-md-2 col-md-offset-3">
+         <h4 class="footer-text-title">Reports</h4>
+         <p class="footer-text">Request a Demo</p>
+         <p class="footer-text">Microcensus</p>
+      </div>
+      <div class="col-md-2">
+        <h4 class="footer-text-title">Company</h4>
+        <p class="footer-text">About Us</p>
+        <p class="footer-text">RealSmart</p>
+        <p class="footer-text">NC Data Palooza</p>
+      </div>
+      <div class="col-md-2">
+        <h4 class="footer-text-title">Contact</h4>
+        <p class="footer-text"><i class="fa fa-envelope-o" aria-hidden="true"></i> michael@realsmart.co</p>
+        <p class="footer-text"><i class="fa fa-phone" aria-hidden="true"></i> (919) 408 7153</p>
+       <p class="footer-text"><i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i></p>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

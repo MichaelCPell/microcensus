@@ -22,7 +22,9 @@ export class MapComponent implements OnInit {
     }).addTo(map);
 
     this.researchArea.foo.subscribe(
-      x => console.log('onNext: %s', JSON.stringify(x)),
+      (next) => {
+        console.log(next)
+      },
       e => console.log('onError: %s', e),
       () => console.log('onCompleted')
     );
