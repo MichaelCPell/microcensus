@@ -7,13 +7,18 @@ import 'rxjs/add/operator/share';
 export class ResearchAreaService {
   private _place:any;
   private _observable:any;
+  public placeObsv:Observable<any>;
   private geoJSONfragment = {
     "geometry": {"type":"Point","coordinates":[-79.52313700000002,36.09550000000001]},
     "reportName": "PopulationCount2000"
   };
 
   constructor() {
-    this.foo = new Observable( observer => {this._observable = observer).share()
+
+    let myObsv = new Observable(observer => {
+      (this._observable = observer);
+    })
+    this.placeObsv = myObsv.share();
   }
 
   get coordinates(){

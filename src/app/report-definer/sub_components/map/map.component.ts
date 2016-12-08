@@ -21,7 +21,7 @@ export class MapComponent implements OnInit {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    this.researchArea.foo.subscribe(
+    this.researchArea.placeObsv.subscribe(
       (next) => {
         console.log(next)
       },
