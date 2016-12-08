@@ -1,16 +1,13 @@
 @import 'https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Open+Sans:300,400,600,700';
 
-/*New styles*/
-
 html {
   position: relative;
   min-height: 100%;
 }
-
 body {
-  margin-bottom: 60px;
+  /* Margin bottom by footer height */
+  margin-bottom: 250px;
 }
-
 /* Master Styles */
 
 h1 {
@@ -150,12 +147,12 @@ nav a.router-link-active {
     border-radius: 0px;
 }
 
-#footer {
+.footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 200px;
+  min-height: 200px;
   background-color: #3E4A5A;
 }
 
@@ -187,7 +184,7 @@ nav a.router-link-active {
 /* Start Andrea Styles */
 
 
-/*.leaflet-container {width: 60em; margin: 0 auto;}*/
+.leaflet-container {width: 60em; margin: 0 auto;}
 
 
 .centered {
@@ -206,7 +203,7 @@ nav a.router-link-active {
 }
 
 .new-row {
-  padding-top: 15%;
+  padding-top: 5%;
 }
 
 .second-row {
@@ -232,7 +229,7 @@ nav a.router-link-active {
 }
 
 .border-right {
-  border-right: 2px solid #fafafa;
+  border-right: 2px solid #979797;
 }
 
 .subtitle-new-area {
@@ -242,10 +239,19 @@ nav a.router-link-active {
 }
 
 .title {
-  font-family: 'Lato', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: #2a2a2a;
+  font-family:  'Open Sans', sans-serif;
+  font-weight: 500;
+  font-size: 3em;
+}
+
+.subtitle-premium {
+  font-family:  'Lato', sans-serif;
+  font-weight: 600;
+  /*font-size: 1em;*/
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .subtitle {

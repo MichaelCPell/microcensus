@@ -9,6 +9,7 @@ import {Subscriber} from "rxjs/Subscriber"
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  private marker:L.Marker;
 
   constructor(private researchArea: ResearchAreaService) {
     this.researchArea = researchArea;
@@ -23,7 +24,8 @@ export class MapComponent implements OnInit {
 
     this.researchArea.placeObsv.subscribe(
       (next) => {
-        console.log(next)
+        this.marker = L.marker([next[1], next[0]]).addTo(map);
+        map.setView(this.marker.getLatLng(), 14);
       },
       e => console.log('onError: %s', e),
       () => console.log('onCompleted')
