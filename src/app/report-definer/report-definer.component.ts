@@ -11,7 +11,8 @@ export class ReportDefinerComponent implements OnInit {
   public selectedReport:string;
   public reportTypes:Array<string> = [
     "general_demographic_report",
-    "longitudinal_population_report"
+    "longitudinal_population_report",
+    "age_and_education"
   ]
 
   constructor(private researchArea: ResearchAreaService) {
