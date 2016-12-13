@@ -12,10 +12,16 @@ import { ResearchAreaService } from './shared/research-area.service';
 import { COMPILER_PROVIDERS } from '@angular/compiler';
 import { AddressSelectorComponent } from './report-definer/sub_components/address-selector/address-selector.component';
 import { MapComponent } from './report-definer/sub_components/map/map.component';
+import { SessionDashboardComponent } from './users/session-dashboard/session-dashboard.component';
+import { NavigationComponent } from './shared/navigation/navigation.component';
+import { UserRegistrationComponent } from './users/user-registration/user-registration.component';
+import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
-  { path: 'report_viewer/:name', component: ReportViewerComponent }
+  { path: 'report_viewer/:name', component: ReportViewerComponent },
+  { path: 'sign_up', component: UserRegistrationComponent},
+  { path: 'dashboard', component: UserDashboardComponent}
 
 ]
 
@@ -26,7 +32,11 @@ const appRoutes: Routes = [
     ReportDefinerComponent,
     ReportViewerComponent,
     AddressSelectorComponent,
-    MapComponent
+    MapComponent,
+    SessionDashboardComponent,
+    NavigationComponent,
+    UserRegistrationComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,
