@@ -32,6 +32,10 @@ export class ResearchAreaService {
     this._observable.next(this.coordinates);
   }
 
+  get place(){
+    return this._place
+  }
+
   //
   // public foo:Observable = new Observable( observer => {
   //   this._place = observer).share()

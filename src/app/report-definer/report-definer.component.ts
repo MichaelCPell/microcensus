@@ -22,6 +22,5 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 };
