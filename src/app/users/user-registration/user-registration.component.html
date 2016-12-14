@@ -3,6 +3,9 @@
 <div class="container">
   <h1>Hero Form</h1>
   {{diagnostic}}
+
+  <button (click)="runExperiment()">Experiment</button>
+
   <form (ngSubmit)="onSubmit()" #userForm="ngForm">
     <div class="form-group">
       <label for="email">Email</label>
