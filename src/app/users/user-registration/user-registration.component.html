@@ -1,4 +1,25 @@
 <app-navigation></app-navigation>
-<p>
-  user-registration works!
-</p>
+
+<div class="container">
+  <h1>Hero Form</h1>
+  {{diagnostic}}
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input  [(ngModel)]="newUser.email"
+              type="email"
+              class="form-control"
+              id="email"
+              name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input  [(ngModel)]="newUser.password"
+              type="password"
+              class="form-control"
+              id="password"
+              name="password">
+    </div>
+    <button type="submit" class="btn btn-default" [disabled]="!userForm.form.valid">Submit</button>
+  </form>
+</div>
