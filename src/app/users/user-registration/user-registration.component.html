@@ -1,12 +1,38 @@
 <app-navigation></app-navigation>
 
 <div class="container">
-  <h1>Hero Form</h1>
+  <h1>Sign Up</h1>
+  {{diagnostic}}
+  <button (click)="runExperiment()">Experiment</button>
+
+  <form (ngSubmit)="createUser()" #userForm="ngForm">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input  [(ngModel)]="formUser.email"
+              type="email"
+              class="form-control"
+              id="email"
+              name="email" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input  [(ngModel)]="formUser.password"
+              type="password"
+              class="form-control"
+              id="password"
+              name="password">
+    </div>
+    <button type="submit" class="btn btn-default" [disabled]="!userForm.form.valid">Submit</button>
+  </form>
+</div>
+
+<div class="container">
+  <h1>Sign In</h1>
   {{diagnostic}}
 
   <button (click)="runExperiment()">Experiment</button>
 
-  <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+  <form (ngSubmit)="authenticateUser()" #userForm="ngForm">
     <div class="form-group">
       <label for="email">Email</label>
       <input  [(ngModel)]="formUser.email"

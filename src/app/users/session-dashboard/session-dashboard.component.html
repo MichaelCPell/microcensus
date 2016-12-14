@@ -1,3 +1,7 @@
 0 Reports Remaining
-
-<a routerLink="/sign_up" routerLinkActive="active">Sign Up</a>
+<div *ngIf="session.user.email">
+  {{session.user.email}}
+</div>
+<div *ngIf="!session.user.email">
+  <a routerLink="/sign_up" routerLinkActive="active">Sign Up or In</a>
+</div>

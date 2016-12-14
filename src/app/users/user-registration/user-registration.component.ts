@@ -28,11 +28,33 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   runExperiment(){
-    this.verifyUser()
+    this.authenticateUser()
   }
 
-  public onSubmit(){
-    console.log("onSubmit()")
+  public authenticateUser(){
+    console.log("authenticateUser()")
+    this.newUser = new User(this.formUser.email, this.formUser.password);
+    this.newUser.authenticate().subscribe(
+      (next) => {
+        console.log(next);
+        this.session.user = this.newUser;
+        this.router.navigate(["/dashboard"]);
+      },
+      (error) => {
+        switch(error.code){
+          case "UsernameExistsException":
+          break;
+          default:
+            console.log("Uncaught Error Code: %s", error.code)
+          break;
+        }
+      },
+      () => console.log('onCompleted')
+    );
+  }
+
+  public createUser(){
+    console.log("createUser()")
     this.newUser = new User(this.formUser.email, this.formUser.password);
     this.newUser.create().subscribe(
       (next) => {
@@ -51,8 +73,6 @@ export class UserRegistrationComponent implements OnInit {
       () => console.log('onCompleted')
     );
   }
-
-
 
   public verifyUser(){
     let code = prompt("Please Enter Your Verification Code (Check Your Email)");

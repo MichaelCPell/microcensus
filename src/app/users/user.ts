@@ -7,8 +7,6 @@ var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 import {Observable} from 'rxjs/Observable';
 
 export class User {
-
-
   constructor(private _email:string, private _password?:string, private _needsRegistration?:boolean){}
 
 
@@ -38,40 +36,40 @@ export class User {
       });
     })
   }
-  // public authenticate(){
-  //   return new Promise((resolve, error) => {
-  //     var authenticationData = {
-  //            Username : this.email,
-  //            Password : this.password
-  //      };
-  //     var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
-  //
-  //     var userData = {
-  //         Username : this.email,
-  //         Pool : userPool
-  //     };
-  //     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-  //     cognitoUser.authenticateUser(authenticationDetails, {
-  //       onSuccess: function (result) {
-  //           console.log('access token + ' + result.getAccessToken().getJwtToken());
-  //
-  //           // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-  //           //     IdentityPoolId : '...', // your identity pool id here
-  //           //     Logins : {
-  //           //         // Change the key below according to the specific region your user pool is in.
-  //           //         'cognito-idp.<region>.amazonaws.com/<YOUR_USER_POOL_ID>' : result.getIdToken().getJwtToken()
-  //           //     }
-  //           // });
-  //
-  //           // Instantiate aws sdk service objects now that the credentials have been updated.
-  //           // example: var s3 = new AWS.S3();
-  //       },
-  //       onFailure: function(err) {
-  //         console.log(err)
-  //       }
-  //     })
-  //   })
-  // }
+  public authenticate(){
+    var authenticationData = {
+           Username : this.email,
+           Password : this._password
+     };
+    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+
+    var userData = {
+        Username : this.email,
+        Pool : userPool
+    };
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+
+    return Observable.create( (observer) => {
+      cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: function (result) {
+            observer.next(result);
+            // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            //     IdentityPoolId : '...', // your identity pool id here
+            //     Logins : {
+            //         // Change the key below according to the specific region your user pool is in.
+            //         'cognito-idp.<region>.amazonaws.com/<YOUR_USER_POOL_ID>' : result.getIdToken().getJwtToken()
+            //     }
+            // });
+
+            // Instantiate aws sdk service objects now that the credentials have been updated.
+            // example: var s3 = new AWS.S3();
+        },
+        onFailure: function(err) {
+          observer.error(err)
+        }
+      })
+    });
+  }
 
 
   public verify(code){

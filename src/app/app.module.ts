@@ -16,6 +16,7 @@ import { SessionDashboardComponent } from './users/session-dashboard/session-das
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import { UserRegistrationComponent } from './users/user-registration/user-registration.component';
 import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
+import { SessionService } from "./users/session.service";
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     COMPILER_PROVIDERS,
-    ResearchAreaService],
+    ResearchAreaService,
+    SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

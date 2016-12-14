@@ -3,10 +3,9 @@ import { User } from './user';
 
 @Injectable()
 export class SessionService {
-  private _currentUser:User;
+  private _currentUser:User = {};
 
   constructor() {
-    this._currentUser = new User("foo@bar.com")
   }
 
 
