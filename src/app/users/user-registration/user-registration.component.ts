@@ -3,6 +3,7 @@ import {User} from "../user";
 import { FormsModule }   from '@angular/forms';
 import {Subscriber} from "rxjs/Subscriber";
 import {Router} from "@angular/router";
+import {SessionService} from "../session.service";
 
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 const poolData = {
@@ -17,9 +18,10 @@ const poolData = {
 })
 export class UserRegistrationComponent implements OnInit {
 
-  newUser = new User("", "");
+  public formUser = {email: "", password: ""};
+  public newUser:User;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private session:SessionService) { }
 
   ngOnInit() {
 
@@ -31,7 +33,7 @@ export class UserRegistrationComponent implements OnInit {
 
   public onSubmit(){
     console.log("onSubmit()")
-    this.newUser = new User(this.newUser.email, this.newUser.password);
+    this.newUser = new User(this.formUser.email, this.formUser.password);
     this.newUser.create().subscribe(
       (next) => {
         console.log(next);
@@ -57,6 +59,7 @@ export class UserRegistrationComponent implements OnInit {
     this.newUser.verify(code).subscribe(
       (next) => {
         console.log("User Successfully Verified")
+        this.session.user = this.newUser;
         this.router.navigate(["/dashboard"]);
       },
       (error) => {

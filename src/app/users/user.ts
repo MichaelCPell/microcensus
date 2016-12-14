@@ -9,7 +9,12 @@ import {Observable} from 'rxjs/Observable';
 export class User {
 
 
-  constructor(public email:string, public password:string, private needsRegistration?:boolean){}
+  constructor(private _email:string, private _password?:string, private _needsRegistration?:boolean){}
+
+
+  get email(){
+    return this._email;
+  }
 
   public create(){
     var attributeList = [];
@@ -24,7 +29,7 @@ export class User {
 
       attributeList.push(attributeEmail);
 
-      userPool.signUp(this.email, this.password, attributeList, null, function(err, result){
+      userPool.signUp(this.email, this._password, attributeList, null, function(err, result){
         if (err) {
           observer.error(err);
           return;

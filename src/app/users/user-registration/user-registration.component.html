@@ -9,7 +9,7 @@
   <form (ngSubmit)="onSubmit()" #userForm="ngForm">
     <div class="form-group">
       <label for="email">Email</label>
-      <input  [(ngModel)]="newUser.email"
+      <input  [(ngModel)]="formUser.email"
               type="email"
               class="form-control"
               id="email"
@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
       <label for="password">Password</label>
-      <input  [(ngModel)]="newUser.password"
+      <input  [(ngModel)]="formUser.password"
               type="password"
               class="form-control"
               id="password"
