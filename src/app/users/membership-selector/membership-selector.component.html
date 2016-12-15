@@ -1,0 +1,26 @@
+<div>
+  <a (click)="selectedLevel = 'regular' "> Regular </a>
+</div>
+
+<div>
+  <a (click)="selectedLevel = 'premium'  "> Premium </a>
+
+</div>
+
+<div>
+  <a (click)="selectedLevel = 'unlimited' "> Unlimited </a>
+</div>
+
+
+
+<h1> Selected Level: {{selectedLevel}} </h1>
+
+
+<div *ngIf="needsToPay">
+  Payment Happens Here
+</div>
+
+
+<div *ngIf="readyToProceed">
+  <a href="#">Proceed to Dashboard</a>
+</div>

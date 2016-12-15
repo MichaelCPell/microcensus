@@ -17,13 +17,14 @@ import { NavigationComponent } from './shared/navigation/navigation.component';
 import { UserRegistrationComponent } from './users/user-registration/user-registration.component';
 import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
 import { SessionService } from "./users/session.service";
+import { MembershipSelectorComponent } from './users/membership-selector/membership-selector.component';
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
   { path: 'report_viewer/:name', component: ReportViewerComponent },
   { path: 'sign_up', component: UserRegistrationComponent},
-  { path: 'dashboard', component: UserDashboardComponent}
-
+  { path: 'dashboard', component: UserDashboardComponent},
+  { path: 'membership', component: MembershipSelectorComponent}
 ]
 
 
@@ -37,7 +38,8 @@ const appRoutes: Routes = [
     SessionDashboardComponent,
     NavigationComponent,
     UserRegistrationComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    MembershipSelectorComponent
   ],
   imports: [
     BrowserModule,

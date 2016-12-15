@@ -80,7 +80,7 @@ export class UserRegistrationComponent implements OnInit {
       (next) => {
         console.log("User Successfully Verified")
         this.session.user = this.newUser;
-        this.router.navigate(["/dashboard"]);
+        this.router.navigate(["/membership"]);
       },
       (error) => {
 
