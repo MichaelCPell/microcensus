@@ -11,8 +11,10 @@ export class UserDashboardComponent implements OnInit {
   constructor(private session:SessionService) { }
 
   ngOnInit() {
+  }
 
-    console.log(this.session.user)
+  public signOut(){
+    this.session.signOut()
   }
 
 }

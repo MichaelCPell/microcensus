@@ -1,6 +1,6 @@
 0 Reports Remaining
 <div *ngIf="session.user.email">
-  {{session.user.email}}
+  <a routerLink="/dashboard" routerLinkActive="active">{{session.user.email}}</a>
 </div>
 <div *ngIf="!session.user.email">
   <a routerLink="/sign_up" routerLinkActive="active">Sign Up or In</a>
