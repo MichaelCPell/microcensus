@@ -18,6 +18,7 @@ import { UserRegistrationComponent } from './users/user-registration/user-regist
 import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
 import { SessionService } from "./users/session.service";
 import { MembershipSelectorComponent } from './users/membership-selector/membership-selector.component';
+import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
     NavigationComponent,
     UserRegistrationComponent,
     UserDashboardComponent,
-    MembershipSelectorComponent
+    MembershipSelectorComponent,
+    SubscriptionCreatorComponent
   ],
   imports: [
     BrowserModule,

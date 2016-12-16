@@ -15,10 +15,13 @@
 
 <h1> Selected Level: {{selectedLevel}} </h1>
 
-
+Paid: {{session.user.paid}}
 <div *ngIf="needsToPay">
   Payment Happens Here
+  <app-subscription-creator></app-subscription-creator>
 </div>
+
+
 
 
 <div *ngIf="readyToProceed">

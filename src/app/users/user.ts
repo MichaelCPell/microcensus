@@ -8,10 +8,18 @@ import {Observable} from 'rxjs/Observable';
 
 export class User {
   constructor(private _email:string, private _password?:string, private _needsRegistration?:boolean){}
-
+  private _paid:boolean = false;
 
   get email(){
     return this._email;
+  }
+
+  get paid(){
+    return this._paid;
+  }
+
+  set paid(value){
+    this._paid = true;
   }
 
   public create(){
@@ -90,6 +98,11 @@ export class User {
           observer.next(msg)
         })
       })
+
+  }
+
+
+  public retrieveData(){
 
   }
 }

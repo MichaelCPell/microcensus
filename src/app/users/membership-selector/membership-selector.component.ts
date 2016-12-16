@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../session.service';
 
 @Component({
   selector: 'app-membership-selector',
@@ -9,7 +10,7 @@ export class MembershipSelectorComponent implements OnInit {
   public selectedLevel:string = "";
   private paid:boolean = false;
 
-  constructor() { }
+  constructor(public session:SessionService) { }
 
   ngOnInit() {
   }
@@ -21,9 +22,9 @@ export class MembershipSelectorComponent implements OnInit {
       case 'regular':
       return true;
       case 'premium':
-      return this.paid;
+      return this.session.user.paid;
       case 'unlimited':
-      return this.paid;
+      return this.session.user.paid;
     }
   }
 
@@ -34,10 +35,17 @@ export class MembershipSelectorComponent implements OnInit {
       case 'regular':
       return false;
       case 'premium':
-      return true;
+        if(this.readyToProceed){
+          return false;
+        }else{
+          return true
+        }
       case 'unlimited':
-      return true;
+        if(this.readyToProceed){
+          return false;
+        }else{
+          return true
+        }
     }
   }
-
 }
