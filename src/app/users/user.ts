@@ -11,6 +11,7 @@ import {Observable} from 'rxjs/Observable';
 export class User {
   constructor(private _email:string, private _password?:string, private _needsRegistration?:boolean){}
   private _paid:boolean = false;
+  private _confirmed:string;
 
   get email(){
     return this._email;
@@ -26,6 +27,10 @@ export class User {
 
   set paid(value){
     this._paid = true;
+  }
+
+  set confirmed(value){
+    this._confirmed = value;
   }
 
   public create(){
@@ -46,10 +51,13 @@ export class User {
           observer.error(err);
           return;
         }
+
+        console.log(result)
         observer.next(result);
       });
     })
   }
+
   public authenticate(){
     var authenticationData = {
            Username : this.email,
@@ -85,7 +93,6 @@ export class User {
     });
   }
 
-
   public verify(code){
       var userData = {
           Username : this.email,
@@ -100,7 +107,6 @@ export class User {
             console.log("Error" + err)
             return
           }
-
           observer.next(msg)
         })
       })

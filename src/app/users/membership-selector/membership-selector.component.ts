@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SessionService } from '../session.service';
 
 @Component({
@@ -13,6 +13,10 @@ export class MembershipSelectorComponent implements OnInit {
   constructor(public session:SessionService) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(){
+    console.log("Destroy was called");
   }
 
   get readyToProceed(){

@@ -43,7 +43,6 @@ export class SessionService {
 
   public signOut(){
     if(cognitoUser == undefined) cognitoUser = userPool.getCurrentUser();
-
     cognitoUser.signOut();
     this.user = new User("");
   }

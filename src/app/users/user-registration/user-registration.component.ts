@@ -61,7 +61,10 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     this.newUser.create().subscribe(
       (next) => {
         console.log(next);
-        this.verifyUser()
+        this.session.user = this.newUser;
+        this.newUser.confirmed = next.userConfirmed;
+        // this.verifyUser()
+        this.router.navigate(["/users/confirmation"]);
       },
       (error) => {
         switch(error.code){
@@ -76,17 +79,4 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
     );
   }
 
-  public verifyUser(){
-    let code = prompt("Please Enter Your Verification Code (Check Your Email)");
-    this.newUser.verify(code).subscribe(
-      (next) => {
-        console.log("User Successfully Verified")
-        this.session.user = this.newUser;
-        this.router.navigate(["/membership"]);
-      },
-      (error) => {
-
-      }
-    )
-  }
 }
