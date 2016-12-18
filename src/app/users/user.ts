@@ -108,11 +108,13 @@ export class User {
   }
 
 
-  public reload(){
-    RxHttpRequest.get(`https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/${this.email}`).subscribe(
+  public reload(callback){
+    return RxHttpRequest.get(`https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/${this.email}`).subscribe(
       (data) => {
         if (data.response.statusCode === 200) {
             this.setAttributesFromDb(JSON.parse(data.body)["Item"]);
+
+            callback();
         }
       },
       (err) => console.error(err)

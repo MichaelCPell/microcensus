@@ -17,7 +17,6 @@ export class SessionService {
   }
 
   checkForSession() {
-
     if (cognitoUser != null) {
       cognitoUser.getSession((err, session) => {
           if (err) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {User} from "../user";
 import { FormsModule }   from '@angular/forms';
 import {Subscriber} from "rxjs/Subscriber";
@@ -16,7 +16,7 @@ const poolData = {
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.css']
 })
-export class UserRegistrationComponent implements OnInit {
+export class UserRegistrationComponent implements OnInit, OnDestroy {
 
   public formUser = {email: "", password: ""};
   public newUser:User;
@@ -27,8 +27,8 @@ export class UserRegistrationComponent implements OnInit {
 
   }
 
+
   runExperiment(){
-    this.authenticateUser()
   }
 
   public authenticateUser(){
@@ -38,7 +38,9 @@ export class UserRegistrationComponent implements OnInit {
       (next) => {
         console.log(next);
         this.session.user = this.newUser;
-        this.router.navigate(["/dashboard"]);
+        this.session.user.reload(() => {
+          this.router.navigate(["/dashboard"])
+        });
       },
       (error) => {
         switch(error.code){
