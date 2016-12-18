@@ -19,13 +19,15 @@ import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.co
 import { SessionService } from "./users/session.service";
 import { MembershipSelectorComponent } from './users/membership-selector/membership-selector.component';
 import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
+import { UserConfirmationComponent } from './users/user-confirmation/user-confirmation.component';
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
   { path: 'report_viewer/:name', component: ReportViewerComponent },
   { path: 'sign_up', component: UserRegistrationComponent},
   { path: 'dashboard', component: UserDashboardComponent},
-  { path: 'membership', component: MembershipSelectorComponent}
+  { path: 'membership', component: MembershipSelectorComponent},
+  { path: 'users/confirmation', component: UserConfirmationComponent}
 ]
 
 
@@ -41,7 +43,8 @@ const appRoutes: Routes = [
     UserRegistrationComponent,
     UserDashboardComponent,
     MembershipSelectorComponent,
-    SubscriptionCreatorComponent
+    SubscriptionCreatorComponent,
+    UserConfirmationComponent
   ],
   imports: [
     BrowserModule,

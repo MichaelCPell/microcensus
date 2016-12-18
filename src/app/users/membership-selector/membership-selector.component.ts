@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SessionService } from '../session.service';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-membership-selector',
@@ -10,13 +11,25 @@ export class MembershipSelectorComponent implements OnInit {
   public selectedLevel:string = "";
   private paid:boolean = false;
 
-  constructor(public session:SessionService) { }
+  constructor(public session:SessionService, private http:Http) { }
 
   ngOnInit() {
   }
 
   ngOnDestroy(){
     console.log("Destroy was called");
+    switch(this.selectedLevel){
+      case 'regular':
+        this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/registrations", {email: this.session.user.email}).subscribe(
+          next => {
+            console.log(next)
+          },
+          error => {
+            console.log(error)
+          }
+        )
+      break;
+    }
   }
 
   get readyToProceed(){
