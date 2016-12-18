@@ -1,5 +1,8 @@
-0 Reports Remaining
+<div>
+</div>
 <div *ngIf="session.user.email">
+  <h5>{{session.user.remainingReports}} Reports Remaining</h5>
+
   <a routerLink="/dashboard" routerLinkActive="active">{{session.user.email}}</a>
 </div>
 <div *ngIf="!session.user.email">

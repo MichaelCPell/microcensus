@@ -17,4 +17,8 @@ export class UserDashboardComponent implements OnInit {
     this.session.signOut()
   }
 
+  public runExperiment(){
+    this.session.user.reload()
+  }
+
 }

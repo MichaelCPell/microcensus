@@ -13,21 +13,23 @@ export class SessionService {
   private _currentUser:User = new User("")
 
   constructor() {
-    console.log("When is the session service instantiateD?")
+    this.checkForSession();
+  }
 
+  checkForSession() {
 
     if (cognitoUser != null) {
-    cognitoUser.getSession((err, session) => {
-        if (err) {
-           alert(err);
-            return;
-        }
-        console.log('session validity: ' + session.isValid());
-        if(session.isValid()){
-          this.user = new User(cognitoUser.username)
-        }
-    });
-}
+      cognitoUser.getSession((err, session) => {
+          if (err) {
+             alert(err);
+              return;
+          }
+          console.log('session validity: ' + session.isValid());
+          if(session.isValid()){
+            this.user = new User(cognitoUser.username)
+          }
+      });
+    }
   }
 
 

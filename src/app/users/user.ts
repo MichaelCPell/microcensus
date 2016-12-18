@@ -1,3 +1,5 @@
+import {RxHttpRequest} from 'rx-http-request';
+
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 var poolData = {
   UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
@@ -16,6 +18,10 @@ export class User {
 
   get paid(){
     return this._paid;
+  }
+
+  get remainingReports(){
+    return this._remainingReports;
   }
 
   set paid(value){
@@ -102,7 +108,20 @@ export class User {
   }
 
 
-  public retrieveData(){
-
+  public reload(){
+    RxHttpRequest.get(`https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/${this.email}`).subscribe(
+      (data) => {
+        if (data.response.statusCode === 200) {
+            this.setAttributesFromDb(JSON.parse(data.body)["Item"]);
+        }
+      },
+      (err) => console.error(err)
+    );
   }
+
+  private setAttributesFromDb(data){
+    this._paid = data["paid"]["S"]
+    this._remainingReports = data["remaining_reports"]["N"]
+  }
+
 }

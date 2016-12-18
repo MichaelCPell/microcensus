@@ -34,7 +34,7 @@ export class SubscriptionCreatorComponent implements OnInit {
     stripe.setPublishableKey('pk_test_egLZwXn91dZAmLYVGBKFDh3T');
       Stripe.card.createToken(this.formCard, (status, response) => {
         this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/prod/customers",
-          {token: response.id, email: "foo@bar.com"})
+          {token: response.id, email: this.user.email})
           .subscribe(
             (next) => {
               console.log(next)

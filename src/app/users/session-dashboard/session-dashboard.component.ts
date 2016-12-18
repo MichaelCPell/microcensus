@@ -12,6 +12,7 @@ export class SessionDashboardComponent implements OnInit {
   constructor(public session:SessionService) { }
 
   ngOnInit() {
+    this.session.user.reload();
   }
 
 
