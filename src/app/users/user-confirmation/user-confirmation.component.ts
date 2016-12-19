@@ -15,8 +15,6 @@ export class UserConfirmationComponent implements OnInit {
   }
 
   public confirmUser(){
-    console.log(this.confirmationCode)
-    //
     this.session.user.verify(this.confirmationCode).subscribe(
       (next) => {
         console.log("User Successfully Verified")

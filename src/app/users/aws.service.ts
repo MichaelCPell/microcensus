@@ -5,15 +5,43 @@ var poolData = {
   UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
   ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
 };
-var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AWSService {
-
+  private _cognitoUser;
+  private _userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
   constructor() { }
 
 
+  set cognitoUser(cognitoUser){
+    this._cognitoUser = cognitoUser
+  }
+
+  public createUser(email:string, password:string){
+    var attributeList = [];
+
+    var dataEmail = {
+      Name : 'email',
+      Value : email
+    };
+
+    return Observable.create( (observer) => {
+      var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+
+      attributeList.push(attributeEmail);
+
+      this._userPool.signUp(email, password, attributeList, null, (err, result) => {
+        if (err) {
+          observer.error(err);
+          return;
+        }
+        this.cognitoUser = this._userPool.getCurrentUser();
+        observer.next(result);
+      });
+    })
+  }
 
   public authenticateUser(email:string, password:string){
     var authenticationData = {
@@ -23,16 +51,17 @@ export class AWSService {
 
      var userData = {
          Username : email,
-         Pool : userPool
+         Pool : this._userPool
      };
 
-     var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
     var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
 
     return Observable.create( (observer) => {
       cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
+        onSuccess:  (result) => {
+            this.cognitoUser = this._userPool.getCurrentUser();
             observer.next(result);
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                 IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
@@ -51,6 +80,18 @@ export class AWSService {
     });
   }
 
+  public verifyUser(code){
+    console.log("Flag One")
+    return Observable.create( (observer) => {
+      this._cognitoUser.confirmRegistration(code, false, (err, msg) => {
+        if(err){
+          console.log("Error" + err)
+          return
+        }
+        observer.next(msg)
+      })
+    })
+  }
 }
 
 //

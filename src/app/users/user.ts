@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
 import {RxHttpRequest} from 'rx-http-request';
 import { AWSService } from "./aws.service";
-
-var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-var poolData = {
-  UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
-  ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
-};
-var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
@@ -44,63 +37,21 @@ export class User {
     return this._remainingReports;
   }
 
-
-
   set confirmed(value){
     this._confirmed = value;
   }
 
-  public create(){
-    var attributeList = [];
-
-    var dataEmail = {
-      Name : 'email',
-      Value : this.email
-    };
-
-    return Observable.create( (observer) => {
-      var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
-
-      attributeList.push(attributeEmail);
-
-      console.log(this)
-
-      userPool.signUp(this.email, this._password, attributeList, null, function(err, result){
-        if (err) {
-          observer.error(err);
-          return;
-        }
-
-        console.log(result)
-        observer.next(result);
-      });
-    })
+  public create(): Observable{
+    return this.aws.createUser(this.email, this._password);
   }
 
   public authenticate(): Observable{
-    return this.aws.authenticateUser(this.email, this._password)
+    return this.aws.authenticateUser(this.email, this._password);
   }
 
-  public verify(code){
-      var userData = {
-          Username : this.email,
-          Pool : userPool
-      };
-      var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-
-
-      return Observable.create( (observer) => {
-        cognitoUser.confirmRegistration(code, false, function(err, msg){
-          if(err){
-            console.log("Error" + err)
-            return
-          }
-          observer.next(msg)
-        })
-      })
-
+  public verify(code): Observable{
+    return this.aws.verifyUser(code);
   }
-
 
   public reload(callback){
     return RxHttpRequest.get(`https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/${this.email}`).subscribe(
