@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {RxHttpRequest} from 'rx-http-request';
+import { AWSService } from "./aws.service";
 
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 var poolData = {
@@ -18,7 +19,7 @@ export class User {
   private _confirmed:string;
 
 
-  constructor(){}
+  constructor(private aws:AWSService){}
 
   get email(){
     return this._email;
@@ -76,38 +77,8 @@ export class User {
     })
   }
 
-  public authenticate(){
-    var authenticationData = {
-           Username : this.email,
-           Password : this._password
-     };
-    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
-
-    var userData = {
-        Username : this.email,
-        Pool : userPool
-    };
-    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-
-    return Observable.create( (observer) => {
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: function (result) {
-            observer.next(result);
-            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
-                Logins : {
-                    'cognito-idp.us-east-1.amazonaws.com/us-east-1_T2p3nd9xA' : result.getIdToken().getJwtToken()
-                }
-            });
-            cognitoUser.cacheTokens();
-            // Instantiate aws sdk service objects now that the credentials have been updated.
-            // example: var s3 = new AWS.S3();
-        },
-        onFailure: function(err) {
-          observer.error(err)
-        }
-      })
-    });
+  public authenticate(): Observable{
+    return this.aws.authenticateUser(this.email, this._password)
   }
 
   public verify(code){
