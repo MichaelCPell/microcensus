@@ -20,9 +20,6 @@ export class UserRegistrationComponent implements OnInit {
   }
 
 
-  runExperiment(){
-  }
-
   public authenticateUser(){
     this.newUser.email = this.formUser.email;
     this.newUser.password = this.formUser.password;

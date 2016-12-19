@@ -49,10 +49,6 @@ export class User {
     return this.aws.authenticateUser(this.email, this._password);
   }
 
-  public verify(code): Observable<any>{
-    return this.aws.verifyUser(code);
-  }
-
   public reload(callback){
     return this.http.get(`https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/${this.email}`)
       .map((res:Response) => res.json())
@@ -68,6 +64,17 @@ export class User {
   private setAttributesFromDb(data){
     this._paid = data["paid"]["S"]
     this._remainingReports = data["remaining_reports"]["N"]
+  }
+
+  public verify(code, callback){
+    this.aws.verifyUser(code, (err, result) => {
+        if (err) {
+            alert(err);
+            return;
+        }
+
+        callback(result)
+    })
   }
 
 }

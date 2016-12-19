@@ -9,8 +9,6 @@ var poolData = {
   ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
 };
 
-
-
 @Injectable()
 export class AWSService {
   private _cognitoUser;
@@ -65,7 +63,7 @@ export class AWSService {
       Name : 'email',
       Value : email
     };
-
+    var homeThis = this;
     return Observable.create( (observer) => {
       var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
 
@@ -76,7 +74,7 @@ export class AWSService {
           observer.error(err);
           return;
         }
-        this.cognitoUser = this._userPool.getCurrentUser();
+        homeThis.cognitoUser = result.user;
         observer.next(result);
       });
     })
@@ -119,21 +117,15 @@ export class AWSService {
     });
   }
 
-  public verifyUser(code){
-    return Observable.create( (observer) => {
-      this._cognitoUser.confirmRegistration(code, false, (err, msg) => {
-        if(err){
-          console.log("Error" + err)
-          return
-        }
-        observer.next(msg)
-      })
-    })
-  }
 
   public signOut(){
     if(this._cognitoUser == undefined) this._cognitoUser = this._userPool.getCurrentUser();
     this._cognitoUser.signOut();
+  }
+
+
+  public verifyUser(code, callback){
+    this.cognitoUser.confirmRegistration(code, true, callback);
   }
 }
 
