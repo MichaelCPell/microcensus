@@ -20,6 +20,8 @@ import { SessionService } from "./users/session.service";
 import { MembershipSelectorComponent } from './users/membership-selector/membership-selector.component';
 import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
 import { UserConfirmationComponent } from './users/user-confirmation/user-confirmation.component';
+import { User } from './users/user';
+import { AWSService } from './users/aws.service';
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
@@ -55,7 +57,9 @@ const appRoutes: Routes = [
   providers: [
     COMPILER_PROVIDERS,
     ResearchAreaService,
-    SessionService],
+    SessionService,
+    User,
+    AWSService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

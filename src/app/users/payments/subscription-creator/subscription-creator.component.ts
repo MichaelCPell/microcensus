@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { SessionService } from '../../session.service';
 import { User } from '../../user';
 
-const stripe:any = Stripe;
+declare var Stripe: any;
 
 @Component({
   selector: 'app-subscription-creator',
@@ -20,7 +20,6 @@ export class SubscriptionCreatorComponent implements OnInit {
   constructor(private http:Http, private session:SessionService, private af: ApplicationRef) { }
 
   ngOnInit() {
-    this.user = this.session.user;
   }
 
 
@@ -31,10 +30,10 @@ export class SubscriptionCreatorComponent implements OnInit {
 
 
   public submitCard(){
-    stripe.setPublishableKey('pk_test_egLZwXn91dZAmLYVGBKFDh3T');
+    Stripe.setPublishableKey('pk_test_egLZwXn91dZAmLYVGBKFDh3T');
       Stripe.card.createToken(this.formCard, (status, response) => {
         this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/prod/customers",
-          {token: response.id, email: this.user.email})
+          {token: response.id, email: this.session.user.email})
           .subscribe(
             (next) => {
               console.log(next)

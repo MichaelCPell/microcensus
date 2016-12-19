@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./user-confirmation.component.css']
 })
 export class UserConfirmationComponent implements OnInit {
-
+  public confirmationCode:string;
   constructor(private session:SessionService, private router:Router) { }
 
   ngOnInit() {

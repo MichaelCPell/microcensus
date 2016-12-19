@@ -1,49 +1,38 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
-var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-var poolData = {
-  UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
-  ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
-};
-var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-var cognitoUser = userPool.getCurrentUser();
+import { AWSService } from './aws.service';
+import {Subscriber} from "rxjs/Subscriber";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class SessionService {
-  private _currentUser:User = new User("")
+  private _currentUser:User;
 
-  constructor() {
+  constructor(private aws:AWSService, private _user:User) {
     this.checkForSession();
-  }
-
-  checkForSession() {
-    if (cognitoUser != null) {
-      cognitoUser.getSession((err, session) => {
-          if (err) {
-             alert(err);
-              return;
-          }
-          console.log('session validity: ' + session.isValid());
-          if(session.isValid()){
-            this.user = new User(cognitoUser.username)
-          }
-      });
-    }
   }
 
 
   get user(){
-    return this._currentUser
+    return this._user
   }
 
   set user(user:User){
-    this._currentUser = user;
+    this._user = user;
   }
 
+  checkForSession() {
+      this.aws.getSession().subscribe(
+        next => {
+          console.log(next)
+        },
+        error => {
+
+        }
+      )
+  }
 
   public signOut(){
-    if(cognitoUser == undefined) cognitoUser = userPool.getCurrentUser();
-    cognitoUser.signOut();
-    this.user = new User("");
+    this.aws.signOut()
   }
 }

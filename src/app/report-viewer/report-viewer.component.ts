@@ -84,14 +84,14 @@ export class ReportViewerComponent implements AfterViewInit {
 
     var s3 = new AWS.S3({
       apiVersion: '2006-03-01',
-      params: {Bucket: albumBucketName}
+      params: {Bucket: "deletelater123"}
     });
 
     var f = new File([document.documentElement.outerHTML], "new_report.html" ,{type: "text/html"})
     s3.upload({
-      Bucket: albumBucketName,
+      Bucket: "deletelater123",
       Key: "report.html",
-      Body: f,
+      Body: "test",
       ACL: 'public-read',
       ContentType: 'text/html'
     }, function(err, data) {

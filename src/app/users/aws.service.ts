@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import * as AWS from 'aws-sdk';
+
 
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
 var poolData = {
@@ -6,7 +9,7 @@ var poolData = {
   ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
 };
 
-import {Observable} from 'rxjs/Observable';
+
 
 @Injectable()
 export class AWSService {
@@ -16,8 +19,23 @@ export class AWSService {
 
 
   set cognitoUser(cognitoUser){
-    this._cognitoUser = cognitoUser
+   this._cognitoUser = cognitoUser
   }
+
+
+  public getSession(): Observable<string>{
+    return Observable.create( (observer) => {
+      if(this._userPool.getCurrentUser().username){
+        this.cognitoUser = this._userPool.getCurrentUser();
+        observer.next(this.cognitoUser.username)
+        if(this._cognitoUser){
+          console.log("Flag Three")
+          this._cognitoUser.getSession()
+        }
+      };
+    })
+  }
+
 
   public createUser(email:string, password:string){
     var attributeList = [];
@@ -91,6 +109,11 @@ export class AWSService {
         observer.next(msg)
       })
     })
+  }
+
+  public signOut(){
+    if(this._cognitoUser == undefined) this._cognitoUser = this._userPool.getCurrentUser();
+    this._cognitoUser.signOut();
   }
 }
 

@@ -1,17 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {User} from "../user";
 import { FormsModule }   from '@angular/forms';
 import {Subscriber} from "rxjs/Subscriber";
 import {Router} from "@angular/router";
 import {SessionService} from "../session.service";
-import { User } from "../user";
 
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.css']
 })
-export class UserRegistrationComponent implements OnInit, OnDestroy {
+export class UserRegistrationComponent implements OnInit {
 
   public formUser = {email: "", password: ""};
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {RxHttpRequest} from 'rx-http-request';
+import {Http, Response} from '@angular/http';
 import { AWSService } from "./aws.service";
 import {Observable} from 'rxjs/Observable';
 
@@ -10,20 +10,20 @@ export class User {
   private _needsRegistration:boolean;
   private _paid:boolean = false;
   private _confirmed:string;
+  private _remainingReports:string;
 
-
-  constructor(private aws:AWSService){}
+  constructor(private aws:AWSService, private http:Http){}
 
   get email(){
     return this._email;
   }
 
   set email(value){
-    return this._email = value;
+    this._email = value;
   }
 
   set password(value){
-    return this._password = value;
+    this._password = value;
   }
 
   get paid(){
@@ -41,23 +41,25 @@ export class User {
     this._confirmed = value;
   }
 
-  public create(): Observable{
+  public create(): Observable<any>{
     return this.aws.createUser(this.email, this._password);
   }
 
-  public authenticate(): Observable{
+  public authenticate(): Observable<any>{
     return this.aws.authenticateUser(this.email, this._password);
   }
 
-  public verify(code): Observable{
+  public verify(code): Observable<any>{
     return this.aws.verifyUser(code);
   }
 
   public reload(callback){
-    return RxHttpRequest.get(`https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/${this.email}`).subscribe(
+    return this.http.get(`https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/${this.email}`)
+      .map((res:Response) => res.json())
+      .subscribe(
       (data) => {
-        if (data.response.statusCode === 200) {
-            this.setAttributesFromDb(JSON.parse(data.body)["Item"]);
+        if (data.statusCode === 200) {
+            this.setAttributesFromDb(data["Item"]);
 
             callback();
         }
