@@ -12,7 +12,6 @@ export class SessionService {
     this.checkForSession();
   }
 
-
   get user(){
     return this._user
   }
@@ -22,17 +21,18 @@ export class SessionService {
   }
 
   checkForSession() {
-      this.aws.getSession().subscribe(
-        next => {
-          console.log(next)
-        },
-        error => {
-
-        }
-      )
+    this.aws.getSession().subscribe(
+      next => {
+        this.user.email = next
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   public signOut(){
     this.aws.signOut()
+    this.user.email = null;
   }
 }

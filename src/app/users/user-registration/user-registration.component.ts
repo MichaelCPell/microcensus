@@ -24,13 +24,11 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   public authenticateUser(){
-    console.log("authenticateUser()")
     this.newUser.email = this.formUser.email;
     this.newUser.password = this.formUser.password;
 
     this.newUser.authenticate().subscribe(
       (next) => {
-        console.log(next);
         this.session.user = this.newUser;
         this.session.user.reload(() => {
           this.router.navigate(["/dashboard"])
@@ -50,7 +48,6 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   public createUser(){
-    console.log("createUser()")
     this.newUser.email = this.formUser.email;
     this.newUser.password = this.formUser.password;
 

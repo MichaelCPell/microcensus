@@ -17,22 +17,43 @@ export class AWSService {
   private _userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
   constructor() { }
 
+  get cognitoUser(){
+    return this._cognitoUser;
+  }
 
-  set cognitoUser(cognitoUser){
-   this._cognitoUser = cognitoUser
+  set cognitoUser(value){
+   this._cognitoUser = value;
   }
 
 
   public getSession(): Observable<string>{
+    this.cognitoUser = this._userPool.getCurrentUser();
+
     return Observable.create( (observer) => {
-      if(this._userPool.getCurrentUser().username){
-        this.cognitoUser = this._userPool.getCurrentUser();
-        observer.next(this.cognitoUser.username)
-        if(this._cognitoUser){
-          console.log("Flag Three")
-          this._cognitoUser.getSession()
-        }
-      };
+
+      if (this.cognitoUser != null) {
+          this.cognitoUser.getSession((err, session) => {
+              if (err) {
+                 alert(err);
+                  return;
+              }
+              console.log('session validity: ' + session.isValid());
+              observer.next(this.cognitoUser.username)
+
+              // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+              //     IdentityPoolId : '...', // your identity pool id here
+              //     Logins : {
+              //         // Change the key below according to the specific region your user pool is in.
+              //         'cognito-idp.<region>.amazonaws.com/<YOUR_USER_POOL_ID>' : session.getIdToken().getJwtToken()
+              //     }
+              // });
+
+              // Instantiate aws sdk service objects now that the credentials have been updated.
+              // example: var s3 = new AWS.S3();
+
+          });
+      }
+
     })
   }
 
@@ -99,7 +120,6 @@ export class AWSService {
   }
 
   public verifyUser(code){
-    console.log("Flag One")
     return Observable.create( (observer) => {
       this._cognitoUser.confirmRegistration(code, false, (err, msg) => {
         if(err){

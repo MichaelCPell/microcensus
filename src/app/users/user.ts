@@ -57,14 +57,11 @@ export class User {
     return this.http.get(`https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/${this.email}`)
       .map((res:Response) => res.json())
       .subscribe(
-      (data) => {
-        if (data.statusCode === 200) {
-            this.setAttributesFromDb(data["Item"]);
-
-            callback();
-        }
-      },
-      (err) => console.error(err)
+        (data) => {
+          this.setAttributesFromDb(data["Item"]);
+          callback();
+        },
+        (err) => console.error(err)
     );
   }
 
