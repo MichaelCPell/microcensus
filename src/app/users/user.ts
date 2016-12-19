@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import {RxHttpRequest} from 'rx-http-request';
 
 var AmazonCognitoIdentity = require('amazon-cognito-identity-js');
@@ -8,26 +9,41 @@ var poolData = {
 var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 import {Observable} from 'rxjs/Observable';
 
+@Injectable()
 export class User {
-  constructor(private _email:string, private _password?:string, private _needsRegistration?:boolean){}
+  private _email:string;
+  private _password:string;
+  private _needsRegistration:boolean;
   private _paid:boolean = false;
   private _confirmed:string;
+
+
+  constructor(){}
 
   get email(){
     return this._email;
   }
 
+  set email(value){
+    return this._email = value;
+  }
+
+  set password(value){
+    return this._password = value;
+  }
+
   get paid(){
     return this._paid;
+  }
+  set paid(value){
+    this._paid = true;
   }
 
   get remainingReports(){
     return this._remainingReports;
   }
 
-  set paid(value){
-    this._paid = true;
-  }
+
 
   set confirmed(value){
     this._confirmed = value;
@@ -45,6 +61,8 @@ export class User {
       var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
 
       attributeList.push(attributeEmail);
+
+      console.log(this)
 
       userPool.signUp(this.email, this._password, attributeList, null, function(err, result){
         if (err) {
@@ -75,13 +93,12 @@ export class User {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
             observer.next(result);
-            // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            //     IdentityPoolId : '...', // your identity pool id here
-            //     Logins : {
-            //         // Change the key below according to the specific region your user pool is in.
-            //         'cognito-idp.<region>.amazonaws.com/<YOUR_USER_POOL_ID>' : result.getIdToken().getJwtToken()
-            //     }
-            // });
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
+                Logins : {
+                    'cognito-idp.us-east-1.amazonaws.com/us-east-1_T2p3nd9xA' : result.getIdToken().getJwtToken()
+                }
+            });
             cognitoUser.cacheTokens();
             // Instantiate aws sdk service objects now that the credentials have been updated.
             // example: var s3 = new AWS.S3();

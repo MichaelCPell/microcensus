@@ -4,12 +4,7 @@ import { FormsModule }   from '@angular/forms';
 import {Subscriber} from "rxjs/Subscriber";
 import {Router} from "@angular/router";
 import {SessionService} from "../session.service";
-
-const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-const poolData = {
-  UserPoolId : 'us-east-1_T2p3nd9xA',
-  ClientId : '58qe0b7458eo9705kijc7hjhv6'
-};
+import { User } from "../user";
 
 @Component({
   selector: 'app-user-registration',
@@ -19,12 +14,10 @@ const poolData = {
 export class UserRegistrationComponent implements OnInit, OnDestroy {
 
   public formUser = {email: "", password: ""};
-  public newUser:User;
 
-  constructor(private router:Router, private session:SessionService) { }
+  constructor(private router:Router, private session:SessionService, public newUser:User) { }
 
   ngOnInit() {
-
   }
 
 
@@ -33,7 +26,9 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
 
   public authenticateUser(){
     console.log("authenticateUser()")
-    this.newUser = new User(this.formUser.email, this.formUser.password);
+    this.newUser.email = this.formUser.email;
+    this.newUser.password = this.formUser.password;
+
     this.newUser.authenticate().subscribe(
       (next) => {
         console.log(next);
@@ -57,18 +52,22 @@ export class UserRegistrationComponent implements OnInit, OnDestroy {
 
   public createUser(){
     console.log("createUser()")
-    this.newUser = new User(this.formUser.email, this.formUser.password);
+    this.newUser.email = this.formUser.email;
+    this.newUser.password = this.formUser.password;
+
     this.newUser.create().subscribe(
       (next) => {
         console.log(next);
         this.session.user = this.newUser;
         this.newUser.confirmed = next.userConfirmed;
-        // this.verifyUser()
         this.router.navigate(["/users/confirmation"]);
       },
       (error) => {
+        console.log("Uncaught Error Code: %s", error.code)
         switch(error.code){
           case "UsernameExistsException":
+          break;
+          case "MissingRequiredParameter":
           break;
           default:
             console.log("Uncaught Error Code: %s", error.code)
