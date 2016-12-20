@@ -27,8 +27,7 @@ export class UserRegistrationComponent implements OnInit {
 
     this.newUser.authenticate().subscribe(
       (next) => {
-        this.session.user = this.newUser;
-        this.session.user.reload().subscribe(
+        this.newUser.reload().subscribe(
           next => {
             this.router.navigate(["/dashboard"]);
           }
@@ -53,9 +52,6 @@ export class UserRegistrationComponent implements OnInit {
 
     this.newUser.create().subscribe(
       (next) => {
-        console.log(next);
-        this.session.user = this.newUser;
-        this.newUser.confirmed = next.userConfirmed;
         this.router.navigate(["/users/confirmation"]);
       },
       (error) => {

@@ -71,6 +71,7 @@ export class User {
     o.subscribe(
       next => {
         this.remainingReports = next.Item.reportCredits.N
+        this.email = next.Item.email.S
       },
       error => {
         console.log("error")

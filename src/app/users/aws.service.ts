@@ -25,39 +25,35 @@ export class AWSService {
    this._cognitoUser = value;
   }
 
-  public getSession(): Observable<string>{
+  public getSession(callback){
     this.cognitoUser = this._userPool.getCurrentUser();
-    var host = this;
-    return Observable.create((observer) => {
-      if (this.cognitoUser != null) {
-          this.cognitoUser.getSession((err, session) => {
-              if (err) {
-                 alert(err);
-                  return;
+    if (this.cognitoUser != null) {
+      this.cognitoUser.getSession((err, session) => {
+          if (err) {
+             alert(err);
+              return;
+          }
+          console.log('session validity: ' + session.isValid());
+          AWS.config.region = 'us-east-1'; // Region
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
+              Logins: {
+                'cognito-idp.us-east-1.amazonaws.com/us-east-1_T2p3nd9xA' : session.getIdToken().getJwtToken()
               }
-              console.log('session validity: ' + session.isValid());
-              observer.next(this.cognitoUser.username)
-
-              AWS.config.region = 'us-east-1'; // Region
-              AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                  IdentityPoolId: 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
-                  Logins: {
-                    'cognito-idp.us-east-1.amazonaws.com/us-east-1_T2p3nd9xA' : session.getIdToken().getJwtToken()
-                  }
-              });
-
-              host.s3 = new AWS.S3({
-                apiVersion: '2006-03-01',
-                params: {Bucket: "deletelater123"}
-              });
-
-              host.db = new AWS.DynamoDB({
-                params: {TableName: 'users'}
-              });
           });
-      }
 
-    })
+          this.s3 = new AWS.S3({
+            apiVersion: '2006-03-01',
+            params: {Bucket: "deletelater123"}
+          });
+
+          this.db = new AWS.DynamoDB({
+            params: {TableName: 'users'}
+          });
+
+          callback(this.cognitoUser)
+      });
+    }
   }
 
   public createUser(email:string, password:string){
@@ -105,7 +101,7 @@ export class AWSService {
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess:  (result) => {
             this.cognitoUser = this._userPool.getCurrentUser();
-            observer.next(result);
+            observer.next(this.getSession());
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                 IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
                 Logins : {
@@ -113,8 +109,7 @@ export class AWSService {
                 }
             });
             cognitoUser.cacheTokens();
-            // Instantiate aws sdk service objects now that the credentials have been updated.
-            // example: var s3 = new AWS.S3();
+
         },
         onFailure: function(err) {
           observer.error(err)
@@ -138,7 +133,7 @@ export class AWSService {
       host.db.getItem({Key: {email: {S: this.cognitoUser.username}}}, (err, data) => {
         observer.next(data)
       })
-    }).share()
+    }).share();
   }
 
   public publishReport(file){

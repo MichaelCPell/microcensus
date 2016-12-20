@@ -12,7 +12,7 @@ export class UserDashboardComponent implements OnInit {
   constructor(private session:SessionService, private router:Router) { }
 
   ngOnInit() {
-
+    this.session.checkForSession();
   }
 
   public signOut(){
