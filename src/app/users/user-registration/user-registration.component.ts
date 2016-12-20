@@ -4,7 +4,6 @@ import { FormsModule }   from '@angular/forms';
 import {Subscriber} from "rxjs/Subscriber";
 import {Observer} from "rxjs/Observer";
 import {Router} from "@angular/router";
-import {SessionService} from "../session.service";
 
 @Component({
   selector: 'app-user-registration',
@@ -15,7 +14,7 @@ export class UserRegistrationComponent implements OnInit {
 
   public formUser = {email: "", password: ""};
 
-  constructor(private router:Router, private session:SessionService, public newUser:User) { }
+  constructor(private router:Router, public newUser:User) { }
 
   ngOnInit() {
   }

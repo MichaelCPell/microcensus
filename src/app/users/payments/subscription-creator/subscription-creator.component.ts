@@ -1,6 +1,5 @@
 import { Component, OnInit, ApplicationRef } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { SessionService } from '../../session.service';
 import { User } from '../../user';
 
 declare var Stripe: any;
@@ -17,7 +16,7 @@ export class SubscriptionCreatorComponent implements OnInit {
     expMonth: "12",
     expYear: "20"
   };
-  constructor(private http:Http, private session:SessionService, private af: ApplicationRef) { }
+  constructor(public user:User, private http:Http, private af: ApplicationRef) { }
 
   ngOnInit() {
   }
@@ -33,12 +32,12 @@ export class SubscriptionCreatorComponent implements OnInit {
     Stripe.setPublishableKey('pk_test_egLZwXn91dZAmLYVGBKFDh3T');
       Stripe.card.createToken(this.formCard, (status, response) => {
         this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/prod/customers",
-          {token: response.id, email: this.session.user.email})
+          {token: response.id, email: this.user.email})
           .subscribe(
             (next) => {
               console.log(next)
-              this.session.user.paid = true;
-              console.log(this.session.user.paid)
+              this.user.paid = true;
+              console.log(this.user.paid)
                 this.af.tick();
             },
             (error) => {

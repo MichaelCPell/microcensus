@@ -13,7 +13,16 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <app-session-dashboard></app-session-dashboard>
+          <div>
+          </div>
+          <div *ngIf="user.email">
+            <h5>{{user.remainingReports}} Reports Remaining</h5>
+
+            <a routerLink="/dashboard" routerLinkActive="active">{{user.email}}</a>
+          </div>
+          <div *ngIf="!user.email">
+            <a routerLink="/sign_up" routerLinkActive="active">Sign Up or In</a>
+          </div>
         </li>
         <li id="nav-reports"><a routerLink="/" routerLinkActive="active">Make a Report</a></li>
         <li id="nav-about"><a href="./about.html">About</a></li>

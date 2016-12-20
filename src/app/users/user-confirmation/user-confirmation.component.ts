@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from "../session.service";
 import {Router} from "@angular/router";
+import { User } from "../user"
 
 @Component({
   selector: 'app-user-confirmation',
@@ -9,13 +9,13 @@ import {Router} from "@angular/router";
 })
 export class UserConfirmationComponent implements OnInit {
   public confirmationCode:string;
-  constructor(private session:SessionService, private router:Router) { }
+  constructor(private router:Router, public user:User) { }
 
   ngOnInit() {
   }
 
   public confirmUser(){
-    this.session.user.verify(this.confirmationCode, (result) => {
+    this.user.verify(this.confirmationCode, (result) => {
       this.router.navigate(["/membership"])
     })
   }

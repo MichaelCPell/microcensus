@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SessionService } from '../session.service';
+import { User } from '../user';
 import { Http } from '@angular/http';
 
 @Component({
@@ -11,7 +11,7 @@ export class MembershipSelectorComponent implements OnInit {
   public selectedLevel:string = "";
   private paid:boolean = false;
 
-  constructor(public session:SessionService, private http:Http) { }
+  constructor(private http:Http, public user:User) { }
 
   ngOnInit() {
   }
@@ -31,9 +31,9 @@ export class MembershipSelectorComponent implements OnInit {
       case 'regular':
       return true;
       case 'premium':
-      return this.session.user.paid;
+      return this.user.paid;
       case 'unlimited':
-      return this.session.user.paid;
+      return this.user.paid;
     }
   }
 

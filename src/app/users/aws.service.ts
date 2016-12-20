@@ -25,7 +25,7 @@ export class AWSService {
    this._cognitoUser = value;
   }
 
-  public getSession(callback){
+  public getSession(){
     this.cognitoUser = this._userPool.getCurrentUser();
     if (this.cognitoUser != null) {
       this.cognitoUser.getSession((err, session) => {
@@ -50,8 +50,6 @@ export class AWSService {
           this.db = new AWS.DynamoDB({
             params: {TableName: 'users'}
           });
-
-          callback(this.cognitoUser)
       });
     }
   }
@@ -153,3 +151,4 @@ export class AWSService {
       });
     }).bind(this));
   }
+}

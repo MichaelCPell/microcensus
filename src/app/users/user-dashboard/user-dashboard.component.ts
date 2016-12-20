@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from '../session.service';
+import { User } from '../user';
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,14 +9,14 @@ import {Router} from "@angular/router";
 })
 export class UserDashboardComponent implements OnInit {
 
-  constructor(private session:SessionService, private router:Router) { }
+  constructor(private router:Router, public user:User) { }
 
   ngOnInit() {
-    this.session.checkForSession();
+    // this.user.checkForSession();
   }
 
   public signOut(){
-    this.session.signOut()
+    // this.user.signOut()
     this.router.navigate(["/"]);
   }
 }

@@ -80,11 +80,6 @@ export class User {
     return o;
   }
 
-  private setAttributesFromDb(data){
-    this._paid = data["paid"]["S"]
-    this._remainingReports = data["remaining_reports"]["N"]
-  }
-
   public verify(code, callback){
     this.aws.verifyUser(code, (err, result) => {
         if (err) {
@@ -95,5 +90,12 @@ export class User {
         callback(result)
     })
   }
+
+  private setAttributesFromDb(data){
+    this._paid = data["paid"]["S"]
+    this._remainingReports = data["remaining_reports"]["N"]
+  }
+
+
 
 }

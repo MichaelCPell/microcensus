@@ -12,11 +12,9 @@ import { ResearchAreaService } from './shared/research-area.service';
 import { COMPILER_PROVIDERS } from '@angular/compiler';
 import { AddressSelectorComponent } from './report-definer/sub_components/address-selector/address-selector.component';
 import { MapComponent } from './report-definer/sub_components/map/map.component';
-import { SessionDashboardComponent } from './users/session-dashboard/session-dashboard.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import { UserRegistrationComponent } from './users/user-registration/user-registration.component';
 import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
-import { SessionService } from "./users/session.service";
 import { MembershipSelectorComponent } from './users/membership-selector/membership-selector.component';
 import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
 import { UserConfirmationComponent } from './users/user-confirmation/user-confirmation.component';
@@ -40,7 +38,6 @@ const appRoutes: Routes = [
     ReportViewerComponent,
     AddressSelectorComponent,
     MapComponent,
-    SessionDashboardComponent,
     NavigationComponent,
     UserRegistrationComponent,
     UserDashboardComponent,
@@ -57,7 +54,6 @@ const appRoutes: Routes = [
   providers: [
     COMPILER_PROVIDERS,
     ResearchAreaService,
-    SessionService,
     User,
     AWSService],
   bootstrap: [AppComponent]
