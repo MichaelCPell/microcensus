@@ -37,28 +37,46 @@ export class User {
     return this._remainingReports;
   }
 
+  set remainingReports(value){
+    this._remainingReports = value;
+  }
+
   set confirmed(value){
     this._confirmed = value;
   }
 
   public create(): Observable<any>{
-    return this.aws.createUser(this.email, this._password);
+    var o = this.aws.createUser(this.email, this._password);
+    return o;
   }
 
   public authenticate(): Observable<any>{
-    return this.aws.authenticateUser(this.email, this._password);
+    var o = this.aws.authenticateUser(this.email, this._password);
+
+    o.subscribe(
+      next => {
+        console.log("next")
+      },
+      error => {
+        console.log("error")
+      }
+    )
+
+    return o;
+
   }
 
-  public reload(callback){
-    return this.http.get(`https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/${this.email}`)
-      .map((res:Response) => res.json())
-      .subscribe(
-        (data) => {
-          this.setAttributesFromDb(data["Item"]);
-          callback();
-        },
-        (err) => console.error(err)
+  public reload(){
+    var o = this.aws.reloadUser()
+    o.subscribe(
+      next => {
+        this.remainingReports = next.Item.reportCredits.N
+      },
+      error => {
+        console.log("error")
+      }
     );
+    return o;
   }
 
   private setAttributesFromDb(data){

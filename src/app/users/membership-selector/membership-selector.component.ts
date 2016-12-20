@@ -20,14 +20,6 @@ export class MembershipSelectorComponent implements OnInit {
     console.log("Destroy was called");
     switch(this.selectedLevel){
       case 'regular':
-        this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/users/registrations", {email: this.session.user.email}).subscribe(
-          next => {
-            console.log(next)
-          },
-          error => {
-            console.log(error)
-          }
-        )
       break;
     }
   }
@@ -53,8 +45,10 @@ export class MembershipSelectorComponent implements OnInit {
       return false;
       case 'premium':
         if(this.readyToProceed){
+          console.log("Flag One")
           return false;
         }else{
+          console.log("Flag Two")
           return true
         }
       case 'unlimited':

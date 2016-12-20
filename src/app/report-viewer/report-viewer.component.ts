@@ -7,9 +7,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
-import * as AWS from 'aws-sdk';
 import { environment } from '../../environments/environment';
 import { ResearchAreaService } from "../shared/research-area.service";
+import { AWSService } from "../users/aws.service";
 
 @Component({
   selector: 'app-report-view',
@@ -31,7 +31,8 @@ export class ReportViewerComponent implements AfterViewInit {
     protected compiler: RuntimeCompiler,
     private http: Http,
     private route: ActivatedRoute,
-    private researchArea: ResearchAreaService) {
+    private researchArea: ResearchAreaService,
+    private aws:AWSService) {
     this.route = route;
     this.geom = {
       "type":"Point",
@@ -71,38 +72,20 @@ export class ReportViewerComponent implements AfterViewInit {
         );
   };
 
+
   public publish(){
 
-    var albumBucketName = 'deletelater123';
-    var bucketRegion = 'us-east-1';
-    var IdentityPoolId = 'us-east-1_USx2I1lHS';
-
-    AWS.config.region = 'us-east-1'; // Region
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
-    });
-
-    var s3 = new AWS.S3({
-      apiVersion: '2006-03-01',
-      params: {Bucket: "deletelater123"}
-    });
-
-    var f = new File([document.documentElement.outerHTML], "new_report.html" ,{type: "text/html"})
-    s3.upload({
-      Bucket: "deletelater123",
-      Key: "report.html",
-      Body: "test",
-      ACL: 'public-read',
-      ContentType: 'text/html'
-    }, function(err, data) {
-      if (err) {
-        console.log(err)
-        return
-        // return alert('There was an error uploading: ', err.message);
-
+    var filename = this.convertToSlug(this.researchArea.place.formatted_address) + "_" + this.reportName
+    var f = new File([document.documentElement.outerHTML], filename ,{type: "text/html"});
+    this.aws.publishReport(f).subscribe(
+      (next) => {
+        console.log(next)
+        alert(next.Location)
+      },
+      (error) => {
+        console.log(error)
       }
-      alert('Successfully uploaded photo.');
-    });
+    );
   }
 
   private createComponentFactory(template: string, data:any, reportName:string)
@@ -161,5 +144,13 @@ export class ReportViewerComponent implements AfterViewInit {
 
       }
       return RuntimeComponentModule;
+  }
+
+  private convertToSlug(Text){
+      return Text
+          .toLowerCase()
+          .replace(/ /g,'-')
+          .replace(/[^\w-]+/g,'')
+          ;
   }
 }

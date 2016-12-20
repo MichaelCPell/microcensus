@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from "../user";
 import { FormsModule }   from '@angular/forms';
 import {Subscriber} from "rxjs/Subscriber";
+import {Observer} from "rxjs/Observer";
 import {Router} from "@angular/router";
 import {SessionService} from "../session.service";
 
@@ -27,9 +28,11 @@ export class UserRegistrationComponent implements OnInit {
     this.newUser.authenticate().subscribe(
       (next) => {
         this.session.user = this.newUser;
-        this.session.user.reload(() => {
-          this.router.navigate(["/dashboard"])
-        });
+        this.session.user.reload().subscribe(
+          next => {
+            this.router.navigate(["/dashboard"]);
+          }
+        )
       },
       (error) => {
         switch(error.code){
