@@ -17,11 +17,6 @@ export class MembershipSelectorComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    console.log("Destroy was called");
-    switch(this.selectedLevel){
-      case 'regular':
-      break;
-    }
   }
 
   get readyToProceed(){

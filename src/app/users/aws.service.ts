@@ -12,10 +12,12 @@ var poolData = {
 @Injectable()
 export class AWSService {
   private _cognitoUser;
-  private _userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  private _userPool;
   private s3;
   private db;
-  constructor() { }
+  constructor() {
+    this._userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+  }
 
   get cognitoUser(){
     return this._cognitoUser;
@@ -25,9 +27,11 @@ export class AWSService {
    this._cognitoUser = value;
   }
 
-  public getSession(){
+  public getSession(callback){
+    console.log("getSession Called")
     this.cognitoUser = this._userPool.getCurrentUser();
     if (this.cognitoUser != null) {
+      console.log("Flag One")
       this.cognitoUser.getSession((err, session) => {
           if (err) {
              alert(err);
@@ -50,37 +54,43 @@ export class AWSService {
           this.db = new AWS.DynamoDB({
             params: {TableName: 'users'}
           });
+
+          this.db.getItem({Key: {email: {S: this.cognitoUser.username}}}, (err, data) => {
+            callback(data)
+          })
       });
+    }else{
+
     }
   }
 
-  public createUser(email:string, password:string){
-    console.log("Called")
+  public createUser(email:string, password:string, callback){
+    console.log(`Flag Two: ${email}, ${password}`)
     var attributeList = [];
 
     var dataEmail = {
       Name : 'email',
       Value : email
     };
-    var host = this;
-    return Observable.create( (observer) => {
-      var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
 
-      attributeList.push(attributeEmail);
+    var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
 
-      host._userPool.signUp(email, password, attributeList, null, (err, result) => {
-        if (err) {
-          console.log(err)
-          observer.error(err);
-          return;
-        }
-        host.cognitoUser = result.user;
-        observer.next(result);
-      });
-    }).share()
+    attributeList.push(attributeEmail);
+
+    this._userPool.signUp(email, password, attributeList, null, (err, result) => {
+      if (err) {
+        console.log(err)
+        return;
+      }
+      this.cognitoUser = result.user;
+
+      console.log(`Flag Three`)
+      callback(this.cognitoUser)
+    });
+
   }
 
-  public authenticateUser(email:string, password:string){
+  public authenticateUser(email:string, password:string, onSuccess){
     var authenticationData = {
            Username : email,
            Password : password
@@ -95,25 +105,22 @@ export class AWSService {
 
     var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
 
-    return Observable.create( (observer) => {
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess:  (result) => {
-            this.cognitoUser = this._userPool.getCurrentUser();
-            observer.next(this.getSession());
-            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
-                Logins : {
-                    'cognito-idp.us-east-1.amazonaws.com/us-east-1_T2p3nd9xA' : result.getIdToken().getJwtToken()
-                }
-            });
-            cognitoUser.cacheTokens();
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess:  (result) => {
+          this.cognitoUser = this._userPool.getCurrentUser();
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+              IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
+              Logins : {
+                  'cognito-idp.us-east-1.amazonaws.com/us-east-1_T2p3nd9xA' : result.getIdToken().getJwtToken()
+              }
+          });
+          cognitoUser.cacheTokens();
 
-        },
-        onFailure: function(err) {
-          observer.error(err)
-        }
-      })
-    });
+      },
+      onFailure: function(err) {
+        console.log(err)
+      }
+    })
   }
 
   public signOut(){
@@ -121,8 +128,18 @@ export class AWSService {
     this._cognitoUser.signOut();
   }
 
-  public verifyUser(code, callback){
+  public verifyUser(code, email, callback){
+    if(!this.cognitoUser){
+       var userData = {
+           Username : email,
+           Pool : this._userPool
+       };
+      this.cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    }
+
     this.cognitoUser.confirmRegistration(code, true, callback);
+
+
   }
 
   public reloadUser(){

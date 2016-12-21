@@ -21,36 +21,16 @@ export class UserRegistrationComponent implements OnInit {
 
 
   public authenticateUser(){
-    this.newUser.email = this.formUser.email;
-    this.newUser.password = this.formUser.password;
 
-    this.newUser.authenticate().subscribe(
-      (next) => {
-        this.newUser.reload().subscribe(
-          next => {
-            this.router.navigate(["/dashboard"]);
-          }
-        )
-      },
-      (error) => {
-        switch(error.code){
-          case "UsernameExistsException":
-          break;
-          default:
-            console.log("Uncaught Error Code: %s", error.code)
-          break;
-        }
-      },
-      () => console.log('onCompleted')
-    );
+    this.newUser.authenticate()
   }
 
   public createUser(){
-    this.newUser.email = this.formUser.email;
-    this.newUser.password = this.formUser.password;
 
-    this.newUser.create().subscribe(
+    this.newUser.create(this.formUser.email, this.formUser.password)
+    .subscribe(
       (next) => {
+        console.log(next)
         this.router.navigate(["/users/confirmation"]);
       },
       (error) => {

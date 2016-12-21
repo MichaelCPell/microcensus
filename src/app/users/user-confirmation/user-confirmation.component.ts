@@ -15,8 +15,16 @@ export class UserConfirmationComponent implements OnInit {
   }
 
   public confirmUser(){
-    this.user.verify(this.confirmationCode, (result) => {
-      this.router.navigate(["/membership"])
-    })
+    this.user.confirm(this.confirmationCode).subscribe(
+      (result) => {
+        console.log(result)
+        this.router.navigate(["/membership"])
+      })
+    )
+  }
+
+
+  public runExperiment(){
+    this.user.signOut();
   }
 }

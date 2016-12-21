@@ -12,11 +12,10 @@ export class UserDashboardComponent implements OnInit {
   constructor(private router:Router, public user:User) { }
 
   ngOnInit() {
-    // this.user.checkForSession();
   }
 
   public signOut(){
-    // this.user.signOut()
+    this.user.signOut()
     this.router.navigate(["/"]);
   }
 }

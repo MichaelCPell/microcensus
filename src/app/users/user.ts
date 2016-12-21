@@ -2,100 +2,87 @@ import { Injectable } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import { AWSService } from "./aws.service";
 import {Observable} from 'rxjs/Observable';
+declare var localStorage: any;
 
 @Injectable()
 export class User {
   private _email:string;
   private _password:string;
   private _needsRegistration:boolean;
-  private _paid:boolean = false;
-  private _confirmed:string;
+  private _paid:boolean;
+  private _awsConfirmed:string;
   private _remainingReports:string;
+  private _awsRegistered:string;
 
-  constructor(private aws:AWSService, private http:Http){}
+  constructor(private aws:AWSService, private http:Http){
+
+    this.loadFromStorage();
+
+    if(this.email){
+
+    }else{
+      this.loadFromStorage();
+      console.log(this);
+    }
+    // Storage.getItem("microcensus")
+    // this.aws.getSession((data) => {
+    //   console.log(data)
+    //   this.email = data["Item"]["email"]["S"]
+    //   this.remainingReports = data["Item"]["reportCredits"]["N"]
+    // })
+  }
 
   get email(){
-    return this._email;
+    return this._email
   }
 
-  set email(value){
-    this._email = value;
+  get confirmed(){
+    return this._awsConfirmed
   }
 
-  set password(value){
-    this._password = value;
+  public create(email, password){
+    localStorage.setItem("email", email)
+    localStorage.setItem("awsConfirmed", false)
+    localStorage.setItem("awsRegistered", false)
+    this.loadFromStorage()
+
+    var callback = (cognitoUser) => {
+      localStorage.setItem("awsRegistered", true)
+      console.log(cognitoUser)
+    }
+
+    return Observable.create( (observer) => {
+      this.aws.createUser(this._email, password, callback)
+    })
   }
 
-  get paid(){
-    return this._paid;
-  }
-  set paid(value){
-    this._paid = true;
-  }
-
-  get remainingReports(){
-    return this._remainingReports;
-  }
-
-  set remainingReports(value){
-    this._remainingReports = value;
-  }
-
-  set confirmed(value){
-    this._confirmed = value;
-  }
-
-  public create(): Observable<any>{
-    var o = this.aws.createUser(this.email, this._password);
-    return o;
-  }
-
-  public authenticate(): Observable<any>{
-    var o = this.aws.authenticateUser(this.email, this._password);
+  public confirm(code){
+    var host = this;
+    var o = Observable.create( (observer) => {
+      this.aws.verifyUser(code, this.email, () => {
+        observer.next("Verified")
+      })
+    }).share()
 
     o.subscribe(
-      next => {
-        console.log("next")
-      },
-      error => {
-        console.log("error")
+      (next) => {
+        console.log(next)
+        host._awsConfirmed = true;
+        localStorage.setItem("awsConfirmed", true)
       }
     )
 
     return o;
-
   }
 
-  public reload(){
-    var o = this.aws.reloadUser()
-    o.subscribe(
-      next => {
-        this.remainingReports = next.Item.reportCredits.N
-        this.email = next.Item.email.S
-      },
-      error => {
-        console.log("error")
-      }
-    );
-    return o;
+  public signOut(){
+    localStorage.clear()
+    this._email = null
   }
 
-  public verify(code, callback){
-    this.aws.verifyUser(code, (err, result) => {
-        if (err) {
-            alert(err);
-            return;
-        }
-
-        callback(result)
-    })
+  private loadFromStorage(){
+    this._email = localStorage.getItem("email");
+    this._needsConfirmation = localStorage.getItem("awsConfirmed");
+    this._awsRegistered = localStorage.getItem("awsRegistered");
   }
-
-  private setAttributesFromDb(data){
-    this._paid = data["paid"]["S"]
-    this._remainingReports = data["remaining_reports"]["N"]
-  }
-
-
-
 }
