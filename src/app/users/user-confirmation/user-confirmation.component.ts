@@ -18,7 +18,7 @@ export class UserConfirmationComponent implements OnInit {
     this.user.confirm(this.confirmationCode).subscribe(
       (result) => {
         console.log(result)
-        this.router.navigate(["/membership"])
+        this.router.navigate(["/dashboard"])
       })
     )
   }

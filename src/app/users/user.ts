@@ -8,7 +8,6 @@ declare var localStorage: any;
 export class User {
   private _email:string;
   private _password:string;
-  private _needsRegistration:boolean;
   private _paid:boolean;
   private _awsConfirmed:string;
   private _remainingReports:string;
@@ -19,9 +18,11 @@ export class User {
     this.loadFromStorage();
 
     if(this.email){
-
+      console.log(this)
+      if(this._awsConfirmed){
+        // this.reload()
+      }
     }else{
-      this.loadFromStorage();
       console.log(this);
     }
     // Storage.getItem("microcensus")
@@ -37,7 +38,7 @@ export class User {
   }
 
   get confirmed(){
-    return this._awsConfirmed
+    return this._awsConfirmed == "true"
   }
 
   public create(email, password){
@@ -75,6 +76,12 @@ export class User {
     return o;
   }
 
+  public reload(){
+    this.aws.reloadUser((err, result) => {
+      console.log(result)
+    })
+  }
+
   public signOut(){
     localStorage.clear()
     this._email = null
@@ -82,7 +89,7 @@ export class User {
 
   private loadFromStorage(){
     this._email = localStorage.getItem("email");
-    this._needsConfirmation = localStorage.getItem("awsConfirmed");
+    this._awsConfirmed = localStorage.getItem("awsConfirmed");
     this._awsRegistered = localStorage.getItem("awsRegistered");
   }
 }

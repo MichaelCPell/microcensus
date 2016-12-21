@@ -86,11 +86,13 @@ export class AWSService {
 
       console.log(`Flag Three`)
       callback(this.cognitoUser)
+
+      this.authenticateUser(email, password)
     });
 
   }
 
-  public authenticateUser(email:string, password:string, onSuccess){
+  public authenticateUser(email:string, password:string){
     var authenticationData = {
            Username : email,
            Password : password
@@ -142,13 +144,13 @@ export class AWSService {
 
   }
 
-  public reloadUser(){
-    var host = this;
-    return Observable.create( (observer) => {
-      host.db.getItem({Key: {email: {S: this.cognitoUser.username}}}, (err, data) => {
-        observer.next(data)
-      })
-    }).share();
+  public reloadUser(callback){
+    if(!this.db){
+
+    }
+
+
+    this.db.getItem({Key: {email: {S: this.cognitoUser.username}}}, callback)
   }
 
   public publishReport(file){
