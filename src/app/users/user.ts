@@ -30,9 +30,15 @@ export class User {
   }
   set confirmed(value){
     this._awsConfirmed.next(value)
+    console.log(`Event in 'confirmed' stream: ${value}`)
     if(value == true || value == "true"){
-      this.refreshSession((data) => {
-        this.remainingLocations = data["Item"]["reportCredits"]["N"]
+      this.refreshSession((err, result) => {
+        if(err){
+          console.log("FLAG: REFRESH SESSION CALLBACK")
+          console.log(err)
+        }
+        console.log(result)
+        this.remainingLocations = result["Item"]["reportCredits"]["N"]
       })
     }
   }
@@ -73,9 +79,15 @@ export class User {
 
   public confirm(code){
     var host = this;
-    this.aws.verifyUser(code, this._email.getValue(), () => {
-      host.confirmed = true;
-      localStorage.setItem("awsConfirmed", true)
+    this.aws.verifyUser(this._email.getValue(), code,{
+      cognitoCallback: (message, result) => {
+        if(message){
+          console.log(`Message: ${message}`)
+        }else{
+          host.confirmed = true;
+          localStorage.setItem("awsConfirmed", true)
+        }
+      }
     })
   }
 
@@ -90,8 +102,19 @@ export class User {
     this.email = null
   }
 
-  public authenticate(){
-
+  public authenticate(email:string, password:string){
+    var host = this;
+    this.aws.authenticate(email, password, {
+      cognitoCallback: (message, result) => {
+        if(message){
+          console.log(`Message: ${message}`)
+        }else{
+          this.email = email;
+          // console.log(`result: ${JSON.stringify(result)}`);
+          host.confirmed = true;
+        }
+      }
+    })
   }
 
 

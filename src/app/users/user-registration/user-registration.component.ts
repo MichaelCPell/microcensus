@@ -20,7 +20,7 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   public authenticateUser(){
-    this.newUser.authenticate()
+    this.newUser.authenticate(this.formUser.email, this.formUser.password)
   }
 
   public createUser(){

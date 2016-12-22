@@ -20,6 +20,7 @@ import { SubscriptionCreatorComponent } from './users/payments/subscription-crea
 import { UserConfirmationComponent } from './users/user-confirmation/user-confirmation.component';
 import { User } from './users/user';
 import { AWSService } from './users/aws.service';
+import { CognitoLoginService } from './users/cognito/cognito-login.service';
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
     COMPILER_PROVIDERS,
     ResearchAreaService,
     User,
-    AWSService],
+    AWSService,
+    CognitoLoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
