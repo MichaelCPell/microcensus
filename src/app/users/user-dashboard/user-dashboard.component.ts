@@ -18,4 +18,6 @@ export class UserDashboardComponent implements OnInit {
     this.user.signOut()
     this.router.navigate(["/"]);
   }
+
+  
 }

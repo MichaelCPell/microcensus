@@ -2,43 +2,57 @@ import { Injectable } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import { AWSService } from "./aws.service";
 import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 declare var localStorage: any;
 
 @Injectable()
 export class User {
-  private _email:string;
+  private _email: BehaviorSubject<string> = new BehaviorSubject("");;
   private _password:string;
   private _paid:boolean;
-  private _awsConfirmed:string;
-  private _remainingReports:string;
-  private _awsRegistered:string;
+  private _awsConfirmed:BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _remainingLocations:BehaviorSubject<string> = new BehaviorSubject("1");
+  private _awsRegistered: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private aws:AWSService, private http:Http){
-
     this.loadFromStorage();
-
-    if(this.email){
-      console.log(this)
-      if(this._awsConfirmed){
-        // this.reload()
-      }
-    }else{
-      console.log(this);
-    }
-    // Storage.getItem("microcensus")
-    // this.aws.getSession((data) => {
-    //   console.log(data)
-    //   this.email = data["Item"]["email"]["S"]
-    //   this.remainingReports = data["Item"]["reportCredits"]["N"]
-    // })
   }
 
   get email(){
-    return this._email
+    return this._email.asObservable()
+  }
+  set email(value){
+    this._email.next(value)
   }
 
   get confirmed(){
-    return this._awsConfirmed == "true"
+    return this._awsConfirmed.asObservable()
+  }
+  set confirmed(value){
+    this._awsConfirmed.next(value)
+    if(value == true || value == "true"){
+      this.refreshSession((data) => {
+        this.remainingLocations = data["Item"]["reportCredits"]["N"]
+      })
+    }
+  }
+
+  get registered(){
+    return this._awsRegistered.asObservable()
+  }
+  set registered(value){
+    this._awsRegistered.next(value)
+  }
+
+  get remainingLocations(){
+    return this._remainingLocations.asObservable()
+  }
+  set remainingLocations(value){
+    this._remainingLocations.next(value)
+  }
+
+  get paid(){
+    return this._paid
   }
 
   public create(email, password){
@@ -47,49 +61,38 @@ export class User {
     localStorage.setItem("awsRegistered", false)
     this.loadFromStorage()
 
+    var host = this;
     var callback = (cognitoUser) => {
-      localStorage.setItem("awsRegistered", true)
       console.log(cognitoUser)
+      localStorage.setItem("awsRegistered", true)
+      host.registered = true
     }
 
-    return Observable.create( (observer) => {
-      this.aws.createUser(this._email, password, callback)
-    })
+    this.aws.createUser(this._email.getValue(), password, callback)
   }
 
   public confirm(code){
     var host = this;
-    var o = Observable.create( (observer) => {
-      this.aws.verifyUser(code, this.email, () => {
-        observer.next("Verified")
-      })
-    }).share()
-
-    o.subscribe(
-      (next) => {
-        console.log(next)
-        host._awsConfirmed = true;
-        localStorage.setItem("awsConfirmed", true)
-      }
-    )
-
-    return o;
-  }
-
-  public reload(){
-    this.aws.reloadUser((err, result) => {
-      console.log(result)
+    this.aws.verifyUser(code, this._email.getValue(), () => {
+      host.confirmed = true;
+      localStorage.setItem("awsConfirmed", true)
     })
   }
 
+  public refreshSession(cb){
+    this.aws.getSession(cb)
+  }
+
+
   public signOut(){
     localStorage.clear()
-    this._email = null
+    this.email = null
+    this.email = null
   }
 
   private loadFromStorage(){
-    this._email = localStorage.getItem("email");
-    this._awsConfirmed = localStorage.getItem("awsConfirmed");
-    this._awsRegistered = localStorage.getItem("awsRegistered");
+    this.email = localStorage.getItem("email");
+    this.confirmed = localStorage.getItem("awsConfirmed");
+    this.registered = localStorage.getItem("awsRegistered");
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ApplicationRef } from '@angular/core';
 import {Router} from "@angular/router";
 import { User } from "../user"
 
@@ -9,17 +9,20 @@ import { User } from "../user"
 })
 export class UserConfirmationComponent implements OnInit {
   public confirmationCode:string;
-  constructor(private router:Router, public user:User) { }
+  constructor(private router:Router, public user:User, private af: ApplicationRef) { }
 
   ngOnInit() {
   }
 
   public confirmUser(){
-    this.user.confirm(this.confirmationCode).subscribe(
-      (result) => {
-        console.log(result)
-        this.router.navigate(["/dashboard"])
-      })
+    this.user.confirm(this.confirmationCode)
+    var host = this;
+    this.user.confirmed.subscribe(
+      ((next) => {
+        if(next == true){
+          this.router.navigate(["/dashboard"]);
+        }
+      }).bind(this)
     )
   }
 

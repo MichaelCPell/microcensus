@@ -19,34 +19,35 @@ export class UserRegistrationComponent implements OnInit {
   ngOnInit() {
   }
 
-
   public authenticateUser(){
-
     this.newUser.authenticate()
   }
 
   public createUser(){
-
     this.newUser.create(this.formUser.email, this.formUser.password)
-    .subscribe(
-      (next) => {
-        console.log(next)
-        this.router.navigate(["/users/confirmation"]);
-      },
-      (error) => {
-        console.log("Uncaught Error Code: %s", error.code)
-        switch(error.code){
-          case "UsernameExistsException":
-          break;
-          case "MissingRequiredParameter":
-          break;
-          default:
-            console.log("Uncaught Error Code: %s", error.code)
-          break;
-        }
-      },
-      () => console.log('onCompleted')
-    );
+
+    this.newUser.registered
+      .subscribe(
+        (next) => {
+          console.log(next)
+          if(next == true){
+            this.router.navigate(["/users/confirmation"]);
+          }
+        },
+        (error) => {
+          console.log("Uncaught Error Code: %s", error.code)
+          switch(error.code){
+            case "UsernameExistsException":
+            break;
+            case "MissingRequiredParameter":
+            break;
+            default:
+              console.log("Uncaught Error Code: %s", error.code)
+            break;
+          }
+        },
+        () => console.log('onCompleted')
+      );
   }
 
 }

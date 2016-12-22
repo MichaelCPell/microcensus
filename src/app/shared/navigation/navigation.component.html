@@ -13,21 +13,19 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <div>
-          </div>
+          <div *ngIf="user.email | async">
+            <div *ngIf="(user.confirmed | async) == 'true' || (user.confirmed | async) == true">
+              <h5>{{user.remainingLocations | async}} Locations Remaining</h5>
+            </div>
 
-          <div *ngIf="user.confirmed ">
-            {{user.confirmed }}
-            <h5>{{user.remainingReports}} Reports Remaining</h5>
+            <div *ngIf="!(user.confirmed | async)">
+              <a routerLink="/users/confirmation" routerLinkActive="active">Please Confirm Your Account</a>
+            </div>
+            <div>
+              <a routerLink="/dashboard" routerLinkActive="active">{{user.email | async}}</a>
+            </div>
           </div>
-
-          <div *ngIf="!user.confirmed && user.email">
-            <a routerLink="/users/confirmation" routerLinkActive="active">Please Confirm Your Account</a>
-          </div>
-          <div *ngIf="user.email">
-            <a routerLink="/dashboard" routerLinkActive="active">{{user.email}}</a>
-          </div>
-          <div *ngIf="!user.email">
+          <div *ngIf="!(user.email | async)">
             <a routerLink="/sign_up" routerLinkActive="active">Sign Up or In</a>
           </div>
         </li>
