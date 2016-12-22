@@ -1,5 +1,5 @@
 import {Injectable, Inject} from "@angular/core";
-import {RegistrationUser} from "../public/auth/auth.component";
+import {RegistrationUser} from "./registration-user";
 import {DynamoDBService} from "./ddb.service";
 import {AwsUtil} from "./aws.service";
 

@@ -3,32 +3,24 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-
 import { AppComponent } from './app.component';
 import { ReportDefinerComponent } from './report-definer/report-definer.component';
 import { ReportViewerComponent } from './report-viewer/report-viewer.component';
 import { ResearchAreaService } from './shared/research-area.service';
-
 import { COMPILER_PROVIDERS } from '@angular/compiler';
 import { AddressSelectorComponent } from './report-definer/sub_components/address-selector/address-selector.component';
 import { MapComponent } from './report-definer/sub_components/map/map.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
-import { UserRegistrationComponent } from './users/user-registration/user-registration.component';
-import { UserDashboardComponent } from './users/user-dashboard/user-dashboard.component';
-import { MembershipSelectorComponent } from './users/membership-selector/membership-selector.component';
-import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
-import { UserConfirmationComponent } from './users/user-confirmation/user-confirmation.component';
 import { User } from './users/user';
-import { AWSService } from './users/aws.service';
-import { CognitoLoginService } from './users/cognito/cognito-login.service';
+import { UserRegistrationComponent } from "./users/user-registration/user-registration.component";
+import {AwsUtil} from "./users/aws.service";
+import {UserRegistrationService, UserLoginService, UserParametersService, CognitoUtil} from "./users/cognito.service";
+import {DynamoDBService} from "./users/ddb.service";
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
   { path: 'report_viewer/:name', component: ReportViewerComponent },
-  { path: 'sign_up', component: UserRegistrationComponent},
-  { path: 'dashboard', component: UserDashboardComponent},
-  { path: 'membership', component: MembershipSelectorComponent},
-  { path: 'users/confirmation', component: UserConfirmationComponent}
+  { path: 'users/registration', component: UserRegistrationComponent}
 ]
 
 
@@ -40,11 +32,7 @@ const appRoutes: Routes = [
     AddressSelectorComponent,
     MapComponent,
     NavigationComponent,
-    UserRegistrationComponent,
-    UserDashboardComponent,
-    MembershipSelectorComponent,
-    SubscriptionCreatorComponent,
-    UserConfirmationComponent
+    UserRegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -56,8 +44,12 @@ const appRoutes: Routes = [
     COMPILER_PROVIDERS,
     ResearchAreaService,
     User,
-    AWSService,
-    CognitoLoginService],
+    AwsUtil,
+    CognitoUtil,
+    DynamoDBService,
+    UserLoginService,
+    UserParametersService,
+    UserRegistrationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

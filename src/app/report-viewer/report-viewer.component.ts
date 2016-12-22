@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { ResearchAreaService } from "../shared/research-area.service";
-import { AWSService } from "../users/aws.service";
 
 @Component({
   selector: 'app-report-view',
@@ -31,8 +30,7 @@ export class ReportViewerComponent implements AfterViewInit {
     protected compiler: RuntimeCompiler,
     private http: Http,
     private route: ActivatedRoute,
-    private researchArea: ResearchAreaService,
-    private aws:AWSService) {
+    private researchArea: ResearchAreaService) {
     this.route = route;
     this.geom = {
       "type":"Point",
@@ -72,21 +70,21 @@ export class ReportViewerComponent implements AfterViewInit {
         );
   };
 
-
-  public publish(){
-
-    var filename = this.convertToSlug(this.researchArea.place.formatted_address) + "_" + this.reportName
-    var f = new File([document.documentElement.outerHTML], filename ,{type: "text/html"});
-    this.aws.publishReport(f).subscribe(
-      (next) => {
-        console.log(next)
-        alert(next.Location)
-      },
-      (error) => {
-        console.log(error)
-      }
-    );
-  }
+  // 
+  // public publish(){
+  //
+  //   var filename = this.convertToSlug(this.researchArea.place.formatted_address) + "_" + this.reportName
+  //   var f = new File([document.documentElement.outerHTML], filename ,{type: "text/html"});
+  //   this.aws.publishReport(f).subscribe(
+  //     (next) => {
+  //       console.log(next)
+  //       alert(next.Location)
+  //     },
+  //     (error) => {
+  //       console.log(error)
+  //     }
+  //   );
+  // }
 
   private createComponentFactory(template: string, data:any, reportName:string)
     : Promise<any>{

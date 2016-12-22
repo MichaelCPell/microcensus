@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Stuff} from "../secure/useractivity.component";
+import {Stuff} from "./user-activity/user-activity.component";
 
 declare var AWS:any;
 declare var AWSCognito:any;

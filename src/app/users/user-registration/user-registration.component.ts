@@ -1,53 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import {User} from "../user";
-import { FormsModule }   from '@angular/forms';
-import {Subscriber} from "rxjs/Subscriber";
-import {Observer} from "rxjs/Observer";
-import {Router} from "@angular/router";
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { UserRegistrationService } from "../cognito.service";
+import { RegistrationUser } from "../registration-user";
+import { CognitoCallback } from "../cognito.service";
 
 @Component({
-  selector: 'app-user-registration',
-  templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.css']
+    selector: 'awscognito-angular2-app',
+    templateUrl: './user-registration.component.html'
 })
-export class UserRegistrationComponent implements OnInit {
+export class UserRegistrationComponent implements CognitoCallback {
+    registrationUser:RegistrationUser;
+    router:Router;
+    errorMessage:string;
 
-  public formUser = {email: "", password: ""};
+    constructor(public userRegistration:UserRegistrationService, router:Router) {
+        this.router = router;
+        this.onInit();
+    }
 
-  constructor(private router:Router, public newUser:User) { }
+    onInit() {
+        this.registrationUser = new RegistrationUser();
+        this.errorMessage = null;
+    }
 
-  ngOnInit() {
-  }
+    onRegister() {
+        this.errorMessage = null;
+        this.userRegistration.register(this.registrationUser, this);
+    }
 
-  public authenticateUser(){
-    this.newUser.authenticate(this.formUser.email, this.formUser.password)
-  }
-
-  public createUser(){
-    this.newUser.create(this.formUser.email, this.formUser.password)
-
-    this.newUser.registered
-      .subscribe(
-        (next) => {
-          console.log(next)
-          if(next == true){
-            this.router.navigate(["/users/confirmation"]);
-          }
-        },
-        (error) => {
-          console.log("Uncaught Error Code: %s", error.code)
-          switch(error.code){
-            case "UsernameExistsException":
-            break;
-            case "MissingRequiredParameter":
-            break;
-            default:
-              console.log("Uncaught Error Code: %s", error.code)
-            break;
-          }
-        },
-        () => console.log('onCompleted')
-      );
-  }
-
+    cognitoCallback(message:string, result:any) {
+        if (message != null) { //error
+            this.errorMessage = message;
+            console.log("result: " + this.errorMessage);
+        } else { //success
+            //move to the next step
+            console.log("redirecting");
+            this.router.navigate(['/home/confirmRegistration', result.user.username]);
+        }
+    }
 }
