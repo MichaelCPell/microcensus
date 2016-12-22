@@ -90,6 +90,13 @@ export class User {
     this.email = null
   }
 
+  public authenticate(){
+
+  }
+
+
+  // Private Methods ==============================================================================
+
   private loadFromStorage(){
     this.email = localStorage.getItem("email");
     this.confirmed = localStorage.getItem("awsConfirmed");
