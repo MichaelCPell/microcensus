@@ -9,7 +9,8 @@ export class User {
   private _email: BehaviorSubject<string> = new BehaviorSubject("");;
   private _password:string;
   private _paid:boolean;
-  private _awsConfirmed:BehaviorSubject<boolean> = new BehaviorSubject(false);
+  // private _awsConfirmed:BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _confirmed:boolean = false;
   private _remainingLocations:BehaviorSubject<string> = new BehaviorSubject("1");
   private _awsRegistered: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -19,7 +20,15 @@ export class User {
   get email(){
     return this._email.asObservable()
   }
-  // set email(value){
-  //   this._email.next(value)
-  // }
+  set email(value){
+    this._email.next(value)
+  }
+
+  get confirmed(){
+    return this._confirmed
+  }
+
+  set confirmed(value){
+    this._confirmed = value
+  }
 }

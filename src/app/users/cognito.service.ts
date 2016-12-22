@@ -2,9 +2,9 @@ import {Injectable, Inject} from "@angular/core";
 import {RegistrationUser} from "./registration-user";
 import {DynamoDBService} from "./ddb.service";
 import {AwsUtil} from "./aws.service";
+import * as AWS from "aws-sdk";
 
-declare var AWSCognito:any;
-declare var AWS:any;
+var CognitoJS = require('amazon-cognito-identity-js');
 
 export interface CognitoCallback {
     cognitoCallback(message:string, result:any):void;
@@ -24,9 +24,9 @@ export class CognitoUtil {
 
     public static _REGION = "us-east-1";
 
-    public static _IDENTITY_POOL_ID = "us-east-1:fbe0340f-9ffc-4449-a935-bb6a6661fd53";
-    public static _USER_POOL_ID = "us-east-1_PGSbCVZ7S";
-    public static _CLIENT_ID = "hh5ibv67so0qukt55c5ulaltk";
+    public static _IDENTITY_POOL_ID = "us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658";
+    public static _USER_POOL_ID = "us-east-1_T2p3nd9xA";
+    public static _CLIENT_ID = "58qe0b7458eo9705kijc7hjhv6";
 
     public static _POOL_DATA = {
         UserPoolId: CognitoUtil._USER_POOL_ID,
@@ -35,11 +35,11 @@ export class CognitoUtil {
 
 
     public static getAwsCognito():any {
-        return AWSCognito
+        return CognitoJS
     }
 
     getUserPool() {
-        return new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(CognitoUtil._POOL_DATA);
+        return new CognitoJS.CognitoUserPool(CognitoUtil._POOL_DATA);
     }
 
     getCurrentUser() {
@@ -152,8 +152,8 @@ export class UserRegistrationService {
             Name: 'nickname',
             Value: user.name
         };
-        attributeList.push(new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail));
-        attributeList.push(new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataNickname));
+        attributeList.push(new CognitoJS.CognitoUserAttribute(dataEmail));
+        attributeList.push(new CognitoJS.CognitoUserAttribute(dataNickname));
 
         this.cognitoUtil.getUserPool().signUp(user.email, user.password, attributeList, null, function (err, result) {
             if (err) {
@@ -173,7 +173,7 @@ export class UserRegistrationService {
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        let cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+        let cognitoUser = new CognitoJS.CognitoUser(userData);
 
         cognitoUser.confirmRegistration(confirmationCode, true, function (err, result) {
             if (err) {
@@ -190,7 +190,7 @@ export class UserRegistrationService {
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        let cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+        let cognitoUser = new CognitoJS.CognitoUser(userData);
 
         cognitoUser.resendConfirmationCode(function (err, result) {
             if (err) {
@@ -212,13 +212,13 @@ export class UserLoginService {
     authenticate(username:string, password:string, callback:CognitoCallback) {
         console.log("UserLoginService: stgarting the authentication")
         // Need to provide placeholder keys unless unauthorised user access is enabled for user pool
-        AWSCognito.config.update({accessKeyId: 'anything', secretAccessKey: 'anything'})
+        AWS.config.update({accessKeyId: 'anything', secretAccessKey: 'anything'})
 
         let authenticationData = {
             Username: username,
             Password: password,
         };
-        let authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
+        let authenticationDetails = new CognitoJS.AuthenticationDetails(authenticationData);
 
         let userData = {
             Username: username,
@@ -226,21 +226,22 @@ export class UserLoginService {
         };
 
         console.log("UserLoginService: Params set...Authenticating the user");
-        let cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+        let cognitoUser = new CognitoJS.CognitoUser(userData);
         console.log("UserLoginService: config is " + AWS.config);
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess: function (result) {
 
+                var loginKey = `cognito-idp.us-east-1.amazonaws.com/${CognitoUtil._USER_POOL_ID}`
                 // Add the User's Id Token to the Cognito credentials login map.
                 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                     IdentityPoolId: CognitoUtil._IDENTITY_POOL_ID,
                     Logins: {
-                        'cognito-idp.us-east-1.amazonaws.com/us-east-1_PGSbCVZ7S': result.getIdToken().getJwtToken()
+                        loginKey: result.getIdToken().getJwtToken()
                     }
                 });
 
                 console.log("UserLoginService: set the AWS credentials - " + JSON.stringify(AWS.config.credentials));
-                console.log("UserLoginService: set the AWSCognito credentials - " + JSON.stringify(AWSCognito.config.credentials));
+                console.log("UserLoginService: set the AWSCognito credentials - " + JSON.stringify(CognitoJS.credentials));
                 callback.cognitoCallback(null, result);
             },
             onFailure: function (err) {
@@ -255,7 +256,7 @@ export class UserLoginService {
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        let cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+        let cognitoUser = new CognitoJS.CognitoUser(userData);
 
         cognitoUser.forgotPassword({
             onSuccess: function (result) {
@@ -276,7 +277,7 @@ export class UserLoginService {
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        let cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+        let cognitoUser = new CognitoJS.CognitoUser(userData);
 
         cognitoUser.confirmPassword(verificationCode, password, {
             onSuccess: function (result) {

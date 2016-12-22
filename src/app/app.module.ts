@@ -13,6 +13,8 @@ import { MapComponent } from './report-definer/sub_components/map/map.component'
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import { User } from './users/user';
 import { UserRegistrationComponent } from "./users/user-registration/user-registration.component";
+import { UserConfirmationComponent } from "./users/user-confirmation/user-confirmation.component";
+import { UserDashboardComponent } from "./users/user-dashboard/user-dashboard.component";
 import {AwsUtil} from "./users/aws.service";
 import {UserRegistrationService, UserLoginService, UserParametersService, CognitoUtil} from "./users/cognito.service";
 import {DynamoDBService} from "./users/ddb.service";
@@ -20,7 +22,9 @@ import {DynamoDBService} from "./users/ddb.service";
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
   { path: 'report_viewer/:name', component: ReportViewerComponent },
-  { path: 'users/registration', component: UserRegistrationComponent}
+  { path: 'users/registration', component: UserRegistrationComponent},
+  { path: 'users/confirmation', component: UserConfirmationComponent},
+  { path: 'users/dashboard', component: UserDashboardComponent},
 ]
 
 
@@ -32,7 +36,9 @@ const appRoutes: Routes = [
     AddressSelectorComponent,
     MapComponent,
     NavigationComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    UserConfirmationComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,

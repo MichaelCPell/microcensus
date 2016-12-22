@@ -14,11 +14,11 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
           <div *ngIf="user.email | async">
-            <div *ngIf="(user.confirmed | async) == 'true' || (user.confirmed | async) == true">
+            <div *ngIf="user.confirmed">
               <h5>{{user.remainingLocations | async}} Locations Remaining</h5>
             </div>
 
-            <div *ngIf="!(user.confirmed | async)">
+            <div *ngIf="!user.confirmed">
               <a routerLink="/users/confirmation" routerLinkActive="active">Please Confirm Your Account</a>
             </div>
             <div>
