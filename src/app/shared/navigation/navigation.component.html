@@ -22,7 +22,7 @@
               <a routerLink="/users/confirmation" routerLinkActive="active">Please Confirm Your Account</a>
             </div>
             <div>
-              <a routerLink="/dashboard" routerLinkActive="active">{{user.email | async}}</a>
+              <a routerLink="/users/dashboard" routerLinkActive="active">{{user.email | async}}</a>
             </div>
           </div>
           <div *ngIf="!(user.email | async)">

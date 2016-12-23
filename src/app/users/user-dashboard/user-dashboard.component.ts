@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
 import {Router} from "@angular/router";
+import {UserLoginService} from "../../users/cognito.service";
 
 @Component({
   selector: 'app-user-dashboard',
@@ -9,15 +10,15 @@ import {Router} from "@angular/router";
 })
 export class UserDashboardComponent implements OnInit {
 
-  constructor(private router:Router, public user:User) { }
+  constructor(private router:Router, public user:User, private userLogin:UserLoginService) { }
 
   ngOnInit() {
   }
 
   public signOut(){
-    this.user.signOut()
+    this.userLogin.logout()
     this.router.navigate(["/"]);
   }
 
-  
+
 }

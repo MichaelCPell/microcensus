@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {CognitoUtil, Callback} from "./cognito.service";
 
 declare var AWS:any;
-declare var AMA:any;
 
 @Injectable()
 export class AwsUtil {
@@ -58,8 +57,8 @@ export class AwsUtil {
                 appTitle: "aws-cognito-angular2-quickstart"
             };
 
-            var mobileAnalyticsClient = new AMA.Manager(options);
-            mobileAnalyticsClient.submitEvents();
+            // var mobileAnalyticsClient = new AMA.Manager(options);
+            // mobileAnalyticsClient.submitEvents();
 
             this.addCognitoCredentials(idToken);
 
@@ -91,6 +90,8 @@ export class AwsUtil {
                     this.ddb.writeLogEntry("login");
                     AwsUtil.firstLogin = false;
                 }
+            }else{
+              console.log(`Error: ${err}`)
             }
         });
     }
