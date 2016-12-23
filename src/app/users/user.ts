@@ -31,4 +31,12 @@ export class User {
   set confirmed(value){
     this._confirmed = value
   }
+
+  get remainingLocations(){
+    return this._remainingLocations
+  }
+
+  set remainingLocations(value){
+    this._remainingLocations.next(value)
+  }
 }

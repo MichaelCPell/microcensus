@@ -16,6 +16,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   public signOut(){
+    this.user.email = null
     this.userLogin.logout()
     this.router.navigate(["/"]);
   }

@@ -3,6 +3,8 @@ import {AwsUtil} from "./users/aws.service";
 import {UserLoginService, CognitoUtil, LoggedInCallback} from "./users/cognito.service";
 import { User } from "./users/user";
 
+import * as AWS from "aws-sdk";
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,28 +18,45 @@ export class AppComponent implements OnInit, LoggedInCallback{
 
 
   ngOnInit() {
-    console.log("AppComponent: Checking if the user is already authenticated");
-    this.userService.isAuthenticated(this);
+
+      var data = {
+          UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
+          ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
+      };
+      var userPool = new AWS.CognitoIdentityServiceProvider.CognitoUserPool(data);
+      var cognitoUser = userPool.getCurrentUser();
+
+      if (cognitoUser != null) {
+          cognitoUser.getSession((function(err, session) {
+              if (err) {
+                 alert(err);
+                  return;
+              }
+              console.log('session validity: ' + session.isValid());
+              this.user.email = cognitoUser.username
+              AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                  IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
+                  Logins : {
+                      'cognito-idp.us-east-1.amazonaws.com/us-east-1_T2p3nd9xA' : session.getIdToken().getJwtToken()
+                  }
+              });
+
+              var db = new AWS.DynamoDB({
+                params: {TableName: 'users'}
+              });
+
+              db.getItem({Key: {email: {S: cognitoUser.username}}}, ((err, data) => {
+                if(err){
+                  console.log(err)
+                }
+                console.log(data)
+
+                this.user.remainingLocations = data["Item"]["reportCredits"]["N"]
+
+              }).bind(this))
+          }).bind(this));
+      }
+
   }
 
-  isLoggedIn(message:string, isLoggedIn:boolean) {
-    console.log("AppComponent: the user is authenticated: " + isLoggedIn);
-
-
-    if(isLoggedIn){
-      this.user.email = this.cognito.getCurrentUser().username
-    }
-
-    let mythis = this;
-    this.cognito.getIdToken({
-        callback() {
-
-        },
-        callbackWithParam(token:any) {
-            // Include the passed-in callback here as well so that it's executed downstream
-            console.log("AppComponent: calling initAwsService in callback")
-            mythis.awsUtil.initAwsService(null, isLoggedIn, token);
-        }
-    });
-}
 }

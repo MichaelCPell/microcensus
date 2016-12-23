@@ -18,6 +18,7 @@ import { UserDashboardComponent } from "./users/user-dashboard/user-dashboard.co
 import {AwsUtil} from "./users/aws.service";
 import {UserRegistrationService, UserLoginService, UserParametersService, CognitoUtil} from "./users/cognito.service";
 import {DynamoDBService} from "./users/ddb.service";
+import { UserLoginComponent } from './users/user-login/user-login.component';
 
 const appRoutes: Routes = [
   { path: '', component: ReportDefinerComponent },
@@ -25,6 +26,7 @@ const appRoutes: Routes = [
   { path: 'users/registration', component: UserRegistrationComponent},
   { path: 'users/confirmation', component: UserConfirmationComponent},
   { path: 'users/dashboard', component: UserDashboardComponent},
+  { path: 'users/login', component: UserLoginComponent},
 ]
 
 
@@ -38,7 +40,8 @@ const appRoutes: Routes = [
     NavigationComponent,
     UserRegistrationComponent,
     UserConfirmationComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,

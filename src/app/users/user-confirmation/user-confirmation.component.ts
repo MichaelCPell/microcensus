@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import { User } from "../user"
 import { UserRegistrationService } from "../cognito.service";
 import { CognitoCallback } from "../cognito.service";
-
+import * as AWS from "aws-sdk";
 @Component({
   selector: 'app-user-confirmation',
   templateUrl: './user-confirmation.component.html',
@@ -36,8 +36,59 @@ export class UserConfirmationComponent implements OnInit, OnDestroy, CognitoCall
         } else { //success
             //move to the next step
             console.log("Moving to dashboard");
-            this.user.confirmed = true
-            this.router.navigate(['/users/dashboard']);
+
+            var authenticationData = {
+                Username : localStorage.getItem("email"),
+                Password : localStorage.getItem("password"),
+            };
+            var authenticationDetails = new AWS.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
+            var poolData = {
+                UserPoolId : 'us-east-1_T2p3nd9xA',
+                ClientId : '58qe0b7458eo9705kijc7hjhv6'
+            };
+            var userPool = new AWS.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
+            var userData = {
+                Username : localStorage.getItem("email"),
+                Pool : userPool
+            };
+            var host = this;
+            var cognitoUser = new AWS.CognitoIdentityServiceProvider.CognitoUser(userData);
+            cognitoUser.authenticateUser(authenticationDetails, {
+                onSuccess:  ((result) => {
+                    console.log(result)
+                    console.log('access token + ' + result.getAccessToken().getJwtToken());
+
+
+                    this.user.email = cognitoUser.username
+                    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                        IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658', // your identity pool id here
+                        Logins : {
+                            // Change the key below according to the specific region your user pool is in.
+                            'cognito-idp.us-east-1.amazonaws.com/us-east-1_T2p3nd9xA' : result.getIdToken().getJwtToken()
+                        }
+                    });
+
+                    var db = new AWS.DynamoDB({
+                      params: {TableName: 'users'}
+                    });
+
+                    db.getItem({Key: {email: {S: cognitoUser.username}}}, ((err, data) => {
+                      if(err){
+                        console.log(err)
+                      }
+                      console.log(data)
+
+                      this.user.remainingLocations = data["Item"]["reportCredits"]["N"]
+                      this.router.navigate(["users/dashboard"])
+
+                    }).bind(this))
+                }).bind(this),
+
+                onFailure: function(err) {
+                    alert(err);
+                }
+
+            });
         }
     }
 }
