@@ -48,7 +48,39 @@ export class DynamoDBService {
     }
 
 
-    public addReport(reportName, publicUrl){
+    public addReport(oData){
+      var db = new AWS.DynamoDB.DocumentClient();
+      var params = {
+        TableName: 'users',
+        Key: { email: oData.email},
+        UpdateExpression: 'set #a.#id.#b.#reportName = :z',
+        ExpressionAttributeNames: {
+          '#a' : 'locations',
+          '#id' : oData.address,
+          '#b' : 'reports',
+          '#reportName' : oData.reportName
+        },
+        ExpressionAttributeValues: {
+          ':z': {
+            reportName: oData.reportName,
+            publicUrl: oData.Location
+          }
+        },
+        ReturnValues: 'ALL_NEW'
+      };
+
+      return Observable.create( observer => {
+        db.update(params, (err, data) => {
+          if(err) console.log(err);
+          else{
+            observer.next(data)
+          }
+        })
+      })
+
+
+
+
 
     }
 }

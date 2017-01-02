@@ -31,11 +31,8 @@ export class ReportDefinerComponent implements OnInit {
 
   public addAndAnalyze(){
     this.ddb.addLocation(this.researchArea.place.formatted_address, this.user.email.getValue());
-    // [routerLink]="['/report_viewer/' + selectedReport]"
-    //         class="btn btn-mc-dark"
 
-
-    // this.router.navigate(['/report_viewer/', this.selectedReport])
+    this.router.navigate(['/report_viewer/', this.selectedReport])
   }
 
   public readyToAnalyze(){

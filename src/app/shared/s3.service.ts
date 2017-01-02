@@ -9,8 +9,8 @@ export class S3Service{
   });
 
 
-  public publishReport(file){
-    return Observable.create((function(observer) {
+  public publishReport(file, reportName, address, email){
+    return Observable.create((observer) => {
       this.s3.upload({
         Bucket: "reports.themicrocensus.com",
         Key: file.name + ".html",
@@ -22,9 +22,13 @@ export class S3Service{
           console.log(err)
           return
         }
+        data.reportName = reportName
+        data.address = address
+        data.email = email
+
         observer.next(data)
       });
-    }).bind(this));
+    })
   }
 
 }

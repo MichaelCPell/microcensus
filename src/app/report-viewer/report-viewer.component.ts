@@ -6,10 +6,13 @@ import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/concatMap';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { ResearchAreaService } from "../shared/research-area.service";
 import { S3Service } from "../shared/s3.service";
+import { DynamoDBService } from "../shared/ddb.service";
+import { User } from "../users/user"
 
 @Component({
   selector: 'app-report-view',
@@ -32,7 +35,9 @@ export class ReportViewerComponent implements AfterViewInit {
     private http: Http,
     private route: ActivatedRoute,
     private researchArea: ResearchAreaService,
-    private s3: S3Service) {
+    private s3: S3Service,
+    private ddb: DynamoDBService,
+    private user:User) {
     this.route = route;
     this.geom = {
       "type":"Point",
@@ -76,19 +81,23 @@ export class ReportViewerComponent implements AfterViewInit {
   public publish(){
     // let slug = this.convertToSlug(this.researchArea.place.formatted_address)
     let slug = "early_moon_calfs"
+    // let address = this.researchArea.place.formatted_address
+    let address = "204 Windrift Dr, Gibsonville, NC 27249, USA"
+
 
     var filename =  slug + "_" + this.reportName
     var f = new File([document.documentElement.outerHTML], filename ,{type: "text/html"});
-    this.s3.publishReport(f).subscribe(
-      (next) => {
-
-        
-
-      },
-      (error) => {
-        console.log(error)
-      }
-    );
+    this.s3
+      .publishReport(f, this.reportName, address, this.user.email.getValue())
+      .concatMap(this.ddb.addReport)
+      .subscribe(
+        (next) => {
+          console.log(next)
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
   }
 
   private createComponentFactory(template: string, data:any, reportName:string)

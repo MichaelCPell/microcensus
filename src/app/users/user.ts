@@ -3,6 +3,7 @@ import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 declare var localStorage: any;
+import * as _ from 'lodash';
 
 @Injectable()
 export class User {
@@ -42,7 +43,9 @@ export class User {
   }
 
   get locations(){
-    return this._locations
+    return this._locations.map( data => {
+      return _.values(data)
+    })
   }
 
   set locations(value){
@@ -51,6 +54,6 @@ export class User {
 
   public updateFromDdb(userObject){
     this.locations = userObject["locations"]
-    this.remainingLocations = userObject["reportCredits"] - userObject["locations"].length
+    this.remainingLocations = userObject["reportCredits"] - Object.keys(userObject["locations"]).length
   }
 }
