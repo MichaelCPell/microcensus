@@ -15,7 +15,7 @@ export class NavigationComponent implements OnInit {
   }
 
   public logOut(){
-    this.userLogin.logOut();
+    this.user.logOut();
   }
 
 }

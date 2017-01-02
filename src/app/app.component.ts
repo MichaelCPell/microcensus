@@ -10,7 +10,7 @@ import * as AWS from "aws-sdk";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, LoggedInCallback{
+export class AppComponent implements OnInit{
 
   constructor(public awsUtil:AwsUtil, public userService:UserLoginService, public cognito:CognitoUtil, private user:User) {
     console.log("AppComponent: constructor");
@@ -50,9 +50,7 @@ export class AppComponent implements OnInit, LoggedInCallback{
                   console.log(err)
                 }
                 console.log(data)
-
                 this.user.remainingLocations = data["Item"]["reportCredits"]["N"]
-
               }).bind(this))
           }).bind(this));
       }

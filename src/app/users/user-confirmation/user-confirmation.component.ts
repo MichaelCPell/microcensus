@@ -9,7 +9,7 @@ import * as AWS from "aws-sdk";
   templateUrl: './user-confirmation.component.html',
   styleUrls: ['./user-confirmation.component.css']
 })
-export class UserConfirmationComponent implements OnInit, OnDestroy, CognitoCallback {
+export class UserConfirmationComponent implements OnInit,  CognitoCallback {
     confirmationCode:string;
     email:string;
     errorMessage:string;
@@ -19,9 +19,6 @@ export class UserConfirmationComponent implements OnInit, OnDestroy, CognitoCall
 
     ngOnInit() {
         this.errorMessage = null;
-    }
-
-    ngOnDestroy() {
     }
 
     onConfirmRegistration() {
