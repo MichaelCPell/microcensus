@@ -17,7 +17,7 @@ import { UserConfirmationComponent } from "./users/user-confirmation/user-confir
 import { UserDashboardComponent } from "./users/user-dashboard/user-dashboard.component";
 import {AwsUtil} from "./users/aws.service";
 import {UserRegistrationService, UserLoginService, UserParametersService, CognitoUtil} from "./users/cognito.service";
-import {DynamoDBService} from "./users/ddb.service";
+import {DynamoDBService} from "./shared/ddb.service";
 import {AuthGuard} from "./users/auth-guard.service";
 import { UserLoginComponent } from './users/user-login/user-login.component';
 

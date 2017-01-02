@@ -53,8 +53,7 @@
   </div>
   <div class="row last-row">
     <div class="col-md-12 centered">
-      <button [routerLink]="['/report_viewer/' + selectedReport]"
-              class="btn btn-mc-dark">Analyze this Area!</button>
+      <button  [disabled]="!researchArea.place" (click)="addAndAnalyze()">Analyze this Area!</button>
     </div>
   </div>
 </div>

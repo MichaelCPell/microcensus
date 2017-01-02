@@ -13,11 +13,6 @@ export class UserDashboardComponent implements OnInit {
   constructor(private router:Router, public user:User, private userLogin:UserLoginService) { }
 
   ngOnInit() {
-    this.user.locations.subscribe(
-      l => {
-        console.log(l)
-      }
-    )
   }
 
   public signOut(){

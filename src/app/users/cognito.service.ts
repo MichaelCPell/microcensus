@@ -1,6 +1,6 @@
 import {Injectable, Inject} from "@angular/core";
 import {RegistrationUser} from "./registration-user";
-import {DynamoDBService} from "./ddb.service";
+import {DynamoDBService} from "../shared/ddb.service";
 import {AwsUtil} from "./aws.service";
 import * as AWS from "aws-sdk";
 

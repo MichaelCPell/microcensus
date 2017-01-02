@@ -19,7 +19,7 @@ export class User {
   }
 
   get email(){
-    return this._email.asObservable()
+    return this._email
   }
   set email(value){
     this._email.next(value)
@@ -51,5 +51,6 @@ export class User {
 
   public updateFromDdb(userObject){
     this.locations = userObject["locations"]
+    this.remainingLocations = userObject["reportCredits"] - userObject["locations"].length
   }
 }
