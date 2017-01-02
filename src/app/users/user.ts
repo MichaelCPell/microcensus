@@ -13,6 +13,7 @@ export class User {
   private _confirmed:boolean = false;
   private _remainingLocations:BehaviorSubject<string> = new BehaviorSubject("1");
   private _awsRegistered: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private _locations: BehaviorSubject<Array<object>> = new BehaviorSubject([])
 
   constructor(private http:Http){
   }
@@ -38,5 +39,17 @@ export class User {
 
   set remainingLocations(value){
     this._remainingLocations.next(value)
+  }
+
+  get locations(){
+    return this._locations
+  }
+
+  set locations(value){
+    this._locations.next(value)
+  }
+
+  public updateFromDdb(userObject){
+    this.locations = userObject["locations"]
   }
 }

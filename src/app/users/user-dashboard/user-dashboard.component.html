@@ -1,5 +1,12 @@
 <app-navigation></app-navigation>
-<h1>{{user.email}}</h1>
+<h1>{{user.email | async}}</h1>
+
+
+<ul>
+  <li *ngFor="let location of (user.locations | async)">
+    {{location.address}}
+  </li>
+</ul>
 
 <button (click)="signOut()">Sign Out</button>
 

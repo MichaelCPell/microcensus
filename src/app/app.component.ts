@@ -41,16 +41,16 @@ export class AppComponent implements OnInit{
                   }
               });
 
-              var db = new AWS.DynamoDB({
+              var db = new AWS.DynamoDB.DocumentClient({
                 params: {TableName: 'users'}
               });
 
-              db.getItem({Key: {email: {S: cognitoUser.username}}}, ((err, data) => {
+              db.get({Key: {email: cognitoUser.username}}, ((err, data) => {
                 if(err){
                   console.log(err)
                 }
                 console.log(data)
-                this.user.remainingLocations = data["Item"]["reportCredits"]["N"]
+                this.user.updateFromDdb(data["Item"])
               }).bind(this))
           }).bind(this));
       }
