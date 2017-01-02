@@ -18,6 +18,7 @@ import { UserDashboardComponent } from "./users/user-dashboard/user-dashboard.co
 import {AwsUtil} from "./users/aws.service";
 import {UserRegistrationService, UserLoginService, UserParametersService, CognitoUtil} from "./users/cognito.service";
 import {DynamoDBService} from "./shared/ddb.service";
+import {S3Service} from "./shared/s3.service";
 import {AuthGuard} from "./users/auth-guard.service";
 import { UserLoginComponent } from './users/user-login/user-login.component';
 
@@ -62,7 +63,8 @@ const appRoutes: Routes = [
     UserLoginService,
     UserParametersService,
     UserRegistrationService,
-    AuthGuard],
+    AuthGuard,
+    S3Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

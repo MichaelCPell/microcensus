@@ -3,6 +3,7 @@ import {environment} from 'environments/environment';
 import { ResearchAreaService } from '../shared/research-area.service';
 import { DynamoDBService } from "../shared/ddb.service.ts";
 import { User } from "../users/user";
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-report-definer',
@@ -17,7 +18,8 @@ export class ReportDefinerComponent implements OnInit {
     "age_and_education"
   ]
 
-  constructor(private researchArea: ResearchAreaService, private ddb:DynamoDBService, private user:User) {
+  constructor(private researchArea: ResearchAreaService, private ddb:DynamoDBService, private user:User,
+    private router:Router) {
     this.selectedReport = "Select Report";
 
     this.researchArea = researchArea;
@@ -31,5 +33,12 @@ export class ReportDefinerComponent implements OnInit {
     this.ddb.addLocation(this.researchArea.place.formatted_address, this.user.email.getValue());
     // [routerLink]="['/report_viewer/' + selectedReport]"
     //         class="btn btn-mc-dark"
+
+
+    // this.router.navigate(['/report_viewer/', this.selectedReport])
+  }
+
+  public readyToAnalyze(){
+    return !this.researchArea.place && (this.selectedReport != 'Select Report')
   }
 };

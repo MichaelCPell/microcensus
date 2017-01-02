@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Stuff} from "./user-activity/user-activity.component";
-import {User} from "../users/user"
+import {User} from "../users/user";
+import {Observable} from "rxjs/Observable";
 
 declare var AWS:any;
 declare var AWSCognito:any;
@@ -21,12 +22,17 @@ export class DynamoDBService {
       var params = {
         TableName: 'users',
         Key: { email: email},
-        UpdateExpression: 'set #a[9999999] = :z',
-        ExpressionAttributeNames: {'#a' : 'locations'},
+        ConditionExpression: 'attribute_not_exists(#a.#id)',
+        UpdateExpression: 'set #a.#id = :z',
+        ExpressionAttributeNames: {
+          '#a' : 'locations',
+          '#id' : address
+        },
         ExpressionAttributeValues: {
           ':z': {
             address: address,
-            createdAt: Date.now()
+            createdAt: Date.now(),
+            reports: []
           }
         },
         ReturnValues: 'ALL_NEW'
@@ -41,4 +47,8 @@ export class DynamoDBService {
       })
     }
 
+
+    public addReport(reportName, publicUrl){
+
+    }
 }

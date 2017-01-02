@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { ResearchAreaService } from "../shared/research-area.service";
+import { S3Service } from "../shared/s3.service";
 
 @Component({
   selector: 'app-report-view',
@@ -30,7 +31,8 @@ export class ReportViewerComponent implements AfterViewInit {
     protected compiler: RuntimeCompiler,
     private http: Http,
     private route: ActivatedRoute,
-    private researchArea: ResearchAreaService) {
+    private researchArea: ResearchAreaService,
+    private s3: S3Service) {
     this.route = route;
     this.geom = {
       "type":"Point",
@@ -70,21 +72,24 @@ export class ReportViewerComponent implements AfterViewInit {
         );
   };
 
-  // 
-  // public publish(){
-  //
-  //   var filename = this.convertToSlug(this.researchArea.place.formatted_address) + "_" + this.reportName
-  //   var f = new File([document.documentElement.outerHTML], filename ,{type: "text/html"});
-  //   this.aws.publishReport(f).subscribe(
-  //     (next) => {
-  //       console.log(next)
-  //       alert(next.Location)
-  //     },
-  //     (error) => {
-  //       console.log(error)
-  //     }
-  //   );
-  // }
+
+  public publish(){
+    // let slug = this.convertToSlug(this.researchArea.place.formatted_address)
+    let slug = "early_moon_calfs"
+
+    var filename =  slug + "_" + this.reportName
+    var f = new File([document.documentElement.outerHTML], filename ,{type: "text/html"});
+    this.s3.publishReport(f).subscribe(
+      (next) => {
+
+        
+
+      },
+      (error) => {
+        console.log(error)
+      }
+    );
+  }
 
   private createComponentFactory(template: string, data:any, reportName:string)
     : Promise<any>{
@@ -121,7 +126,7 @@ export class ReportViewerComponent implements AfterViewInit {
               (response:any) => {
                 let data = this.data;
                 console.log(data)
-                eval(response._body)
+                // eval(response._body)
               }
             );
           }
