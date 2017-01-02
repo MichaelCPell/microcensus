@@ -18,10 +18,13 @@ import { UserDashboardComponent } from "./users/user-dashboard/user-dashboard.co
 import {AwsUtil} from "./users/aws.service";
 import {UserRegistrationService, UserLoginService, UserParametersService, CognitoUtil} from "./users/cognito.service";
 import {DynamoDBService} from "./users/ddb.service";
+import {AuthGuard} from "./users/auth-guard.service";
 import { UserLoginComponent } from './users/user-login/user-login.component';
 
 const appRoutes: Routes = [
-  { path: '', component: ReportDefinerComponent },
+  { path: '',
+    component: ReportDefinerComponent,
+    canActivate: [AuthGuard]},
   { path: 'report_viewer/:name', component: ReportViewerComponent },
   { path: 'users/registration', component: UserRegistrationComponent},
   { path: 'users/confirmation', component: UserConfirmationComponent},
@@ -58,7 +61,8 @@ const appRoutes: Routes = [
     DynamoDBService,
     UserLoginService,
     UserParametersService,
-    UserRegistrationService],
+    UserRegistrationService,
+    AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
