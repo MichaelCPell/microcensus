@@ -13,12 +13,8 @@ export class DynamoDBService {
         console.log("DynamoDBService: constructor");
     }
 
-    public addLocation(address, email){
-      console.log(email)
-
-
+    public addLocation(place, email){
       var db = new AWS.DynamoDB.DocumentClient();
-
       var params = {
         TableName: 'users',
         Key: { email: email},
@@ -26,11 +22,11 @@ export class DynamoDBService {
         UpdateExpression: 'set #a.#id = :z',
         ExpressionAttributeNames: {
           '#a' : 'locations',
-          '#id' : address
+          '#id' : place.formatted_address
         },
         ExpressionAttributeValues: {
           ':z': {
-            address: address,
+            place: place,
             createdAt: Date.now(),
             reports: {}
           }
@@ -43,7 +39,6 @@ export class DynamoDBService {
         else{
           this.user.updateFromDdb(data["Attributes"])
         }
-
       })
     }
 

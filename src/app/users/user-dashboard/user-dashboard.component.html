@@ -4,8 +4,8 @@
 
 <ul>
   <li *ngFor="let location of (user.locations | async)">
-    <h4>{{location.address}}</h4>
-
+    <h4>{{location.place.formatted_address}}</h4>
+    <button (click)="makeReportWithLocation(location.place)" class="btn btn-sm">Make New Report</button>
     <h6> Published Reports </h6>
     <ul>
       <li *ngFor="let report of (location.reports | values)">
