@@ -52,7 +52,6 @@ export class ReportViewerComponent implements AfterViewInit {
 
     let html;
     let tempReport;
-
     this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
@@ -80,9 +79,9 @@ export class ReportViewerComponent implements AfterViewInit {
 
 
   public publish(){
-    let slug = this.convertToSlug(this.researchArea.place.formatted_address)
+    let slug = this.convertToSlug(this.researchArea.place.getValue().formatted_address)
     // let slug = "early_moon_calfs"
-    let address = this.researchArea.place.formatted_address
+    let address = this.researchArea.place.getValue().formatted_address
     // let address = "204 Windrift Dr, Gibsonville, NC 27249, USA"
     var filename =  slug + "_" + this.reportName
     var f = new File([document.querySelector("#publishableContent").outerHTML], filename ,{type: "text/html"});

@@ -22,10 +22,12 @@ export class MapComponent implements OnInit {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    this.researchArea.placeObsv.subscribe(
-      (next) => {
-        this.marker = L.marker([next[1], next[0]]).addTo(map);
-        map.setView(this.marker.getLatLng(), 14);
+    this.researchArea.place.subscribe(
+      (place) => {
+        if(place.lat){
+          this.marker = L.marker([place.lat, place.lng]).addTo(map);
+          map.setView(this.marker.getLatLng(), 14);          
+        }
       },
       e => console.log('onError: %s', e),
       () => console.log('onCompleted')
