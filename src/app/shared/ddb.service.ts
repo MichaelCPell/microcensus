@@ -32,7 +32,7 @@ export class DynamoDBService {
           ':z': {
             address: address,
             createdAt: Date.now(),
-            reports: []
+            reports: {}
           }
         },
         ReturnValues: 'ALL_NEW'
@@ -63,7 +63,7 @@ export class DynamoDBService {
         ExpressionAttributeValues: {
           ':z': {
             reportName: oData.reportName,
-            publicUrl: oData.Location
+            publicUrl: `${oData.Bucket}/${oData.key}`
           }
         },
         ReturnValues: 'ALL_NEW'
@@ -77,10 +77,5 @@ export class DynamoDBService {
           }
         })
       })
-
-
-
-
-
     }
 }
