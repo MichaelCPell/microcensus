@@ -27,6 +27,7 @@ export class ReportViewerComponent implements AfterViewInit {
   public errorMessage:string;
   public report:any;
   public geom:any;
+  public publishButton:string = "Save this Report";
   @ViewChild('myDynamicContent', { read: ViewContainerRef })
   protected dynamicComponentTarget: ViewContainerRef;
 
@@ -84,13 +85,16 @@ export class ReportViewerComponent implements AfterViewInit {
     let address = this.researchArea.place.formatted_address
     // let address = "204 Windrift Dr, Gibsonville, NC 27249, USA"
     var filename =  slug + "_" + this.reportName
-    var f = new File([document.documentElement.outerHTML], filename ,{type: "text/html"});
+    var f = new File([document.querySelector("#publishableContent").outerHTML], filename ,{type: "text/html"});
     this.s3
       .publishReport(f, this.reportName, address, this.user.email.getValue())
       .concatMap(this.ddb.addReport)
       .subscribe(
         (next) => {
           console.log(next)
+          this.user.updateFromDdb(next["Attributes"])
+
+          this.publishButton = "Saved to Dashboard!"
         },
         (error) => {
           console.log(error)
@@ -132,8 +136,7 @@ export class ReportViewerComponent implements AfterViewInit {
             .subscribe(
               (response:any) => {
                 let data = this.data;
-                console.log(data)
-                // eval(response._body)
+                eval(response._body)
               }
             );
           }

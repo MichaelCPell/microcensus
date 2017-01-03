@@ -63,7 +63,7 @@ export class DynamoDBService {
         ExpressionAttributeValues: {
           ':z': {
             reportName: oData.reportName,
-            publicUrl: `${oData.Bucket}/${oData.key}`
+            publicUrl: `http://${oData.Bucket}/${oData.key}`
           }
         },
         ReturnValues: 'ALL_NEW'

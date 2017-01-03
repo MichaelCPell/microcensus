@@ -4,11 +4,15 @@
 
 <ul>
   <li *ngFor="let location of (user.locations | async)">
-    {{location.address}}
+    <h4>{{location.address}}</h4>
+
+    <h6> Published Reports </h6>
+    <ul>
+      <li *ngFor="let report of (location.reports | values)">
+        <a target="_blank" href="{{report.publicUrl}}">{{report.reportName}}</a>
+      </li>
+    </ul>
   </li>
 </ul>
 
 <button (click)="signOut()">Sign Out</button>
-
-
-<button (click)="runExperiment()">Run Experiment</button>

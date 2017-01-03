@@ -8,7 +8,6 @@ export class S3Service{
     params: {Bucket: "deletelater123"}
   });
 
-
   public publishReport(file, reportName, address, email){
     return Observable.create((observer) => {
       this.s3.upload({
@@ -28,7 +27,6 @@ export class S3Service{
 
         observer.next(data)
       });
-    })
+    });
   }
-
 }

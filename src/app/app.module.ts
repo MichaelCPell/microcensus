@@ -21,6 +21,7 @@ import {DynamoDBService} from "./shared/ddb.service";
 import {S3Service} from "./shared/s3.service";
 import {AuthGuard} from "./users/auth-guard.service";
 import { UserLoginComponent } from './users/user-login/user-login.component';
+import { ValuesPipe } from './shared/values.pipe';
 
 const appRoutes: Routes = [
   { path: '',
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
     UserRegistrationComponent,
     UserConfirmationComponent,
     UserDashboardComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    ValuesPipe
   ],
   imports: [
     BrowserModule,
