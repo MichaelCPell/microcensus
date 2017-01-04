@@ -1,6 +1,10 @@
 <app-navigation></app-navigation>
-<h1>{{user.email | async}}</h1>
+<div *ngIf="(user.remainingLocations | async) <= 3">
+  You are out of location credits.  Please buy more to research more locations.
 
+  <button routerLink="/credits/new">Buy More Credits</button>
+
+</div>
 
 <ul>
   <li *ngFor="let location of (user.locations | async)">

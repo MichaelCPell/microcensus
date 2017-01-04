@@ -54,6 +54,6 @@ export class User {
 
   public updateFromDdb(userObject){
     this.locations = userObject["locations"]
-    this.remainingLocations = userObject["reportCredits"] - Object.keys(userObject["locations"]).length
+    this.remainingLocations = userObject["locationCredits"] - Object.keys(userObject["locations"]).length
   }
 }

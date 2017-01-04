@@ -31,19 +31,20 @@ export class SubscriptionCreatorComponent implements OnInit {
   public submitCard(){
     Stripe.setPublishableKey('pk_test_egLZwXn91dZAmLYVGBKFDh3T');
       Stripe.card.createToken(this.formCard, (status, response) => {
-        this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/prod/customers",
-          {token: response.id, email: this.user.email})
-          .subscribe(
-            (next) => {
-              console.log(next)
-              this.user.paid = true;
-              console.log(this.user.paid)
-                this.af.tick();
-            },
-            (error) => {
-              console.log("error")
-            }
-          )
+        console.log(response.id)
+        // this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/prod/customers",
+        //   {token: response.id, email: this.user.email})
+        //   .subscribe(
+        //     (next) => {
+        //       console.log(next)
+        //       this.user.paid = true;
+        //       console.log(this.user.paid)
+        //         this.af.tick();
+        //     },
+        //     (error) => {
+        //       console.log("error")
+        //     }
+        //   )
       });
   }
 
