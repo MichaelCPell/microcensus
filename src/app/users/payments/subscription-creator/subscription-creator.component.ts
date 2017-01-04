@@ -1,6 +1,7 @@
 import { Component, OnInit, ApplicationRef, Input } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { User } from '../../user';
+import { Router } from '@angular/router';
 
 declare var Stripe: any;
 
@@ -17,7 +18,7 @@ export class SubscriptionCreatorComponent implements OnInit {
     expYear: "20"
   };
   @Input() choice:string;
-  constructor(public user:User, private http:Http, private af: ApplicationRef) { }
+  constructor(public user:User, private http:Http, private af: ApplicationRef, private router:Router) { }
 
   ngOnInit() {
   }
@@ -29,11 +30,9 @@ export class SubscriptionCreatorComponent implements OnInit {
          .subscribe(
            next => {
              this.user.updateFromDdb(JSON.parse(next._body));
+             this.router.navigate(["users/dashboard"])
            }
          )
       }).bind(this))
   }
-
-
-
 }

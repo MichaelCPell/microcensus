@@ -37,7 +37,6 @@ export class DynamoDBService {
       db.update(params, ((err, data) => {
         if(err) console.log(err);
         else{
-          debugger
           this.user.updateFromDdb(data["Attributes"])
         }
       }).bind(this))
