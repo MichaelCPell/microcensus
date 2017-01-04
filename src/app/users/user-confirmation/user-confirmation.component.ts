@@ -64,7 +64,7 @@ export class UserConfirmationComponent implements OnInit,  CognitoCallback {
                         }
                     });
 
-                    window.location.href = "/users/dashboard"
+                    window.location.href = "/"
 
                 }).bind(this),
 
