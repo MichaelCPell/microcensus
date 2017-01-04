@@ -1,4 +1,4 @@
-import { Component, OnInit, ApplicationRef } from '@angular/core';
+import { Component, OnInit, ApplicationRef, Input } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { User } from '../../user';
 
@@ -16,36 +16,22 @@ export class SubscriptionCreatorComponent implements OnInit {
     expMonth: "12",
     expYear: "20"
   };
+  @Input() choice:string;
   constructor(public user:User, private http:Http, private af: ApplicationRef) { }
 
   ngOnInit() {
   }
 
-
-  public experiment(){
-
-    this.submitCard();
-  }
-
-
   public submitCard(){
     Stripe.setPublishableKey('pk_test_egLZwXn91dZAmLYVGBKFDh3T');
-      Stripe.card.createToken(this.formCard, (status, response) => {
-        console.log(response.id)
-        // this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/prod/customers",
-        //   {token: response.id, email: this.user.email})
-        //   .subscribe(
-        //     (next) => {
-        //       console.log(next)
-        //       this.user.paid = true;
-        //       console.log(this.user.paid)
-        //         this.af.tick();
-        //     },
-        //     (error) => {
-        //       console.log("error")
-        //     }
-        //   )
-      });
+      Stripe.card.createToken(this.formCard, ((status, response) => {
+        this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/payments", {email: this.user.email.getValue(), token: response.id})
+         .subscribe(
+           next => {
+             this.user.updateFromDdb(JSON.parse(next._body));
+           }
+         )
+      }).bind(this))
   }
 
 

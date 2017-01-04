@@ -34,12 +34,13 @@ export class DynamoDBService {
         ReturnValues: 'ALL_NEW'
       }
 
-      db.update(params, (err, data) => {
+      db.update(params, ((err, data) => {
         if(err) console.log(err);
         else{
+          debugger
           this.user.updateFromDdb(data["Attributes"])
         }
-      })
+      }).bind(this))
     }
 
 
