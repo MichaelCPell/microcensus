@@ -22,6 +22,11 @@ import {S3Service} from "./shared/s3.service";
 import {AuthGuard} from "./users/auth-guard.service";
 import { UserLoginComponent } from './users/user-login/user-login.component';
 import { ValuesPipe } from './shared/values.pipe';
+import { CreditShopComponent } from './users/credit-shop/credit-shop.component';
+import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
+
+
+
 
 const appRoutes: Routes = [
   { path: '',
@@ -32,6 +37,7 @@ const appRoutes: Routes = [
   { path: 'users/confirmation', component: UserConfirmationComponent},
   { path: 'users/dashboard', component: UserDashboardComponent},
   { path: 'users/login', component: UserLoginComponent},
+  { path: 'credits/new', component: CreditShopComponent}
 ]
 
 
@@ -47,7 +53,9 @@ const appRoutes: Routes = [
     UserConfirmationComponent,
     UserDashboardComponent,
     UserLoginComponent,
-    ValuesPipe
+    ValuesPipe,
+    CreditShopComponent,
+    SubscriptionCreatorComponent
   ],
   imports: [
     BrowserModule,

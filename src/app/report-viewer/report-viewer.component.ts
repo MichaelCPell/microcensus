@@ -52,7 +52,6 @@ export class ReportViewerComponent implements AfterViewInit {
 
     let html;
     let tempReport;
-
     this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server error'))

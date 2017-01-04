@@ -14,10 +14,10 @@ export class ResearchAreaService {
 
   constructor() {}
 
+
   get coordinates(){
-    if(this._place){
-      return [this._place.lng, this._place.lat];
-    }
+    return [this.place.getValue().lng, this.place.getValue().lat];
+
   }
 
   set place(place:any){
@@ -25,7 +25,6 @@ export class ResearchAreaService {
       place.lat = place.geometry.location.lat();
       place.lng = place.geometry.location.lng();
     }
-
     this._place.next(place)
   }
 

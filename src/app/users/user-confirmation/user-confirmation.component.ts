@@ -48,13 +48,12 @@ export class UserConfirmationComponent implements OnInit,  CognitoCallback {
                 Username : localStorage.getItem("email"),
                 Pool : userPool
             };
-            var host = this;
+
             var cognitoUser = new AWS.CognitoIdentityServiceProvider.CognitoUser(userData);
             cognitoUser.authenticateUser(authenticationDetails, {
                 onSuccess:  ((result) => {
                     console.log(result)
                     console.log('access token + ' + result.getAccessToken().getJwtToken());
-
 
                     this.user.email = cognitoUser.username
                     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -65,20 +64,8 @@ export class UserConfirmationComponent implements OnInit,  CognitoCallback {
                         }
                     });
 
-                    var db = new AWS.DynamoDB({
-                      params: {TableName: 'users'}
-                    });
+                    window.location.href = "/users/dashboard"
 
-                    db.getItem({Key: {email: {S: cognitoUser.username}}}, ((err, data) => {
-                      if(err){
-                        console.log(err)
-                      }
-                      console.log(data)
-
-                      this.user.remainingLocations = data["Item"]["reportCredits"]["N"]
-                      this.router.navigate(["users/dashboard"])
-
-                    }).bind(this))
                 }).bind(this),
 
                 onFailure: function(err) {

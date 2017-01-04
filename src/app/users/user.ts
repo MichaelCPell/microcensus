@@ -15,6 +15,7 @@ export class User {
   private _remainingLocations:BehaviorSubject<string> = new BehaviorSubject("1");
   private _awsRegistered: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _locations: BehaviorSubject<Array<object>> = new BehaviorSubject([])
+  public isCustomer;
 
   constructor(private http:Http){
   }
@@ -54,6 +55,7 @@ export class User {
 
   public updateFromDdb(userObject){
     this.locations = userObject["locations"]
-    this.remainingLocations = userObject["reportCredits"] - Object.keys(userObject["locations"]).length
+    this.remainingLocations = userObject["locationCredits"] - Object.keys(userObject["locations"]).length
+    this.isCustomer = userObject["isCustomer"]
   }
 }

@@ -1,0 +1,13 @@
+<app-navigation></app-navigation>
+<div *ngIf="!choice">
+  <h1>Buy 10 Credits</h1>
+  <h3>$150</h3>
+  <button (click)="buy(10)">Buy Now</button>
+
+  <h1>Buy 25 Credits</h1>
+  <h3>$250</h3>
+</div>
+
+<div *ngIf="choice">
+  <app-subscription-creator [choice]="choice"></app-subscription-creator>
+</div>
