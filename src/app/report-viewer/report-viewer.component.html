@@ -5,4 +5,13 @@
   <template #myDynamicContent> I will be replaced.</template>
 </div>
 
-<a (click)="publish()">{{publishButton}}</a>
+<div class="row second-row">
+  <div class="col-md-12 col-sm-12 centered">
+    <button
+      (click)="publish()"
+      class="btn btn-mc-dark"
+      type="submit">
+      {{publishButton}}
+    </button>
+  </div>
+</div>
