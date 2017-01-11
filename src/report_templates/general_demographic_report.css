@@ -1,0 +1,100 @@
+.centered {
+  text-align: center;
+}
+
+.justified {
+  text-align: justify;;
+}
+
+.new-row {
+  padding-top: 15%;
+}
+
+.second-row {
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.last-row {
+  padding-bottom: 20%;
+}
+
+.title-row {
+  background-color: #fafafa !important;
+  -webkit-print-color-adjust: exact;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.report-title-row {
+  background-color: #3E4A5A !important;
+  -webkit-print-color-adjust: exact;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.page-title {
+  font-family:  'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 2.5em;
+  color: #fff;
+
+}
+
+.page-subtitle {
+  font-family: 'Open Sans', sans-serif;
+  color: #fff;
+  font-weight: 300;
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+.btn.btn-mc {
+  font-family:  'Lato', sans-serif;
+  color: #3E4A5A;
+  text-transform: uppercase;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 0px;
+}
+
+.subtitle {
+  /*background-color: #F6F6F6 !important;
+  -webkit-print-color-adjust: exact;
+  padding: 2%;*/
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+.number-subtitle {
+  font-family: 'Lato', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 0;
+  color: #E0601B !important;
+  -webkit-print-color-adjust: exact;
+}
+
+.description {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #2a2a2a;
+  font-size: 18px !important;
+}
+
+.section-title-row {
+  background-image:
+   linear-gradient(
+     to right,
+     #3E4A5A, #6C87AB
+   );
+}
+
+.map {
+  background-color: #d8d8d8;
+  height: 160px;
+  width: 100%;
+}
