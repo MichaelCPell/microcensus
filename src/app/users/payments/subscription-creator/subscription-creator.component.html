@@ -1,21 +1,23 @@
 <h1> Subscription Creator </h1>
 
 
-<!-- Now change all the name attributes on your credit card inputs to data-stripe instead -->
-<form action="" method="POST" #paymentForm (click)="submitCard()">
-    <!-- Add a section to display errors if you want -->
-    <span class='payment-errors'></span>
-    Number: <input [(ngModel)]="formCard.number" name="number"/>
-    <br/>
-    CVC: <input [(ngModel)]="formCard.cvc" name="cvc"/>
-    <br/>
-    Month:  <input [(ngModel)]="formCard.expMonth" name="expMonth"/>
-    <br/>
-    Year: <input [(ngModel)]="formCard.expYear" name="expYear"/>
-    <br/>
-    <button type="submit">Submit Payment</button>
-</form>
+<div *ngIf="!loading">
+  <form action="" method="POST" #paymentForm (click)="submitCard()">
+      <!-- Add a section to display errors if you want -->
+      <span class='payment-errors'></span>
+      Number: <input [(ngModel)]="formCard.number" name="number"/>
+      <br/>
+      CVC: <input [(ngModel)]="formCard.cvc" name="cvc"/>
+      <br/>
+      Month:  <input [(ngModel)]="formCard.expMonth" name="expMonth"/>
+      <br/>
+      Year: <input [(ngModel)]="formCard.expYear" name="expYear"/>
+      <br/>
+      <button type="submit">Submit Payment</button>
+  </form>
+</div>
 
 
-
-<button (click)="submitCard()"> Experiment </button>
+<div *ngIf="loading">
+  <h3>Payment is Processing...</h3>
+</div>

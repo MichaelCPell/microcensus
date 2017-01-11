@@ -2,10 +2,13 @@
 <div *ngIf="!choice">
   <h1>Buy 10 Credits</h1>
   <h3>$150</h3>
-  <button (click)="buy(10)">Buy Now</button>
 
-  <h1>Buy 25 Credits</h1>
-  <h3>$250</h3>
+
+  <button *ngIf="!loading" (click)="buy(10)">Buy Now</button>
+  <h3 *ngIf="loading">Purchasing...</h3>
+
+  <!-- <h1>Buy 25 Credits</h1>
+  <h3>$250</h3> -->
 </div>
 
 <div *ngIf="choice">

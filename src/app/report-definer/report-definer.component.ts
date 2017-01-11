@@ -3,7 +3,7 @@ import {environment} from 'environments/environment';
 import { ResearchAreaService } from '../shared/research-area.service';
 import { DynamoDBService } from "../shared/ddb.service.ts";
 import { User } from "../users/user";
-import { Router } from "@angular/router"
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-report-definer',

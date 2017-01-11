@@ -17,6 +17,8 @@ export class SubscriptionCreatorComponent implements OnInit {
     expMonth: "12",
     expYear: "20"
   };
+  public loading:boolean = false;
+
   @Input() choice:string;
   constructor(public user:User, private http:Http, private af: ApplicationRef, private router:Router) { }
 
@@ -24,13 +26,14 @@ export class SubscriptionCreatorComponent implements OnInit {
   }
 
   public submitCard(){
+    this.loading = true;
     Stripe.setPublishableKey('pk_test_egLZwXn91dZAmLYVGBKFDh3T');
       Stripe.card.createToken(this.formCard, ((status, response) => {
         this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/payments", {email: this.user.email.getValue(), token: response.id})
          .subscribe(
            next => {
              this.user.updateFromDdb(JSON.parse(next._body));
-             this.router.navigate(["users/dashboard"])
+             this.router.navigate(["/"])
            }
          )
       }).bind(this))
