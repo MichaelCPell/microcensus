@@ -22,11 +22,14 @@ export class MapComponent implements OnInit {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
+
+
     this.researchArea.place.subscribe(
       (place) => {
         if(place.lat){
           this.marker = L.marker([place.lat, place.lng]).addTo(map);
-          map.setView(this.marker.getLatLng(), 14);          
+          L.circle([place.lat, place.lng], 1609).addTo(map);
+          map.setView(this.marker.getLatLng(), 14);
         }
       },
       e => console.log('onError: %s', e),
