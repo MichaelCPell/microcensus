@@ -1,22 +1,58 @@
 <app-navigation></app-navigation>
-<div *ngIf="(user.remainingLocations | async) <= 3">
-  You are out of location credits.  Please buy more to research more locations.
-
-  <button routerLink="/credits/new">Buy More Credits</button>
-
-</div>
-
-<ul>
-  <li *ngFor="let location of (user.locations | async)">
-    <h4>{{location.place.formatted_address}}</h4>
-    <button (click)="makeReportWithLocation(location.place)" class="btn btn-sm">Make New Report</button>
-    <h6> Published Reports </h6>
-    <ul>
-      <li *ngFor="let report of (location.reports | values)">
-        <a target="_blank" href="{{report.publicUrl}}">{{report.reportName}}</a>
-      </li>
-    </ul>
-  </li>
-</ul>
-
 <button (click)="signOut()">Sign Out</button>
+<div class="container-fluid">
+      <div class="row report-title-row">
+        <div class="col-md-3 col-sm-3 centered">
+          <h3 class="dashboard-subtitle">Dashboard</h3>
+        </div>
+        <div class="col-md-5 col-md-offset-1">
+          <!-- <p class="dashboard-text ">{{user.locationsRemaining}} locations remaining<span><a href=""> Get More</a></span></p> -->
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Your Search" aria-describedby="basic-addon2">
+            <span class="input-group-addon btn btn-mc" id="basic-addon2">Search</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row second-row">
+        <div class="col-md-4"
+             *ngFor="let location of (user.locations | async)">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>
+                  <div class="row">
+                    <div class="col-sm-10">
+                      <h4 class="table-title">{{location.place.formatted_address}}</h4>
+                    </div>
+                    <div class="col-sm-2">
+                      <h4 class="table-title">
+                        <i
+                          (click)="makeReportWithLocation(location.place)"
+                          class="fa fa-plus-circle" aria-hidden="true"></i>
+                      </h4>
+                    </div>
+                  </div>
+                  </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let report of (location.reports | values)">
+                <td>
+                  <div class="row" >
+            		    <div class="col-sm-6"><p class="table-text">{{report.reportName}}</p></div>
+            		    <div class="col-sm-4"><p class="table-text"><small>Generated on {{report.createdAt}}</small></p></div>
+                    <div class="col-sm-2">
+                      <a target="_blank" href="{{report.publicUrl}}"><p class="table-text">View</p></a>
+                    </div>
+            		  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
