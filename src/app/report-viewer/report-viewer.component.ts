@@ -126,17 +126,17 @@ export class ReportViewerComponent implements AfterViewInit {
         public data:any = data;
         public reportName:string = reportName
 
-        constructor(private http: Http){
+        constructor(private http: Http, private researchArea:ResearchAreaService){
         }
 
         ngOnInit(){
           if(this.data){
             this.http.get(`/report_templates/${this.reportName}.js`)
             .subscribe(
-              (response:any) => {
-                let data = this.data;
+              ((response:any) => {
+                this.data.address = this.researchArea.place.getValue().formatted_address
                 eval(response._body)
-              }
+              }).bind(this)
             );
           }
         }
