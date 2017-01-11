@@ -1,20 +1,17 @@
 <app-navigation></app-navigation>
 
-<!-- <div class="container-fluid">
-  <div class="row second-row">
-    <div class="col-md-12">
-      <h2 class="title centered">Get your own Microcensus Analysis</h2>
-      <br>
-    </div>
-  </div>
-</div> -->
-
 <div class="container">
   <div class="row second-row">
     <div class="col-md-8">
       <div class ="row">
         <div class="col-md-12">
-          <app-address-selector></app-address-selector>
+          <h4 class="subtitle-new-area">Current Address: {{(researchArea.place | async).formatted_address}}</h4>
+          <app-address-selector *ngIf="(user.remainingLocations | async) > 0"></app-address-selector>
+          <p *ngIf="(user.remainingLocations | async) <= 0">
+            <i>You are out of location credits.  To add a new location
+              <a routerLink="/credits/new" routerLinkActive="active">please purchase more.</a>
+            </i>
+          </p>
         </div>
       </div>
       <div class="row second-row">

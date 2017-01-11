@@ -18,7 +18,7 @@ export class ReportDefinerComponent implements OnInit {
     "age_and_education"
   ]
 
-  constructor(private researchArea: ResearchAreaService, private ddb:DynamoDBService, private user:User,
+  constructor(private researchArea: ResearchAreaService, private ddb:DynamoDBService, public user:User,
     private router:Router) {
     this.selectedReport = "Select Report";
 
