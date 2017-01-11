@@ -120,7 +120,10 @@ export class ReportViewerComponent implements AfterViewInit {
   private createNewComponent (tmpl:string, data:any, reportName:string) {
       @Component({
           selector: 'dynamic-component',
-          template: tmpl
+          template: tmpl,
+          styleUrls: [
+            './report-viewer.component.css',
+            './print.css']
       })
       class CustomDynamicComponent implements OnInit{
         public data:any = data;
