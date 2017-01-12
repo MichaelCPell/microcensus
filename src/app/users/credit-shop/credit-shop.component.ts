@@ -19,17 +19,17 @@ export class CreditShopComponent implements OnInit {
 
   buy(){
     this.loading = true;
-    // if(this.user.isCustomer == true){
-    //   this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/payments", {email: this.user.email.getValue()})
-    //    .subscribe(
-    //      next => {
-    //        this.router.navigate(["/"])
-    //        this.user.updateFromDdb(JSON.parse(next._body));
-    //      }
-    //    )
-    // }else{
+    if(this.user.isCustomer == true){
+      this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/payments", {email: this.user.email.getValue()})
+       .subscribe(
+         next => {
+           this.router.navigate(["/"])
+           this.user.updateFromDdb(JSON.parse(next._body));
+         }
+       )
+    }else{
       this.choice = 10;
-    // }
+    }
   }
 
 }

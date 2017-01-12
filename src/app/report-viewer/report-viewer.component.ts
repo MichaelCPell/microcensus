@@ -54,27 +54,28 @@ export class ReportViewerComponent implements AfterViewInit {
     let tempReport;
     this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
-        .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
-        .subscribe(
-          data => {
-            tempReport = data;
-          },
-          error =>  this.errorMessage = <any>error,
-          () => {
-            this.report = tempReport;
-            this.http.get(`/report_templates/${this.reportName}.html`)
-              .subscribe(
-                (response:any) => {
-                  this.createComponentFactory(response._body, this.report, this.reportName)
-                    .then((factory) => {
-                      this
-                        .dynamicComponentTarget
-                        .createComponent(factory)
-                    })
-                }
-              );
-          }
-        );
+      .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
+      .subscribe(
+        (data => {
+          this.dataLoaded = true;
+          tempReport = data;
+        }).bind(this),
+        error =>  this.errorMessage = <any>error,
+        () => {
+          this.report = tempReport;
+          this.http.get(`/report_templates/${this.reportName}.html`)
+            .subscribe(
+              (response:any) => {
+                this.createComponentFactory(response._body, this.report, this.reportName)
+                  .then((factory) => {
+                    this
+                      .dynamicComponentTarget
+                      .createComponent(factory)
+                  })
+              }
+            );
+        }
+      );
   };
 
 

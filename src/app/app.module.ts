@@ -24,6 +24,7 @@ import { UserLoginComponent } from './users/user-login/user-login.component';
 import { ValuesPipe } from './shared/values.pipe';
 import { CreditShopComponent } from './users/credit-shop/credit-shop.component';
 import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
+import { LocationFilterPipe } from './shared/location-filter.pipe';
 
 
 
@@ -55,7 +56,8 @@ const appRoutes: Routes = [
     UserLoginComponent,
     ValuesPipe,
     CreditShopComponent,
-    SubscriptionCreatorComponent
+    SubscriptionCreatorComponent,
+    LocationFilterPipe
   ],
   imports: [
     BrowserModule,

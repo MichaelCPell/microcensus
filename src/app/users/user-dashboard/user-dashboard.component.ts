@@ -3,6 +3,7 @@ import { User } from '../user';
 import { Router } from "@angular/router";
 import { UserLoginService } from "../../users/cognito.service";
 import { ResearchAreaService } from "../../shared/research-area.service";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-user-dashboard',

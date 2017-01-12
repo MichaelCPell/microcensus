@@ -58,7 +58,8 @@ export class DynamoDBService {
         ExpressionAttributeValues: {
           ':z': {
             reportName: oData.reportName,
-            publicUrl: `http://${oData.Bucket}/${oData.key}`
+            publicUrl: `http://${oData.Bucket}/${oData.key}`,
+            createdAt: Date.now()
           }
         },
         ReturnValues: 'ALL_NEW'
