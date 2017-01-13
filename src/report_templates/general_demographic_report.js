@@ -1,12 +1,14 @@
 console.log(data)
 
+
+document.getElementById("address").innerHTML = data["address"];
+
 document.getElementById("total-population").innerHTML = Math.floor(data["population"]["total"]);
 
 document.getElementById("median-household-income").innerHTML = data["median_income"];
 
 document.getElementById("number-of-homes").innerHTML = Math.floor(data["housing"]["numberOfHouseholds"]);
 
-document.getElementById("address").innerHTML = data["address"];
 
 document.getElementById("median-home-value").innerHTML = data["housing"]["median"];
 

@@ -1,3 +1,4 @@
+document.getElementById("address").innerHTML = data["address"];
 var chart = c3.generate({
   bindto: '#chart',
   size: {

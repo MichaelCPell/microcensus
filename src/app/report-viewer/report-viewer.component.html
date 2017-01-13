@@ -1,5 +1,14 @@
-  <app-navigation></app-navigation>
-
+<app-navigation></app-navigation>
+<div *ngIf="dataLoaded" class="row second-row hidden-print">
+  <div class="col-md-12 col-sm-12 centered">
+    <button
+      (click)="publish()"
+      class="btn btn-mc-dark"
+      type="submit">
+      {{publishButton}}
+    </button>
+  </div>
+</div>
 
 <div id="publishableContent">
   <div *ngIf="!dataLoaded" class="col-md-6 col-md-offset-3 centered">
@@ -13,16 +22,5 @@
 
   <div *ngIf="dataLoaded" class="col-md-6 col-md-offset-2">
     <app-map></app-map>
-  </div>
-</div>
-
-<div *ngIf="dataLoaded" class="row second-row hidden-print">
-  <div class="col-md-12 col-sm-12 centered">
-    <button
-      (click)="publish()"
-      class="btn btn-mc-dark"
-      type="submit">
-      {{publishButton}}
-    </button>
   </div>
 </div>

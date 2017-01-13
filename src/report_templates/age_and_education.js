@@ -1,5 +1,4 @@
-console.log("Flag One")
-console.log(data)
+document.getElementById("address").innerHTML = data["address"];
 c3.generate({
   bindto: '#chart1',
     data: {

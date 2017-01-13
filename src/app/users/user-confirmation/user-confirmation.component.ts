@@ -13,6 +13,7 @@ export class UserConfirmationComponent implements OnInit,  CognitoCallback {
     confirmationCode:string;
     email:string;
     errorMessage:string;
+    inProgress:false;
 
     constructor(public regService:UserRegistrationService, public router:Router, private user:User) {
     }
@@ -22,6 +23,7 @@ export class UserConfirmationComponent implements OnInit,  CognitoCallback {
     }
 
     onConfirmRegistration() {
+        this.inProgress = true;
         this.errorMessage = null;
         this.regService.confirmRegistration(localStorage.getItem("email"), this.confirmationCode, this);
     }
