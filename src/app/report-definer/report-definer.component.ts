@@ -15,7 +15,8 @@ export class ReportDefinerComponent implements OnInit {
   public reportTypes:Array<string> = [
     "general_demographic_report",
     "longitudinal_population_report",
-    "age_and_education"
+    "age_and_education",
+    "nc_voter_plus"
   ]
 
   constructor(private researchArea: ResearchAreaService, private ddb:DynamoDBService, public user:User,
