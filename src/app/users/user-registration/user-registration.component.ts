@@ -7,7 +7,8 @@ import { User } from "../user"
 
 @Component({
     selector: 'awscognito-angular2-app',
-    templateUrl: './user-registration.component.html'
+    templateUrl: './user-registration.component.html',
+    styleUrls: ['./user-registration.component.css']
 })
 export class UserRegistrationComponent implements CognitoCallback {
     registrationUser:RegistrationUser;
