@@ -1,34 +1,39 @@
 <app-navigation></app-navigation>
 
-<form class="form-signin" method="POST" action="#" role="form">
-    <div class="form-group">
-        <h2>Confirm Registration</h2>
-    </div>
-    <div *ngIf="errorMessage!=null" class="alert alert-danger">
-        {{ errorMessage }}
-    </div>
-    <!-- <div class="form-group">
-        <label class="control-label" for="confirmationCode">Email</label>
-        <input id="email" type="email" maxlength="50" class="form-control"
-               [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
-    </div> -->
-    <div class="form-group">
-        <label class="control-label" for="confirmationCode">Confirmation Code</label>
-        <input id="confirmationCode" type="text" maxlength="50" class="form-control"
-               [(ngModel)]="confirmationCode" [ngModelOptions]="{standalone: true}">
-    </div>
-    <div class="form-group">
-        <button
-          (click)="onConfirmRegistration($event)" id="confirmRegistration" type="submit"
-          class="btn btn-info btn-block"
-          *ngIf="!inProgress">Confirm
-        </button>
-        <h4 *ngIf="inProgress">We are are confirming and creating your new account!</h4>
-    </div>
-    <hr>
-    <p>Can't find your code? <a [routerLink]="['/home/resendCode']"> <i class="fa fa-fw fa-group"></i> Resend
-        Code</a>
-        <a [routerLink]="['/home/register']"> <i class="fa fa-fw fa-group"></i> Register</a> <a
-                [routerLink]="['/home/login']"> <i class="fa fa-fw fa-user"></i> Login</a>
-    </p>
-</form>
+<div class="container-fluid">
+  <div class="row second-row">
+   <div class="col-md-12 centered">
+     <h3 class="page-title ">Confirm Registration</h3>
+   </div>
+  </div>
+  <div class="row second-row">
+   <div class="col-md-12 centered">
+     <h4 class="page-title" *ngIf="inProgress">We are are confirming and creating your new account!</h4>
+   </div>
+   <div class="col-md-6 col-md-offset-3">
+     <form class="form-signin" method="POST" action="#" role="form">
+       <div *ngIf="errorMessage!=null" class="alert alert-danger">
+           {{ errorMessage }}
+       </div>
+       <div class="form-group">
+           <label class="control-label form-label" for="confirmationCode">Confirmation Code</label>
+           <input id="confirmationCode" type="text" maxlength="50" class="form-control"
+                  [(ngModel)]="confirmationCode" [ngModelOptions]="{standalone: true}">
+       </div>
+       <div class="form-group">
+           <button
+             (click)="onConfirmRegistration($event)" id="confirmRegistration" type="submit"
+             class="btn btn-mc-dark"
+             *ngIf="!inProgress">Confirm
+           </button>
+       </div>
+       <hr>
+       <p class="form-text">Can't find your code? <a [routerLink]="['/home/resendCode']"> <i class="fa fa-fw fa-group"></i> Resend
+           Code</a>
+           <a [routerLink]="['/home/register']"> <i class="fa fa-fw fa-group"></i> Register</a> <a
+                   [routerLink]="['/home/login']"> <i class="fa fa-fw fa-user"></i> Login</a>
+       </p>
+     </form>
+   </div>
+  </div>
+</div>
