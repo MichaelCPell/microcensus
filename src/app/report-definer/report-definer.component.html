@@ -20,7 +20,7 @@
       <div class="row second-row">
         <div class="col-md-4">
           Radius Selector
-          {{researchArea.radius}}
+          {{researchArea.radius | async}}
           <div (click)="researchArea.radius = 1"> 1 Mile </div>
           <div (click)="researchArea.radius = 2">  2 Mile </div>
           <div (click)="researchArea.radius = 5"> 5 Mile </div>
