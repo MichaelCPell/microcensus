@@ -87,7 +87,7 @@ export class ReportViewerComponent implements AfterViewInit {
     // let slug = "early_moon_calfs"
     let address = this.researchArea.place.getValue().formatted_address
     // let address = "204 Windrift Dr, Gibsonville, NC 27249, USA"
-    let radius = this.researchArea.radius
+    let radius = this.researchArea.radius.getValue();
     var filename =  slug + "_" + this.reportName
     var f = new File([document.querySelector("#publishableContent").outerHTML], filename ,{type: "text/html"});
     this.s3

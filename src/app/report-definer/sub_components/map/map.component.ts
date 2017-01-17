@@ -10,36 +10,56 @@ import {Subscriber} from "rxjs/Subscriber"
 })
 export class MapComponent implements OnInit {
   private marker:L.Marker;
+  private shapeLayer:any;
+  private map:L.Map;
 
   constructor(private researchArea: ResearchAreaService) {
     this.researchArea = researchArea;
   }
 
   ngOnInit() {
-    var map = L.map('map').setView([51.505, -0.09], 13);
+    this.map = L.map('map').setView([51.505, -0.09], 13);
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    }).addTo(this.map);
+
+
+    this.researchArea.mapSelection.subscribe(
+      data => {
+        let place = this.researchArea.place.getValue();
+        let radius = this.researchArea.radiusInMeters;
+        let view = 13;
+
+
+        if(radius > 15000){
+          view = 10;
+        }else if(radius > 8000){
+          view = 11;
+        }else if(radius > 3000){
+          view = 12;
+        }else if(radius > 1000){
+          view = 13;
+        }
 
 
 
-    this.researchArea.place.subscribe(
-      (place) => {
         if(place.lat){
-          this.marker = L.marker([place.lat, place.lng]).addTo(map);
-          L.circle([place.lat, place.lng], 1609).addTo(map);
-          map.setView(this.marker.getLatLng(), 14);
+          if(this.shapeLayer){
+            this.map.removeLayer(this.shapeLayer);
+            this.map.removeLayer(this.marker);
+          }
+
+
+          this.marker = L.marker([place.lat, place.lng]).addTo(this.map);
+          this.shapeLayer = L.circle([place.lat, place.lng], radius).addTo(this.map);
+          this.map.setView(this.marker.getLatLng(), view);
         }
       },
-      e => console.log('onError: %s', e),
-      () => console.log('onCompleted')
-    );
-
-    //
-    // this.researchArea.foo.subscribe(
-    //   next => console.log(next)
-    // )
+      error => {
+        console.log(error)
+      }
+    )
 
   }
 
