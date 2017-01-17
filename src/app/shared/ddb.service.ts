@@ -53,11 +53,11 @@ export class DynamoDBService {
           '#a' : 'locations',
           '#id' : oData.address,
           '#b' : 'reports',
-          '#reportName' : oData.reportName
+          '#reportName' : oData.reportName + `(${oData.radius}_mi_radius)`
         },
         ExpressionAttributeValues: {
           ':z': {
-            reportName: oData.reportName,
+            reportName: oData.reportName + `(${oData.radius}_mi_radius)`,
             publicUrl: `http://${oData.Bucket}/${oData.key}`,
             createdAt: Date.now()
           }

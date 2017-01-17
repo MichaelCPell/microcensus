@@ -42,7 +42,8 @@ export class ReportViewerComponent implements AfterViewInit {
     this.route = route;
     this.geom = {
       "type":"Point",
-      "coordinates": this.researchArea.coordinates
+      "coordinates": this.researchArea.coordinates,
+      "radius" : this.researchArea.radiusInMeters
     };
   }
 
@@ -52,6 +53,8 @@ export class ReportViewerComponent implements AfterViewInit {
 
     let html;
     let tempReport;
+
+    console.log(this.geom)
     this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
@@ -84,10 +87,11 @@ export class ReportViewerComponent implements AfterViewInit {
     // let slug = "early_moon_calfs"
     let address = this.researchArea.place.getValue().formatted_address
     // let address = "204 Windrift Dr, Gibsonville, NC 27249, USA"
+    let radius = this.researchArea.radius
     var filename =  slug + "_" + this.reportName
     var f = new File([document.querySelector("#publishableContent").outerHTML], filename ,{type: "text/html"});
     this.s3
-      .publishReport(f, this.reportName, address, this.user.email.getValue())
+      .publishReport(f, this.reportName, address, radius, this.user.email.getValue())
       .concatMap(this.ddb.addReport)
       .subscribe(
         (next) => {
@@ -139,6 +143,7 @@ export class ReportViewerComponent implements AfterViewInit {
             .subscribe(
               ((response:any) => {
                 this.data.address = this.researchArea.place.getValue().formatted_address
+                this.data.radius = this.researchArea.radius
                 eval(response._body)
               }).bind(this)
             );

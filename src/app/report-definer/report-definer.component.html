@@ -18,6 +18,14 @@
         </div>
       </div>
       <div class="row second-row">
+        <div class="col-md-4">
+          Radius Selector
+          {{researchArea.radius}}
+          <div (click)="researchArea.radius = 1"> 1 Mile </div>
+          <div (click)="researchArea.radius = 2">  2 Mile </div>
+          <div (click)="researchArea.radius = 5"> 5 Mile </div>
+          <div (click)="researchArea.radius = 10"> 10 Mile </div>
+        </div>
         <div class="col-md-8">
           <h4 class="subtitle-new-area">Pick a Type of Report</h4>
           <div class="row">

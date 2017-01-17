@@ -8,11 +8,11 @@ export class S3Service{
     params: {Bucket: "deletelater123"}
   });
 
-  public publishReport(file, reportName, address, email){
+  public publishReport(file, reportName, address, radius, email){
     return Observable.create((observer) => {
       this.s3.upload({
         Bucket: "reports.themicrocensus.com",
-        Key: file.name + ".html",
+        Key: file.name + `${radius}_mile` + ".html",
         Body: file,
         ACL: 'public-read',
         ContentType: 'text/html'
@@ -23,6 +23,7 @@ export class S3Service{
         }
         data.reportName = reportName
         data.address = address
+        data.radius = radius
         data.email = email
 
         observer.next(data)

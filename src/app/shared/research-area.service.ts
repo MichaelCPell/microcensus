@@ -6,6 +6,7 @@ import 'rxjs/add/operator/share';
 
 @Injectable()
 export class ResearchAreaService {
+  private _radius:number = 1;
   private _place:BehaviorSubject<object> = new BehaviorSubject({});
   private geoJSONfragment = {
     "geometry": {"type":"Point","coordinates":[-79.52313700000002,36.09550000000001]},
@@ -30,5 +31,18 @@ export class ResearchAreaService {
 
   get place(){
     return this._place
+  }
+
+  get radius(){
+    return this._radius
+  }
+
+  get radiusInMeters(){
+    return this._radius * 1609.344
+  }
+
+  set radius(value){
+    this._radius = value
+
   }
 }
