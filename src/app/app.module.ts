@@ -25,6 +25,8 @@ import { ValuesPipe } from './shared/values.pipe';
 import { CreditShopComponent } from './users/credit-shop/credit-shop.component';
 import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
 import { LocationFilterPipe } from './shared/location-filter.pipe';
+import { RadiusSelectorComponent } from './report-definer/sub_components/radius-selector/radius-selector.component';
+import { ReportTypeSelectorComponent } from './report-definer/sub_components/report-type-selector/report-type-selector.component';
 
 
 
@@ -57,7 +59,9 @@ const appRoutes: Routes = [
     ValuesPipe,
     CreditShopComponent,
     SubscriptionCreatorComponent,
-    LocationFilterPipe
+    LocationFilterPipe,
+    RadiusSelectorComponent,
+    ReportTypeSelectorComponent
   ],
   imports: [
     BrowserModule,
