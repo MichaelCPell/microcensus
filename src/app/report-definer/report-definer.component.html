@@ -36,7 +36,10 @@
   </div>
   <div class="row last-row">
     <div class="col-md-12 centered">
-      <button class="btn btn-mc-dark" (click)="addAndAnalyze()">Analyze this Area!</button>
+      <button
+        *ngIf="readyToAnalyze"
+        class="btn btn-mc-dark"
+        (click)="addAndAnalyze()">Analyze this Area!</button>
     </div>
   </div>
 </div>

@@ -18,12 +18,22 @@ export class ReportDefinerComponent implements OnInit {
     "age_and_education",
     "nc_voter_plus"
   ]
+  public readyToAnalyze:boolean = false;
 
   constructor(private researchArea: ResearchAreaService, private ddb:DynamoDBService, public user:User,
     private router:Router) {
-    this.selectedReport = "Select Report";
 
     this.researchArea = researchArea;
+
+    this.researchArea.place.subscribe(
+      (place => {
+        if(place.formatted_address){
+          this.readyToAnalyze = true;
+        }else{
+          this.readyToAnalyze = false;
+        }
+      }).bind(this)
+    )
   }
 
   ngOnInit() {
@@ -36,9 +46,7 @@ export class ReportDefinerComponent implements OnInit {
     this.router.navigate(['/report_viewer/', this.selectedReport.slug])
   }
 
-  public readyToAnalyze(){
-    return !this.researchArea.place && (this.selectedReport != 'Select Report')
-  }
+
 
   public setReportType(report){
     this.selectedReport = report

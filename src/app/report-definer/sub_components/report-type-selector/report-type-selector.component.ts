@@ -30,12 +30,13 @@ export class ReportTypeSelectorComponent implements OnInit {
     }
   ];
 
-  public selectedReport:any = this.reports[0];
+  public selectedReport:any;
   @Output() selectedReportChange:EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
+    this.setReport(this.reports[0])
   }
 
   public setReport(report){
