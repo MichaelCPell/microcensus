@@ -11,12 +11,12 @@ declare var Stripe: any;
   styleUrls: ['./subscription-creator.component.css']
 })
 export class SubscriptionCreatorComponent implements OnInit {
-  public formCard:Object ={
-    number: "4242424242424242",
-    cvc: "123",
-    expMonth: "12",
-    expYear: "20"
-  };
+  // public formCard:Object ={
+  //   number: "4242424242424242",
+  //   cvc: "123",
+  //   expMonth: "12",
+  //   expYear: "20"
+  // };
   public loading:boolean = false;
 
   @Input() choice:string;

@@ -27,6 +27,7 @@ import { SubscriptionCreatorComponent } from './users/payments/subscription-crea
 import { LocationFilterPipe } from './shared/location-filter.pipe';
 import { RadiusSelectorComponent } from './report-definer/sub_components/radius-selector/radius-selector.component';
 import { ReportTypeSelectorComponent } from './report-definer/sub_components/report-type-selector/report-type-selector.component';
+import { ReportTypeFilterPipe } from './report-definer/sub_components/report-type-selector/report-type-filter.pipe';
 
 
 
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
     SubscriptionCreatorComponent,
     LocationFilterPipe,
     RadiusSelectorComponent,
-    ReportTypeSelectorComponent
+    ReportTypeSelectorComponent,
+    ReportTypeFilterPipe
   ],
   imports: [
     BrowserModule,

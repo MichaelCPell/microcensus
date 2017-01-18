@@ -1,5 +1,5 @@
 <div class="input-group">
-  <input type="text" class="form-control" placeholder="Find a report">
+  <input [(ngModel)]="search" type="text" class="form-control" placeholder="Find a report">
   <span class="input-group-btn">
    <button class="btn btn-mc-dark-find" type="button">Find</button>
   </span>
@@ -9,7 +9,7 @@
     <table class="table table-hover">
       <tbody>
         <tr
-            *ngFor="let report of reports"
+            *ngFor="let report of (reports | reportTypeFilter  : search)"
             (click)="setReport(report)"
             [ngClass]="{active: selectedReport == report}"
             class="hoverable">
