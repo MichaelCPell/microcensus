@@ -1,7 +1,5 @@
-console.log(data)
-
-
 document.getElementById("address").innerHTML = data["address"];
+document.getElementById("radius").innerHTML = data["radius"];
 
 document.getElementById("total-population").innerHTML = Math.floor(data["general_demographic"]["population"]["total"]);
 

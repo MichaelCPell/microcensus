@@ -1,4 +1,6 @@
 document.getElementById("address").innerHTML = data["address"];
+document.getElementById("radius").innerHTML = data["radius"];
+
 var chart = c3.generate({
   bindto: '#chart',
   size: {
