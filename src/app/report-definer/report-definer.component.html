@@ -26,7 +26,7 @@
               <app-radius-selector [researchArea]="researchArea"></app-radius-selector>
             </div>
             <div class="col-md-8">
-              <!-- Report Type Goes Here -->
+              <app-report-type-selector (selectedReportChange)="setReportType($event)"></app-report-type-selector>
             </div>
           </div>
         </div>

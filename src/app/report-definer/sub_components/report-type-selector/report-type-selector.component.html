@@ -1,3 +1,27 @@
-<p>
-  report-type-selector works!
-</p>
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Find a report">
+  <span class="input-group-btn">
+   <button class="btn btn-mc-dark-find" type="button">Find</button>
+  </span>
+</div>
+<div class="row table-border">
+  <div class="col-md-6 col-sm-6 col-xs-6 standard-height table-border-preview padding-none-right padding-none-left">
+    <table class="table table-hover">
+      <tbody>
+        <tr
+            *ngFor="let report of reports"
+            (click)="setReport(report)"
+            [ngClass]="{active: selectedReport == report}"
+            class="hoverable">
+          <td>{{report.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6 standard-height">
+    <h4 class="subtitle-new-area">{{selectedReport.name}}</h4>
+    <p class="form-text">
+      {{selectedReport.description}}
+    </p>
+  </div>
+</div>

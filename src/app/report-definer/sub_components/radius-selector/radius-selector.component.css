@@ -1,103 +1,12 @@
 .centered {
   text-align: center;
 }
-/*.second-row {
-  padding-top: 2%;
-  padding-bottom: 2%;
-}
-
-.page-title  {
-  color: #2a2a2a;
-  font-family:  'Lato', sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  margin-top: 0;
-}
-
-.form-text  {
-  color: #2a2a2a;
-  font-family:  'Lato', sans-serif;
-  font-weight: 400;
-}*/
 
 .subtitle-new-area {
   font-family: 'Lato',sans-serif;
   color: #2a2a2a;
   font-weight: 400;
 }
-
-/*.btn.btn-mc-dark {
-    font-family: Open Sans,sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    background-color: transparent;
-    border: 4px solid #3e4a5a;
-    color: #3e4a5a;
-    border-radius: 0;
-}*/
-
-/*.form-label {
-  color: #2a2a2a;
-  font-family:  'Lato', sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-
-.map {
-  background-color: #f6f6f6;
-  height: 500px;
-  width: 300px;
-}
-
-thead, tbody, tr, td, th { display: block; }
-
-tr:after {
-  content: ' ';
-  display: block;
-  visibility: hidden;
-  clear: both;
-}
-
-thead th {
-  height: 30px;
-
-  text-align: left;
-}
-
-tbody {
-  height: 12em;
-  overflow-y: auto;
-}
-
-thead {
-  background-color: #6C87AB;
-  border-bottom: none;
-}
-
-.table>thead>tr>th {
-  border-bottom: none;
-}
-
-.table-border {
-  border-bottom: 3px solid #ddd;
-  border-left: 3px solid #ddd;
-  border-right: 3px solid #ddd;
-  border-top: 0px solid #ddd;
-  margin-left: 0px;
-  margin-right: 0px;
-}
-
-.table-border-preview {
-  border-left: 3px solid #ddd;
-}
-
-.padding-none-right {
-  padding-right: 0px;
-}
-
-.padding-none-left {
-  padding-left: 0px;
-}*/
 
 .border-right {
   border-right: 2px solid #ddd;
@@ -107,21 +16,10 @@ thead {
   border-top: 2px solid #ddd;
 }
 
-/*.form-control {
-  border-radius: 0px;
-  border: 4px solid #ddd;
-  font-size: 14px;
-  padding-top: 3%;
-  padding-bottom: 2.5%;
+.active{
+  color: #316fc2;
 }
 
-.btn.btn-mc-dark-find {
-  font-family: Open Sans,sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  background-color: transparent;
-  border: 3px solid #3e4a5a;
-  color: #3e4a5a;
-  border-radius: 0;
+.form-label:hover {
+  cursor: pointer;
 }
-*/

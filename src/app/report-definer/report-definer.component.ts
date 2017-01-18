@@ -33,10 +33,14 @@ export class ReportDefinerComponent implements OnInit {
   public addAndAnalyze(){
     this.ddb.addLocation(this.researchArea.place.getValue(), this.user.email.getValue());
 
-    this.router.navigate(['/report_viewer/', this.selectedReport])
+    this.router.navigate(['/report_viewer/', this.selectedReport.slug])
   }
 
   public readyToAnalyze(){
     return !this.researchArea.place && (this.selectedReport != 'Select Report')
+  }
+
+  public setReportType(report){
+    this.selectedReport = report
   }
 };

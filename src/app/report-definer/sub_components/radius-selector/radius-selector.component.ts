@@ -6,13 +6,19 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./radius-selector.component.css']
 })
 export class RadiusSelectorComponent implements OnInit {
-
+  public activeRadius:number = 1;
 
   @Input() researchArea:any;
 
   constructor() { }
 
   ngOnInit() {
+    this.activeRadius = this.researchArea.radius.getValue();
+  }
+
+  public setRadius(value){
+    this.researchArea.radius = value;
+    this.activeRadius = value;
   }
 
 }
