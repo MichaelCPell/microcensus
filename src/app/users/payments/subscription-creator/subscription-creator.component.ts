@@ -2,6 +2,7 @@ import { Component, OnInit, ApplicationRef, Input } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { User } from '../../user';
 import { Router } from '@angular/router';
+import {environment} from 'environments/environment';
 
 declare var Stripe: any;
 
@@ -11,25 +12,22 @@ declare var Stripe: any;
   styleUrls: ['./subscription-creator.component.css']
 })
 export class SubscriptionCreatorComponent implements OnInit {
-  // public formCard:Object ={
-  //   number: "4242424242424242",
-  //   cvc: "123",
-  //   expMonth: "12",
-  //   expYear: "20"
-  // };
+  public formCard:Object = environment.formCard;
   public loading:boolean = false;
 
   @Input() choice:string;
   constructor(public user:User, private http:Http, private af: ApplicationRef, private router:Router) { }
 
   ngOnInit() {
+
   }
 
   public submitCard(){
     this.loading = true;
-    Stripe.setPublishableKey('pk_test_egLZwXn91dZAmLYVGBKFDh3T');
+
+    Stripe.setPublishableKey(environment.stripe_publishable);
       Stripe.card.createToken(this.formCard, ((status, response) => {
-        this.http.post("https://2ki6gggaqc.execute-api.us-east-1.amazonaws.com/dev/payments", {email: this.user.email.getValue(), token: response.id})
+        this.http.post(`${environment.backend}/payments`, {email: this.user.email.getValue(), token: response.id})
          .subscribe(
            next => {
              this.user.updateFromDdb(JSON.parse(next._body));
