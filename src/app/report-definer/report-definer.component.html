@@ -31,7 +31,7 @@
               <app-radius-selector *ngIf="areaType == 'point'" [(activeRadius)]="radius"></app-radius-selector>
             </div>
             <div class="col-md-8">
-              <!-- <app-report-type-selector (selectedReportChange)="setReportType($event)"></app-report-type-selector> -->
+              <app-report-type-selector (selectedReportChange)="setReportType($event)"></app-report-type-selector>
             </div>
           </div>
         </div>
@@ -39,9 +39,6 @@
     </div>
     <div class="col-md-4">
       <app-map></app-map>
-      <div class="map">
-
-      </div>
     </div>
   </div>
   <div class="row last-row">

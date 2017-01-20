@@ -18,16 +18,6 @@ export class ReportDefinerComponent implements OnInit {
 
   constructor(public researchArea: ResearchAreaService, private ddb:DynamoDBService, public user:User,
     private router:Router) {
-
-    // this.researchArea.place.subscribe(
-    //   (place => {
-    //     if(place.formatted_address){
-    //       this.readyToAnalyze = true;
-    //     }else{
-    //       this.readyToAnalyze = false;
-    //     }
-    //   }).bind(this)
-    // )
   }
 
   ngOnInit() {
@@ -44,8 +34,7 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   public addAndAnalyze(){
-    this.ddb.addLocation(this.researchArea.place.getValue(), this.user.email.getValue());
-
+    this.ddb.addLocation(this.researchArea, this.user.email.getValue());
     this.router.navigate(['/report_viewer/', this.selectedReport.slug])
   }
 
@@ -53,8 +42,8 @@ export class ReportDefinerComponent implements OnInit {
     this.selectedReport = report
   }
 
-
   public setNewPolygon(event){
+    this.readyToAnalyze = true;
     this.areaType = "polygon";
     let file = event.target.files[0]
     let read = new FileReader();
@@ -68,6 +57,7 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   public setNewPlace(place){
+    this.readyToAnalyze = true;
     this.areaType = "point";
     console.log(place)
     place.radius = this.radius
