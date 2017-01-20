@@ -25,35 +25,35 @@ export class MapComponent implements OnInit {
     }).addTo(this.map);
 
 
-    this.researchArea.mapSelection.subscribe(
-      data => {
-        let place = this.researchArea.place.getValue();
-        let radius = this.researchArea.radiusInMeters;
-        let view = 13;
+    this.researchArea.mappable.subscribe(
+      ra => {
+        // console.log(`Flag One: ${JSON.stringify(ra)}`)
 
+        if(ra.type == "point"){
+          let radius = ra.radiusInMeters;
+          let view = 13;
 
-        if(radius > 15000){
-          view = 10;
-        }else if(radius > 8000){
-          view = 11;
-        }else if(radius > 3000){
-          view = 12;
-        }else if(radius > 1000){
-          view = 13;
-        }
-
-
-
-        if(place.lat){
+          if(radius > 15000){
+            view = 10;
+          }else if(radius > 8000){
+            view = 11;
+          }else if(radius > 3000){
+            view = 12;
+          }else if(radius > 1000){
+            view = 13;
+          }
           if(this.shapeLayer){
             this.map.removeLayer(this.shapeLayer);
             this.map.removeLayer(this.marker);
           }
-
-
-          this.marker = L.marker([place.lat, place.lng]).addTo(this.map);
-          this.shapeLayer = L.circle([place.lat, place.lng], radius).addTo(this.map);
+          this.marker = L.marker(ra.coordinates).addTo(this.map);
+          this.shapeLayer = L.circle(ra.coordinates, radius).addTo(this.map);
           this.map.setView(this.marker.getLatLng(), view);
+        }else if(ra.type == "polygon"){
+
+          let feature = L.geoJSON(ra.geoJSON).addTo(this.map);
+          this.map.fitBounds(feature.getBounds());
+
         }
       },
       error => {
