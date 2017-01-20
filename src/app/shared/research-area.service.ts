@@ -17,8 +17,6 @@ export class ResearchAreaService {
 
   constructor() {}
 
-
-
   public create(type:string, geoJSON:object, data:object){
     if(type == "point"){
       this.researchArea = new ResearchArea(type, geoJSON, data)
@@ -34,37 +32,22 @@ export class ResearchAreaService {
     this.mappable.next(this.researchArea);
   }
 
-
-
-  //
-  // set place(place:any){
-  //   if(!place.lat){
-  //     place.lat = place.geometry.location.lat();
-  //     place.lng = place.geometry.location.lng();
-  //   }
-  //   this._place.next(place)
-  // }
-  //
-  // get place(){
-  //   return this._place
-  // }
-  //
-
-
-
-  //
   set radius(value){
     if(this.researchArea){
       this.researchArea.radius = value;
       this.mappable.next(this.researchArea);
     }
   }
-  //
-  //
-  // public processGeoJSON(geoJSON){
-  //   this._geoJSON = L.geoJSON(geoJSON)
-  //
-  //   debugger
-  //
-  // }
+
+  get name(){
+    return this.researchArea.name
+  }
+
+  get radius(){
+    return this.researchArea.radius
+  }
+
+  get geoJSON(){
+    return this.researchArea.geoJSON;
+  }
 }

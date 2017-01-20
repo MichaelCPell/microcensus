@@ -40,11 +40,7 @@ export class ReportViewerComponent implements AfterViewInit {
     private ddb: DynamoDBService,
     private user:User) {
     this.route = route;
-    this.geom = {
-      "type":"Point",
-      "coordinates": this.researchArea.coordinates,
-      "radius" : this.researchArea.radiusInMeters
-    };
+    this.geom = this.researchArea.geoJSON;
   }
 
   ngAfterViewInit() {
@@ -83,11 +79,11 @@ export class ReportViewerComponent implements AfterViewInit {
 
 
   public publish(){
-    let slug = this.convertToSlug(this.researchArea.place.getValue().formatted_address)
+    let slug = this.convertToSlug(this.researchArea.name)
     // let slug = "early_moon_calfs"
-    let address = this.researchArea.place.getValue().formatted_address
+    let address = this.researchArea.name
     // let address = "204 Windrift Dr, Gibsonville, NC 27249, USA"
-    let radius = this.researchArea.radius.getValue();
+    let radius = this.researchArea.radius;
     var filename =  slug + "_" + this.reportName
     var f = new File([document.querySelector("#publishableContent").outerHTML], filename ,{type: "text/html"});
     this.s3
@@ -142,8 +138,9 @@ export class ReportViewerComponent implements AfterViewInit {
             this.http.get(`/report_templates/${this.reportName}.js`)
             .subscribe(
               ((response:any) => {
-                this.data.address = this.researchArea.place.getValue().formatted_address;
-                this.data.radius = this.researchArea.radius.getValue();
+                this.data.address = this.researchArea.name;
+                this.data.radius = this.researchArea.radius;
+
                 eval(response._body)
               }).bind(this)
             );
