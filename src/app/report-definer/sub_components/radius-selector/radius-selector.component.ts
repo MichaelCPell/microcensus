@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-radius-selector',
@@ -6,19 +6,19 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./radius-selector.component.css']
 })
 export class RadiusSelectorComponent implements OnInit {
-  public activeRadius:number = 1;
-
-  @Input() researchArea:any;
+  @Input()  activeRadius:number;
+  @Output() activeRadiusChange = new EventEmitter<number>();
 
   constructor() { }
 
   ngOnInit() {
-    this.activeRadius = this.researchArea.radius.getValue();
   }
 
   public setRadius(value){
-    this.researchArea.radius = value;
+    console.log(0)
     this.activeRadius = value;
+    this.activeRadiusChange.emit(value);
   }
+
 
 }

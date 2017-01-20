@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ResearchAreaService } from '../../../shared/research-area.service'
-
-
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-address-selector',
@@ -9,14 +6,16 @@ import { ResearchAreaService } from '../../../shared/research-area.service'
   styleUrls: ['./address-selector.component.css']
 })
 export class AddressSelectorComponent implements OnInit {
-  constructor(private researchArea: ResearchAreaService) {}
+  @Output() selectedPlace: EventEmitter = new EventEmitter();
+
+  constructor() {}
 
   ngOnInit() {
     let element:any = document.getElementById("address")
     let autocomplete = new google.maps.places.Autocomplete(element);
 
     autocomplete.addListener('place_changed', () => {
-      this.researchArea.place = autocomplete.getPlace();
+      this.selectedPlace.emit(autocomplete.getPlace());
     });
   }
 }
