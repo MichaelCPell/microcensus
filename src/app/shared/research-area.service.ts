@@ -17,18 +17,22 @@ export class ResearchAreaService {
 
   constructor() {}
 
-  public create(type:string, geoJSON:object, data:object){
-    if(type == "point"){
-      this.researchArea = new ResearchArea(type, geoJSON, data)
-    }else{
+  public create(args){
+    this.researchArea = new ResearchArea(args)
 
-      let data = {
-        center: L.geoJSON(geoJSON).getBounds().getCenter()
-      }
-
-      this.researchArea = new ResearchArea(type, geoJSON, data)
-
+    if(!this.researchArea.radius){
+      this.researchArea.radius = this._radius.getValue()
     }
+    this.mappable.next(this.researchArea);
+  }
+
+  public set(location){
+    this.researchArea = new ResearchArea(location)
+
+    if(!this.researchArea.radius){
+      this.researchArea.radius = this._radius.getValue()
+    }
+
     this.mappable.next(this.researchArea);
   }
 

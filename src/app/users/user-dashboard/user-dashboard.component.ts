@@ -17,8 +17,8 @@ export class UserDashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  public makeReportWithLocation(place){
-    this.researchArea.place = place
+  public makeReportWithLocation(location){
+    this.researchArea.set(location)
     this.router.navigate(["/"]);
   }
 

@@ -17,8 +17,6 @@ export class DynamoDBService {
       var db = new AWS.DynamoDB.DocumentClient();
 
       let researchArea = researchAreaService.researchArea;
-
-
       var params = {
         TableName: 'users',
         Key: { email: email},

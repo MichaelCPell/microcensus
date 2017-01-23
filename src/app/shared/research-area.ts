@@ -8,13 +8,17 @@ export class ResearchArea {
   public lng;
 
 
-  constructor(type:string, geoJSON?:object, place?:object,){
-    this._type = type;
+  constructor(args){
+    Object.keys(args).forEach( key => {
+      this[key] = args[key]
+    })
 
-    this._place = place;
+    this.afterInit();
+  }
 
+  private afterInit(){
     if(this.type == "point"){
-      this._radius = place.radius;
+      this._radius = 1;
       this.lat = this._place.geometry.location.lat()
       this.lng = this._place.geometry.location.lng()
 
@@ -26,21 +30,46 @@ export class ResearchArea {
           ],
           "radius" : this.radiusInMeters
       }
-
     }else{
       this._geoJSON = geoJSON;
     }
   }
 
 
-  get type(){
-    return this._type
+  get createdAt(){
+    return this._createdAt
   }
+
+  set createdAt(value){
+    this._createdAt = value;
+  }
+
+  get lat(){
+    return this._lat;
+  }
+
+  set lat(value){
+    this._lat = value;
+  }
+
+
+  get lng(){
+    return this._lng;
+  }
+
+  set lng(value){
+    this._lng = value;
+  }
+
 
   get name(){
     if(this.type == "point"){
       return this._place.formatted_address
     }
+  }
+
+  set name(value){
+    this._name = value
   }
 
   get coordinates(){
@@ -55,9 +84,14 @@ export class ResearchArea {
     this._geoJSON = object;
   }
 
-  set radius(value){
-    this._radius = value
+  get place(){
+    return this._place;
   }
+
+  set place(value){
+    this._place = value;
+  }
+
 
   get radius(){
     return this._radius
@@ -66,4 +100,25 @@ export class ResearchArea {
   get radiusInMeters(){
     return this.radius * 1609.344
   }
+
+  set radius(value){
+    this._radius = value
+  }
+
+  get reports(){
+    return this._reports
+  }
+
+  set reports(value){
+    this._reports = value
+  }
+
+  get type(){
+    return this._type
+  }
+
+  set type(value){
+    this._type = value
+  }
+
 }
