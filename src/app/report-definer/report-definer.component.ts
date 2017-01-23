@@ -4,6 +4,7 @@ import { ResearchAreaService } from '../shared/research-area.service';
 import { DynamoDBService } from "../shared/ddb.service.ts";
 import { User } from "../users/user";
 import { Router } from "@angular/router";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
   selector: 'app-report-definer',
@@ -14,14 +15,22 @@ export class ReportDefinerComponent implements OnInit {
   public selectedReport:string;
   public readyToAnalyze:boolean = false;
   public areaType:string = "point";
-  private _radius:number = 1;
-  private _place:any;
+  private _radius:BehaviorSubject<number> = new BehaviorSubject(1);
+  private _place:BehaviorSubject<any> = new BehaviorSubject({});
+
 
   constructor(public researchArea: ResearchAreaService, private ddb:DynamoDBService, public user:User,
     private router:Router) {
   }
 
   ngOnInit() {
+    if(this.researchArea.place){
+      this.place = this.researchArea.place
+    }
+
+    if(this.researchArea.radius){
+      this.radius = this.researchArea.radius
+    }
   }
 
   public setNewPolygon(event){
@@ -58,24 +67,29 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   get place(){
-    console.log(1)
+    return this._place.getValue()
+  }
+
+  get placeObs(){
+    return this._place
   }
 
   set place(value){
-    this._place = value;
+    this.researchArea.place = {type: "point", radius: this.radius, place: value}
     this.readyToAnalyze = true;
-    this.areaType = "point";
-    this._place.radius = this.radius
-    this.researchArea.set({type: "point", place: this._place})
-    console.log(2)
+    this._place.next(value)
   }
 
   get radius(){
+    return this._radius.getValue()
+  }
+
+  get radiusObs(){
     return this._radius
   }
 
   set radius(value){
-    this._radius = value
     this.researchArea.radius = value;
+    this._radius.next(value)
   }
 };

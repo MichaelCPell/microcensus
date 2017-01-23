@@ -12,28 +12,24 @@ export class ResearchAreaService {
   private _radius:BehaviorSubject<number> = new BehaviorSubject(1);
   private _place:BehaviorSubject<object> = new BehaviorSubject({});
   private _geoJSON:any;
-  public mappable:BehaviorSubject<object> = new BehaviorSubject({});
-
+  public mappable:BehaviorSubject<ResearchArea> = new BehaviorSubject({});
+  private researchArea:ResearchArea = new ResearchArea();
 
   constructor() {}
 
-  public create(args){
+  set place(args){
     this.researchArea = new ResearchArea(args)
 
     if(!this.researchArea.radius){
       this.researchArea.radius = this._radius.getValue()
     }
+
+    console.log("Flag Two")
     this.mappable.next(this.researchArea);
   }
 
-  public set(location){
-    this.researchArea = new ResearchArea(location)
-
-    if(!this.researchArea.radius){
-      this.researchArea.radius = this._radius.getValue()
-    }
-
-    this.mappable.next(this.researchArea);
+  get radius(){
+    return this.researchArea.radius
   }
 
   set radius(value){
@@ -47,9 +43,7 @@ export class ResearchAreaService {
     return this.researchArea.name
   }
 
-  get radius(){
-    return this.researchArea.radius
-  }
+
 
   get geoJSON(){
     return this.researchArea.geoJSON;
