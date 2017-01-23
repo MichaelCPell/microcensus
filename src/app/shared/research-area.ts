@@ -9,6 +9,9 @@ export class ResearchArea {
 
 
   constructor(args){
+    if(args == null){
+      return
+    }
     Object.keys(args).forEach( key => {
       this[key] = args[key]
     })

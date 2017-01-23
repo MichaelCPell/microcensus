@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 
 @Injectable()
 export class User {
-  private _email: BehaviorSubject<string> = new BehaviorSubject("");;
+  private _email: BehaviorSubject<string> = new BehaviorSubject("");
   private _password:string;
   private _paid:boolean;
   // private _awsConfirmed:BehaviorSubject<boolean> = new BehaviorSubject(false);
