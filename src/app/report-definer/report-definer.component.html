@@ -10,7 +10,7 @@
             <div class="row">
               <div class="col-md-8">
                 <app-address-selector
-                  (selectedPlace)="setNewPlace($event)"></app-address-selector>
+                  [(selectedPlace)]="place"></app-address-selector>
               </div>
               <div class="col-md-4">
                 <input type="file" (change)="setNewPolygon($event)"/>

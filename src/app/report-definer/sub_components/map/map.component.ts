@@ -46,6 +46,7 @@ export class MapComponent implements OnInit {
             this.map.removeLayer(this.shapeLayer);
             this.map.removeLayer(this.marker);
           }
+
           this.marker = L.marker(ra.coordinates).addTo(this.map);
           this.shapeLayer = L.circle(ra.coordinates, radius).addTo(this.map);
           this.map.setView(this.marker.getLatLng(), view);

@@ -15,6 +15,7 @@ export class ReportDefinerComponent implements OnInit {
   public readyToAnalyze:boolean = false;
   public areaType:string = "point";
   private _radius:number = 1;
+  private _place:any;
 
   constructor(public researchArea: ResearchAreaService, private ddb:DynamoDBService, public user:User,
     private router:Router) {
@@ -56,12 +57,17 @@ export class ReportDefinerComponent implements OnInit {
     }
   }
 
-  public setNewPlace(place){
+  get place(){
+    console.log(1)
+  }
+
+  set place(value){
+    this._place = value;
     this.readyToAnalyze = true;
     this.areaType = "point";
-    console.log(place)
-    place.radius = this.radius
-    this.researchArea.create("point", null, place)
+    this._place.radius = this.radius
+    this.researchArea.set({type: "point", place: this._place})
+    console.log(2)
   }
 
   get radius(){

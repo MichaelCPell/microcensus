@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-address-selector',
@@ -6,7 +6,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./address-selector.component.css']
 })
 export class AddressSelectorComponent implements OnInit {
-  @Output() selectedPlace: EventEmitter = new EventEmitter();
+  @Input() selectedPlace:any;
+  @Output() selectedPlaceChange: EventEmitter = new EventEmitter();
 
   constructor() {}
 
@@ -15,7 +16,7 @@ export class AddressSelectorComponent implements OnInit {
     let autocomplete = new google.maps.places.Autocomplete(element);
 
     autocomplete.addListener('place_changed', () => {
-      this.selectedPlace.emit(autocomplete.getPlace());
+      this.selectedPlaceChange.emit(autocomplete.getPlace());
     });
   }
 }
