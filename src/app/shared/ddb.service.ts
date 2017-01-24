@@ -15,6 +15,7 @@ export class DynamoDBService {
 
     public addLocation(place, email){
       var db = new AWS.DynamoDB.DocumentClient();
+
       var params = {
         TableName: 'users',
         Key: { email: email},

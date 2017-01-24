@@ -1,0 +1,113 @@
+<head>
+  <title>Gr!dReport for Homework Gap</title>
+</head>
+
+<div class="container-fluid">
+  <div class="row report-title-row">
+    <div class="col-md-12 col-sm-12 centered">
+      <h3 class="page-subtitle">Gr!dReports Homework Gap</h3>
+      <h1 class="page-title">
+        <span id="radius" class="page-title"></span>
+        mile radius around
+        <span id="address" class="page-title"></span>
+        </h1>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row second-row">
+    <div class="col-md-3 col-sm-3 centered">
+      <h3 class="description">Total Families</h3>
+      <h2 id="total-families" class="number-subtitle"></h2>
+    </div>
+    <div class="col-md-3 col-sm-3 centered">
+      <h3 class="description">Total Families Below Poverty Line</h3>
+      <h2 id="total-families-poverty" class="number-subtitle"></h2>
+    </div>
+
+    <div class="col-md-3 col-sm-3 centered">
+      <h3 class="description">Total Families Below Poverty Line with Children 5-17</h3>
+      <h2 id="total-families-poverty-with-schoolchildren" class="number-subtitle"></h2>
+    </div>
+  </div>
+  <div class="row second-row">
+    <div class="col-md-3 col-sm-3 centered">
+      <h3 class="description">Two Parent Families Below Poverty Line With Children 5-17</h3>
+      <h2 id="two-parent-poverty-with-schoolchildren" class="number-subtitle"></h2>
+    </div>
+
+    <div class="col-md-3 col-sm-3 centered">
+      <h3 class="description">Single Dad Families Below Poverty Line With Children 5-17</h3>
+      <h2 id="single-dad-poverty-with-schoolchildren" class="number-subtitle"></h2>
+    </div>
+
+    <div class="col-md-3 col-sm-3 centered">
+      <h2 class="description">Single Mom Families Below Poverty Line With Children 5-17</h2>
+      <h2 id="single-mom-poverty-with-schoolchildren" class="number-subtitle"></h2>
+    </div>
+  </div>
+  <!-- <div class="row section-title-row">
+    <div class="col-md-6 col-sm-6 centered">
+      <h3 class="subtitle">Race</h3>
+    </div>
+    <div class="col-md-6 col-sm-6 centered">
+      <h3 class="subtitle">Population</h3>
+    </div>
+  </div>
+  <div class="row second-row">
+    <div class="col-md-3 col-sm-3">
+      <div id="chart1"></div>
+    </div>
+    <div class="col-md-3 col-sm-3">
+      <div id="chart2"></div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+      <div id="chart3"></div>
+    </div>
+  </div>
+  <div class="row section-title-row">
+    <div class="col-md-6 col-sm-6 centered">
+      <h3 class="subtitle">Homes</h3>
+    </div>
+    <div class="col-md-6 col-sm-6 centered">
+      <h3 class="subtitle">Education</h3>
+    </div>
+  </div>
+  <div class="row second-row">
+    <div class="col-md-6 col-sm-6">
+      <div id="chart4"></div>
+    </div>
+    <div class="col-md-6 col-sm-6">
+      <div id="chart5"></div>
+    </div>
+  </div> -->
+  <!-- <div class="row second-row">
+    <div class="map">
+
+    </div>
+  </div> -->
+  <!-- <div class="row second-row hidden-print">
+    <div class="col-md-12 col-sm-12 centered">
+      <button class="btn btn-mc-dark" type="submit">Print this Report</button>
+    </div>
+  </div> -->
+</div>
+<div class="container" id="footer">
+  <div class="row ">
+    <div class="col-md-2 col-sm-2 col-xs-2">
+      <img src="https://s3.amazonaws.com/microcensus-platform-assets/TheGridWorxLogo_White.png" class="img-logo img-responsive" style=""/>
+    </div>
+    <div class="col-md-10 col-sm-6 col-xs-6">
+      <p class="footer-text">
+        www.TheGridWorx.com | (540) 2721578 | info@TheGridWorx.com
+      </p>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+
+<link rel="stylesheet" href="https://s3.amazonaws.com/microcensus-platform-assets/grid_poverty.css"/>
+<link rel="stylesheet" href="https://s3.amazonaws.com/microcensus-platform-assets/print.css"/>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
+import { User } from "../../../users/user";
 @Component({
   selector: 'app-report-type-selector',
   templateUrl: './report-type-selector.component.html',
@@ -33,10 +33,17 @@ export class ReportTypeSelectorComponent implements OnInit {
   public selectedReport:any;
   @Output() selectedReportChange:EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private user:User) { }
 
   ngOnInit() {
     this.setReport(this.reports[0])
+
+    this.user.privateReportTypes.subscribe(
+      next => {
+        this.reports = this.reports.concat(next)
+      }
+    )
+
   }
 
   public setReport(report){
