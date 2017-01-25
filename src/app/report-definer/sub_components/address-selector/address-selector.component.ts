@@ -21,7 +21,6 @@ export class AddressSelectorComponent implements OnInit {
 
     if(this.activePlace.address){
       element.value = this.activePlace.address
-      console.log(`activePlace: ${JSON.stringify(this.activePlace)}`)
     }
   }
 }

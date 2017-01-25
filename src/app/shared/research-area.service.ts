@@ -9,43 +9,82 @@ import * as L from 'leaflet';
 
 @Injectable()
 export class ResearchAreaService {
-  private _radius:BehaviorSubject<number> = new BehaviorSubject(1);
-  private _place:BehaviorSubject<object> = new BehaviorSubject({});
+  // Single Responsibility - Take care of knowing what area the user is currently interested in.
+  private _radius = 1;
+  private _place:BehaviorSubject<any> = new BehaviorSubject({});
   private _geoJSON:any;
-  public mappable:BehaviorSubject<ResearchArea> = new BehaviorSubject({});
-  private researchArea:ResearchArea = new ResearchArea();
+  public mappable:BehaviorSubject<any> = new BehaviorSubject({});
+  private _researchArea:ResearchArea = new ResearchArea();
 
   constructor() {}
 
-  set place(args){
-    this.researchArea = new ResearchArea(args)
+  set place(value){
+    // came in from Address Selector
+    this.researchArea = new ResearchArea();
+    this.researchArea.createdAt = Date.now();
+    this.researchArea.place = value;
+    this.researchArea.geometry = {
+          "type": "Point",
+          "coordinates": [
+              value.geometry.location.lng(),
+              value.geometry.location.lat()
+          ]
+    };
+    this.researchArea.type = "point";
 
-    if(!this.researchArea.radius){
-      this.researchArea.radius = this._radius.getValue()
-    }
+    this.mappableEvent();
+  }
 
-    console.log("Flag Two")
-    this.mappable.next(this.researchArea);
+  set shape(value){
+    // came in from File Uploader
+    this.researchArea = new ResearchArea();
+    this.researchArea.createdAt = Date.now();
+    this.researchArea.geometry = value.geometry;
+    this.researchArea.type = "polygon";
+
+    this.mappableEvent();
+  }
+
+  get researchArea(){
+    return this._researchArea;
+  }
+
+  set researchArea(value){
+    this._researchArea = value
+  }
+
+  set reportType(value){}
+
+
+  get radiusInMeters(){
+    return this.radius * 1609.344
   }
 
   get radius(){
-    return this.researchArea.radius
+    return this._radius;
   }
 
   set radius(value){
-    if(this.researchArea){
-      this.researchArea.radius = value;
-      this.mappable.next(this.researchArea);
+    this._radius = value
+
+    this.mappableEvent();
+  }
+
+  get coordinates(){
+    if(this.researchArea.type == "point"){
+      let latLng = this.researchArea.geometry.coordinates
+      return [latLng[1], latLng[0]] 
     }
   }
 
-  get name(){
-    return this.researchArea.name
-  }
+// Private Methods
 
-
-
-  get geoJSON(){
-    return this.researchArea.geoJSON;
+  private mappableEvent(){
+    this.mappable.next({
+      geometry: this.researchArea.geometry,
+      radius: this.radiusInMeters,
+      coordinates: this.coordinates,
+      type: this.researchArea.type
+    });
   }
 }

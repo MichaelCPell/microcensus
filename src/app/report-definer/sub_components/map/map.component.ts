@@ -24,13 +24,10 @@ export class MapComponent implements OnInit {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
-
     this.researchArea.mappable.subscribe(
       ra => {
-        // console.log(`Flag One: ${JSON.stringify(ra)}`)
-
         if(ra.type == "point"){
-          let radius = ra.radiusInMeters;
+          let radius = ra.radius;
           let view = 13;
 
           if(radius > 15000){
@@ -51,10 +48,13 @@ export class MapComponent implements OnInit {
           this.shapeLayer = L.circle(ra.coordinates, radius).addTo(this.map);
           this.map.setView(this.marker.getLatLng(), view);
         }else if(ra.type == "polygon"){
+          if(this.shapeLayer){
+            this.map.removeLayer(this.shapeLayer);
+            this.map.removeLayer(this.marker);
+          }
 
-          let feature = L.geoJSON(ra.geoJSON).addTo(this.map);
+          let feature = L.geoJSON(ra.geometry).addTo(this.map);
           this.map.fitBounds(feature.getBounds());
-
         }
       },
       error => {
