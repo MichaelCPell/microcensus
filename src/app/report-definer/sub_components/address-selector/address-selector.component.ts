@@ -6,8 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./address-selector.component.css']
 })
 export class AddressSelectorComponent implements OnInit {
-  @Input() selectedPlace:any;
-  @Output() selectedPlaceChange: EventEmitter = new EventEmitter();
+  @Input() activePlace:any;
+  @Output() activePlaceChange: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 
@@ -15,11 +15,13 @@ export class AddressSelectorComponent implements OnInit {
     let element:any = document.getElementById("address")
     let autocomplete = new google.maps.places.Autocomplete(element);
 
-
-    debugger
-
     autocomplete.addListener('place_changed', () => {
-      this.selectedPlaceChange.emit(autocomplete.getPlace());
+      this.activePlaceChange.emit(autocomplete.getPlace());
     });
+
+    if(this.activePlace.address){
+      element.value = this.activePlace.address
+      console.log(`activePlace: ${JSON.stringify(this.activePlace)}`)
+    }
   }
 }

@@ -12,15 +12,9 @@ export class RadiusSelectorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if(!this.activeRadius){
-      this.setActiveRadius(1)
-    }
   }
 
   public setRadius(value){
-    this.activeRadius = value;
     this.activeRadiusChange.emit(value);
   }
-
-
 }

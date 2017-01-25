@@ -24,12 +24,19 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.researchArea.place){
-      this.place = this.researchArea.place
+    if(!this.radius){
+      this.radius = 1;
+    }
+    
+    if(!this.place){
+      // TODO: This should only happen if ResearchService already has a place.
+      this.place = {
+        address: "555 Fayetteville Street"
+      };
     }
 
-    if(this.researchArea.radius){
-      this.radius = this.researchArea.radius
+    if(!this.reportType){
+      this.reportType = this.reportTypes[0]
     }
   }
 
@@ -48,48 +55,29 @@ export class ReportDefinerComponent implements OnInit {
     this.router.navigate(['/report_viewer/', this.selectedReport.slug])
   }
 
-  public setReportType(report){
-    this.selectedReport = report
+  // public setNewPolygon(event){
+  //   this.readyToAnalyze = true;
+  //   this.areaType = "polygon";
+  //   let file = event.target.files[0]
+  //   let read = new FileReader();
+  //   read.readAsBinaryString(file);
+
+  //   read.onloadend = () => {
+  //     console.log(read.result);
+  //     let json = JSON.parse(read.result);
+  //     this.researchArea.create("polygon", json, null)
+  //   }
+  // }
+
+  onRadiusChange(newRadius){
+    this.radius = newRadius;
   }
 
-  public setNewPolygon(event){
-    this.readyToAnalyze = true;
-    this.areaType = "polygon";
-    let file = event.target.files[0]
-    let read = new FileReader();
-    read.readAsBinaryString(file);
-
-    read.onloadend = () => {
-      console.log(read.result);
-      let json = JSON.parse(read.result);
-      this.researchArea.create("polygon", json, null)
-    }
+  onPlaceChange(newPlace){
+    this.place = newPlace
   }
 
-  get place(){
-    return this._place.getValue()
-  }
-
-  get placeObs(){
-    return this._place
-  }
-
-  set place(value){
-    this.researchArea.place = {type: "point", radius: this.radius, place: value}
-    this.readyToAnalyze = true;
-    this._place.next(value)
-  }
-
-  get radius(){
-    return this._radius.getValue()
-  }
-
-  get radiusObs(){
-    return this._radius
-  }
-
-  set radius(value){
-    this.researchArea.radius = value;
-    this._radius.next(value)
+  onReportTypeChange(reportType){
+    this.reportType = reportType;
   }
 };

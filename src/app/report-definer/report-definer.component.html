@@ -10,7 +10,8 @@
             <div class="row">
               <div class="col-md-8">
                 <app-address-selector
-                  [(selectedPlace)]="place"></app-address-selector>
+                  [activePlace]="place"
+                  (activePlaceChange)="onPlaceChange($event)"></app-address-selector>
               </div>
               <div class="col-md-4">
                 <input type="file" (change)="setNewPolygon($event)"/>
@@ -28,17 +29,25 @@
         <div class="col-md-12">
           <div class="row second-row">
             <div class="col-md-4">
-              <app-radius-selector *ngIf="areaType == 'point'" [(activeRadius)]="radius"></app-radius-selector>
+              <app-radius-selector 
+                *ngIf="areaType == 'point'" 
+                [activeRadius]="radius"
+                (activeRadiusChange)="onRadiusChange($event)">
+              </app-radius-selector>
             </div>
             <div class="col-md-8">
-              <app-report-type-selector (selectedReportChange)="setReportType($event)"></app-report-type-selector>
+              <app-report-type-selector 
+                [activeReportType]="reportType"
+                [reportTypes] = "reportTypes"
+                (activeReportTypeChange)="onReportTypeChange($event)">
+              </app-report-type-selector>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <app-map></app-map>
+      <!--<app-map></app-map>-->
     </div>
   </div>
   <div class="row last-row">

@@ -9,19 +9,19 @@
     <table class="table table-hover">
       <tbody>
         <tr
-            *ngFor="let report of (reports | reportTypeFilter  : search)"
-            (click)="setReport(report)"
-            [ngClass]="{active: selectedReport == report}"
+            *ngFor="let reportType of (reportTypes | reportTypeFilter  : search)"
+            (click)="setReportType(reportType)"
+            [ngClass]="{active: activeReportType == reportType}"
             class="hoverable">
-          <td>{{report.name}}</td>
+          <td>{{reportType.name}}</td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class="col-md-6 col-sm-6 col-xs-6 standard-height">
-    <h4 class="subtitle-new-area">{{selectedReport.name}}</h4>
+    <h4 class="subtitle-new-area">{{activeReportType.name}}</h4>
     <p class="form-text">
-      {{selectedReport.description}}
+      {{activeReportType.description}}
     </p>
   </div>
 </div>
