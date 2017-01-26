@@ -60,6 +60,8 @@ export class ResearchArea {
   get name(){
     if(this.type == "point"){
       return this._place.formatted_address
+    }else{
+      return this._name;
     }
   }
 

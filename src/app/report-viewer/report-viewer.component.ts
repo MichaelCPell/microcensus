@@ -47,7 +47,12 @@ export class ReportViewerComponent implements AfterViewInit {
 
     let html;
     let tempReport;
-    this.geom.radius = this.researchArea.radiusInMeters;
+    if(this.researchArea.type == "point"){
+      this.geom.radius = this.researchArea.radiusInMeters;
+    }else{
+      this.geom.radius = 0;
+    }
+    
     console.log(this.geom)
     this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
