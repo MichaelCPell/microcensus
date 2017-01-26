@@ -18,7 +18,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   public makeReportWithLocation(location){
-    this.researchArea.set(location)
+    this.researchArea.object = location
     this.router.navigate(["/"]);
   }
 

@@ -47,7 +47,7 @@ export class ReportViewerComponent implements AfterViewInit {
 
     let html;
     let tempReport;
-    if(this.researchArea.type == "point"){
+    if(this.researchArea.researchArea.type == "point"){
       this.geom.radius = this.researchArea.radiusInMeters;
     }else{
       this.geom.radius = 0;
@@ -82,9 +82,9 @@ export class ReportViewerComponent implements AfterViewInit {
 
 
   public publish(){
-    let slug = this.convertToSlug(this.researchArea.name)
+    let slug = this.convertToSlug(this.researchArea.researchArea.name)
     // let slug = "early_moon_calfs"
-    let address = this.researchArea.name
+    let address = this.researchArea.researchArea.name
     // let address = "204 Windrift Dr, Gibsonville, NC 27249, USA"
     let radius = this.researchArea.radius;
     var filename =  slug + "_" + this.reportName

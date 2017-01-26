@@ -48,6 +48,17 @@ export class ResearchAreaService {
     this.mappableEvent();
   }
 
+  set object(value){
+    this.researchArea = new ResearchArea();
+    this.researchArea.createdAt = value.createdAt;
+    this.researchArea.geometry = value.geometry;
+    this.researchArea.name = value.name;
+    this.researchArea.place = value.place;
+    this.researchArea.reports = value.reports;
+    this.researchArea.type = value.type;
+    this.mappableEvent();
+  }
+
   get researchArea(){
     return this._researchArea;
   }
