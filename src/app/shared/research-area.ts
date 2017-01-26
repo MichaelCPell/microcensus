@@ -10,33 +10,6 @@ export class ResearchArea {
 
 
   constructor(){
-  //   if(args == null){
-  //     return
-  //   }
-  //   Object.keys(args).forEach( key => {
-  //     this[key] = args[key]
-  //   })
-
-  //   this.afterInit();
-  // }
-
-  // private afterInit(){
-  //   if(this.type == "point"){
-  //     this._radius = 1;
-  //     this.lat = this._place.geometry.location.lat()
-  //     this.lng = this._place.geometry.location.lng()
-
-  //     this._geoJSON = {
-  //         "type": "Point",
-  //         "coordinates": [
-  //             this.lng,
-  //             this.lat
-  //         ],
-  //         "radius" : this.radiusInMeters
-  //     }
-  //   }else{
-  //     this._geoJSON = geoJSON;
-  //   }
   }
 
 // Hard Attributes
@@ -58,6 +31,11 @@ export class ResearchArea {
   }
 
   get name(){
+    if(this._name == null && this.type == "polygon"){
+      let coors = L.geoJSON(this.geometry).getBounds().getCenter()
+      this._name = `Unnamed Polygon Centered Around ${coors.lat}, ${coors.lng}`
+    }
+
     if(this.type == "point"){
       return this._place.formatted_address
     }else{
@@ -93,15 +71,5 @@ export class ResearchArea {
   set type(value){
     this._type = value
   }
-
-
-
-// Virtual Attributes
-
-
-  // get coordinates(){
-  //   return [this.lat, this.lng];
-  // }
-
 
 }

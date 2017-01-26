@@ -42,6 +42,11 @@ export class ReportDefinerComponent implements OnInit {
   
   constructor(public researchArea: ResearchAreaService, public user:User,
     private router:Router) {
+
+      if(this.researchArea.researchArea.name){
+        console.log(this.researchArea.researchArea)
+        this.readyToAnalyze = true
+      }
   }
 
   ngOnInit() {

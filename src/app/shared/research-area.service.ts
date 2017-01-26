@@ -42,7 +42,6 @@ export class ResearchAreaService {
     this.researchArea = new ResearchArea();
     this.researchArea.createdAt = Date.now();
     this.researchArea.geometry = value.geometry;
-    this.researchArea.name = "Research Triangle"
     this.researchArea.type = "polygon";
 
     this.mappableEvent();
