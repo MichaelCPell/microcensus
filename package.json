@@ -27,11 +27,13 @@
     "@types/lodash": "^4.14.40",
     "amazon-cognito-identity-js": "^1.8.0",
     "aws-sdk": "^2.7.15",
+    "awesome-typescript-loader": "=2.2.4",
     "core-js": "^2.4.1",
     "leaflet": "^1.0.2",
     "rx-http-request": "^1.2.0",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
+    "typescript": "=2.0.10",
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
@@ -50,7 +52,6 @@
     "protractor": "4.0.9",
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
-    "typescript": "~2.0.3",
     "webdriver-manager": "10.2.5"
   }
 }

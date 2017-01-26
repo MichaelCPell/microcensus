@@ -13,9 +13,8 @@ export class DynamoDBService {
         console.log("DynamoDBService: constructor");
     }
 
-    public addLocation(researchAreaService, email){
+    public addLocation(researchArea, email){
       var db = new AWS.DynamoDB.DocumentClient();
-      let researchArea = researchAreaService.researchArea;
       var params = {
         TableName: 'users',
         Key: { email: email},
@@ -30,9 +29,7 @@ export class DynamoDBService {
             name: researchArea.name,
             type: researchArea.type,
             place: researchArea.place,
-            geoJSON: researchArea.geoJSON,
-            lat: researchArea.lat,
-            lng: researchArea.lng,
+            geometry: researchArea.geometry,
             createdAt: Date.now(),
             reports: {}
           }

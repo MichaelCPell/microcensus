@@ -3,6 +3,7 @@ import { Subject }    from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import { ResearchArea } from "./research-area";
+import { DynamoDBService } from "./ddb.service";
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/merge';
 import * as L from 'leaflet';
@@ -16,7 +17,7 @@ export class ResearchAreaService {
   public mappable:BehaviorSubject<any> = new BehaviorSubject({});
   private _researchArea:ResearchArea = new ResearchArea();
 
-  constructor() {}
+  constructor(private ddb:DynamoDBService) {}
 
   set place(value){
     // came in from Address Selector
@@ -30,6 +31,7 @@ export class ResearchAreaService {
               value.geometry.location.lat()
           ]
     };
+    this.researchArea.name = value.formatted_address;
     this.researchArea.type = "point";
 
     this.mappableEvent();
@@ -76,6 +78,12 @@ export class ResearchAreaService {
       return [latLng[1], latLng[0]] 
     }
   }
+
+// Public Methods
+storeLocation(email:string){
+  this.ddb.addLocation(this.researchArea, email);
+}
+
 
 // Private Methods
 

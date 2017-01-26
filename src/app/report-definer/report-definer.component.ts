@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from 'environments/environment';
 import { ResearchAreaService } from '../shared/research-area.service';
-import { DynamoDBService } from "../shared/ddb.service.ts";
 import { User } from "../users/user";
 import { Router } from "@angular/router";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
@@ -41,7 +40,7 @@ export class ReportDefinerComponent implements OnInit {
     }
   ];
   
-  constructor(public researchArea: ResearchAreaService, private ddb:DynamoDBService, public user:User,
+  constructor(public researchArea: ResearchAreaService, public user:User,
     private router:Router) {
   }
 
@@ -56,13 +55,13 @@ export class ReportDefinerComponent implements OnInit {
 
     if(!this.reportType){
       this.reportType = this.reportTypes[0]
+      this.researchArea.reportType = this.reportType;
     }
   }
 
-
   public addAndAnalyze(){
-    this.ddb.addLocation(this.researchArea, this.user.email.getValue());
-    this.router.navigate(['/report_viewer/', this.selectedReport.slug])
+    this.researchArea.storeLocation(this.user.email.getValue());
+    this.router.navigate(['/report_viewer/', this.reportType.slug])
   }
 
   public onFileChange(event){
