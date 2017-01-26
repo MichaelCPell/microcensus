@@ -17,9 +17,7 @@ import { User } from "../users/user"
 @Component({
   selector: 'app-report-view',
   templateUrl: './report-viewer.component.html',
-  styleUrls: [
-    './report-viewer.component.css',
-    './print.css']
+  styleUrls: []
 })
 
 export class ReportViewerComponent implements AfterViewInit {
@@ -126,9 +124,7 @@ export class ReportViewerComponent implements AfterViewInit {
       @Component({
           selector: 'dynamic-component',
           template: tmpl,
-          styleUrls: [
-            './report-viewer.component.css',
-            './print.css']
+          styleUrls: []
       })
       class CustomDynamicComponent implements OnInit{
         public data:any = data;
