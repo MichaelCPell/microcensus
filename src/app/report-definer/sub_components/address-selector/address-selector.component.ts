@@ -18,9 +18,5 @@ export class AddressSelectorComponent implements OnInit {
     autocomplete.addListener('place_changed', () => {
       this.activePlaceChange.emit(autocomplete.getPlace());
     });
-
-    if(this.activePlace.address){
-      element.value = this.activePlace.address
-    }
   }
 }

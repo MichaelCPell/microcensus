@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {environment} from 'environments/environment';
 import { ResearchAreaService } from '../shared/research-area.service';
 import { User } from "../users/user";
@@ -11,12 +11,15 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
   styleUrls: ['./report-definer.component.css']
 })
 export class ReportDefinerComponent implements OnInit {
+  @Input() name:string = "";
   selectedReport:string;
   readyToAnalyze:boolean = false;
   areaType:string = "point";
   radius:number;
   reportType:any;
   place:any;
+  needsName:boolean = false;
+  editingName:boolean = false;
   reportTypes:Array<any> = [
     {
       name: "General Demographic Report",
@@ -51,12 +54,6 @@ export class ReportDefinerComponent implements OnInit {
 
   ngOnInit() {
     this.radius = this.researchArea.radius;
-    if(!this.place){
-      // TODO: This should only happen if ResearchService already has a place.
-      this.place = {
-        address: "555 Fayetteville Street"
-      };
-    }
 
     if(!this.reportType){
       this.reportType = this.reportTypes[0]
@@ -74,6 +71,7 @@ export class ReportDefinerComponent implements OnInit {
     let file = event.target.files[0]
     let read = new FileReader();
     read.readAsBinaryString(file);
+    this.needsName = true;
 
     read.onloadend = () => {
       console.log(read.result);
@@ -97,5 +95,18 @@ export class ReportDefinerComponent implements OnInit {
 
   onReportTypeChange(reportType){
     this.reportType = reportType;
+  }
+
+  onNameChange(value){
+    this.name = value
+  }
+
+  editName(){
+    if(this.editingName){
+      this.researchArea.researchArea.name = this.name
+      this.editingName= false;
+    }else{
+      this.editingName = true;
+    }
   }
 };
