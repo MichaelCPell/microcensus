@@ -38,7 +38,7 @@ export class ReportViewerComponent implements AfterViewInit {
     private ddb: DynamoDBService,
     private user:User) {
     this.route = route;
-    this.geom = this.researchArea.geoJSON;
+    this.geom = this.researchArea.researchArea.geometry;
   }
 
   ngAfterViewInit() {
@@ -47,7 +47,7 @@ export class ReportViewerComponent implements AfterViewInit {
 
     let html;
     let tempReport;
-
+    this.geom.radius = this.researchArea.radiusInMeters;
     console.log(this.geom)
     this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
@@ -134,7 +134,7 @@ export class ReportViewerComponent implements AfterViewInit {
             this.http.get(`/report_templates/${this.reportName}.js`)
             .subscribe(
               ((response:any) => {
-                this.data.address = this.researchArea.name;
+                this.data.address = this.researchArea.researchArea.name;
                 this.data.radius = this.researchArea.radius;
 
                 eval(response._body)

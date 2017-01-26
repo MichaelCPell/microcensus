@@ -45,7 +45,6 @@ export class DynamoDBService {
       })
     }
 
-
     public addReport(oData){
       var db = new AWS.DynamoDB.DocumentClient();
       var params = {
