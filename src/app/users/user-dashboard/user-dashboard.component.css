@@ -24,6 +24,11 @@
   padding-top: 2%;
   padding-bottom: 2%;
 }
+
+.table {
+  border: 1px solid #d8d8d8;
+}
+
 .table-title {
   color: #fff;
   font-family:  'Lato', sans-serif;

@@ -107,6 +107,14 @@ nav a.router-link-active {
   width:100%;
 }
 
+.page-title {
+  color: #2a2a2a;
+  font-family:  'Lato', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-top: 0;
+}
+
 
 .page-subtitle {
   font-family: 'Open Sans', sans-serif;
@@ -359,6 +367,10 @@ nav a.router-link-active {
       .page-subtitle {
         font-size: 18px;
       }
+      .page-title {
+        font-size: 20px;
+      }
+
     }
 
 
@@ -373,5 +385,8 @@ nav a.router-link-active {
         font-size: 18px;
       }
 
+      .page-title {
+        font-size: 20px;
+      }
 
     }
