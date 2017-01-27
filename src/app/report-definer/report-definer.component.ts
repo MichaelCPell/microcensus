@@ -61,7 +61,11 @@ export class ReportDefinerComponent implements OnInit {
       this.researchArea.reportType = this.reportType;
     }
     
-    this.user.privateReportTypes.subscribe(data => this.reportTypes = this.reportTypes.concat(data))
+    this.user.privateReportTypes.subscribe(data => { 
+      if(data){
+        this.reportTypes = this.reportTypes.concat(data)
+      }
+    })
   }
 
   public addAndAnalyze(){

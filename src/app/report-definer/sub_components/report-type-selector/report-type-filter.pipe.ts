@@ -10,9 +10,7 @@ export class ReportTypeFilterPipe implements PipeTransform {
     if (!reports) return [];
     return reports.filter(report => {
       let nameTest = new RegExp(value, "i").test(report.name)
-
       let descriptionTest = new RegExp(value, "i").test(report.description)
-
       return (nameTest || descriptionTest)
     });
   }
