@@ -48,7 +48,8 @@ export class ReportDefinerComponent implements OnInit {
 
       if(this.researchArea.researchArea.name){
         console.log(this.researchArea.researchArea)
-        this.readyToAnalyze = true
+        this.readyToAnalyze = true;
+        this.areaType = this.researchArea.researchArea.type;
       }
   }
 
@@ -59,6 +60,8 @@ export class ReportDefinerComponent implements OnInit {
       this.reportType = this.reportTypes[0]
       this.researchArea.reportType = this.reportType;
     }
+    
+    this.user.privateReportTypes.subscribe(data => this.reportTypes = this.reportTypes.concat(data))
   }
 
   public addAndAnalyze(){

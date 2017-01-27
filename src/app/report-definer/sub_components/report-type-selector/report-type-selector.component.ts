@@ -9,7 +9,7 @@ export class ReportTypeSelectorComponent implements OnInit {
   @Input() reportTypes:Array<any>;
   @Output() activeReportTypeChange:EventEmitter<any> = new EventEmitter();
 
-  constructor(private user:User) { }
+  constructor() { }
 
   ngOnInit() {
   }

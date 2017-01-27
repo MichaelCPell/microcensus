@@ -26,6 +26,12 @@ export class MapComponent implements OnInit {
 
     this.researchArea.mappable.subscribe(
       ra => {
+        if(this.shapeLayer){
+          this.map.removeLayer(this.shapeLayer);
+        }
+        if(this.marker){
+          this.map.removeLayer(this.marker);
+        }
         if(ra.type == "point"){
           let radius = ra.radius;
           let view = 13;
@@ -39,22 +45,12 @@ export class MapComponent implements OnInit {
           }else if(radius > 1000){
             view = 13;
           }
-          if(this.shapeLayer){
-            this.map.removeLayer(this.shapeLayer);
-            this.map.removeLayer(this.marker);
-          }
-
           this.marker = L.marker(ra.coordinates).addTo(this.map);
           this.shapeLayer = L.circle(ra.coordinates, radius).addTo(this.map);
           this.map.setView(this.marker.getLatLng(), view);
         }else if(ra.type == "polygon"){
-          if(this.shapeLayer){
-            this.map.removeLayer(this.shapeLayer);
-            this.map.removeLayer(this.marker);
-          }
-
-          let feature = L.geoJSON(ra.geometry).addTo(this.map);
-          this.map.fitBounds(feature.getBounds());
+          this.shapeLayer = L.geoJSON(ra.geometry).addTo(this.map);
+          this.map.fitBounds(this.shapeLayer.getBounds());
         }
       },
       error => {
