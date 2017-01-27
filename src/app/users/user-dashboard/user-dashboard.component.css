@@ -7,6 +7,17 @@
   padding-bottom: 20%;
 }
 
+.input-group-addon {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #3E4A5A;
+  text-transform: uppercase;
+  background-color: #fff;
+  border: 1px solid #fff;
+  border-radius: 0px;
+}
+
 .report-title-row {
   background-color: #3E4A5A !important;
   -webkit-print-color-adjust: exact;
