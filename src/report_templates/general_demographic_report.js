@@ -1,8 +1,12 @@
 console.log(data)
 
-
-document.getElementById("address").innerHTML = data["address"];
-document.getElementById("radius").innerHTML = data["radius"];
+$(".address").html(data["address"]);
+if(data.type == "polygon"){
+  $("#point").hide();
+}else{
+  $("#radius").html(data["radius"]);
+  $("#polygon").hide()
+}
 
 document.getElementById("total-population").innerHTML = Math.floor(data["population"]["total"]);
 

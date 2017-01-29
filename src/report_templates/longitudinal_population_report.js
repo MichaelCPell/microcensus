@@ -1,5 +1,10 @@
-document.getElementById("address").innerHTML = data["address"];
-document.getElementById("radius").innerHTML = data["radius"];
+$(".address").html(data["address"]);
+if(data.type == "polygon"){
+  $("#point").hide();
+}else{
+  $("#radius").html(data["radius"]);
+  $("#polygon").hide()
+}
 
 var chart = c3.generate({
   bindto: '#chart',
