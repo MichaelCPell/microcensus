@@ -8,14 +8,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.4.3/d3.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.js"></script>
-	
+
 
 
 <div class="container-fluid">
   <div class="row report-title-row">
     <div class="col-md-12 col-sm-12 centered">
       <h5 class="page-subtitle-brand">Gr!d Reports: POVERTY REPORT</h5>
-      <h3 class="page-title"><span class="page-title" id="radius">5</span> mile radius <span class="page-title" id="address">of 204 Windrift Drive, Gibsonville, NC, 27249</span> </h3>
+			<div id="point">
+	      <h3 class="page-title">
+					<span class="page-title" id="radius">5</span> mile radius
+					<span class="page-title" class="address"></span>
+				</h3>
+			</div>
+			<div id="polygon">
+				<h3 class="page-title">
+					<span class="page-title" class="address"></span>
+				</h3>
+			</div>
     </div>
   </div>
 </div>
@@ -40,8 +50,12 @@
     </div>
     <div class="col-md-3 col-sm-3">
       <br />
-      <h2 class="description centered">Poverty Rate for a <span id="radius2">5</span> mile radius <br /> of this address is</h2>
-      <h2 class="number-subtitle-big centered"><span class="number-subtitle-big" id="povertyRate"></span>%</h2>
+      <h2 class="description centered">
+				Poverty Rate for the research area is
+			</h2>
+      <h2 class="number-subtitle-big centered">
+				<span class="number-subtitle-big" id="povertyRate"></span>%
+			</h2>
     </div>
   </div>
   <div class="row section-title-row">

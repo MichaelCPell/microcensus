@@ -52,7 +52,7 @@ export class ReportViewerComponent implements AfterViewInit {
     }else{
       this.geom.radius = 0;
     }
-    
+
     console.log(this.geom)
     this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
@@ -141,6 +141,7 @@ export class ReportViewerComponent implements AfterViewInit {
               ((response:any) => {
                 this.data.address = this.researchArea.researchArea.name;
                 this.data.radius = this.researchArea.radius;
+                this.data.type = this.researchArea.researchArea.type;
 
                 eval(response._body)
               }).bind(this)

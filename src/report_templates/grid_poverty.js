@@ -2,10 +2,13 @@ console.log(data)
 
 $("app-map").hide();
 
-document.getElementById("address").innerHTML = data["address"];
-document.getElementById("radius").innerHTML = data["radius"];
-document.getElementById("radius2").innerHTML = data["radius"];
-
+$(".address").html(data["address"]);
+if(data.type == "polygon"){
+  $("#point").hide();
+}else{
+  $("#radius").html(data["radius"]);
+  $("#polygon").hide()
+}
 
 var povertyRate = Math.round((data["poverty"]['Total Families Below Poverty Line'] / data["poverty"]['Total Families']  * 10000))/100
 console.log(povertyRate)
