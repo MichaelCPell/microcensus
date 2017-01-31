@@ -113,10 +113,12 @@ nav a.router-link-active {
 
 .nav-email {
   padding-top: 6%;
+  font-family: 'Lato', sans-serif;
 }
 
 .nav-items {
   padding-top: 4%;
+  font-family: 'Lato', sans-serif;
 }
 
 .nav-demo {
