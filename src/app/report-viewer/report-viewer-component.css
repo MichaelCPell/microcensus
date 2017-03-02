@@ -8,8 +8,17 @@
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     font-weight: 400;
-    background-color: transparent;
+    background-color: white;
     border: 4px solid #3E4A5A;
     color: #3E4A5A;
     border-radius: 0px;
+}
+
+.save-report-row {
+  background-color: #E6E6E6;
+  margin-top: -1.5%;
+}
+
+.buttons-row {
+  background-color: #E6E6E6;
 }

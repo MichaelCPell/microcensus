@@ -6,8 +6,19 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 250px;
+  margin-bottom: 60px;
 }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
 /* Master Styles */
 
 h1 {
@@ -29,20 +40,22 @@ a {
   cursor: pointer;
   cursor: hand;
 }
+
 button {
   font-family: 'Lato', sans-serif;
-  background-color: #eee;
+  background-color: #fff;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
   cursor: hand;
 }
+
 button:hover {
-  background-color: #cfd8dc;
+  background-color: none;
 }
 button:disabled {
-  background-color: #eee;
+  background-color: none;
   color: #aaa;
   cursor: auto;
 }
@@ -156,14 +169,16 @@ nav a.router-link-active {
     border-radius: 0px;
 }
 
+/*
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
+
   min-height: 200px;
   background-color: #3E4A5A;
-}
+}*/
+
 
 .footer-text-title {
   font-family: 'Open Sans', sans-serif;
