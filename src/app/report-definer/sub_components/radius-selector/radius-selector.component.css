@@ -10,6 +10,7 @@
 
 .border-right {
   border-right: 2px solid #ddd;
+  height: 260px;
 }
 
 .border-top {
@@ -18,8 +19,14 @@
 
 .active{
   color: #316fc2;
+  background-color: #F1F1F1;
 }
 
 .form-label:hover {
   cursor: pointer;
+}
+
+.quadrant {
+  padding-top: 45px;
+  padding-bottom: 45px;
 }
