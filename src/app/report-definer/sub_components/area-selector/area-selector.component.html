@@ -6,17 +6,33 @@
   [value]="name"
   (input)="onNameChange(nameEditor.value)"
   #nameEditor/>
-<button *ngIf="needsName" (click)="editName()">Change Name</button>
+<button *ngIf="needsName && areaInputType == 'file'" (click)="editName()">Change Name</button>
 
 <div *ngIf="(user.remainingLocations | async) > 0">
-  <div class="row">
-    <div class="col-md-8">
-      <app-address-selector
-        [activePlace]="place"
-        (activePlaceChange)="onPlaceChange($event)"></app-address-selector>
+  <div *ngIf="areaInputType == 'places'">
+    <div class="row">
+      <div class="col-md-8">
+        <app-address-selector
+          [activePlace]="place"
+          (activePlaceChange)="onPlaceChange($event)"></app-address-selector>
+      </div>
     </div>
-    <div class="col-md-4">
-      <input type="file" (change)="onFileChange($event)"/>
+    <div class="row">
+      <div class="col-md-8">
+        <button (click)="areaInputType = 'file'">Upload a GeoJSON File</button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="areaInputType == 'file'">
+    <div class="row">
+      <div class="col-md-4">
+        <input type="file" (change)="onFileChange($event)"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <button (click)="areaInputType = 'places'">Pick an Address</button>
+      </div>
     </div>
   </div>
 </div>

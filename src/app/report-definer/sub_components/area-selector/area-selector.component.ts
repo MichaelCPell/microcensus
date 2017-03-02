@@ -14,20 +14,17 @@ export class AreaSelectorComponent implements OnInit {
   @Input() name:string = "";
   editingName:boolean = false;
   needsName:boolean = false;
-  areaType:string = "point";
+  areaInputType:string = "places";
 
   constructor(private researchArea: ResearchAreaService, public user:User,) {
     this.researchArea = researchArea;
   }
 
   ngOnInit() {
-      if(this.researchArea.researchArea.name){
-        console.log(this.researchArea.researchArea)
-        this.areaType = this.researchArea.researchArea.type;
-      }
   }
 
   editName(){
+    // TODO: recouple this from ResearchAreaService
     if(this.editingName){
       this.researchArea.researchArea.name = this.name
       this.editingName= false;
