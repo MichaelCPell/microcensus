@@ -53,7 +53,6 @@ export class ReportViewerComponent implements AfterViewInit {
       this.geom.radius = 0;
     }
 
-    console.log(this.geom)
     this.http.post(environment.backend, {reportName: this.reportName, geometry: this.geom})
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
@@ -94,7 +93,6 @@ export class ReportViewerComponent implements AfterViewInit {
       .concatMap(this.ddb.addReport)
       .subscribe(
         (next) => {
-          console.log(next)
           this.user.updateFromDdb(next["Attributes"])
 
           this.publishButton = "Saved to Dashboard!"
@@ -140,6 +138,7 @@ export class ReportViewerComponent implements AfterViewInit {
             .subscribe(
               ((response:any) => {
                 this.data.address = this.researchArea.researchArea.name;
+                this.data.geometry = this.researchArea.researchArea.geometry;
                 this.data.radius = this.researchArea.radius;
                 this.data.type = this.researchArea.researchArea.type;
 
