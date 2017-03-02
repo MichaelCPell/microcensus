@@ -15,6 +15,8 @@ export class ReportDefinerComponent implements OnInit {
   radius:number;
   reportType:any;
   area:any;
+  readyToAnalyze:boolean = false;
+
   reportTypes:Array<any> = [
     {
       name: "General Demographic Report",
@@ -79,5 +81,11 @@ export class ReportDefinerComponent implements OnInit {
 
   onAreaChange(newArea){
     this.area = newArea;
+    if(newArea.areaType == "point"){
+      this.researchArea.place = newArea;
+    }else{
+      this.researchArea.shape = newArea;
+    }
+    this.readyToAnalyze = true;
   }
 };
