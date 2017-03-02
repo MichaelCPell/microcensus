@@ -17,7 +17,7 @@ import { User } from "../users/user"
 @Component({
   selector: 'app-report-view',
   templateUrl: './report-viewer.component.html',
-  styleUrls: []
+  styleUrls: ['./report-viewer-component.css']
 })
 
 export class ReportViewerComponent implements AfterViewInit {
