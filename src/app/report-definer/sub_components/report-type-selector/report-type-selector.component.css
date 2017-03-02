@@ -90,18 +90,16 @@ thead {
   border: 3px solid #ddd;
 }
 
-.btn.btn-mc-dark-find {
-  font-family: Open Sans,sans-serif;
-  height: 34px;
-  font-weight: 400;
-  background-color: #fff;
-  border: 3px solid #3e4a5a;
-  color: #3e4a5a;
-  border-radius: 0;
+.btn.btn-mc-blue {
+  background-color: #6882A4;
+  color: #fff;
+  border-color: #6882A4;
+  border-radius: 0px;
 }
 
 .active{
   color: #316fc2;
+  background-color: #F1F1F1;
 }
 
 .standard-height{

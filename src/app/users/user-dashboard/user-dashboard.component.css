@@ -1,3 +1,7 @@
+.centered {
+  text-align: center;
+}
+
 .second-row {
   padding-top: 2%;
   padding-bottom: 2%;
@@ -23,6 +27,14 @@
   -webkit-print-color-adjust: exact;
   padding-top: 2%;
   padding-bottom: 2%;
+  margin-top: -20px;
+}
+
+.btn.btn-mc-blue {
+  background-color: #6882A4;
+  color: #fff;
+  border-color: #6882A4;
+  border-radius: 0px;
 }
 
 .table {
@@ -33,6 +45,7 @@
   color: #fff;
   font-family:  'Lato', sans-serif;
   font-weight: 300;
+  font-size: 16px;
 }
 
 .table-text {
@@ -40,6 +53,17 @@
   font-family:  'Lato', sans-serif;
   font-weight: 400;
   word-wrap: break-word;
+  font-size: 14px;
+}
+
+@media(max-width: 320px) {
+    .table-text{
+    color: #2a2a2a;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    word-wrap: break-word;
+    font-size: 10px;
+  }
 }
 
 .dashboard-text  {
@@ -54,6 +78,16 @@
   font-weight: 400;
   text-transform: uppercase;
   margin-top: 0;
+}
+
+.dashboard-gray-box {
+  background-color: #F3F3F3;
+  margin-left: 0.2%;
+  margin-right: 0.2%;
+  margin-bottom: 5%;
+  padding-top: 3%;
+  height: 19em;
+  max-width: 32em;
 }
 
 .form-control {
@@ -75,13 +109,16 @@ thead th {
 /*text-align: left;*/
 }
 
+td {
+  background-color: #fff;
+}
 tbody {
-  height: 120px;
+  max-height: 180px;
   overflow-y: auto;
 }
 
 thead {
-  background-color: #6C87AB;
+  background-color: #3E4A5A;
   border-bottom: none;
 }
 
