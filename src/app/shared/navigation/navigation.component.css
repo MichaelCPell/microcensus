@@ -40,20 +40,22 @@ a {
   cursor: pointer;
   cursor: hand;
 }
+
 button {
   font-family: 'Lato', sans-serif;
-  background-color: #eee;
+  background-color: #fff;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
   cursor: hand;
 }
+
 button:hover {
-  background-color: #cfd8dc;
+  background-color: none;
 }
 button:disabled {
-  background-color: #eee;
+  background-color: none;
   color: #aaa;
   cursor: auto;
 }
