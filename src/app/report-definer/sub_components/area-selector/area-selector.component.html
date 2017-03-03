@@ -1,12 +1,15 @@
 <h4 *ngIf="!editingName" class="subtitle-new-area">Current Address: {{activeName}}</h4>
 {{newName}}
-<input
-  *ngIf="editingName"
-  type="text"
-  [value]="name"
-  (input)="onNameInputChange(nameEditor.value)"
-  #nameEditor/>
-<button class="btn btn-mc-link" *ngIf="needsName && areaInputType == 'file'" (click)="editName()">Change Name</button>
+<form>
+  <input
+    *ngIf="editingName"
+    type="text"
+    [value]="activeName"
+    (input)="onNameInputChange(nameEditor.value)"
+    #nameEditor/>
+  <input type="submit" class="btn btn-mc-link" *ngIf="needsName && areaInputType == 'file'" (click)="editName()" value="Change Name">
+</form>
+
 
 <div *ngIf="(user.remainingLocations | async) > 0">
   <div *ngIf="areaInputType == 'places'">
@@ -31,7 +34,7 @@
     </div>
     <div class="row second-row">
       <div class="col-md-8">
-        <button class="btn btn-mc-light" (click)="areaInputType = 'places'"><i class="fa fa-map-marker" aria-hidden="true"></i> Pick an Address</button>
+        <button class="btn btn-mc-light" (click)="areaInputType = 'places'; editingName = false"><i class="fa fa-map-marker" aria-hidden="true"></i> Pick an Address</button>
       </div>
     </div>
   </div>
