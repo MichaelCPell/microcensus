@@ -1,12 +1,12 @@
-<h4 *ngIf="!editingName" class="subtitle-new-area">Current Address: {{activeName}}</h4> 
+<h4 *ngIf="!editingName" class="subtitle-new-area">Current Address: {{activeName}}</h4>
 {{newName}}
-<input 
-  *ngIf="editingName" 
-  type="text" 
+<input
+  *ngIf="editingName"
+  type="text"
   [value]="name"
   (input)="onNameInputChange(nameEditor.value)"
   #nameEditor/>
-<button *ngIf="needsName && areaInputType == 'file'" (click)="editName()">Change Name</button>
+<button class="btn btn-mc-link" *ngIf="needsName && areaInputType == 'file'" (click)="editName()">Change Name</button>
 
 <div *ngIf="(user.remainingLocations | async) > 0">
   <div *ngIf="areaInputType == 'places'">
@@ -17,9 +17,9 @@
           (activePlaceChange)="onPlaceChange($event)"></app-address-selector>
       </div>
     </div>
-    <div class="row">
+    <div class="row second-row">
       <div class="col-md-8">
-        <button (click)="areaInputType = 'file'">Upload a GeoJSON File</button>
+        <button class="btn btn-mc-light"(click)="areaInputType = 'file'"><i class="fa fa-file-o" aria-hidden="true"></i> Upload a GeoJSON File</button>
       </div>
     </div>
   </div>
@@ -29,9 +29,9 @@
         <input type="file" (change)="onFileChange($event)"/>
       </div>
     </div>
-    <div class="row">
+    <div class="row second-row">
       <div class="col-md-8">
-        <button (click)="areaInputType = 'places'">Pick an Address</button>
+        <button class="btn btn-mc-light" (click)="areaInputType = 'places'"><i class="fa fa-map-marker" aria-hidden="true"></i> Pick an Address</button>
       </div>
     </div>
   </div>

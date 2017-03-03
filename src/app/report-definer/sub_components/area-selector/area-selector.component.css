@@ -1,0 +1,29 @@
+.btn.btn-mc-light {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #6882A4;
+    color: #fff;
+    border-radius: 0px;
+}
+
+.btn.btn-mc-link {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    background-color: transparent;
+    color: #6882A4;
+    border-radius: 0px;
+    border: 2px solid #6882A4;
+}
+
+.second-row {
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.subtitle-new-area {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
