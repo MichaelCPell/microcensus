@@ -17,6 +17,7 @@ export class ReportDefinerComponent implements OnInit {
   area:any;
   name:string;
   readyToAnalyze:boolean = false;
+  showRadiusSelector = true;
 
   reportTypes:Array<any> = [
     {
@@ -84,8 +85,10 @@ export class ReportDefinerComponent implements OnInit {
     this.area = newArea;
     if(newArea.areaType == "point"){
       this.researchArea.place = newArea;
+      this.showRadiusSelector = true;
     }else{
       this.researchArea.shape = newArea;
+      this.showRadiusSelector = false;
     }
     this.name = this.researchArea.researchArea.name;
     this.readyToAnalyze = true;
