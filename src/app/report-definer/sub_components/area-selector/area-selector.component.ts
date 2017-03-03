@@ -11,23 +11,22 @@ export class AreaSelectorComponent implements OnInit {
   @Input()  activeArea:any;
   @Output() activeAreaChange = new EventEmitter<number>();
   
-  @Input() name:string = "";
+  @Input() activeName:string;
+  @Output() activeNameChange:EventEmitter<string> = new EventEmitter<string>();
+
   editingName:boolean = false;
   needsName:boolean = false;
   areaInputType:string = "places";
 
-  constructor(private researchArea: ResearchAreaService, public user:User,) {
-    this.researchArea = researchArea;
-  }
+  constructor(public user:User) {}
 
   ngOnInit() {
   }
 
   editName(){
-    // TODO: recouple this from ResearchAreaService
     if(this.editingName){
-      this.researchArea.researchArea.name = this.name
-      this.editingName= false;
+      this.activeNameChange.emit(this.activeName);
+      this.editingName = false;
     }else{
       this.editingName = true;
     }
@@ -51,7 +50,7 @@ export class AreaSelectorComponent implements OnInit {
     }
   }
 
-  onNameChange(value){
-    this.name = value
+  onNameInputChange(value){
+    this.activeName = value
   }
 }

@@ -15,6 +15,7 @@ export class ReportDefinerComponent implements OnInit {
   radius:number;
   reportType:any;
   area:any;
+  name:string;
   readyToAnalyze:boolean = false;
 
   reportTypes:Array<any> = [
@@ -86,6 +87,12 @@ export class ReportDefinerComponent implements OnInit {
     }else{
       this.researchArea.shape = newArea;
     }
+    this.name = this.researchArea.researchArea.name;
     this.readyToAnalyze = true;
+  }
+
+  onNameChange(newName){
+    this.researchArea.researchArea.name = newName;
+    this.name = this.researchArea.researchArea.name;
   }
 };
