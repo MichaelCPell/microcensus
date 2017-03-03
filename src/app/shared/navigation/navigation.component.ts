@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../users/user'
+import { User } from '../../users/user';
+import { Router } from "@angular/router";
+import { UserLoginService } from "../../users/cognito.service";
 
 
 @Component({
@@ -9,13 +11,15 @@ import { User } from '../../users/user'
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(public user:User) { }
+  constructor(public user:User, private router:Router, private userLogin:UserLoginService) { }
 
   ngOnInit() {
   }
 
-  public logOut(){
-    this.user.logOut();
+  public signOut(){
+    this.user.email = null
+    this.userLogin.logout()
+    this.router.navigate(["/"]);
   }
 
 }
