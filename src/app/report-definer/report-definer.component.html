@@ -5,32 +5,12 @@
     <div class="col-md-8">
       <div class ="row">
         <div class="col-md-12">
-           <h4 *ngIf="!editingName" class="subtitle-new-area">Current Address: {{researchArea.researchArea.name}}</h4> 
-           {{newName}}
-           <input 
-              *ngIf="editingName" 
-              type="text" 
-              [value]="name"
-              (input)="onNameChange(nameEditor.value)"
-              #nameEditor/>
-           <button *ngIf="needsName" (click)="editName()">Change Name</button>
-          <div *ngIf="(user.remainingLocations | async) > 0">
-            <div class="row">
-              <div class="col-md-8">
-                <app-address-selector
-                  [activePlace]="place"
-                  (activePlaceChange)="onPlaceChange($event)"></app-address-selector>
-              </div>
-              <div class="col-md-4">
-                <input type="file" (change)="onFileChange($event)"/>
-              </div>
-            </div>
-          </div>
-          <p class="form-text" *ngIf="(user.remainingLocations | async) <= 0">
-            <i>You are out of location credits.  To add a new location
-              <a routerLink="/credits/new" routerLinkActive="active">please purchase more.</a>
-            </i>
-          </p>
+          <app-area-selector
+            [activeArea]="area"
+            (activeAreaChange)="onAreaChange($event)"
+            [activeName]="name"
+            (activeNameChange)="onNameChange($event)">
+          </app-area-selector>
         </div>
       </div>
       <div class="row second-row">
@@ -38,7 +18,7 @@
           <div class="row second-row">
             <div class="col-md-4">
               <app-radius-selector 
-                *ngIf="areaType == 'point'" 
+                *ngIf="showRadiusSelector" 
                 [activeRadius]="radius"
                 (activeRadiusChange)="onRadiusChange($event)">
               </app-radius-selector>

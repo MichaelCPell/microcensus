@@ -28,6 +28,7 @@ import { LocationFilterPipe } from './shared/location-filter.pipe';
 import { RadiusSelectorComponent } from './report-definer/sub_components/radius-selector/radius-selector.component';
 import { ReportTypeSelectorComponent } from './report-definer/sub_components/report-type-selector/report-type-selector.component';
 import { ReportTypeFilterPipe } from './report-definer/sub_components/report-type-selector/report-type-filter.pipe';
+import { AreaSelectorComponent } from './report-definer/sub_components/area-selector/area-selector.component';
 
 
 
@@ -63,7 +64,8 @@ const appRoutes: Routes = [
     LocationFilterPipe,
     RadiusSelectorComponent,
     ReportTypeSelectorComponent,
-    ReportTypeFilterPipe
+    ReportTypeFilterPipe,
+    AreaSelectorComponent
   ],
   imports: [
     BrowserModule,
