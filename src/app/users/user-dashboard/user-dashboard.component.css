@@ -1,3 +1,7 @@
+.centered {
+  text-align: center;
+}
+
 .second-row {
   padding-top: 2%;
   padding-bottom: 2%;
@@ -23,6 +27,7 @@
   -webkit-print-color-adjust: exact;
   padding-top: 2%;
   padding-bottom: 2%;
+  margin-top: -1.5%;
 }
 
 
@@ -100,4 +105,32 @@ thead {
 
 .table>tbody>tr>td {
   border-bottom: 1px solid #ddd;
+}
+
+.new-tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #6882A4;
+}
+
+.new-tooltip .tooltiptext {
+    font-family:  'Lato', sans-serif;
+    font-weight: 400;
+    visibility: hidden;
+    width: 120px;
+    background-color: #6882A4;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+}
+
+.new-tooltip:hover .tooltiptext {
+    visibility: visible;
 }

@@ -17,14 +17,14 @@
         <div class="col-md-12">
           <div class="row second-row">
             <div class="col-md-4">
-              <app-radius-selector 
-                *ngIf="showRadiusSelector" 
+              <app-radius-selector
+                *ngIf="showRadiusSelector"
                 [activeRadius]="radius"
                 (activeRadiusChange)="onRadiusChange($event)">
               </app-radius-selector>
             </div>
-            <div class="col-md-8">
-              <app-report-type-selector 
+            <div class="col-md-7">
+              <app-report-type-selector
                 [activeReportType]="reportType"
                 [reportTypes] = "reportTypes"
                 (activeReportTypeChange)="onReportTypeChange($event)">
