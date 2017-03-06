@@ -1,6 +1,14 @@
+.second-row {
+  padding-top: 2%;
+}
+
+.centered {
+  text-align: center;
+}
+
 .subtitle {
   font-family:  'Lato', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   /*font-size: 1em;*/
 }
 

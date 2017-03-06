@@ -123,6 +123,14 @@ nav a.router-link-active {
   color: #039be5;
 }
 
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+  background-color: transparent;
+}
 
 .nav-email {
   padding-top: 6%;
