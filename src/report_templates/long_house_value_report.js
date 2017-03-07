@@ -1,7 +1,3 @@
-console.log(`Flag One!!`)
-console.log(data)
-
-
 $(".address").html(data["address"]);
 if(data.type == "polygon"){
   $("#point").hide();
@@ -13,8 +9,7 @@ if(data.type == "polygon"){
 var chart = c3.generate({
   bindto: '#chart',
   size: {
-        height: 320,
-        // width: 350
+        height: 320
   },
   data: {
     columns: [
@@ -31,3 +26,10 @@ var chart = c3.generate({
     }
   }
 });
+
+
+var firstChangeValue = (data["2000"]["median"] - data["1990"]["median"])/data["1990"]["median"]
+var secondChangeValue = (data["2010"]["median"] - data["2000"]["median"])/data["2000"]["median"]
+
+$("#90to00").html(Math.round(firstChangeValue * 10000)/100);
+$("#00to10").html(Math.round(secondChangeValue * 10000)/100);
