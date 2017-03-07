@@ -30,7 +30,17 @@ var chart = c3.generate({
             position: 'outer-middle'
         }
     }
-  }
+  },
+  tooltip: {
+        format: {
+            title: function (d) { return 'Data ' + d; },
+            value: function (value, ratio, id) {
+                var format = id === 'data1' ? d3.format(',') : d3.format('$');
+                return format(value);
+            }
+//            value: d3.format(',') // apply this format to both y and y2
+        }
+    }
 });
 
 
