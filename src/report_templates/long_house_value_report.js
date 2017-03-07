@@ -23,6 +23,12 @@ var chart = c3.generate({
     x: {
       type: 'category',
       categories: ['1990', '2000', '2010']
+    },
+    y: {
+        label: {
+            text: 'Value in 2017 USD ($)',
+            position: 'outer-middle'
+        }
     }
   }
 });
