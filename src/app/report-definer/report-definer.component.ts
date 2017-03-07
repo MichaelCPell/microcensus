@@ -31,6 +31,11 @@ export class ReportDefinerComponent implements OnInit {
       slug: "longitudinal_population_report"
     },
     {
+      name: "Longitudinal House Value Report",
+      description: "Displays the mediam house value for the research area across time.",
+      slug: "long_house_value_report"
+    },
+    {
       name: "NC Voter Plus Report",
       description: "This report includes counts of political affiliation by party: REP, DEM, UNA (unaffiliated), and LIB (libertarian).  It also includes demographic data similar to the General Demographic Report.",
       slug: "nc_voter_plus"
@@ -52,7 +57,7 @@ export class ReportDefinerComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit():void {
     this.radius = this.researchArea.radius;
 
     if(!this.reportType){
@@ -65,6 +70,11 @@ export class ReportDefinerComponent implements OnInit {
         this.reportTypes = this.reportTypes.concat(data)
       }
     })
+
+    if(this.researchArea){
+      this.name = this.researchArea.researchArea.name;
+      this.readyToAnalyze = true;
+    }
   }
 
   public addAndAnalyze(){
