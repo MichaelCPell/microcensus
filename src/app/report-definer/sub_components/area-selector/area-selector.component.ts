@@ -20,8 +20,7 @@ export class AreaSelectorComponent implements OnInit {
 
   constructor(public user:User) {}
 
-  ngOnInit() {
-  }
+  ngOnInit():void {}
 
   editName(){
     if(this.editingName){
