@@ -17,6 +17,7 @@ export class ReportDefinerComponent implements OnInit {
   area:any;
   name:string;
   readyToAnalyze:boolean = false;
+  showRadiusSelector = true;
 
   reportTypes:Array<any> = [
     {
@@ -28,6 +29,11 @@ export class ReportDefinerComponent implements OnInit {
       name: "Longitudinal Population Report",
       description: "Population for the selected area according to the 1990, 2000 and 2010 Decennial census.",
       slug: "longitudinal_population_report"
+    },
+    {
+      name: "Longitudinal House Value Report",
+      description: "Displays the mediam house value for the research area across time.",
+      slug: "long_house_value_report"
     },
     {
       name: "NC Voter Plus Report",
@@ -51,7 +57,7 @@ export class ReportDefinerComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit():void {
     this.radius = this.researchArea.radius;
 
     if(!this.reportType){
@@ -64,6 +70,11 @@ export class ReportDefinerComponent implements OnInit {
         this.reportTypes = this.reportTypes.concat(data)
       }
     })
+
+    if(this.researchArea){
+      this.name = this.researchArea.researchArea.name;
+      this.readyToAnalyze = true;
+    }
   }
 
   public addAndAnalyze(){
@@ -84,8 +95,10 @@ export class ReportDefinerComponent implements OnInit {
     this.area = newArea;
     if(newArea.areaType == "point"){
       this.researchArea.place = newArea;
+      this.showRadiusSelector = true;
     }else{
       this.researchArea.shape = newArea;
+      this.showRadiusSelector = false;
     }
     this.name = this.researchArea.researchArea.name;
     this.readyToAnalyze = true;

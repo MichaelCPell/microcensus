@@ -18,23 +18,15 @@
         <li class="nav-items" *ngIf="user.email | async">
           <p class="navbar-text">{{user.remainingLocations | async}} Locations Remaining</p>
         </li>
-        <li class="dropdown nav-email">
-          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.email | async}} <span class="caret"></span> </a>
-          <ul class="dropdown-menu">
-            <li><a routerLink="/users/dashboard" routerLinkActive="active">Dashboard</a></li>
-            <li><a href="#">Account</a></li>
-            <li role="separator" class="divider"></li>
-            <li><button (click)="logOut()">Sign Out</button></li>
-          </ul>
-        </li>
         <li class="nav-items" *ngIf="!(user.email | async)">
           <a routerLink="/users/registration" routerLinkActive="active">Sign Up or In</a>
         </li>
-        <li class="nav-email dropdown">
+        <li class="nav-email dropdown" *ngIf="user.email | async">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" routerLinkActive="active">{{user.email | async}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a routerLink="/users/dashboard" routerLinkActive="active">Dashboard</a></li>
             <li><a href="#">Account</a></li>
+            <li role="separator" class="divider"></li>
             <li><a (click)="signOut()">Sign Out</a></li>
           </ul>
         </li>
@@ -43,9 +35,3 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-<!-- <footer class="footer">
-  <div class="container">
-    <p class="text-muted">This will be the footer</p>
-  </div>
-</footer> -->

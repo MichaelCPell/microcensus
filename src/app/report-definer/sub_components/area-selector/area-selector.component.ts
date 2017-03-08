@@ -10,8 +10,8 @@ import { User } from "../../../users/user";
 export class AreaSelectorComponent implements OnInit {
   @Input()  activeArea:any;
   @Output() activeAreaChange = new EventEmitter<number>();
-  
-  @Input() activeName:string;
+
+  @Input() activeName:string = "";
   @Output() activeNameChange:EventEmitter<string> = new EventEmitter<string>();
 
   editingName:boolean = false;
@@ -20,8 +20,7 @@ export class AreaSelectorComponent implements OnInit {
 
   constructor(public user:User) {}
 
-  ngOnInit() {
-  }
+  ngOnInit():void {}
 
   editName(){
     if(this.editingName){
