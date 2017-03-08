@@ -1,3 +1,5 @@
+console.log(data)
+
 $(".address").html(data["address"]);
 if(data.type == "polygon"){
   $("#point").hide();
@@ -13,7 +15,8 @@ var chart = c3.generate({
   },
   data: {
     columns: [
-      ["House Value", data["1990"]["median"], data["2000"]["median"], data["2010"]["median"]]
+      ["House Value",
+      data["years"]["1990"]["median"], data["years"]["1995"]["median"], data["years"]["2000"]["median"], data["years"]["2005"]["median"], data["years"]["2010"]["median"], data["years"]["2015"]["median"]]
     ]
   },
   color: {
@@ -22,7 +25,7 @@ var chart = c3.generate({
   axis: {
     x: {
       type: 'category',
-      categories: ['1990', '2000', '2010']
+      categories: ['1990', '1995', '2000', '2005','2010','2015']
     },
     y: {
         label: {
@@ -38,14 +41,26 @@ var chart = c3.generate({
                 var format = id === 'data1' ? d3.format(',') : d3.format('$');
                 return format(value);
             }
-//            value: d3.format(',') // apply this format to both y and y2
         }
     }
 });
 
+// Percent Change Table
 
-var firstChangeValue = (data["2000"]["median"] - data["1990"]["median"])/data["1990"]["median"]
-var secondChangeValue = (data["2010"]["median"] - data["2000"]["median"])/data["2000"]["median"]
+var firstChangeValue =
+(data["years"]["1995"]["median"] - data["years"]["1990"]["median"])/data["years"]["1990"]["median"]
+var secondChangeValue =
+(data["years"]["2000"]["median"] - data["years"]["1995"]["median"])/data["years"]["1995"]["median"]
+var thirdChangeValue =
+(data["years"]["2005"]["median"] - data["years"]["2000"]["median"])/data["years"]["2000"]["median"]
+var fourthChangeValue =
+(data["years"]["2010"]["median"] - data["years"]["2005"]["median"])/data["years"]["2005"]["median"]
+var fifthChangeValue = 
+(data["years"]["2015"]["median"] - data["years"]["2010"]["median"])/data["years"]["2010"]["median"]
 
-$("#90to00").html(Math.round(firstChangeValue * 10000)/100);
-$("#00to10").html(Math.round(secondChangeValue * 10000)/100);
+
+$("#90to95").html(Math.round(firstChangeValue * 10000)/100);
+$("#95to00").html(Math.round(secondChangeValue * 10000)/100);
+$("#00to05").html(Math.round(thirdChangeValue * 10000)/100);
+$("#05to10").html(Math.round(fourthChangeValue * 10000)/100);
+$("#10to15").html(Math.round(fifthChangeValue * 10000)/100);
