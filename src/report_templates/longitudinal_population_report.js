@@ -1,3 +1,5 @@
+console.log(data)
+
 $(".address").html(data["address"]);
 if(data.type == "polygon"){
   $("#point").hide();
@@ -14,7 +16,8 @@ var chart = c3.generate({
   },
   data: {
     columns: [
-      ["Population", data[0][1990], data[1][2000], data[2][2010]]
+      ["Population", 
+      data["years"]["1990"]["total"], data["years"]["1995"]["total"], data["years"]["2000"]["total"], data["years"]["2005"]["total"], data["years"]["2010"]["total"], data["years"]["2015"]["total"]]
     ]
   },
   color: {
@@ -23,7 +26,27 @@ var chart = c3.generate({
   axis: {
     x: {
       type: 'category',
-      categories: ['1990', '2000', '2010']
+      categories: ['1990', '1995', '2000', '2005','2010','2015']
     }
   }
 });
+
+// Table
+
+var firstChangeValue =
+(data["years"]["1995"]["total"] - data["years"]["1990"]["total"])/data["years"]["1990"]["total"]
+var secondChangeValue =
+(data["years"]["2000"]["total"] - data["years"]["1995"]["total"])/data["years"]["1995"]["total"]
+var thirdChangeValue =
+(data["years"]["2005"]["total"] - data["years"]["2000"]["total"])/data["years"]["2000"]["total"]
+var fourthChangeValue =
+(data["years"]["2010"]["total"] - data["years"]["2005"]["total"])/data["years"]["2005"]["total"]
+var fifthChangeValue = 
+(data["years"]["2015"]["total"] - data["years"]["2010"]["total"])/data["years"]["2010"]["total"]
+
+
+$("#90to95").html(Math.round(firstChangeValue * 10000)/100);
+$("#95to00").html(Math.round(secondChangeValue * 10000)/100);
+$("#00to05").html(Math.round(thirdChangeValue * 10000)/100);
+$("#05to10").html(Math.round(fourthChangeValue * 10000)/100);
+$("#10to15").html(Math.round(fifthChangeValue * 10000)/100);
