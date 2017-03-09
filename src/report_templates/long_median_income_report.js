@@ -15,7 +15,7 @@ var chart = c3.generate({
   },
   data: {
     columns: [
-      ["House Value",
+      ["Median Income",
       data["years"]["1990"]["median"], data["years"]["1995"]["median"], data["years"]["2000"]["median"], data["years"]["2005"]["median"], data["years"]["2010"]["median"], data["years"]["2015"]["median"]]
     ]
   },
@@ -29,7 +29,7 @@ var chart = c3.generate({
     },
     y: {
         label: {
-            text: 'Value in 2017 USD ($)',
+            text: 'Income in 2017 USD ($)',
             position: 'outer-middle'
         }
     }

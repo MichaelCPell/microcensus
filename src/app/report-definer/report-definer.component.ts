@@ -36,6 +36,11 @@ export class ReportDefinerComponent implements OnInit {
       slug: "long_house_value_report"
     },
     {
+      name: "Longitudinal Median Income Report",
+      description: "Displays the median income for the research area across time.",
+      slug: "long_median_income_report"
+    },
+    {
       name: "NC Voter Plus Report",
       description: "This report includes counts of political affiliation by party: REP, DEM, UNA (unaffiliated), and LIB (libertarian).  It also includes demographic data similar to the General Demographic Report.",
       slug: "nc_voter_plus"
@@ -51,7 +56,7 @@ export class ReportDefinerComponent implements OnInit {
       slug: "business_report_builder"
     }
   ];
-  
+
   constructor(public researchArea: ResearchAreaService, public user:User,
     private router:Router) {
 
@@ -64,8 +69,8 @@ export class ReportDefinerComponent implements OnInit {
       this.reportType = this.reportTypes[0]
       this.researchArea.reportType = this.reportType;
     }
-    
-    this.user.privateReportTypes.subscribe(data => { 
+
+    this.user.privateReportTypes.subscribe(data => {
       if(data){
         this.reportTypes = this.reportTypes.concat(data)
       }
@@ -81,7 +86,7 @@ export class ReportDefinerComponent implements OnInit {
     this.researchArea.storeLocation(this.user.email.getValue());
     this.router.navigate(['/report_viewer/', this.reportType.slug])
   }
-  
+
   onRadiusChange(newRadius){
     this.radius = newRadius;
     this.researchArea.radius = newRadius;

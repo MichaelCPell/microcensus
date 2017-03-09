@@ -1,0 +1,78 @@
+<head>
+  <title>Longitudinal Population Report for
+  <span id="address"></span></title>
+</head>
+
+<div class="container-fluid">
+  <div class="row report-title-row">
+    <div class="col-md-12 col-sm-12 centered">
+      <h3 class="page-subtitle">Longitudinal Population Report</h3>
+
+			<div id="point">
+	      <h3 class="page-title">
+					<span class="page-title" id="radius">5</span> mile radius
+					<span class="page-title address"></span>
+				</h3>
+			</div>
+			<div id="polygon">
+				<h3 class="page-title">
+					<span class="page-title address"></span>
+				</h3>
+			</div>
+    </div>
+  </div>
+  <div class="row second-row">
+    <div class="col-md-6 col-md-offset-3">
+      <p class="report-text">
+        This report shows the estimated population counts across time. <br />
+        The graph shows the counts.  The table shows the percent change between each data point.
+      </p>
+    </div>
+  </div>
+  <div class="row second-row">
+    <div class="col-md-4 col-md-offset-3 col-sm-4 col-sm-offset-1 col-xs-4 col-xs-offset-1">
+      <div id="chart"></div>
+    </div>
+    <div class="col-md-2 col-md-offset-0 col-sm-3 col-sm-offset-3 col-xs-3 col-xs-offset-3">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>% Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>'90 - '95</td>
+            <td id="90to95">12345</td>
+          </tr>
+          <tr>
+            <td>'95 - '00</td>
+            <td id="95to00">12345</td>
+          </tr>
+          <tr>
+            <td>'00 - '05</td>
+            <td id="00to05">12345</td>
+          </tr>
+          <tr>
+            <td>'05 - '10</td>
+            <td id="05to10">12345</td>
+          </tr>
+          <tr>
+            <td>'10 - '15</td>
+            <td id="10to15">12345</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+
+<link rel="stylesheet" href="https://s3.amazonaws.com/microcensus-assets/report-styles/longitudinal_report.css"/>
+<link rel="stylesheet" href="https://s3.amazonaws.com/microcensus-assets/shared-styles/report-print.css"/>
