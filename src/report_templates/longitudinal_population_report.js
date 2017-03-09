@@ -27,6 +27,12 @@ var chart = c3.generate({
     x: {
       type: 'category',
       categories: ['1990', '1995', '2000', '2005','2010','2015']
+    },
+    y: {
+        label: {
+            text: '# of People',
+            position: 'outer-middle'
+        }
     }
   }
 });
