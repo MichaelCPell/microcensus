@@ -29,6 +29,7 @@ import { RadiusSelectorComponent } from './report-definer/sub_components/radius-
 import { ReportTypeSelectorComponent } from './report-definer/sub_components/report-type-selector/report-type-selector.component';
 import { ReportTypeFilterPipe } from './report-definer/sub_components/report-type-selector/report-type-filter.pipe';
 import { AreaSelectorComponent } from './report-definer/sub_components/area-selector/area-selector.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 
 
@@ -65,7 +66,8 @@ const appRoutes: Routes = [
     RadiusSelectorComponent,
     ReportTypeSelectorComponent,
     ReportTypeFilterPipe,
-    AreaSelectorComponent
+    AreaSelectorComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
