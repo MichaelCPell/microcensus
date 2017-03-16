@@ -1,4 +1,15 @@
-console.log(data)
+window.printReport = function(){
+  chart.resize({
+    height: 260,
+    width: 400
+  });
+
+  $("#map").css("height", "200px")
+
+  setTimeout(function(){window.print()}, 1000)
+}
+
+//
 
 $(".address").html(data["address"]);
 if(data.type == "polygon"){
