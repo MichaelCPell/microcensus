@@ -72,6 +72,12 @@
   text-transform: uppercase;
 }
 
+.report-text {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
 .btn.btn-mc {
   font-family:  'Lato', sans-serif;
   color: #3E4A5A;
@@ -96,7 +102,19 @@
   margin: 0 auto;
 }
 
-/*Pie charts*/
+
+.table>thead>tr>th {
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    background-color: #6882A4 !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact;
+}
+
+.table>tbody>tr>td {
+  text-align: center;
+}
 
 
 
