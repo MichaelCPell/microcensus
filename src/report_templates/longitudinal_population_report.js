@@ -1,4 +1,4 @@
-window.reportPrint = function(){
+window.printReport = function(){
   chart.resize({
     height: 260,
     width: 400
