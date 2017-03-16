@@ -49,7 +49,7 @@ export class MapComponent implements OnInit {
           this.marker = L.marker(ra.coordinates).addTo(this.map);
           this.shapeLayer = L.circle(ra.coordinates, radius).addTo(this.map);
           this.map.setView(this.marker.getLatLng(), view);
-        }else if(ra.type == "polygon"){
+        }else if(ra.type == "polygon" || ra.type == "Polygon"){
           this.shapeLayer = L.geoJSON(ra.geometry).addTo(this.map);
           this.map.fitBounds(this.shapeLayer.getBounds());
         }
@@ -60,22 +60,29 @@ export class MapComponent implements OnInit {
     )
 
     this.activateDraw();
+
+    this.map.on(L.Draw.Event.CREATED, (e) => {
+      if (e.layerType === 'polygon') {
+        this.researchArea.shape = e.layer.toGeoJSON();      
+      }
+    });
+
   }
 
   activateDraw(){
-    var drawControl = new L.Control.Draw(new L.Control.Draw({
-        edit: {
-            poly: {
-                allowIntersection: false
-            }
-        },
+    var drawControl = new L.Control.Draw({
         draw: {
             polygon: {
                 allowIntersection: false,
                 showArea: true
-            }
+            },
+            marker: false,
+            rectangle: false,
+            circle: false,
+            polyline: false
         }
-    }));
+    });
+
     this.map.addControl(drawControl)
   }
 
