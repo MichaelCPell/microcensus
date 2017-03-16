@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import * as L from 'leaflet';
 var leafletDraw = require('leaflet-draw');
 import {ResearchAreaService} from "../../../shared/research-area.service";
@@ -13,6 +13,7 @@ export class MapComponent implements OnInit {
   private marker:L.Marker;
   private shapeLayer:any;
   private map:L.Map;
+  @Output() polygonDrawn = new EventEmitter<object>();
 
   constructor(private researchArea: ResearchAreaService) {
     this.researchArea = researchArea;
@@ -63,7 +64,7 @@ export class MapComponent implements OnInit {
 
     this.map.on(L.Draw.Event.CREATED, (e) => {
       if (e.layerType === 'polygon') {
-        this.researchArea.shape = e.layer.toGeoJSON();      
+        this.polygonDrawn.emit(e.layer.toGeoJSON());     
       }
     });
 

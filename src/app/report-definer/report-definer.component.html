@@ -9,7 +9,8 @@
             [activeArea]="area"
             (activeAreaChange)="onAreaChange($event)"
             [activeName]="name"
-            (activeNameChange)="onNameChange($event)">
+            (activeNameChange)="onNameChange($event)"
+            [needsName]="needsName">
           </app-area-selector>
         </div>
       </div>
@@ -35,7 +36,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <app-map></app-map>
+      <app-map (polygonDrawn)="onPolygonDraw($event)" ></app-map>
     </div>
   </div>
   <div class="row last-row">
