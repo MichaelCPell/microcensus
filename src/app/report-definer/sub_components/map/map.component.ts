@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
+var leafletDraw = require('leaflet-draw');
 import {ResearchAreaService} from "../../../shared/research-area.service";
 import {Subscriber} from "rxjs/Subscriber"
 
@@ -58,6 +59,24 @@ export class MapComponent implements OnInit {
       }
     )
 
+    this.activateDraw();
+  }
+
+  activateDraw(){
+    var drawControl = new L.Control.Draw(new L.Control.Draw({
+        edit: {
+            poly: {
+                allowIntersection: false
+            }
+        },
+        draw: {
+            polygon: {
+                allowIntersection: false,
+                showArea: true
+            }
+        }
+    }));
+    this.map.addControl(drawControl)
   }
 
 }
