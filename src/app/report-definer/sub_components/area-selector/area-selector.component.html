@@ -13,7 +13,7 @@
           [value]="activeName"
           (input)="onNameInputChange(nameEditor.value)"
           #nameEditor/>
-        <input type="submit" class="btn btn-mc-link" *ngIf="needsName && areaInputType == 'file'" (click)="editName()" value= "Change Name"/>
+        <input type="submit" class="btn btn-mc-link" *ngIf="needsName" (click)="editName()" value= "Change Name"/>
       </form>
     </div>
   </div>

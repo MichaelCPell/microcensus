@@ -13,9 +13,9 @@ export class AreaSelectorComponent implements OnInit {
 
   @Input() activeName:string = "";
   @Output() activeNameChange:EventEmitter<string> = new EventEmitter<string>();
+  @Input() needsName:boolean;
 
   editingName:boolean = false;
-  needsName:boolean = false;
   areaInputType:string = "places";
 
   constructor(public user:User) {}

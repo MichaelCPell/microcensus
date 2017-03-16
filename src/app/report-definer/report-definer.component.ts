@@ -16,6 +16,7 @@ export class ReportDefinerComponent implements OnInit {
   reportType:any;
   area:any;
   name:string;
+  needsName:boolean = false;
   readyToAnalyze:boolean = false;
   showRadiusSelector = true;
 
@@ -112,5 +113,11 @@ export class ReportDefinerComponent implements OnInit {
   onNameChange(newName){
     this.researchArea.researchArea.name = newName;
     this.name = this.researchArea.researchArea.name;
+  }
+
+  onPolygonDraw(polygon){
+    this.researchArea.shape = polygon;
+    this.name = this.researchArea.researchArea.name;
+    this.needsName = true;
   }
 };
