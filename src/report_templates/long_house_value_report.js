@@ -10,9 +10,9 @@ if(data.type == "polygon"){
 
 var chart = c3.generate({
   bindto: '#chart',
-  size: {
-        height: 320
-  },
+  // size: {
+  //       height: 320
+  // },
   data: {
     columns: [
       ["House Value",

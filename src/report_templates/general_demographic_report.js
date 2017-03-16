@@ -1,24 +1,37 @@
-console.log(data)
+window.printReport = function(){
+  chart1.resize({
+    height: 200,
+    width: 300
+  });
 
-$(".address").html(data["address"]);
-if(data.type == "polygon"){
-  $("#point").hide();
-}else{
-  $("#radius").html(data["radius"]);
-  $("#polygon").hide()
+  chart2.resize({
+    height: 200,
+    width: 300
+  });
+
+  chart3.resize({
+    height: 200,
+    width: 300
+  });
+
+  chart4.resize({
+    height: 250,
+    width: 350
+  });
+
+  chart5.resize({
+    height: 250,
+    width: 350
+  });
+
+  $("#map").css("height", "180px")
+
+  setTimeout(function(){window.print()}, 1000)
 }
 
-document.getElementById("total-population").innerHTML = Math.floor(data["population"]["total"]);
+//
 
-document.getElementById("median-household-income").innerHTML = data["median_income"];
-
-document.getElementById("number-of-homes").innerHTML = Math.floor(data["housing"]["numberOfHouseholds"]);
-
-
-document.getElementById("median-home-value").innerHTML = data["housing"]["median"];
-
-
-c3.generate({
+var chart1 = c3.generate({
   bindto: '#chart1',
     data: {
       json: [data["race"]],
@@ -44,7 +57,7 @@ c3.generate({
 
 //
 
-c3.generate({
+var chart2 = c3.generate({
   bindto: '#chart2',
     data: {
       json: [data["latino"]],
@@ -70,7 +83,7 @@ c3.generate({
 
 //
 
-c3.generate({
+var chart3 = c3.generate({
   bindto: '#chart3',
     data: {
       json: [data["population"]],
@@ -97,7 +110,7 @@ c3.generate({
 
 //
 
-c3.generate({
+var chart4 = c3.generate({
   bindto: '#chart4',
     data: {
       json: [data["homes"]],
@@ -123,7 +136,7 @@ c3.generate({
 
 //
 
-c3.generate({
+var chart5 = c3.generate({
   bindto: '#chart5',
     data: {
       json: [data["education"]],
@@ -146,3 +159,24 @@ c3.generate({
     }
   }
 });
+
+//
+
+$(".address").html(data["address"]);
+if(data.type == "polygon"){
+  $("#point").hide();
+}else{
+  $("#radius").html(data["radius"]);
+  $("#polygon").hide()
+}
+
+document.getElementById("total-population").innerHTML = Math.floor(data["population"]["total"]);
+
+document.getElementById("median-household-income").innerHTML = data["median_income"];
+
+document.getElementById("number-of-homes").innerHTML = Math.floor(data["housing"]["numberOfHouseholds"]);
+
+
+document.getElementById("median-home-value").innerHTML = data["housing"]["median"];
+
+//
