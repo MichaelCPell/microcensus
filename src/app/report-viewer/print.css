@@ -1,5 +1,9 @@
 @media print {
 
+  .container-print {
+    width: 100% !important;
+  }
+
   .page-title {
     font-size: 22px !important;
     font-weight: 400 !important;
