@@ -1,27 +1,27 @@
 window.printReport = function(){
-  chart1.resize({
-    height: 200,
-    width: 300
+    chart1.resize({
+    height: 230,
+    width: 320
   });
 
   chart2.resize({
-    height: 200,
-    width: 300
+    height: 230,
+    width: 320
   });
 
   chart3.resize({
-    height: 200,
-    width: 300
+    height: 230,
+    width: 320
   });
 
   chart4.resize({
     height: 250,
-    width: 350
+    width: 400
   });
 
   chart5.resize({
     height: 250,
-    width: 350
+    width: 400
   });
 
   $("#map").css("height", "180px")
