@@ -123,7 +123,7 @@ export class ReportViewerComponent implements AfterViewInit {
       @Component({
           selector: 'dynamic-component',
           template: tmpl,
-          styleUrls: []
+          styleUrls: ['test.css', 'print.css']
       })
       class CustomDynamicComponent implements OnInit{
         public data:any = data;
