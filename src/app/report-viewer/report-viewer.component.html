@@ -1,6 +1,6 @@
 <app-navigation></app-navigation>
 
-<div *ngIf="dataLoaded" class="row second-row save-report-row hidden-print">
+<div *ngIf="dataLoaded" class="row vertical-row-padding save-report-row hidden-print">
   <div class="col-sm-2 col-sm-offset-10">
     <button
       (click)="publish()"
@@ -26,8 +26,9 @@
   </div>
   <template #myDynamicContent> I will be replaced.</template>
 
-
-  <div *ngIf="dataLoaded" class="col-md-6 col-md-offset-3">
-    <app-map></app-map>
+  <div class="row">
+    <div *ngIf="dataLoaded" class="col-md-6 col-md-offset-3">
+      <app-map></app-map>
+    </div>
   </div>
 </div>

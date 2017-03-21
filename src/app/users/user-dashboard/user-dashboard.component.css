@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.second-row {
+.vertical-row-padding {
   padding-top: 2%;
   padding-bottom: 2%;
 }
@@ -82,14 +82,9 @@ tr:after {
   clear: both;
 }
 
-thead th {
-/*height: 30px;*/
-
-/*text-align: left;*/
-}
 
 tbody {
-  height: 120px;
+  height: 150px;
   overflow-y: auto;
   background-color: #fff;
 }
@@ -97,6 +92,7 @@ tbody {
 thead {
   background-color: #3E4A5A;
   border-bottom: none;
+  height: 4em;
 }
 
 .table>thead>tr>th {

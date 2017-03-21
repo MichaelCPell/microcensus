@@ -1,7 +1,7 @@
 <app-navigation></app-navigation>
 
 <div class="container-fluid">
-  <div class="row second-row">
+  <div class="row vertical-row-padding">
     <div class="col-md-8">
       <div class ="row">
         <div class="col-md-12">
@@ -14,9 +14,9 @@
           </app-area-selector>
         </div>
       </div>
-      <div class="row second-row">
+      <div class="row vertical-row-padding">
         <div class="col-md-12">
-          <div class="row second-row">
+          <div class="row vertical-row-padding">
             <div class="col-md-4">
               <app-radius-selector
                 *ngIf="showRadiusSelector"
@@ -24,7 +24,7 @@
                 (activeRadiusChange)="onRadiusChange($event)">
               </app-radius-selector>
             </div>
-            <div class="col-md-7">
+            <div class="col-sm-7">
               <app-report-type-selector
                 [activeReportType]="reportType"
                 [reportTypes] = "reportTypes"
