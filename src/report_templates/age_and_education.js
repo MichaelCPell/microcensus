@@ -5,7 +5,7 @@ window.printReport = function(){
   });
 
   chart2.resize({
-    height: 260,
+    height: 360,
     width: 400
   });
 
@@ -59,6 +59,9 @@ var chart2 = c3.generate({
       },
       color: {
       pattern: ['#E39920', '#53B5B5', '#CD249A', '#F56223', '#6FAAD6','#A33E54', '#27668D','#75AB36', '#6E37B6', '#E79F87']
+      },
+      size: {
+        height: 380
       },
       tooltip: {
       grouped: false,
