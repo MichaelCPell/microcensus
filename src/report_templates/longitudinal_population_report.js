@@ -1,4 +1,15 @@
-console.log(data)
+window.printReport = function(){
+  chart.resize({
+    height: 260,
+    width: 400
+  });
+
+  $("#map").css("height", "200px")
+
+  setTimeout(function(){window.print()}, 1000)
+}
+
+//
 
 $(".address").html(data["address"]);
 if(data.type == "polygon"){
@@ -10,13 +21,13 @@ if(data.type == "polygon"){
 
 var chart = c3.generate({
   bindto: '#chart',
-  size: {
-        height: 320,
-        // width: 350
-  },
+  // size: {
+  //       height: 320,
+  //       width: 350
+  // },
   data: {
     columns: [
-      ["Population", 
+      ["Population",
       data["years"]["1990"]["total"], data["years"]["1995"]["total"], data["years"]["2000"]["total"], data["years"]["2005"]["total"], data["years"]["2010"]["total"], data["years"]["2015"]["total"]]
     ]
   },
@@ -47,7 +58,7 @@ var thirdChangeValue =
 (data["years"]["2005"]["total"] - data["years"]["2000"]["total"])/data["years"]["2000"]["total"]
 var fourthChangeValue =
 (data["years"]["2010"]["total"] - data["years"]["2005"]["total"])/data["years"]["2005"]["total"]
-var fifthChangeValue = 
+var fifthChangeValue =
 (data["years"]["2015"]["total"] - data["years"]["2010"]["total"])/data["years"]["2010"]["total"]
 
 

@@ -1,13 +1,10 @@
 <app-navigation></app-navigation>
 <div class="container-fluid">
   <div class="row report-title-row">
-    <div class="col-md-3 col-sm-3 centered">
+    <div class="col-sm-2 col-sm-offset-5 centered">
       <h3 class="dashboard-subtitle">Dashboard</h3>
     </div>
-    <div class="col-md-5 col-md-offset-1">
-      <!-- <p class="dashboard-text ">{{user.locationsRemaining}} locations remaining<span><a href=""> Get More</a></span></p> -->
-    </div>
-    <div class="col-md-3 col-sm-3">
+    <div class="col-sm-3 col-sm-offset-2">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Your Search" aria-describedby="basic-addon2" [(ngModel)]="search">
         <span class="input-group-addon btn btn-mc" id="basic-addon2">Search</span>
@@ -16,7 +13,7 @@
   </div>
 </div>
 <div class="container-fluid">
-  <div class="row second-row">
+  <div class="row vertical-row-padding">
     <div class="col-md-4"
          *ngFor="let location of (user.locations | async | lfilter : 'address' : search)">
      <div class="col-md-12 location-table">
@@ -33,7 +30,6 @@
                     <i
                       (click)="makeReportWithLocation(location)"
                       class="fa fa-plus-circle new-tooltip" aria-hidden="true"></i>
-
                   </h5>
                 </div>
               </div>
