@@ -6,30 +6,32 @@
 <div class="container container-print">
   <div class="row report-title-row">
     <div class="col-sm-12 col-print-12 centered">
-      <h3 class="page-subtitle">Age and Education Report</h3>
-      <button class="hidden-print" onclick="printReport()">print me</button>
-      <h1 class="page-title">5 mile radius of 204 Windrift Drive, Gibsonville, NC, 27249 </h1>
+      <div class="col-sm-12 coll-print-12 centered">
+        <h3 class="page-subtitle">Age and Education Report</h3>
+        <div id="point">
+          <h3 class="page-title">
+            <span class="page-title" id="radius">5</span> mile radius
+            <span class="address page-title"></span>
+          </h3>
+        </div>
+        <div id="polygon">
+          <h3 class="page-title">
+            <span class="address page-title"></span>
+          </h3>
+        </div>
+        <button class="btn btn-mc hidden-print" onclick="printReport()">Print this Report</button>
+      </div>
     </div>
   </div>
-  <!-- <div class="row vertical-row-padding">
-    <div class="col-sm-3 col-print-3 centered">
-      <h3 class="description">Total Population</h3>
-      <h2 class="number-subtitle">13,000</h2>
+  <div class="row vertical-row-padding">
+    <div class="col-sm-8 col-sm-offset-2">
+      <p class="report-text">
+        This report shows the median income across time.
+        The graph shows the median values adjusted for inflation to 2017. The table shows the percent change between each data point.
+      </p>
     </div>
-    <div class="col-sm-3 col-print-3 centered">
-      <h3 class="description">Median Income</h3>
-      <h2 class="number-subtitle">$50,000</h2>
-    </div>
-    <div class="col-sm-3 col-print-3 centered">
-      <h3 class="description">Median House Value</h3>
-      <h2 class="number-subtitle">$300,000</h2>
-    </div>
-    <div class="col-sm-3 col-print-3 centered">
-      <h2 class="description">Number of Homes</h2>
-      <h2 class="number-subtitle">500</h2>
-    </div>
-  </div> -->
-  <div class="row section-title-row">
+  </div>
+  <div class="row section-title-row hidden-sm hidden-xs">
     <div class="col-sm-3 col-sm-offset-1 col-print-6 centered">
       <h3 class="subtitle">Age</h3>
     </div>
@@ -37,9 +39,19 @@
       <h3 class="subtitle">Education</h3>
     </div>
   </div>
+  <div class="row section-title-row hidden-md hidden-lg hidden-print">
+    <div class="col-sm-12 centered">
+      <h3 class="subtitle">Age</h3>
+    </div>
+  </div>
   <div class="row vertical-row-padding">
     <div class="col-sm-6 col-print-6">
       <div id="chart1"></div>
+    </div>
+    <div class="row section-title-row hidden-md hidden-lg hidden-print">
+      <div class="col-sm-12 centered">
+        <h3 class="subtitle">Education</h3>
+      </div>
     </div>
     <div class="col-sm-6 col-print-6">
       <div id="chart2"></div>

@@ -16,39 +16,39 @@ window.printReport = function(){
 
 //
 
-// var array = []
-// for(key in data["age"]["male"]){
-//   array.push(data["age"]["male"][key])
-// }
-// array.unshift("male")
-//
-// var array2 = []
-// for(key in data["age"]["female"]){
-//   array2.push(data["age"]["female"][key])
-// }
-// array2.unshift("female")
-//
-//
-// var chart = c3.generate({
-// 	bindto: '#chart1',
-//   data: {
-//     columns: [
-//       array,
-//       array2
-//     ],
-//     type: 'bar',
-//   },
-//
-//   axis: { x: {
-//   	type: 'category',
-//     categories: Object.keys(data["age"]["male"])
-//   }},
-// });
+var array = []
+for(var key in data["age"]["male"]){
+  array.push(data["age"]["male"][key])
+}
+array.unshift("male")
+
+var array2 = []
+for(var key in data["age"]["female"]){
+  array2.push(data["age"]["female"][key])
+}
+array2.unshift("female")
+
+
+var chart1 = c3.generate({
+	bindto: '#chart1',
+  data: {
+    columns: [
+      array,
+      array2
+    ],
+    type: 'bar',
+  },
+
+  axis: { x: {
+  	type: 'category',
+    categories: Object.keys(data["age"]["male"])
+  }},
+});
 
 //
 
 
-c3.generate({
+var chart2 = c3.generate({
   bindto: '#chart2',
     data: {
       json: [data["education"]["sum"]],
