@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewEncapsulation } from '@angular/core';
 import * as L from 'leaflet';
 var leafletDraw = require('leaflet-draw');
 import {ResearchAreaService} from "../../../shared/research-area.service";
@@ -7,7 +7,8 @@ import {Subscriber} from "rxjs/Subscriber"
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.css', './leaflet.draw.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
   private marker:L.Marker;
