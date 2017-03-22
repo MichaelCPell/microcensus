@@ -30,6 +30,7 @@ import { ReportTypeSelectorComponent } from './report-definer/sub_components/rep
 import { ReportTypeFilterPipe } from './report-definer/sub_components/report-type-selector/report-type-filter.pipe';
 import { AreaSelectorComponent } from './report-definer/sub_components/area-selector/area-selector.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 
 
@@ -73,7 +74,8 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
   ],
   providers: [
     COMPILER_PROVIDERS,

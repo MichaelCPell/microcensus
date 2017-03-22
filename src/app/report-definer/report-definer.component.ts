@@ -41,21 +41,21 @@ export class ReportDefinerComponent implements OnInit {
       description: "Displays the median income for the research area across time.",
       slug: "long_median_income_report"
     },
-    {
-      name: "NC Voter Plus Report",
-      description: "This report includes counts of political affiliation by party: REP, DEM, UNA (unaffiliated), and LIB (libertarian).  It also includes demographic data similar to the General Demographic Report.",
-      slug: "nc_voter_plus"
-    },
+    // {
+    //   name: "NC Voter Plus Report",
+    //   description: "This report includes counts of political affiliation by party: REP, DEM, UNA (unaffiliated), and LIB (libertarian).  It also includes demographic data similar to the General Demographic Report.",
+    //   slug: "nc_voter_plus"
+    // },
     {
       name: "Age and Education Report",
       description: "Granular break downs of the various age groups and levels of educational attainment for the research area.",
       slug: "age_and_education"
     },
-    {
-      name: "Local Business Report",
-      description: "Captures businesses that are located with the radius and displays them on a map.",
-      slug: "business_report_builder"
-    }
+    // {
+    //   name: "Local Business Report",
+    //   description: "Captures businesses that are located with the radius and displays them on a map.",
+    //   slug: "business_report_builder"
+    // }
   ];
 
   constructor(public researchArea: ResearchAreaService, public user:User,
