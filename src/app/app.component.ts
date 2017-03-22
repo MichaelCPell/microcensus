@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {AwsUtil} from "./users/aws.service";
 import {UserLoginService, CognitoUtil, LoggedInCallback} from "./users/cognito.service";
 import { User } from "./users/user";
-
 import * as AWS from "aws-sdk";
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,11 @@ import * as AWS from "aws-sdk";
 })
 export class AppComponent implements OnInit{
 
-  constructor(public awsUtil:AwsUtil, public userService:UserLoginService, public cognito:CognitoUtil, private user:User) {
+  constructor(  public awsUtil:AwsUtil, 
+                public userService:UserLoginService, 
+                public cognito:CognitoUtil, 
+                private user:User,
+                private angulartics:Angulartics2GoogleAnalytics) {
     console.log("AppComponent: constructor");
   }
 

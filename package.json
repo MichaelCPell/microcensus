@@ -27,6 +27,7 @@
     "@types/leaflet-draw": "^0.4.2",
     "@types/lodash": "^4.14.40",
     "amazon-cognito-identity-js": "^1.12.0",
+    "angulartics2": "^1.6.4",
     "awesome-typescript-loader": "=2.2.4",
     "aws-sdk": "^2.9.0",
     "core-js": "^2.4.1",
