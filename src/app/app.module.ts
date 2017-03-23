@@ -31,7 +31,7 @@ import { ReportTypeFilterPipe } from './report-definer/sub_components/report-typ
 import { AreaSelectorComponent } from './report-definer/sub_components/area-selector/area-selector.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
-
+import { PublisherService } from './report-viewer/publisher.service';
 
 
 
@@ -88,7 +88,8 @@ const appRoutes: Routes = [
     UserParametersService,
     UserRegistrationService,
     AuthGuard,
-    S3Service],
+    S3Service,
+    PublisherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

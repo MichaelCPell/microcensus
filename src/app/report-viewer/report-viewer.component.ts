@@ -10,9 +10,9 @@ import 'rxjs/add/operator/concatMap';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { ResearchAreaService } from "../shared/research-area.service";
-import { S3Service } from "../shared/s3.service";
 import { DynamoDBService } from "../shared/ddb.service";
-import { User } from "../users/user"
+import { User } from "../users/user";
+import {PublisherService} from "./publisher.service"
 
 @Component({
   selector: 'app-report-view',
@@ -34,9 +34,8 @@ export class ReportViewerComponent implements AfterViewInit {
     private http: Http,
     private route: ActivatedRoute,
     private researchArea: ResearchAreaService,
-    private s3: S3Service,
-    private ddb: DynamoDBService,
-    private user:User) {
+    private user:User,
+    private publisher:PublisherService) {
     this.route = route;
     this.geom = this.researchArea.researchArea.geometry;
   }
@@ -58,6 +57,7 @@ export class ReportViewerComponent implements AfterViewInit {
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
       .subscribe(
         (data => {
+          this.publisher.addReportData(data);
           this.dataLoaded = true;
           tempReport = data;
         }).bind(this),
@@ -67,6 +67,7 @@ export class ReportViewerComponent implements AfterViewInit {
           this.http.get(`/report_templates/${this.reportName}.html`)
             .subscribe(
               (response:any) => {
+                this.publisher.addReportHtml(response._body);
                 this.createComponentFactory(response._body, this.report, this.reportName)
                   .then((factory) => {
                     this
@@ -78,30 +79,6 @@ export class ReportViewerComponent implements AfterViewInit {
         }
       );
   };
-
-
-  public publish(){
-    let slug = this.convertToSlug(this.researchArea.researchArea.name)
-    // let slug = "early_moon_calfs"
-    let address = this.researchArea.researchArea.name
-    // let address = "204 Windrift Dr, Gibsonville, NC 27249, USA"
-    let radius = this.researchArea.radius;
-    var filename =  slug + "_" + this.reportName
-    var f = new File([document.querySelector("#publishableContent").outerHTML], filename ,{type: "text/html"});
-    this.s3
-      .publishReport(f, this.reportName, address, radius, this.user.email.getValue())
-      .concatMap(this.ddb.addReport)
-      .subscribe(
-        (next) => {
-          this.user.updateFromDdb(next["Attributes"])
-
-          this.publishButton = "Saved to Dashboard!"
-        },
-        (error) => {
-          console.log(error)
-        }
-      );
-  }
 
   private createComponentFactory(template: string, data:any, reportName:string)
     : Promise<any>{
@@ -129,7 +106,7 @@ export class ReportViewerComponent implements AfterViewInit {
         public data:any = data;
         public reportName:string = reportName
 
-        constructor(private http: Http, private researchArea:ResearchAreaService){
+        constructor(private http: Http, private researchArea:ResearchAreaService, private publisher:PublisherService){
         }
 
         ngOnInit(){
@@ -141,6 +118,11 @@ export class ReportViewerComponent implements AfterViewInit {
                 this.data.geometry = this.researchArea.researchArea.geometry;
                 this.data.radius = this.researchArea.radius;
                 this.data.type = this.researchArea.researchArea.type;
+
+                this.publisher.reportName = this.reportName;
+                this.publisher.addReportData(this.data)
+                this.publisher.addReportScript(response._body)
+                this.publisher.addMapArea(this.data.geometry)
 
                 eval(response._body)
               }).bind(this)
@@ -165,11 +147,20 @@ export class ReportViewerComponent implements AfterViewInit {
       return RuntimeComponentModule;
   }
 
-  private convertToSlug(Text){
-      return Text
-          .toLowerCase()
-          .replace(/ /g,'-')
-          .replace(/[^\w-]+/g,'')
-          ;
-  }
+    public publish(){
+      this.publisher.publish(this.researchArea.researchArea.name,this.researchArea.radius, this.user.email.getValue())
+            .subscribe(
+        (next) => {
+          console.log(next)
+          this.user.updateFromDdb(next["Attributes"])
+
+          this.publishButton = "Saved to Dashboard!"
+        },
+        (error) => {
+          console.log(error)
+        }
+      );
+    }
+
+
 }

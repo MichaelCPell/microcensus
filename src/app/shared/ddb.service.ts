@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Stuff} from "./user-activity/user-activity.component";
 import {User} from "../users/user";
 import {Observable} from "rxjs/Observable";
 
@@ -46,6 +45,11 @@ export class DynamoDBService {
     }
 
     public addReport(oData){
+      var humanName = (oData.reportName + `(${oData.radius}_mi_radius)`).replace(/_/g, ' ')
+          .replace(/(\w+)/g, function(match) {
+            return match.charAt(0).toUpperCase() + match.slice(1);
+          });
+      
       var db = new AWS.DynamoDB.DocumentClient();
       var params = {
         TableName: 'users',
@@ -59,7 +63,7 @@ export class DynamoDBService {
         },
         ExpressionAttributeValues: {
           ':z': {
-            reportName: oData.reportName + `(${oData.radius}_mi_radius)`,
+            reportName: humanName,
             publicUrl: `http://${oData.Bucket}/${oData.key}`,
             createdAt: Date.now()
           }
