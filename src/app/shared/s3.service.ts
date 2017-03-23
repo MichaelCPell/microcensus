@@ -12,7 +12,7 @@ export class S3Service{
     return Observable.create((observer) => {
       this.s3.upload({
         Bucket: "reports.themicrocensus.com",
-        Key: file.name + `${radius}_mile` + ".html",
+        Key: this.convertToSlug(file.name)  + ".html",
         Body: file,
         ACL: 'public-read',
         ContentType: 'text/html'
@@ -29,5 +29,13 @@ export class S3Service{
         observer.next(data)
       });
     });
+  }
+
+  private convertToSlug(Text){
+      return Text
+          .toLowerCase()
+          .replace(/ /g,'-')
+          .replace(/[^\w-]+/g,'')
+          ;
   }
 }
