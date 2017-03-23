@@ -3,10 +3,9 @@
 }
 
 .vertical-row-padding {
-  padding-top: 2%;
-  padding-bottom: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
-
 
 .title-row {
   background-color: #fafafa !important;
@@ -77,6 +76,18 @@ h4 {
   font-weight: 400;
   font-size: 14px;
 }
+
+.description-white {
+  color: #C4C4C4 !important;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  text-align: right !important;
+}
+
+.description-white a {
+  color: #fff !important;
+}
+
 
 .btn.btn-mc {
   font-family:  'Lato', sans-serif;
