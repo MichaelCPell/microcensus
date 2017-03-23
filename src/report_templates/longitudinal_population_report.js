@@ -67,3 +67,27 @@ $("#95to00").html(Math.round(secondChangeValue * 10000)/100);
 $("#00to05").html(Math.round(thirdChangeValue * 10000)/100);
 $("#05to10").html(Math.round(fourthChangeValue * 10000)/100);
 $("#10to15").html(Math.round(fifthChangeValue * 10000)/100);
+
+
+var zoomLevel = 13;
+var map = L.map('map').setView([35.7796, -78.6382], zoomLevel);
+if(data.geometry.radius > 15000){
+  zoomLevel = 10;
+}else if(data.geometry.radius > 8000){
+  zoomLevel = 11;
+}else if(data.geometry.radius > 3000){
+  zoomLevel = 12;
+}else if(data.geometry.radius > 1000){
+  zoomLevel = 13;
+}
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+if(data.geometry.type == "Point"){
+  var marker = L.marker([data.geometry.coordinates[1], data.geometry.coordinates[0]]).addTo(map);
+  var shapeLayer = L.circle([data.geometry.coordinates[1], data.geometry.coordinates[0]], data.geometry.radius).addTo(map);
+  map.setView(marker.getLatLng(), zoomLevel);
+}else if(data.geometry.type == "polygon" || data.geometry.type == "Polygon"){
+  var shapeLayer = L.geoJSON(data.geometry.geometry).addTo(map);
+  map.fitBounds(shapeLayer.getBounds());
+}
