@@ -159,8 +159,10 @@ var chart5 = c3.generate({
 });
 
 //
-
+$("title").html(`General Demographic Report for ${data["address"]}`);
 $(".address").html(data["address"]);
+
+
 if(data.type == "polygon"){
   $("#point").hide();
 }else{

@@ -11,6 +11,7 @@ window.printReport = function(){
 
 //
 
+$("title").html(`Longitudinal Median Income Report for ${data["address"]}`);
 $(".address").html(data["address"]);
 if(data.type == "polygon"){
   $("#point").hide();

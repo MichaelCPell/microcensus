@@ -11,7 +11,10 @@ window.printReport = function(){
 
 //
 
+$("title").html(`Longitudinal Population Report for ${data["address"]}`);
 $(".address").html(data["address"]);
+
+
 if(data.type == "polygon"){
   $("#point").hide();
 }else{
