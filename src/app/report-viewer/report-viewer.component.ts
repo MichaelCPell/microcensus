@@ -125,6 +125,8 @@ export class ReportViewerComponent implements AfterViewInit {
                 this.publisher.addMapArea(this.data.geometry)
 
                 eval(response._body)
+
+                $(".promo").hide()
               }).bind(this)
             );
           }
