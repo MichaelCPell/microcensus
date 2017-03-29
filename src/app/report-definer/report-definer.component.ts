@@ -51,6 +51,11 @@ export class ReportDefinerComponent implements OnInit {
       description: "Granular break downs of the various age groups and levels of educational attainment for the research area.",
       slug: "age_and_education"
     },
+    {
+      name: "Sales Forecast Report",
+      description: "",
+      slug: "sales_forecast_report"
+    },
     // {
     //   name: "Local Business Report",
     //   description: "Captures businesses that are located with the radius and displays them on a map.",
