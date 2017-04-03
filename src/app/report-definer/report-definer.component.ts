@@ -52,6 +52,11 @@ export class ReportDefinerComponent implements OnInit {
       slug: "age_and_education"
     },
     // {
+    //   name: "Typeform Report",
+    //   description: "Just a demo of RealSmart talking to Typeform",
+    //   slug: "typeform_demo_report"
+    // },
+    // {
     //   name: "Local Business Report",
     //   description: "Captures businesses that are located with the radius and displays them on a map.",
     //   slug: "business_report_builder"
