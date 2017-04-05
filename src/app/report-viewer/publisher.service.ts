@@ -124,8 +124,8 @@ export class PublisherService {
     this._head.push('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">');
     this._head.push('<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">');
     this._head.push('<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />');
-    this._head.push('<link rel="stylesheet" href="https://s3.amazonaws.com/microcensus-assets/report-styles/print.css" rel="stylesheet">')
-    this._head.push('<link rel="stylesheet" href="https://s3.amazonaws.com/microcensus-assets/report-styles/reports.css" rel="stylesheet">')
+    this._head.push('<link rel="stylesheet" href="https://s3.amazonaws.com/cartoscope-assets/report-styles/print.css" rel="stylesheet">')
+    this._head.push('<link rel="stylesheet" href="https://s3.amazonaws.com/cartoscope-assets/report-styles/reports.css" rel="stylesheet">')
     
     this._head.push("</head>")
 

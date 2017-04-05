@@ -1,10 +1,10 @@
-import { MicrocensusPage } from './app.po';
+import { CartoscopePage } from './app.po';
 
-describe('microcensus App', function() {
-  let page: MicrocensusPage;
+describe('cartoscope App', function() {
+  let page: CartoscopePage;
 
   beforeEach(() => {
-    page = new MicrocensusPage();
+    page = new CartoscopePage();
   });
 
   it('should display message saying app works', () => {

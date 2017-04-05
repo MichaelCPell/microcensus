@@ -11,7 +11,7 @@ export class S3Service{
   public publishReport(file, reportName, address, radius, email){
     return Observable.create((observer) => {
       this.s3.upload({
-        Bucket: "reports.themicrocensus.com",
+        Bucket: "reports.thecartoscope.com",
         Key: this.convertToSlug(file.name)  + ".html",
         Body: file,
         ACL: 'public-read',
