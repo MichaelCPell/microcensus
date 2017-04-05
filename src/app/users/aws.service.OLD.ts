@@ -172,7 +172,7 @@ export class AWSService {
   public publishReport(file){
     return Observable.create((function(observer) {
       this.s3.upload({
-        Bucket: "reports.themicrocensus.com",
+        Bucket: "reports.thecartoscope.com",
         Key: file.name + ".html",
         Body: file,
         ACL: 'public-read',

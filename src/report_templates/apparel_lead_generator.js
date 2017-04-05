@@ -18,7 +18,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 L.NumberedDivIcon = L.Icon.extend({
   options: {
-  iconUrl: 'https://s3.amazonaws.com/microcensus-assets/assets/marker_hole.png',
+  iconUrl: 'https://s3.amazonaws.com/cartoscope-assets/assets/marker_hole.png',
   number: '',
   shadowUrl: null,
   iconSize: new L.Point(25, 41),

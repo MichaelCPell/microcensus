@@ -1,6 +1,6 @@
 import {Component, OnInit,
   ViewChild, ViewContainerRef, NgModule, AfterViewInit } from '@angular/core';
-import {RuntimeCompiler} from '@angular/compiler';
+import {JitCompiler} from '@angular/compiler';
 import * as _ from 'lodash';
 import { Http, Response } from '@angular/http';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -30,7 +30,7 @@ export class ReportViewerComponent implements AfterViewInit {
   protected dynamicComponentTarget: ViewContainerRef;
 
   constructor(
-    protected compiler: RuntimeCompiler,
+    protected compiler: JitCompiler,
     private http: Http,
     private route: ActivatedRoute,
     private researchArea: ResearchAreaService,
@@ -53,7 +53,7 @@ export class ReportViewerComponent implements AfterViewInit {
     }
 
     let researchSpecification = {
-        reportName: this.reportName, 
+        reportName: this.reportName,
         geoJSON: {
           type: "Feature",
           geometry: this.geom
@@ -134,7 +134,9 @@ export class ReportViewerComponent implements AfterViewInit {
 
                 eval(response._body)
 
-                $(".promo").hide()
+                $(".share-buttons").remove()
+                $(".share-this-report").remove()
+                $(".promo").remove()
               }).bind(this)
             );
           }
