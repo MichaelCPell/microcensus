@@ -3,11 +3,18 @@
     <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/microcensus-assets/report-styles/print.css">
     <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/microcensus-assets/report-styles/reports.css">
     <link rel="stylesheet" type="text/css" href="https://s3.amazonaws.com/microcensus-assets/report-styles/sales_forecast.css">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
   </head>
 
   <body>
     <div class="container container-print">
       <div class="row report-title-row">
+        <div class="promo col-sm-6 hidden-print pull-right">
+          <p class="description-white">Make more reports at <a href="http://cartoscope.io/" target="_blank">cartoscope.io</a></p>
+        </div>
+        <div class="promo col-print-5 col-print-offset-6 visible-print-inline">
+          <p class="description-white">Make more reports at cartoscope.io </p>
+        </div>
         <div class="col-sm-12 col-print-12 text-center">
           <h3 class="page-subtitle">Boutique Fashion Sales Forecast Report</h3>
           <div id="point">
@@ -16,12 +23,20 @@
               <span class="address page-title"></span>
             </h1>
           </div>
-          <!--<div id="polygon">
-            <h1 class="page-title">
-              <span class="address page-title"></span>
-            </h1>
-          </div>-->
           <button class="btn btn-mc hidden-print" onclick="printReport()">print me</button>
+        </div>
+        <div class="col-sm-12 hidden-print">
+          <h5 class="description-white">Share this report</h5>
+          <ul class="share-buttons">
+             <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fapp.themicrocensus.com&t=" target="_blank" title="Share on Facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a></li>
+
+             <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Fapp.themicrocensus.com&text=:%20http%3A%2F%2Fapp.themicrocensus.com&via=cartoscopic" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + '%20' +'@cartoscopic ' + encodeURIComponent(document.URL)); return false;"><i class="fa fa-twitter-square fa-lg" aria-hidden="true"></i><span class="sr-only">Tweet</span></a></li>
+
+              <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Fapp.themicrocensus.com&title=&summary=&source=http%3A%2F%2Fapp.themicrocensus.com" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;"><i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i><span class="sr-only">Share on LinkedIn</span></a></li>
+
+              <li><a href="mailto:?subject=&body=:%20http%3A%2F%2Fapp.themicrocensus.com" target="_blank" title="Send email" onclick="window.open('mailto:?subject=' + encodeURIComponent(document.title) + '&body=' +  encodeURIComponent(document.URL)); return false;"><i class="fa fa-envelope-square fa-lg" aria-hidden="true"></i><span class="sr-only">Send email</span></a></li>
+          </ul>
+          <br />
         </div>
       </div>
        <div class="row">
