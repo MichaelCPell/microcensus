@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class MicrocensusPage {
+export class CartoscopePage {
   navigateTo() {
     return browser.get('/');
   }
