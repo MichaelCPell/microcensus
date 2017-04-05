@@ -53,7 +53,7 @@ export class ReportViewerComponent implements AfterViewInit {
     }
 
     let researchSpecification = {
-        reportName: this.reportName, 
+        reportName: this.reportName,
         geoJSON: {
           type: "Feature",
           geometry: this.geom
@@ -134,7 +134,9 @@ export class ReportViewerComponent implements AfterViewInit {
 
                 eval(response._body)
 
-                $(".promo").hide()
+                $(".share-buttons").remove()
+                $(".share-this-report").remove()
+                $(".promo").remove()
               }).bind(this)
             );
           }
