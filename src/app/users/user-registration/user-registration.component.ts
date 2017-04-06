@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { UserRegistrationService } from "../cognito.service";
 import { RegistrationUser } from "../registration-user";
 import { CognitoCallback } from "../cognito.service";

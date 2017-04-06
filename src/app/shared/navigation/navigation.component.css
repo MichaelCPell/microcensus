@@ -133,12 +133,12 @@ nav a.router-link-active {
 }
 
 .nav-email {
-  padding-top: 6%;
+  padding-top: 4%;
   font-family: 'Lato', sans-serif;
 }
 
 .nav-items {
-  padding-top: 4%;
+  padding-top: 2%;
   font-family: 'Lato', sans-serif;
 }
 
@@ -158,24 +158,27 @@ nav a.router-link-active {
   font-size: 1.5em;
 }
 
-.btn.btn-mc {
-  font-family:  'Lato', sans-serif;
-  color: #3E4A5A;
-  text-transform: uppercase;
-  background-color: white;
-  border: 1px solid white;
-  border-radius: 0px;
-}
 
-.btn.btn-mc-dark {
+.btn.btn-cs-blue {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
-    font-weight: 400;
-    background-color: transparent;
-    border: 4px solid #3E4A5A;
-    color: #3E4A5A;
+    font-weight: 300;
+    background-color: #0A2E5C;
+    color: #fff;
+    border-color: #0A2E5C;
     border-radius: 0px;
 }
+
+.btn.btn-cs-blue:hover {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    background-color: #1251A2;
+    color: #fff;
+    border-color: #1251A2;
+    border-radius: 0px;
+}
+
 
 /*
 .footer {
@@ -206,9 +209,9 @@ nav a.router-link-active {
 .gradient {
   width: 100%;
   height: 10px;
-  background: #517fa4; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #517fa4 , #243949); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #517fa4 , #243949); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #DDA838; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #DDA838 , #F9C060); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #DDA838 , #F9C060); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 /**/
