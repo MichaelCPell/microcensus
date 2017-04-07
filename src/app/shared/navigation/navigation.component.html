@@ -18,8 +18,8 @@
         <li class="nav-items" *ngIf="user.email | async">
           <p class="navbar-text">{{user.remainingLocations | async}} Locations Remaining</p>
         </li>
-        <li class="nav-items" *ngIf="!(user.email | async)">
-          <a routerLink="/users/login" routerLinkActive="active"><p class="navbar-text">Sign In</p></a>
+        <li class="nav-sign-in" *ngIf="!(user.email | async)">
+          <a routerLink="/users/login" routerLinkActive="active">Sign In</a>
         </li>
         <li class="nav-email dropdown" *ngIf="user.email | async">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" routerLinkActive="active">{{user.email | async}} <span class="caret"></span></a>

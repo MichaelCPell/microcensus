@@ -8,7 +8,7 @@ a {
 
 #landing-page-header {
   background-image: linear-gradient(#01132A, #2B5A93);
-  height: 80vh;
+  height: 100vh;
   margin-top: -20px;
 }
 
@@ -30,7 +30,7 @@ a {
 }
 
 .row-padding-top {
-  padding-top: 7%;
+  padding-top: 9%;
 }
 
 .last-row {
@@ -48,8 +48,9 @@ a {
 .page-text {
   font-family:  'Lato', sans-serif;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 18px;
   color: #2a2a2a;
+  text-align: justify;
 }
 
 h1 {
@@ -78,6 +79,7 @@ h2 {
   font-weight: 300;
   font-size: 16px;
   color: #fff;
+  text-align: justify;
 }
 
 .form-text  {
@@ -120,9 +122,9 @@ h2 {
 }
 
 .video {
-  height: 300px;
+  /*height: 300px;
   width: 600px;
-  background-color: #E0E2E5;
+  background-color: #E0E2E5;*/
 }
 
 .customers-flex {
