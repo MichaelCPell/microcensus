@@ -1,12 +1,64 @@
 <app-navigation></app-navigation>
-<div class="container-fluid">
-  <div class="row vertical-row-padding">
-    <div class="col-md-12 centered">
-      <h3 class="page-title ">Create an Account</h3>
+<div class="container-fluid" id="landing-page-header">
+  <div class="row row-padding-top">
+    <div class="col-sm-6 centered">
+      <br />
+      <h1 class="page-title-white centered">Location Intelligence <br /> for Everyone</h1>
+      <br />
+      <h2 class="page-subtitle-white centered">Point-and-Click, Web-based Software for Simple, Fast Location Analysis</h2>
+      <div class="row vertical-row-padding">
+        <div class="col-sm-8 col-sm-offset-2">
+          <p class="page-text-white">Cartoscope reduces the time and effort required to perform complex location analysis by an order of magnitude. Drop your pin, click a button.  Simple. Receive your ready-to-distrbute, data-driven infographic report. You don't need any technical background to do it. The bottom line is a more powerful product at less cost.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 centered">
+          <a pageScroll  [pageScrollDuration]="1000" href="#sign-up" class="btn btn-cs-yellow">Sign Up to Get Started</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <br />
+      <div class="video-flex">
+        <div class="video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/kDuqkeSOqJc" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="customers">
+  <div class="row row-padding-top">
+    <div class="col-sm-12 centered">
+      <h1 class="page-title">Cartoscope in the Real World</h1>
     </div>
   </div>
   <div class="row vertical-row-padding">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-sm-7">
+      <img src="https://s3.amazonaws.com/cartoscope-assets/assets/cartoscope-screen-and-report.png" class="img-responsive" />
+    </div>
+    <div class="col-sm-4 row-padding-top">
+      <p class="page-text">
+        With an easy to use interface, individuals and companies can generate their own personalized reports with the information they want to see.
+        With demographics, house value reports and sales leads, the power of data is now in your hands.
+      </p>
+      <div class="row vertical-row-padding">
+        <div class="col-sm-12 centered">
+          <a pageScroll  [pageScrollDuration]="1000" href="#sign-up" class="btn btn-cs-yellow">Start Making Your Own Reports</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="sign-up" name="sign-up">
+  <div class="row vertical-row-padding">
+    <div class="col-sm-12 centered">
+      <h1 class="page-title">Sign Up Now</h1>
+    </div>
+  </div>
+  <div class="row vertical-row-padding">
+    <div class="col-sm-6 col-sm-offset-3">
       <form class="form-signin" method="POST" action="#" role="form">
         <div *ngIf="errorMessage!=null" class="alert alert-danger">
             {{ errorMessage }}
@@ -28,8 +80,8 @@
                  [ngModelOptions]="{standalone: true}">
         </div>
         <div class="form-group">
-          <button (click)="onRegister($event)" id="signupSubmit" type="submit" class="btn btn-mc-dark">
-            Create your account
+          <button (click)="onRegister($event)" id="signupSubmit" type="submit" class="btn btn-cs-yellow">
+            Sign Up
           </button>
         </div>
         <hr>

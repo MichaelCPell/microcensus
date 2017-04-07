@@ -7,6 +7,24 @@
     border-radius: 0px;
 }
 
+.btn.btn-cs-blue {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #0A2E5C;
+    color: #fff;
+    border-radius: 0px;
+}
+
+.btn.btn-cs-blue:hover {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: #1251A2;
+    color: #fff;
+    border-radius: 0px;
+}
+
 .btn-mc-link {
     font-family: 'Open Sans', sans-serif;
     text-transform: uppercase;

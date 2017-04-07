@@ -32,6 +32,8 @@ import { AreaSelectorComponent } from './report-definer/sub_components/area-sele
 import { FooterComponent } from './shared/footer/footer.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { PublisherService } from './report-viewer/publisher.service';
+import {Ng2PageScrollModule} from 'ng2-page-scroll';
+
 
 
 
@@ -75,7 +77,8 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics])
+    Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
+    Ng2PageScrollModule.forRoot()
   ],
   providers: [
     COMPILER_PROVIDERS,

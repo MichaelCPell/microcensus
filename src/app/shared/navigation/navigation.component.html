@@ -18,8 +18,8 @@
         <li class="nav-items" *ngIf="user.email | async">
           <p class="navbar-text">{{user.remainingLocations | async}} Locations Remaining</p>
         </li>
-        <li class="nav-items" *ngIf="!(user.email | async)">
-          <a routerLink="/users/registration" routerLinkActive="active">Sign Up or In</a>
+        <li class="nav-sign-in" *ngIf="!(user.email | async)">
+          <a routerLink="/users/login" routerLinkActive="active">Sign In</a>
         </li>
         <li class="nav-email dropdown" *ngIf="user.email | async">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" routerLinkActive="active">{{user.email | async}} <span class="caret"></span></a>
@@ -30,7 +30,7 @@
             <li><a (click)="signOut()">Sign Out</a></li>
           </ul>
         </li>
-        <li class="nav-demo"><a routerLink="/" routerLinkActive="active"><button class="btn btn-mc-dark">Make a Report</button></a></li>
+        <li class="nav-demo"><a routerLink="/" routerLinkActive="active"><button class="btn btn-cs-blue">MAKE A REPORT</button></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

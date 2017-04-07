@@ -122,23 +122,24 @@ nav a.router-link-active {
   font-size: 1.5em;
 }
 
-.btn.btn-mc {
-  font-family:  'Lato', sans-serif;
-  color: #3E4A5A;
+.btn.btn-cs-light {
+  font-family: Open Sans,sans-serif;
   text-transform: uppercase;
-  background-color: white;
-  border: 1px solid white;
-  border-radius: 0px;
+  font-size: 16px;
+  font-weight: 300;
+  background-color: #1251A2;
+  color: #fff;
+  border-radius: 0;
 }
 
-.btn.btn-mc-dark {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    background-color: transparent;
-    border: 4px solid #3E4A5A;
-    color: #3E4A5A;
-    border-radius: 0px;
+.btn.btn-cs-light:hover {
+  font-family: Open Sans,sans-serif;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 300;
+  background-color: #5291DF;
+  color: #fff;
+  border-radius: 0;
 }
 
 .footer {

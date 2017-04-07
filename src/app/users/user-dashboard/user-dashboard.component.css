@@ -15,15 +15,15 @@
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  background-color: #6882A4;
+  background-color: #5291DF;
   color: #fff;
   text-transform: uppercase;
-  border: 1px solid #6882A4;
+  border: 1px solid #5291DF;
   border-radius: 0px;
 }
 
 .report-title-row {
-  background-color: #3E4A5A !important;
+  background-color: #0A2E5C !important;
   -webkit-print-color-adjust: exact;
   padding-top: 2%;
   padding-bottom: 2%;
@@ -90,7 +90,7 @@ tbody {
 }
 
 thead {
-  background-color: #3E4A5A;
+  background-color: #0A2E5C;
   border-bottom: none;
   height: 4em;
 }
