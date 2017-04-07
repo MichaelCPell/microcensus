@@ -2,9 +2,9 @@
 
 <div class="container-fluid">
   <div class="row vertical-row-padding">
-    <div class="col-md-8 col-sm-8">
+    <div class="col-sm-8">
       <div class ="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
           <app-area-selector
             [activeArea]="area"
             (activeAreaChange)="onAreaChange($event)"
@@ -15,16 +15,16 @@
         </div>
       </div>
       <div class="row vertical-row-padding">
-        <div class="col-md-12">
+        <div class="col-sm-12">
           <div class="row vertical-row-padding">
-            <div class="col-md-4 col-sm-4">
+            <div class="col-sm-4">
               <app-radius-selector
                 *ngIf="showRadiusSelector"
                 [activeRadius]="radius"
                 (activeRadiusChange)="onRadiusChange($event)">
               </app-radius-selector>
             </div>
-            <div class="col-sm-7 col-sm-7">
+            <div class="col-sm-8">
               <app-report-type-selector
                 [activeReportType]="reportType"
                 [reportTypes] = "reportTypes"
@@ -43,8 +43,8 @@
     <div class="col-md-12 col-sm-12 centered">
       <button
         *ngIf="readyToAnalyze"
-        class="btn btn-mc-dark"
-        (click)="addAndAnalyze()">Analyze this Area!</button>
+        class="btn btn-cs-light"
+        (click)="addAndAnalyze()">Analyze this Area</button>
     </div>
   </div>
 </div>
