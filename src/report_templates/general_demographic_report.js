@@ -65,7 +65,7 @@ var chart2 = c3.generate({
       type: 'pie',
       },
       color: {
-      pattern: ['#52B4B4', '#6A479C']
+      pattern: ['#DE755B', '#64476E']
       },
       tooltip: {
       grouped: false,
@@ -91,7 +91,7 @@ var chart3 = c3.generate({
       type: 'pie',
       },
       color: {
-      pattern: ['#6FA9D4', '#A33E54', '#E69E87']
+      pattern: ['#A05F7C', '#377380', '#6A479C']
       },
       tooltip: {
       grouped: false,
@@ -118,7 +118,7 @@ var chart4 = c3.generate({
       type: 'pie',
       },
       color: {
-      pattern: ['#F16224', '#27668D']
+      pattern: ['#DC6D0E', '#203965']
       },
       tooltip: {
       grouped: false,
@@ -144,7 +144,7 @@ var chart5 = c3.generate({
       type: 'pie',
       },
       color: {
-      pattern: ['#6FA9D4', '#74AA41', '#C82F91', '#E39924', '#6A479C']
+      pattern: ['#6FA9D4', '#74AA41', '#A33E54', '#F0B55A', '#829CA5']
       },
       tooltip: {
       grouped: false,
