@@ -1,9 +1,9 @@
 <app-navigation></app-navigation>
 
 <div class="container-fluid">
-  <div class="row vertical-row-padding">
+  <div class="row">
     <div class="col-sm-8">
-      <div class ="row">
+      <div class="row">
         <div class="col-sm-12">
           <app-area-selector
             [activeArea]="area"
@@ -15,23 +15,27 @@
         </div>
       </div>
       <div class="row vertical-row-padding">
-        <div class="col-sm-12">
-          <div class="row vertical-row-padding">
-            <div class="col-sm-4">
-              <app-radius-selector
-                *ngIf="showRadiusSelector"
-                [activeRadius]="radius"
-                (activeRadiusChange)="onRadiusChange($event)">
-              </app-radius-selector>
-            </div>
-            <div class="col-sm-8">
-              <app-report-type-selector
-                [activeReportType]="reportType"
-                [reportTypes] = "reportTypes"
-                (activeReportTypeChange)="onReportTypeChange($event)">
-              </app-report-type-selector>
-            </div>
-          </div>
+        <div class="col-sm-4">
+          <app-radius-selector
+            *ngIf="showRadiusSelector"
+            [activeRadius]="radius"
+            (activeRadiusChange)="onRadiusChange($event)">
+          </app-radius-selector>
+        </div>
+        <div class="col-sm-8">
+          <app-report-type-selector
+            [activeReportType]="reportType"
+            [reportTypes] = "reportTypes"
+            (activeReportTypeChange)="onReportTypeChange($event)">
+          </app-report-type-selector>
+        </div>
+      </div>
+      <div class="row vertical-row-padding">
+        <div class="col-sm-12 centered">
+          <button
+            *ngIf="readyToAnalyze"
+            class="btn btn-cs-light"
+            (click)="addAndAnalyze()">Analyze this Area</button>
         </div>
       </div>
     </div>
@@ -39,14 +43,7 @@
       <app-map (polygonDrawn)="onPolygonDraw($event)" ></app-map>
     </div>
   </div>
-  <div class="row last-row">
-    <div class="col-md-12 col-sm-12 centered">
-      <button
-        *ngIf="readyToAnalyze"
-        class="btn btn-cs-light"
-        (click)="addAndAnalyze()">Analyze this Area</button>
-    </div>
-  </div>
+
 </div>
 
 <app-footer></app-footer>

@@ -19,7 +19,7 @@ export class NavigationComponent implements OnInit {
   public signOut(){
     this.user.email = null
     this.userLogin.logout()
-    this.router.navigate(["/"]);
+    this.router.navigate(["/users/registration"]);
   }
 
 }
