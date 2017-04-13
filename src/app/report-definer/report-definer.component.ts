@@ -56,11 +56,11 @@ export class ReportDefinerComponent implements OnInit {
     //   description: "Just a demo of RealSmart talking to Typeform",
     //   slug: "typeform_demo_report"
     // },
-    {
-      name: "Apparel Lead Generator",
-      description: "Just a demo of apparel_lead_generator",
-      slug: "apparel_lead_generator"
-    },
+    // {
+    //   name: "Apparel Lead Generator",
+    //   description: "Just a demo of apparel_lead_generator",
+    //   slug: "apparel_lead_generator"
+    // },
     // {
     //   name: "Local Business Report",
     //   description: "Captures businesses that are located with the radius and displays them on a map.",
