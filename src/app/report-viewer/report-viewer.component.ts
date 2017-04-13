@@ -72,7 +72,7 @@ export class ReportViewerComponent implements AfterViewInit {
         error =>  this.errorMessage = <any>error,
         () => {
           this.report = tempReport;
-          this.http.get(`/report_templates/${this.reportName}.html`)
+          this.http.get(environment.reportAssetBackend(this.reportName) + ".html")
             .subscribe(
               (response:any) => {
                 this.publisher.addReportHtml(response._body);
@@ -119,7 +119,7 @@ export class ReportViewerComponent implements AfterViewInit {
 
         ngOnInit(){
           if(this.data){
-            this.http.get(`/report_templates/${this.reportName}.js`)
+            this.http.get(environment.reportAssetBackend(this.reportName) + ".js")
             .subscribe(
               ((response:any) => {
                 this.data.address = this.researchArea.researchArea.name;
