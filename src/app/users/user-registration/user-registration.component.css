@@ -141,6 +141,16 @@ h2 {
   background-color: #fafafa;
 }
 
+.alert-danger {
+  border-redius: 0px;
+  border-color: none;
+  color: #fff;
+  background-color: #a01a1a;
+  font-family:  'Lato', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
 
 /*Media Queries*/
 /*==========  Media Queries  ==========*/

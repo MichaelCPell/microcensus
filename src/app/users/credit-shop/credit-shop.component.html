@@ -1,15 +1,37 @@
 <app-navigation></app-navigation>
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
+  <div class="row vertical-row-padding">
+    <div class="col-md-12 centered">
+      <h1 class="page-title">Submit Payment</h1>
+    </div>
+  </div>
+  <div class="row vertical-row-padding">
+    <div class="col-sm-3 col-sm-offset-1 price-div centered">
       <div *ngIf="!choice">
-        <h3 class="page-title">Buy 10 Credits</h3>
-        <h3 class="form-text">$150</h3>
-        <button *ngIf="!loading" (click)="buy(10)" class="btn btn-mc-dark">Buy Now</button>
+        <h4 class="locations-title centered">10 Locations</h4>
+        <h2 class="form-text centered">$149.99</h2>
+        <hr>
+        <button *ngIf="!loading" (click)="buy(10)" class="btn btn-cs-light centered">Buy Now</button>
         <h3 *ngIf="loading">Purchasing...</h3>
-        <!-- <h1>Buy 25 Credits</h1>
-        <h3>$250</h3> -->
+      </div>
+    </div>
+    <div class="col-sm-3 col-sm-offset-1 price-div centered">
+      <div *ngIf="!choice">
+        <h4 class="locations-title centered">25 Locations</h4>
+        <h2 class="form-text centered">$249.99</h2>
+        <hr>
+        <button *ngIf="!loading" (click)="buy(25)" class="btn btn-cs-light centered">Buy Now</button>
+        <h3 *ngIf="loading">Purchasing...</h3>
+      </div>
+    </div>
+    <div class="col-sm-3 col-sm-offset-1 price-div centered">
+      <div *ngIf="!choice">
+        <h4 class="locations-title centered">100 Locations</h4>
+        <h2 class="form-text centered">$999</h2>
+        <hr>
+        <button *ngIf="!loading" (click)="buy(100)" class="btn btn-cs-light centered">Buy Now</button>
+        <h3 *ngIf="loading">Purchasing...</h3>
       </div>
     </div>
   </div>
