@@ -30,7 +30,7 @@
             <li><a (click)="signOut()">Sign Out</a></li>
           </ul>
         </li>
-        <li class="nav-demo"><a routerLink="/" routerLinkActive="active"><button class="btn btn-cs-blue">MAKE A REPORT</button></a></li>
+        <li *ngIf="user.email | async" class="nav-demo"><a routerLink="/" routerLinkActive="active"><button class="btn btn-cs-blue">MAKE A REPORT</button></a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
