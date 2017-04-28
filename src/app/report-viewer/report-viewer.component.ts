@@ -52,15 +52,18 @@ export class ReportViewerComponent implements AfterViewInit {
       this.geom.radius = 0;
     }
 
-    let researchSpecification = {
+    let reportSpecification = {
         reportName: this.reportName,
         geoJSON: {
           type: "Feature",
-          geometry: this.geom
+          geometry: this.geom,
+          properties: {
+            address: this.researchArea.researchArea.name
+          }
         }
       }
 
-    this.http.post(environment.backend, researchSpecification)
+    this.http.post(environment.backend, reportSpecification)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
       .subscribe(
@@ -72,7 +75,7 @@ export class ReportViewerComponent implements AfterViewInit {
         error =>  this.errorMessage = <any>error,
         () => {
           this.report = tempReport;
-          this.http.get(`/report_templates/${this.reportName}.html`)
+          this.http.get(environment.reportAssetBackend(this.reportName) + ".html")
             .subscribe(
               (response:any) => {
                 this.publisher.addReportHtml(response._body);
@@ -119,7 +122,7 @@ export class ReportViewerComponent implements AfterViewInit {
 
         ngOnInit(){
           if(this.data){
-            this.http.get(`/report_templates/${this.reportName}.js`)
+            this.http.get(environment.reportAssetBackend(this.reportName) + ".js")
             .subscribe(
               ((response:any) => {
                 this.data.address = this.researchArea.researchArea.name;
