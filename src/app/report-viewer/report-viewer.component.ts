@@ -52,15 +52,18 @@ export class ReportViewerComponent implements AfterViewInit {
       this.geom.radius = 0;
     }
 
-    let researchSpecification = {
+    let reportSpecification = {
         reportName: this.reportName,
         geoJSON: {
           type: "Feature",
-          geometry: this.geom
+          geometry: this.geom,
+          properties: {
+            address: this.researchArea.researchArea.name
+          }
         }
       }
 
-    this.http.post(environment.backend, researchSpecification)
+    this.http.post(environment.backend, reportSpecification)
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
       .subscribe(

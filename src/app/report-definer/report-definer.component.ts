@@ -24,22 +24,22 @@ export class ReportDefinerComponent implements OnInit {
     {
       name: "General Demographic Report",
       description: "This report shows general demographics for a region such as ages, education, races, household values and incomes.",
-      slug: "general_demographic_report"
+      slug: "general_demographic"
     },
     {
       name: "Longitudinal Population Report",
       description: "Population for the selected area according to the 1990, 2000 and 2010 Decennial census.",
-      slug: "longitudinal_population_report"
+      slug: "longitudinal_population"
     },
     {
       name: "Longitudinal House Value Report",
       description: "Displays the mediam house value for the research area across time.",
-      slug: "long_house_value_report"
+      slug: "longitudinal_house_value"
     },
     {
       name: "Longitudinal Median Income Report",
       description: "Displays the median income for the research area across time.",
-      slug: "long_median_income_report"
+      slug: "longitudinal_median_income"
     },
     // {
     //   name: "NC Voter Plus Report",
