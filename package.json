@@ -45,11 +45,11 @@
     "zone.js": "^0.6.23"
   },
   "devDependencies": {
+    "@angular/cli": "^1.0.4",
     "@angular/compiler-cli": "4.1.0-beta.0",
     "@types/jasmine": "2.5.38",
     "@types/lodash": "ts2.0",
     "@types/node": "^6.0.42",
-    "angular-cli": "1.0.0-beta.21",
     "codelyzer": "~1.0.0-beta.3",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",

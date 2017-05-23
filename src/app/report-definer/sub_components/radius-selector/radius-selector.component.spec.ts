@@ -5,7 +5,7 @@ import { DebugElement } from '@angular/core';
 
 import { RadiusSelectorComponent } from './radius-selector.component';
 
-describe('RadiusSelectorComponent', () => {
+fdescribe('RadiusSelectorComponent', () => {
   let component: RadiusSelectorComponent;
   let fixture: ComponentFixture<RadiusSelectorComponent>;
 
