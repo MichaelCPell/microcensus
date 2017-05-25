@@ -41,7 +41,7 @@ export class DynamoDBService {
         else{
           this.user.updateFromDdb(data["Attributes"])
         }
-      })
+      }))
     }
 
     public addReport(oData){

@@ -48,7 +48,7 @@ export class CognitoUtil {
 
 
     getCognitoIdentity():string {
-        return AWS.config.credentials.identityId;
+        return AWS.config.credentials["identityId"];
     }
 
     getAccessToken(callback:Callback):void {

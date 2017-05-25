@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
+import * as AWS from "aws-sdk";
 
 @Injectable()
 export class S3Service{

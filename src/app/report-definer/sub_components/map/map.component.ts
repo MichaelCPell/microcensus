@@ -7,7 +7,7 @@ import {Subscriber} from "rxjs/Subscriber"
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css', './leaflet.draw.css'],
+  styleUrls: ['./map.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
@@ -63,7 +63,7 @@ export class MapComponent implements OnInit {
 
     this.activateDraw();
 
-    this.map.on(L.Draw.Event.CREATED, (e) => {
+    this.map.on(L.Draw.Event.CREATED, (e:any) => {
       if (e.layerType === 'polygon') {
         this.polygonDrawn.emit(e.layer.toGeoJSON());     
       }

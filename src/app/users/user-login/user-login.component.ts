@@ -21,24 +21,23 @@ export class UserLoginComponent implements OnInit {
       this.login(this.registrationUser.email, this.registrationUser.password)
   }
 
-
   private login(email, password){
     var authenticationData = {
         Username : email,
         Password : password,
     };
-    var authenticationDetails = new AWS.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
+    var authenticationDetails = new AWS.CognitoIdentityServiceProvider["AuthenticationDetails"](authenticationData);
     var poolData = {
         UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
         ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
     };
-    var userPool = new AWS.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
+    var userPool = new AWS.CognitoIdentityServiceProvider["CognitoUserPool"](poolData);
     var userData = {
         Username : email,
         Pool : userPool
     };
     var host = this;
-    var cognitoUser = new AWS.CognitoIdentityServiceProvider.CognitoUser(userData);
+    var cognitoUser = new AWS.CognitoIdentityServiceProvider["CognitoUser"](userData);
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess:  ((result) => {
             console.log(result)
@@ -59,7 +58,7 @@ export class UserLoginComponent implements OnInit {
               params: {TableName: 'users'}
             });
 
-            db.get({Key: {email: cognitoUser.username}}, ((err, data) => {
+            db.get({TableName: 'users', Key: {email: cognitoUser.username}}, ((err, data) => {
               if(err){
                 console.log(err)
               }

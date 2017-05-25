@@ -55,7 +55,7 @@ export class UserRegistrationComponent implements CognitoCallback, OnInit {
             console.log("redirecting");
             localStorage.setItem("email", this.registrationUser.email)
             localStorage.setItem("password", this.registrationUser.password)
-            this.user.email = this.registrationUser.email
+            this.user.email = this.registrationUser.email;
             this.router.navigate(['/users/confirmation']);
         }
     }

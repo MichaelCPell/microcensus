@@ -81,7 +81,7 @@ export class ReportDefinerComponent implements OnInit {
       this.researchArea.reportType = this.reportType;
     }
 
-    this.user.privateReportTypes.subscribe(data => {
+    this.user.privateReportTypesStream["subscribe"](data => {
       if(data){
         this.reportTypes = this.reportTypes.concat(data)
       }
@@ -94,7 +94,7 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   public addAndAnalyze(){
-    this.researchArea.storeLocation(this.user.email.getValue());
+    this.researchArea.storeLocation(this.user.email);
     this.router.navigate(['/report_viewer/', this.reportType.slug])
   }
 

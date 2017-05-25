@@ -12,10 +12,10 @@ export class User {
   private _paid:boolean;
   // private _awsConfirmed:BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _confirmed:boolean = false;
-  private _remainingLocations:BehaviorSubject<string> = new BehaviorSubject("1");
+  private _remainingLocations:BehaviorSubject<number> = new BehaviorSubject(1);
   private _awsRegistered: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  private _locations: BehaviorSubject<Array<object>> = new BehaviorSubject([])
-  private _privateReportTypes: BehaviorSubject<Array<object>> = new BehaviorSubject([])
+  private _locations:any = new BehaviorSubject([])
+  private _privateReportTypes:any = new BehaviorSubject([])
   public isCustomer;
 
 
@@ -23,9 +23,10 @@ export class User {
   }
 
   get email(){
-    return this._email
+    return this._email.getValue();
   }
-  set email(value){
+
+  set email(value:string){
     this._email.next(value)
   }
 
@@ -37,11 +38,7 @@ export class User {
     this._confirmed = value
   }
 
-  get remainingLocations(){
-    return this._remainingLocations
-  }
-
-  set remainingLocations(value){
+  set remainingLocations(value:number){
     this._remainingLocations.next(value)
   }
 
@@ -51,22 +48,22 @@ export class User {
     })
   }
 
-  set locations(value){
+  set locations(value:Array<object>){
     this._locations.next(value)
   }
 
-  get privateReportTypes(){
+  public privateReportTypesStream(){
     return this._privateReportTypes
   }
 
-  set privateReportTypes(value){
-    this._privateReportTypes.next(value)
-  }
+  // set privateReportTypes(value:Array<object>){
+  //   this._privateReportTypes.next(value)
+  // }
 
   public updateFromDdb(userObject){
     this.locations = userObject["locations"]
-    this.remainingLocations = userObject["locationCredits"] - Object.keys(userObject["locations"]).length
+    this._remainingLocations.next(userObject["locationCredits"] - Object.keys(userObject["locations"])["length"])
     this.isCustomer = userObject["isCustomer"]
-    this.privateReportTypes = userObject["privateReportTypes"]
+    this._privateReportTypes.next(userObject["privateReportTypes"])
   }
 }

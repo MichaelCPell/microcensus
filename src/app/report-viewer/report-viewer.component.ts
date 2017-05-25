@@ -13,6 +13,9 @@ import { ResearchAreaService } from "../shared/research-area.service";
 import { DynamoDBService } from "../shared/ddb.service";
 import { User } from "../users/user";
 import {PublisherService} from "./publisher.service"
+import * as jquery from 'jquery';
+
+window['jQuery'] = window['$'] = jquery;
 
 @Component({
   selector: 'app-report-view',
@@ -69,7 +72,7 @@ export class ReportViewerComponent implements AfterViewInit {
       .subscribe(
         (data => {
           this.publisher.addReportData(data);
-          this.dataLoaded = true;
+          this["dataLoaded"] = true;
           tempReport = data;
         }).bind(this),
         error =>  this.errorMessage = <any>error,
@@ -110,8 +113,7 @@ export class ReportViewerComponent implements AfterViewInit {
   private createNewComponent (tmpl:string, data:any, reportName:string) {
       @Component({
           selector: 'dynamic-component',
-          template: tmpl,
-          styleUrls: []
+          template: tmpl
       })
       class CustomDynamicComponent implements OnInit{
         public data:any = data;
@@ -137,9 +139,9 @@ export class ReportViewerComponent implements AfterViewInit {
 
                 eval(response._body)
 
-                $(".share-buttons").remove()
-                $(".share-this-report").remove()
-                $(".promo").remove()
+                window['$'](".share-buttons").remove()
+                window['$'](".share-this-report").remove()
+                window['$'](".promo").remove()
               }).bind(this)
             );
           }
@@ -163,7 +165,7 @@ export class ReportViewerComponent implements AfterViewInit {
   }
 
     public publish(){
-      this.publisher.publish(this.researchArea.researchArea.name,this.researchArea.radius, this.user.email.getValue())
+      this.publisher.publish(this.researchArea.researchArea.name,this.researchArea.radius, this.user.email)
             .subscribe(
         (next) => {
           console.log(next)

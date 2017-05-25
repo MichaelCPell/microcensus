@@ -26,9 +26,9 @@ export class MembershipSelectorComponent implements OnInit {
       case 'regular':
       return true;
       case 'premium':
-      return this.user.paid;
+      return this.user["paid"];
       case 'unlimited':
-      return this.user.paid;
+      return this.user["paid"];
     }
   }
 

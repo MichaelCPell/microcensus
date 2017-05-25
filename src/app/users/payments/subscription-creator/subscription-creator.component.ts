@@ -27,10 +27,10 @@ export class SubscriptionCreatorComponent implements OnInit {
 
     Stripe.setPublishableKey(environment.stripe_publishable);
       Stripe.card.createToken(this.formCard, ((status, response) => {
-        this.http.post(`${environment.backend}/payments`, {email: this.user.email.getValue(), token: response.id})
+        this.http.post(`${environment.backend}/payments`, {email: this.user.email, token: response.id})
          .subscribe(
            next => {
-             this.user.updateFromDdb(JSON.parse(next._body));
+             this.user.updateFromDdb(JSON.parse(next["_body"]));
              this.router.navigate(["/"])
            }
          )

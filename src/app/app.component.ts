@@ -7,8 +7,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: []
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit{
 
@@ -27,7 +26,7 @@ export class AppComponent implements OnInit{
           UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
           ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
       };
-      var userPool = new AWS.CognitoIdentityServiceProvider.CognitoUserPool(data);
+      var userPool = new AWS.CognitoIdentityServiceProvider["CognitoUserPool"](data);
       var cognitoUser = userPool.getCurrentUser();
 
       if (cognitoUser != null) {
@@ -49,7 +48,7 @@ export class AppComponent implements OnInit{
                 params: {TableName: 'users'}
               });
 
-              db.get({Key: {email: cognitoUser.username}}, ((err, data) => {
+              db.get({TableName: 'users', Key: {email: cognitoUser.username}}, ((err, data) => {
                 if(err){
                   console.log(err)
                 }

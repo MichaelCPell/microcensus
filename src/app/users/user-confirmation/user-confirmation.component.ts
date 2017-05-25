@@ -13,7 +13,7 @@ export class UserConfirmationComponent implements OnInit,  CognitoCallback {
     confirmationCode:string;
     email:string;
     errorMessage:string;
-    inProgress:false;
+    inProgress:boolean = false;
 
     constructor(public regService:UserRegistrationService, public router:Router, private user:User) {
     }
@@ -40,18 +40,18 @@ export class UserConfirmationComponent implements OnInit,  CognitoCallback {
                 Username : localStorage.getItem("email"),
                 Password : localStorage.getItem("password"),
             };
-            var authenticationDetails = new AWS.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
+            var authenticationDetails = new AWS.CognitoIdentityServiceProvider["AuthenticationDetails"](authenticationData);
             var poolData = {
                 UserPoolId : 'us-east-1_T2p3nd9xA',
                 ClientId : '58qe0b7458eo9705kijc7hjhv6'
             };
-            var userPool = new AWS.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
+            var userPool = new AWS.CognitoIdentityServiceProvider["CognitoUserPool"](poolData);
             var userData = {
                 Username : localStorage.getItem("email"),
                 Pool : userPool
             };
 
-            var cognitoUser = new AWS.CognitoIdentityServiceProvider.CognitoUser(userData);
+            var cognitoUser = new AWS.CognitoIdentityServiceProvider["CognitoUser"](userData);
             cognitoUser.authenticateUser(authenticationDetails, {
                 onSuccess:  ((result) => {
                     console.log(result)

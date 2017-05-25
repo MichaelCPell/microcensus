@@ -28,7 +28,7 @@ export class CreditShopComponent implements OnInit {
     //      }
     //    )
     // }else{
-      this.choice = 10;
+      this.choice = "10";
     // }
   }
 
