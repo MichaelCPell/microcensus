@@ -3,6 +3,7 @@ import {AwsUtil} from "./users/aws.service";
 import {UserLoginService, CognitoUtil, LoggedInCallback} from "./users/cognito.service";
 import { User } from "./users/user";
 import * as AWS from "aws-sdk";
+import { CognitoUserPool, CognitoUser} from "amazon-cognito-identity-js";
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
@@ -26,8 +27,8 @@ export class AppComponent implements OnInit{
           UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
           ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
       };
-      var userPool:AWS.CognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider["CognitoUserPool"](data);
-      var cognitoUser = userPool.getCurrentUser();
+      var userPool:CognitoUserPool = new CognitoUserPool(data);
+      var cognitoUser:CognitoUser = userPool.getCurrentUser();
 
       if (cognitoUser != null) {
           cognitoUser.getSession((function(err, session) {
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit{
                   return;
               }
               console.log('session validity: ' + session.isValid());
-              this.user.email = cognitoUser.username
+              this.user.email = cognitoUser.getUsername()
               AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                   IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658',
                   Logins : {
@@ -48,7 +49,7 @@ export class AppComponent implements OnInit{
                 params: {TableName: 'users'}
               });
 
-              db.get({TableName: 'users', Key: {email: cognitoUser.username}}, ((err, data) => {
+              db.get({TableName: 'users', Key: {email: this.user.email}}, ((err, data) => {
                 if(err){
                   console.log(err)
                 }

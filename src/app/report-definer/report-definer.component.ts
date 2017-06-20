@@ -3,12 +3,14 @@ import {environment} from 'environments/environment';
 import { ResearchAreaService } from '../shared/research-area.service';
 import { User } from "../users/user";
 import { Router } from "@angular/router";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { ReportTypeService } from "./services/report-type.service";
 
 @Component({
   selector: 'app-report-definer',
   templateUrl: './report-definer.component.html',
-  styleUrls: ['./report-definer.component.css']
+  styleUrls: ['./report-definer.component.css'],
+  providers: [ ReportTypeService ]
 })
 export class ReportDefinerComponent implements OnInit {
   selectedReport:string;
@@ -41,35 +43,15 @@ export class ReportDefinerComponent implements OnInit {
       description: "Displays the median income for the research area across time.",
       slug: "longitudinal_median_income"
     },
-    // {
-    //   name: "NC Voter Plus Report",
-    //   description: "This report includes counts of political affiliation by party: REP, DEM, UNA (unaffiliated), and LIB (libertarian).  It also includes demographic data similar to the General Demographic Report.",
-    //   slug: "nc_voter_plus"
-    // },
     {
       name: "Age and Education Report",
       description: "Granular break downs of the various age groups and levels of educational attainment for the research area.",
       slug: "age_and_education"
-    },
-    // {
-    //   name: "Typeform Report",
-    //   description: "Just a demo of RealSmart talking to Typeform",
-    //   slug: "typeform_demo_report"
-    // },
-    // {
-    //   name: "Apparel Lead Generator",
-    //   description: "Just a demo of apparel_lead_generator",
-    //   slug: "apparel_lead_generator"
-    // },
-    // {
-    //   name: "Local Business Report",
-    //   description: "Captures businesses that are located with the radius and displays them on a map.",
-    //   slug: "business_report_builder"
-    // }
+    }
   ];
 
   constructor(public researchArea: ResearchAreaService, public user:User,
-    private router:Router) {
+    private router:Router, private reportTypeService:ReportTypeService) {
 
   }
 
@@ -81,11 +63,15 @@ export class ReportDefinerComponent implements OnInit {
       this.researchArea.reportType = this.reportType;
     }
 
-    this.user.privateReportTypesStream["subscribe"](data => {
-      if(data){
-        this.reportTypes = this.reportTypes.concat(data)
-      }
-    })
+    console.log(JSON.stringify(this.user))
+    // this.reportTypes = this.reportTypes.concat(this.user.privateReportTypes)
+
+      // console.log(this.user.privateReportTypes)
+    
+    // this.user.privateReportTypes.forEach( (rt) => {
+    //   this.reportTypes.push(rt)
+    //   console.log(this.reportTypes)
+    // })
 
     if(this.researchArea){
       this.name = this.researchArea.researchArea.name;
@@ -93,7 +79,7 @@ export class ReportDefinerComponent implements OnInit {
     }
   }
 
-  public addAndAnalyze(){
+  public addAndAnalyze(): void{
     this.researchArea.storeLocation(this.user.email);
     this.router.navigate(['/report_viewer/', this.reportType.slug])
   }

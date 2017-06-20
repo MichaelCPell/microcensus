@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RegistrationUser } from "../registration-user";
 import * as AWS from "aws-sdk";
+import { CognitoUserPool, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { User } from "../user";
 import { Router } from "@angular/router";
 
@@ -26,25 +27,25 @@ export class UserLoginComponent implements OnInit {
         Username : email,
         Password : password,
     };
-    var authenticationDetails = new AWS.CognitoIdentityServiceProvider["AuthenticationDetails"](authenticationData);
+    var authenticationDetails = new AuthenticationDetails(authenticationData);
     var poolData = {
         UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
         ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
     };
-    var userPool = new AWS.CognitoIdentityServiceProvider["CognitoUserPool"](poolData);
+    var userPool = new CognitoUserPool(poolData);
     var userData = {
         Username : email,
         Pool : userPool
     };
     var host = this;
-    var cognitoUser = new AWS.CognitoIdentityServiceProvider["CognitoUser"](userData);
+    var cognitoUser = new CognitoUser(userData);
     cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess:  ((result) => {
             console.log(result)
             console.log('access token + ' + result.getAccessToken().getJwtToken());
 
 
-            this.user.email = cognitoUser.username
+            this.user.email = cognitoUser.getUsername()
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                 IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658', // your identity pool id here
                 Logins : {
@@ -58,7 +59,7 @@ export class UserLoginComponent implements OnInit {
               params: {TableName: 'users'}
             });
 
-            db.get({TableName: 'users', Key: {email: cognitoUser.username}}, ((err, data) => {
+            db.get({TableName: 'users', Key: {email: cognitoUser.getUsername()}}, ((err, data) => {
               if(err){
                 console.log(err)
               }

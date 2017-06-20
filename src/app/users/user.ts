@@ -15,8 +15,9 @@ export class User {
   private _remainingLocations:BehaviorSubject<number> = new BehaviorSubject(1);
   private _awsRegistered: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private _locations:any = new BehaviorSubject([])
-  private _privateReportTypes:any = new BehaviorSubject([])
+  public privateReportTypes:object[] = [];
   public isCustomer;
+
 
 
   constructor(private http:Http){
@@ -52,10 +53,6 @@ export class User {
     this._locations.next(value)
   }
 
-  public privateReportTypesStream(){
-    return this._privateReportTypes
-  }
-
   // set privateReportTypes(value:Array<object>){
   //   this._privateReportTypes.next(value)
   // }
@@ -64,6 +61,7 @@ export class User {
     this.locations = userObject["locations"]
     this._remainingLocations.next(userObject["locationCredits"] - Object.keys(userObject["locations"])["length"])
     this.isCustomer = userObject["isCustomer"]
-    this._privateReportTypes.next(userObject["privateReportTypes"])
+    this.privateReportTypes = userObject["privateReportTypes"]
+    console.log("Loaded User")
   }
 }
