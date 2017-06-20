@@ -26,7 +26,7 @@ export class AppComponent implements OnInit{
           UserPoolId : 'us-east-1_T2p3nd9xA', // Your user pool id here
           ClientId : '58qe0b7458eo9705kijc7hjhv6' // Your client id here
       };
-      var userPool = new AWS.CognitoIdentityServiceProvider["CognitoUserPool"](data);
+      var userPool:AWS.CognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider["CognitoUserPool"](data);
       var cognitoUser = userPool.getCurrentUser();
 
       if (cognitoUser != null) {
