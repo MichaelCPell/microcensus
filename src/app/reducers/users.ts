@@ -6,9 +6,7 @@ export interface State {
 };
 
 export const initialState: State = {
-  current: {
-    loggedIn: false
-  }
+  current: undefined
 };
 
 // reducer, think of it as a table in the db
