@@ -30,8 +30,10 @@ export class ReportDefinerComponent implements OnInit {
   reportTypes$: Observable<ReportType[]>;
   activeReportType$: Observable<ReportType>;
 
-  constructor(public researchArea: ResearchAreaService, public user:User,
-    private router:Router, public reportTypeService:ReportTypeService, store: Store<fromRoot.State>) {
+  constructor(public researchArea: ResearchAreaService,
+              private router:Router, 
+              public reportTypeService:ReportTypeService, 
+              store: Store<fromRoot.State>) {
       
       this.user$ = store.select(fromRoot.getUser);
       this.reportTypes$ = store.select(fromRoot.getReportTypes);
@@ -49,8 +51,7 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   public addAndAnalyze(): void{
-    // this.researchArea.storeLocation(this.user.email);
-    // this.router.navigate(['/report_viewer/', this.reportType.slug])
+    this.activeReportType$.subscribe(rt => this.router.navigate(['/report_viewer/', rt.slug]))
   }
 
   onRadiusChange(newRadius){
