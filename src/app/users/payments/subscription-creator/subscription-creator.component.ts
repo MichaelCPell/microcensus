@@ -22,18 +22,18 @@ export class SubscriptionCreatorComponent implements OnInit {
 
   }
 
-  public submitCard(){
-    this.loading = true;
+  // public submitCard(){
+  //   this.loading = true;
 
-    Stripe.setPublishableKey(environment.stripe_publishable);
-      Stripe.card.createToken(this.formCard, ((status, response) => {
-        this.http.post(`${environment.backend}/payments`, {email: this.user.email, token: response.id})
-         .subscribe(
-           next => {
-             this.user.updateFromDdb(JSON.parse(next["_body"]));
-             this.router.navigate(["/"])
-           }
-         )
-      }).bind(this))
-  }
+  //   Stripe.setPublishableKey(environment.stripe_publishable);
+  //     Stripe.card.createToken(this.formCard, ((status, response) => {
+  //       this.http.post(`${environment.backend}/payments`, {email: this.user.email, token: response.id})
+  //        .subscribe(
+  //          next => {
+  //            this.user.updateFromDdb(JSON.parse(next["_body"]));
+  //            this.router.navigate(["/"])
+  //          }
+  //        )
+  //     }).bind(this))
+  // }
 }

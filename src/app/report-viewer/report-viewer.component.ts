@@ -165,18 +165,18 @@ export class ReportViewerComponent implements AfterViewInit {
   }
 
     public publish(){
-      this.publisher.publish(this.researchArea.researchArea.name,this.researchArea.radius, this.user.email)
-            .subscribe(
-        (next) => {
-          console.log(next)
-          this.user.updateFromDdb(next["Attributes"])
+      // this.publisher.publish(this.researchArea.researchArea.name,this.researchArea.radius, this.user.email)
+      //       .subscribe(
+      //   (next) => {
+      //     console.log(next)
+      //     // this.user.updateFromDdb(next["Attributes"])
 
-          this.publishButton = "Saved to Dashboard!"
-        },
-        (error) => {
-          console.log(error)
-        }
-      );
+      //     this.publishButton = "Saved to Dashboard!"
+      //   },
+      //   (error) => {
+      //     console.log(error)
+      //   }
+      // );
     }
 
 

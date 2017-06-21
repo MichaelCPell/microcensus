@@ -45,7 +45,7 @@ export class UserLoginComponent implements OnInit {
             console.log('access token + ' + result.getAccessToken().getJwtToken());
 
 
-            this.user.email = cognitoUser.getUsername()
+            // this.user.email = cognitoUser.getUsername()
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                 IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658', // your identity pool id here
                 Logins : {
@@ -64,7 +64,7 @@ export class UserLoginComponent implements OnInit {
                 console.log(err)
               }
               console.log(data)
-              this.user.updateFromDdb(data["Item"]);
+            //   this.user.updateFromDdb(data["Item"]);
               this.router.navigate(["users/dashboard"]);
 
             }).bind(this))

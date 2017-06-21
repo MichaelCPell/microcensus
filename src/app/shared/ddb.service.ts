@@ -39,7 +39,7 @@ export class DynamoDBService {
       db.update(params, ((err, data) => {
         if(err) console.log(err);
         else{
-          this.user.updateFromDdb(data["Attributes"])
+          // this.user.updateFromDdb(data["Attributes"])
         }
       }))
     }

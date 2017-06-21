@@ -54,7 +54,7 @@ export class AppComponent implements OnInit{
                   console.log(err)
                 }
                 console.log(data)
-                this.user.updateFromDdb(data["Item"])
+                // this.user.updateFromDdb(data["Item"])
               }).bind(this))
           }).bind(this));
       }

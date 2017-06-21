@@ -17,7 +17,7 @@ export class NavigationComponent implements OnInit {
   }
 
   public signOut(){
-    this.user.email = null
+    // this.user.email = null
     this.userLogin.logout()
     this.router.navigate(["/"]);
   }

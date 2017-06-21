@@ -15,11 +15,11 @@ import { User } from './users/user';
 import { UserRegistrationComponent } from "./users/user-registration/user-registration.component";
 import { UserConfirmationComponent } from "./users/user-confirmation/user-confirmation.component";
 import { UserDashboardComponent } from "./users/user-dashboard/user-dashboard.component";
-import {AwsUtil} from "./users/aws.service";
-import {UserRegistrationService, UserLoginService, UserParametersService, CognitoUtil} from "./users/cognito.service";
-import {DynamoDBService} from "./shared/ddb.service";
-import {S3Service} from "./shared/s3.service";
-import {AuthGuard} from "./users/auth-guard.service";
+import { AwsUtil} from "./users/aws.service";
+import { UserRegistrationService, UserLoginService, UserParametersService, CognitoUtil } from "./users/cognito.service";
+import { DynamoDBService } from "./shared/ddb.service";
+import { S3Service } from "./shared/s3.service";
+import { AuthGuard } from "./users/auth-guard.service";
 import { UserLoginComponent } from './users/user-login/user-login.component';
 import { ValuesPipe } from './shared/values.pipe';
 import { CreditShopComponent } from './users/credit-shop/credit-shop.component';
@@ -32,7 +32,11 @@ import { AreaSelectorComponent } from './report-definer/sub_components/area-sele
 import { FooterComponent } from './shared/footer/footer.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { PublisherService } from './report-viewer/publisher.service';
-import {Ng2PageScrollModule} from 'ng2-page-scroll';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
+
+import { StoreModule } from '@ngrx/store';
+
+import { reducer } from "./reducers/"
 
 
 
@@ -70,7 +74,7 @@ const appRoutes: Routes = [
     ReportTypeSelectorComponent,
     ReportTypeFilterPipe,
     AreaSelectorComponent,
-    FooterComponent
+    FooterComponent 
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,8 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
-    Ng2PageScrollModule.forRoot()
+    Ng2PageScrollModule.forRoot(),
+    StoreModule.provideStore(reducer)
   ],
   providers: [
     COMPILER_PROVIDERS,

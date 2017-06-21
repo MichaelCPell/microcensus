@@ -40,16 +40,16 @@ export class ReportTypeService {
     this.all = this.defaultReportTypes;
     this.user = user;
 
-    this.user.eventStream.subscribe( (user) => {
-      if(!user) return;
+    // this.user.eventStream.subscribe( (user) => {
+    //   if(!user) return;
 
-      for(var i =0; i < user.privateReportTypes.length; i++){
-        user.privateReportTypes.forEach( (rt) => {
-          this.all.add(rt)
-        })
-        this.eventStream.next(this.all)
-      }
-    })
+    //   for(var i =0; i < user.privateReportTypes.length; i++){
+    //     user.privateReportTypes.forEach( (rt) => {
+    //       this.all.add(rt)
+    //     })
+    //     this.eventStream.next(this.all)
+    //   }
+    // })
   }
 
 

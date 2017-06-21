@@ -1,10 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {environment} from 'environments/environment';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { environment } from 'environments/environment';
 import { ResearchAreaService } from '../shared/research-area.service';
 import { User } from "../users/user";
 import { Router } from "@angular/router";
+import { Observable } from 'rxjs';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { ReportTypeService } from "./services/report-type.service";
+import { Store } from '@ngrx/store';
+
+import * as fromRoot from '../reducers'
 
 
 interface ReportType{
@@ -14,6 +18,7 @@ interface ReportType{
 
 @Component({
   selector: 'app-report-definer',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './report-definer.component.html',
   styleUrls: ['./report-definer.component.css'],
   providers: [ ReportTypeService ]
@@ -28,10 +33,13 @@ export class ReportDefinerComponent implements OnInit {
   needsName:boolean = false;
   readyToAnalyze:boolean = false;
   showRadiusSelector = true;
+  user$: Observable<User>;
 
   constructor(public researchArea: ResearchAreaService, public user:User,
-    private router:Router, public reportTypeService:ReportTypeService) {
+    private router:Router, public reportTypeService:ReportTypeService, store: Store<fromRoot.State>) {
       
+      this.user$ = store.select(fromRoot.getUser);
+
       // reportTypeService.eventStream.subscribe(
       //   (reportTypeArray) => {
       //     // if(!reportTypeArray) return;
@@ -53,7 +61,7 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   public addAndAnalyze(): void{
-    this.researchArea.storeLocation(this.user.email);
+    // this.researchArea.storeLocation(this.user.email);
     this.router.navigate(['/report_viewer/', this.reportType.slug])
   }
 

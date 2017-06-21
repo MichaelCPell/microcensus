@@ -57,7 +57,7 @@ export class UserConfirmationComponent implements OnInit,  CognitoCallback {
                     console.log(result)
                     console.log('access token + ' + result.getAccessToken().getJwtToken());
 
-                    this.user.email = cognitoUser.username
+                    // this.user.email = cognitoUser.username
                     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                         IdentityPoolId : 'us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658', // your identity pool id here
                         Logins : {
