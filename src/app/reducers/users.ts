@@ -16,10 +16,10 @@ export function reducer(state = initialState, action: user.Actions ): State {
   console.log("REDUCER WAS CALLED")
   switch (action.type) {
     case user.ActionTypes.LOAD: {
+      console.log("LOAD ACTION CALLED")
       const user = action.payload;
       return {current: user}
     }
-
     default: {
       return state;
     }

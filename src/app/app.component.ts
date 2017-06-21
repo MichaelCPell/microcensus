@@ -5,6 +5,9 @@ import { User } from "./users/user";
 import * as AWS from "aws-sdk";
 import { CognitoUserPool, CognitoUser} from "amazon-cognito-identity-js";
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Store } from '@ngrx/store';
+import * as fromRoot from './reducers';
+import * as user from './actions/user';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +19,8 @@ export class AppComponent implements OnInit{
                 public userService:UserLoginService, 
                 public cognito:CognitoUtil, 
                 private user:User,
-                private angulartics:Angulartics2GoogleAnalytics) {
+                private angulartics:Angulartics2GoogleAnalytics,
+                private store: Store<fromRoot.State>) {
     console.log("AppComponent: constructor");
   }
 
@@ -54,6 +58,7 @@ export class AppComponent implements OnInit{
                   console.log(err)
                 }
                 console.log(data)
+                this.store.dispatch(new user.LoadAction(data))
                 // this.user.updateFromDdb(data["Item"])
               }).bind(this))
           }).bind(this));
