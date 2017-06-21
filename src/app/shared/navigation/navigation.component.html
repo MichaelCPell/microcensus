@@ -13,14 +13,10 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right" >
 
-        <!--<span *ngIf="user$ | async">-->
-          <li class="nav-items" >
-          </li>
-
+      <ul class="nav navbar-nav navbar-right" *ngIf="(user$ | async)">
           <li class="nav-email dropdown" >
-            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" routerLinkActive="active">{{ (user$ | async).email }} <span class="caret"></span></a>-->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" routerLinkActive="active">{{ email }} <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a routerLink="/users/dashboard" routerLinkActive="active">Dashboard</a></li>
               <li><a href="#">Account</a></li>
@@ -28,7 +24,11 @@
               <li><a (click)="signOut()">Sign Out</a></li>
             </ul>
           </li>
-        <!--</span>-->
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right" *ngIf="!(user$ | async)">
+          <li class="nav-items" >
+          </li>
 
         <li class="nav-sign-in">
           <a routerLink="/users/login" routerLinkActive="active">Sign In</a>

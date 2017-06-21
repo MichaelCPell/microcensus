@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 export class NavigationComponent implements OnInit {
   user$:Observable<User>
   creditsRemaining:number = 0;
+  email:string;
 
   constructor(private store:Store<fromRoot.State>, private router:Router, private userLogin:UserLoginService) {
     this.user$ = store.select(fromRoot.getUser);
@@ -24,7 +25,7 @@ export class NavigationComponent implements OnInit {
       .filter(Boolean)
       .map(user => user["Item"])
       .subscribe( (user) => {
-
+        this.email = user.email
       })
   }
 
