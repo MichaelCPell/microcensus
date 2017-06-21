@@ -5,6 +5,7 @@ import { compose } from '@ngrx/core/compose';
 import { storeFreeze } from 'ngrx-store-freeze';
 
 import * as fromUsers from './users';
+import * as fromReportTypes from './report-types';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -12,10 +13,12 @@ import * as fromUsers from './users';
  */
 export interface State {
   user: fromUsers.State;
+  reportTypes: fromReportTypes.State;
 }
 
 const reducers = {
-  user: fromUsers.reducer
+  user: fromUsers.reducer,
+  reportTypes: fromReportTypes.reducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
@@ -50,6 +53,12 @@ export const getUserState = (state: State) => {
     return state.user
 };
 
+export const getReportTypeState = (state: State) => {
+    console.log("GET RT STATE WAS CALLED")
+    console.log(state)
+    return state.reportTypes
+};
+
 /**
  * Every reducer module exports selector functions, however child reducers
  * have no knowledge of the overall state tree. To make them useable, we
@@ -61,3 +70,6 @@ export const getUserState = (state: State) => {
  * pieces of state.
  */
 export const getUser = createSelector(getUserState, fromUsers.getCurrent)
+
+
+export const getReportTypes = createSelector(getReportTypeState, fromReportTypes.getAll)

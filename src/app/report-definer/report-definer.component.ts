@@ -5,16 +5,11 @@ import { User } from "../users/user";
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { ReportTypeService } from "./services/report-type.service";
+import { ReportTypeService } from "../services/report-type.service";
 import { Store } from '@ngrx/store';
+import { ReportType } from '../models/report-type'
 
 import * as fromRoot from '../reducers'
-
-
-interface ReportType{
-  slug: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-report-definer',
@@ -34,11 +29,13 @@ export class ReportDefinerComponent implements OnInit {
   readyToAnalyze:boolean = false;
   showRadiusSelector = true;
   user$: Observable<User>;
+  reportTypes$: Observable<Set<ReportType>>;
 
   constructor(public researchArea: ResearchAreaService, public user:User,
     private router:Router, public reportTypeService:ReportTypeService, store: Store<fromRoot.State>) {
       
       this.user$ = store.select(fromRoot.getUser);
+      this.reportTypes$ = store.select(fromRoot.getReportTypes);
 
       // reportTypeService.eventStream.subscribe(
       //   (reportTypeArray) => {
@@ -62,7 +59,7 @@ export class ReportDefinerComponent implements OnInit {
 
   public addAndAnalyze(): void{
     // this.researchArea.storeLocation(this.user.email);
-    this.router.navigate(['/report_viewer/', this.reportType.slug])
+    // this.router.navigate(['/report_viewer/', this.reportType.slug])
   }
 
   onRadiusChange(newRadius){

@@ -1,15 +1,17 @@
 import { type } from '../util';
 import { Action } from '@ngrx/store';
-import { User } from '../users/user';
+import { ReportType } from '../models/report-type'
+
+
 
 export const ActionTypes = {
-  LOAD:             type('[User] Load'),
+  ADD:             type('[ReportType] Add'),
 };
 
-export class LoadAction implements Action {
-  type = ActionTypes.LOAD;
+export class AddAction implements Action {
+  type = ActionTypes.ADD;
 
-  constructor(public payload: User) { }
+  constructor(public payload: ReportType[]) { }
 }
 
 
@@ -18,4 +20,4 @@ export class LoadAction implements Action {
  * so that reducers can easily compose action types
  */
 export type Actions
-  = LoadAction
+  = AddAction
