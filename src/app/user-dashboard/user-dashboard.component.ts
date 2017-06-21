@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { ResearchAreaService } from "../shared/research-area.service";
 import { FormsModule } from "@angular/forms";
+import { Store } from '@ngrx/store'
+import * as fromRoot from '../reducers/'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -9,8 +12,14 @@ import { FormsModule } from "@angular/forms";
   styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
+  locations$:Observable<any[]>;
+  
+  constructor(private router:Router, 
+              private researchArea: ResearchAreaService,
+              private store:Store<fromRoot.State>) { 
 
-  constructor(private router:Router, private researchArea: ResearchAreaService) { }
+      this.locations$ = store.select(fromRoot.getLocations)
+  }
 
   ngOnInit() {
   }

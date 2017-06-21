@@ -36,7 +36,8 @@ import { Ng2PageScrollModule } from 'ng2-page-scroll';
 
 import { StoreModule } from '@ngrx/store';
 
-import { reducer } from "./reducers/"
+import { reducer } from "./reducers/";
+import { LocationListComponent } from './user-dashboard/subcomponents/location-list/location-list.component'
 
 
 
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
     ReportTypeSelectorComponent,
     ReportTypeFilterPipe,
     AreaSelectorComponent,
-    FooterComponent 
+    FooterComponent,
+    LocationListComponent 
   ],
   imports: [
     BrowserModule,

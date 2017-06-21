@@ -14,44 +14,9 @@
 </div>
 <div class="container-fluid">
   <div class="row vertical-row-padding">
-    <div class="col-md-4"
-         *ngFor="let location of (user.locations | async | lfilter : 'address' : search)">
-     <div class="col-md-12 location-table">
-       <table class="table table-condensed">
-        <thead>
-          <tr>
-            <th>
-              <div class="row">
-                <div class="col-sm-10 col-md-10">
-                  <h5 class="table-title">{{location.name}}</h5>
-                </div>
-                <div class="col-sm-2 col-md-2 centered">
-                  <h5 class="table-title">
-                    <i
-                      (click)="makeReportWithLocation(location)"
-                      class="fa fa-plus-circle new-tooltip" aria-hidden="true"></i>
-                  </h5>
-                </div>
-              </div>
-              </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let report of (location.reports | values)">
-            <td>
-              <div class="row" >
-                <div class="col-sm-7 col-md-7"><p class="table-text">{{report.reportName}}</p></div>
-                <div class="col-sm-3 col-md-3"><p class="table-text"><small>{{report.createdAt | date:'shortDate'}}</small></p></div>
-                <div class="col-sm-2 col-md-2">
-                  <a target="_blank" href="{{report.publicUrl}}"><p class="table-text">View</p></a>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-     </div>
-    </div>
+    <app-location-list 
+      [locations]="locations$ | async"
+      [filterQuery]="search"></app-location-list>
   </div>
 </div>
 <app-footer></app-footer>

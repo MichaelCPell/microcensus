@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from './reducers';
 import * as user from './actions/user';
 import * as reportTypes from './actions/report-type';
+import * as locations from './actions/locations';
 
 @Component({
   selector: 'app-root',
@@ -60,7 +61,7 @@ export class AppComponent implements OnInit{
                 }
                 this.store.dispatch(new user.LoadAction(data))
                 this.store.dispatch(new reportTypes.AddAction(data.Item.privateReportTypes))
-                // this.user.updateFromDdb(data["Item"])
+                this.store.dispatch(new locations.SetAction(data.Item.locations))
               }).bind(this))
           }).bind(this));
       }

@@ -37,7 +37,7 @@ export class ReportDefinerComponent implements OnInit {
       
       this.user$ = store.select(fromRoot.getUser);
       this.reportTypes$ = store.select(fromRoot.getReportTypes);
-      this.activeReportType$ = store.select(fromRoot.getActiveReportType)
+      this.activeReportType$ = store.select(fromRoot.getActiveReportType);
 
   }
 
