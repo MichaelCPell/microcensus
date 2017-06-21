@@ -17,6 +17,7 @@ export class User {
   private _locations:any = new BehaviorSubject([])
   public privateReportTypes:object[] = [];
   public isCustomer;
+  public eventStream:BehaviorSubject<User> = new BehaviorSubject(null);
 
 
 
@@ -62,6 +63,7 @@ export class User {
     this._remainingLocations.next(userObject["locationCredits"] - Object.keys(userObject["locations"])["length"])
     this.isCustomer = userObject["isCustomer"]
     this.privateReportTypes = userObject["privateReportTypes"]
-    console.log("Loaded User")
+
+    this.eventStream.next(userObject)
   }
 }

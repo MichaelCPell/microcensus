@@ -6,6 +6,12 @@ import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { ReportTypeService } from "./services/report-type.service";
 
+
+interface ReportType{
+  slug: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-report-definer',
   templateUrl: './report-definer.component.html',
@@ -15,63 +21,30 @@ import { ReportTypeService } from "./services/report-type.service";
 export class ReportDefinerComponent implements OnInit {
   selectedReport:string;
   radius:number;
-  reportType:any;
+  reportType:ReportType = {name: "temp", slug: "temp"};
+  reportTypes:Set<any>;
   area:any;
   name:string;
   needsName:boolean = false;
   readyToAnalyze:boolean = false;
   showRadiusSelector = true;
 
-  reportTypes:Array<any> = [
-    {
-      name: "General Demographic Report",
-      description: "This report shows general demographics for a region such as ages, education, races, household values and incomes.",
-      slug: "general_demographic"
-    },
-    {
-      name: "Longitudinal Population Report",
-      description: "Population for the selected area according to the 1990, 2000 and 2010 Decennial census.",
-      slug: "longitudinal_population"
-    },
-    {
-      name: "Longitudinal House Value Report",
-      description: "Displays the mediam house value for the research area across time.",
-      slug: "longitudinal_house_value"
-    },
-    {
-      name: "Longitudinal Median Income Report",
-      description: "Displays the median income for the research area across time.",
-      slug: "longitudinal_median_income"
-    },
-    {
-      name: "Age and Education Report",
-      description: "Granular break downs of the various age groups and levels of educational attainment for the research area.",
-      slug: "age_and_education"
-    }
-  ];
-
   constructor(public researchArea: ResearchAreaService, public user:User,
-    private router:Router, private reportTypeService:ReportTypeService) {
+    private router:Router, public reportTypeService:ReportTypeService) {
+      
+      // reportTypeService.eventStream.subscribe(
+      //   (reportTypeArray) => {
+      //     // if(!reportTypeArray) return;
 
+      //     this.reportType = reportTypeArray.entries()[0];
+      //     this.reportTypes = reportTypeArray;
+
+      //   }
+      // )
   }
 
   ngOnInit():void {
     this.radius = this.researchArea.radius;
-
-    if(!this.reportType){
-      this.reportType = this.reportTypes[0]
-      this.researchArea.reportType = this.reportType;
-    }
-
-    console.log(JSON.stringify(this.user))
-    // this.reportTypes = this.reportTypes.concat(this.user.privateReportTypes)
-
-      // console.log(this.user.privateReportTypes)
-    
-    // this.user.privateReportTypes.forEach( (rt) => {
-    //   this.reportTypes.push(rt)
-    //   console.log(this.reportTypes)
-    // })
 
     if(this.researchArea){
       this.name = this.researchArea.researchArea.name;
