@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { ReportType } from '../models/report-type';
 import { Store } from '@ngrx/store'

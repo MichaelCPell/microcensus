@@ -13,10 +13,8 @@ export const initialState: State = {
 
 // reducer, think of it as a table in the db
 export function reducer(state = initialState, action: user.Actions ): State {
-  console.log("REDUCER WAS CALLED")
   switch (action.type) {
     case user.ActionTypes.LOAD: {
-      console.log("LOAD ACTION CALLED")
       const user = action.payload;
       return {current: user}
     }
@@ -26,11 +24,7 @@ export function reducer(state = initialState, action: user.Actions ): State {
   }
 }
 
-export const getCurrent = (state: State) => {
-  console.log(`users.getCurrent was called`)
-  console.log(`state in users.getCurrent `)
-  return state.current
-};
+export const getCurrent = (state: State) => state.current
 // Selectors (think of them as queries)
 // export const getEntities = (state: State) => state.entities;
 

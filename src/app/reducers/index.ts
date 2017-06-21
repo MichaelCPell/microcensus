@@ -47,17 +47,8 @@ export function reducer(state: any, action: any){
  * }
  * ```
  */
-export const getUserState = (state: State) => {
-    console.log("GET USER STATE WAS CALLED")
-    console.log(state)
-    return state.user
-};
-
-export const getReportTypeState = (state: State) => {
-    console.log("GET RT STATE WAS CALLED")
-    console.log(state)
-    return state.reportTypes
-};
+export const getUserState = (state: State) => state.user
+export const getReportTypeState = (state: State) => state.reportTypes
 
 /**
  * Every reducer module exports selector functions, however child reducers

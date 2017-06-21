@@ -8,6 +8,7 @@ import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Store } from '@ngrx/store';
 import * as fromRoot from './reducers';
 import * as user from './actions/user';
+import * as reportTypes from './actions/report-type';
 
 @Component({
   selector: 'app-root',
@@ -58,6 +59,7 @@ export class AppComponent implements OnInit{
                   console.log(err)
                 }
                 this.store.dispatch(new user.LoadAction(data))
+                this.store.dispatch(new reportTypes.AddAction(data.Item.privateReportTypes))
                 // this.user.updateFromDdb(data["Item"])
               }).bind(this))
           }).bind(this));
