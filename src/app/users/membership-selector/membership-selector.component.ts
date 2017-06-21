@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from '../user';
+import { User } from '../../models/user';
 import { Http } from '@angular/http';
 
 @Component({

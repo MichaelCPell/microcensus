@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AwsUtil} from "./users/aws.service";
 import {UserLoginService, CognitoUtil, LoggedInCallback} from "./users/cognito.service";
-import { User } from "./users/user";
+import { User } from "./models/user";
 import * as AWS from "aws-sdk";
 import { CognitoUserPool, CognitoUser} from "amazon-cognito-identity-js";
 import { Angulartics2GoogleAnalytics } from 'angulartics2';

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
 import { Router } from "@angular/router";
-import { ResearchAreaService } from "../../shared/research-area.service";
+import { ResearchAreaService } from "../shared/research-area.service";
 import { FormsModule } from "@angular/forms";
 
 @Component({
@@ -11,7 +10,7 @@ import { FormsModule } from "@angular/forms";
 })
 export class UserDashboardComponent implements OnInit {
 
-  constructor(private router:Router, public user:User, private researchArea: ResearchAreaService) { }
+  constructor(private router:Router, private researchArea: ResearchAreaService) { }
 
   ngOnInit() {
   }

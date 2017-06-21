@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { UserRegistrationService } from "../cognito.service";
 import { RegistrationUser } from "../registration-user";
 import { CognitoCallback } from "../cognito.service";
-import { User } from "../user"
+import { User } from "../../models/user"
 import {PageScrollService, PageScrollInstance} from "ng2-page-scroll";
 import { DOCUMENT } from '@angular/platform-browser';
 

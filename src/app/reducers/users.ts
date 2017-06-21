@@ -1,4 +1,4 @@
-import { User } from "../users/user";
+import { User } from "../models/user";
 import * as user from '../actions/user';
 
 export interface State {

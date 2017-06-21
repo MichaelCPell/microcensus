@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { environment } from 'environments/environment';
 import { ResearchAreaService } from '../shared/research-area.service';
-import { User } from "../users/user";
+import { User } from "../models/user";
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";

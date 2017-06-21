@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {User} from "../users/user";
+import {User} from "../models/user";
 import {Observable} from "rxjs/Observable";
 
 declare var AWS:any;

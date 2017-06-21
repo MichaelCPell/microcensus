@@ -11,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { ResearchAreaService } from "../shared/research-area.service";
 import { DynamoDBService } from "../shared/ddb.service";
-import { User } from "../users/user";
+import { User } from "../models/user";
 import {PublisherService} from "./publisher.service"
 import * as jquery from 'jquery';
 

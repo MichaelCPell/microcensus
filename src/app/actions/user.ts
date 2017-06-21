@@ -1,6 +1,6 @@
 import { type } from '../util';
 import { Action } from '@ngrx/store';
-import { User } from '../users/user';
+import { User } from '../models/user';
 
 export const ActionTypes = {
   LOAD:             type('[User] Load'),
