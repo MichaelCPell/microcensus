@@ -26,7 +26,7 @@
             </div>
             <div class="col-sm-8">
               <app-report-type-selector
-                [activeReportType]="reportType"
+                [activeReportType]="activeReportType$ | async"
                 [reportTypes] = "reportTypes$ | async"
                 (activeReportTypeChange)="onReportTypeChange($event)">
               </app-report-type-selector>

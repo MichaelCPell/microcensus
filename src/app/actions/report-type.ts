@@ -5,15 +5,21 @@ import { ReportType } from '../models/report-type'
 
 
 export const ActionTypes = {
-  ADD:             type('[ReportType] Add'),
+  ADD:              type('[ReportType] Add'),
+  SET_ACTIVE:       type('[ReportType] Set Active' )
 };
 
 export class AddAction implements Action {
   type = ActionTypes.ADD;
 
-  constructor(public payload: ReportType[]) { }
+  constructor(public payload) { }
 }
 
+export class SetActiveAction implements Action {
+  type = ActionTypes.SET_ACTIVE;
+
+  constructor(public payload) { }
+}
 
 /**
  * Export a type alias of all actions in this action group
@@ -21,3 +27,4 @@ export class AddAction implements Action {
  */
 export type Actions
   = AddAction
+  | SetActiveAction

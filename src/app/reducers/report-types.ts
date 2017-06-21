@@ -3,11 +3,13 @@ import { ReportTypeService } from '../services/report-type.service';
 import * as reportType from '../actions/report-type';
 
 export interface State {
-  all: Set<ReportType>
+  all: ReportType[],
+  active: ReportType
 };
 
 export const initialState: State = {
-    all: ReportTypeService.defaultReportTypes
+    all: ReportTypeService.defaultReportTypes,
+    active: ReportTypeService.defaultReportTypes[0]
 };
 
 // reducer, think of it as a table in the db
@@ -15,12 +17,14 @@ export function reducer(state = initialState, action: reportType.Actions ): Stat
   console.log("REDUCER WAS CALLED")
   switch (action.type) {
     case reportType.ActionTypes.ADD: {
-      console.log("ADD ACTION CALLED")
       const reportTypes = action.payload;
-      return {
-          all: this.all.concat(reportTypes)
-        }
+      return {...state, all: this.all.concat(reportTypes) } 
     }
+    case reportType.ActionTypes.SET_ACTIVE: {
+      const reportType:ReportType = action.payload;
+      return {...state, active: reportType}
+    }
+
     default: {
       return state;
     }
@@ -32,6 +36,9 @@ export const getAll = (state: State) => {
   console.log(`state in users.getCurrent `)
   return state.all
 };
+
+
+export const getActive = (state: State) => state.active
 // Selectors (think of them as queries)
 // export const getEntities = (state: State) => state.entities;
 

@@ -21,31 +21,22 @@ import * as fromRoot from '../reducers'
 export class ReportDefinerComponent implements OnInit {
   selectedReport:string;
   radius:number;
-  reportType:ReportType = {name: "temp", slug: "temp"};
-  reportTypes:Set<any>;
   area:any;
   name:string;
   needsName:boolean = false;
   readyToAnalyze:boolean = false;
   showRadiusSelector = true;
   user$: Observable<User>;
-  reportTypes$: Observable<Set<ReportType>>;
+  reportTypes$: Observable<ReportType[]>;
+  activeReportType$: Observable<ReportType>;
 
   constructor(public researchArea: ResearchAreaService, public user:User,
     private router:Router, public reportTypeService:ReportTypeService, store: Store<fromRoot.State>) {
       
       this.user$ = store.select(fromRoot.getUser);
       this.reportTypes$ = store.select(fromRoot.getReportTypes);
+      this.activeReportType$ = store.select(fromRoot.getActiveReportType)
 
-      // reportTypeService.eventStream.subscribe(
-      //   (reportTypeArray) => {
-      //     // if(!reportTypeArray) return;
-
-      //     this.reportType = reportTypeArray.entries()[0];
-      //     this.reportTypes = reportTypeArray;
-
-      //   }
-      // )
   }
 
   ngOnInit():void {
@@ -68,7 +59,7 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   onReportTypeChange(reportType){
-    this.reportType = reportType;
+    this.reportTypeService.setActive(reportType);
   }
 
   onAreaChange(newArea){

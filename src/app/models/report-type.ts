@@ -1,4 +1,5 @@
 export interface ReportType{
     slug: string;
-    name: string
+    name: string;
+    description: string;
 }

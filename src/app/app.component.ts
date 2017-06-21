@@ -57,7 +57,6 @@ export class AppComponent implements OnInit{
                 if(err){
                   console.log(err)
                 }
-                console.log(data)
                 this.store.dispatch(new user.LoadAction(data))
                 // this.user.updateFromDdb(data["Item"])
               }).bind(this))

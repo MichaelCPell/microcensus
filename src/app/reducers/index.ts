@@ -73,3 +73,4 @@ export const getUser = createSelector(getUserState, fromUsers.getCurrent)
 
 
 export const getReportTypes = createSelector(getReportTypeState, fromReportTypes.getAll)
+export const getActiveReportType = createSelector(getReportTypeState, fromReportTypes.getActive)

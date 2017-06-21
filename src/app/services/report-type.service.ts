@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { User } from '../users/user';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { ReportType } from '../models/report-type';
+import { Store } from '@ngrx/store'
+import * as fromRoot from '../reducers'
+import * as reportTypes from '../actions/report-type';
 
 @Injectable()
 export class ReportTypeService {
-  private user:User;
-  public all:Set<any>;
-  public eventStream:BehaviorSubject<Set<any>> = new BehaviorSubject(null);
+  public all: ReportType[];
 
-  static readonly defaultReportTypes:Set<any> = new Set([
+  static readonly defaultReportTypes:ReportType[] = [
     {
       name: "General Demographic Report",
       description: "This report shows general demographics for a region such as ages, education, races, household values and incomes.",
@@ -34,11 +35,15 @@ export class ReportTypeService {
       description: "Granular break downs of the various age groups and levels of educational attainment for the research area.",
       slug: "age_and_education"
     }
-  ]);
+  ];
 
-  constructor(user:User) { 
+  constructor(private store:Store<fromRoot.State>) { 
+    this.store = store;
   }
 
+  public setActive(reportType:ReportType){
+    this.store.dispatch(new reportTypes.SetActiveAction(reportType))
+  }
 
 
 }
