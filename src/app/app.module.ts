@@ -30,11 +30,12 @@ import { Ng2PageScrollModule } from 'ng2-page-scroll';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from "./reducers/";
 import { LocationListComponent } from './user-dashboard/subcomponents/location-list/location-list.component';
-import { CognitoSessionModule } from './cognito-session/cognito-session.module'
+import { CognitoSessionModule, CognitoSessionStore } from './cognito-session/cognito-session.module'
 
 
 
-const appRoutes: Routes = [
+
+export const appRoutes: Routes = [
   { path: '',
     component: ReportDefinerComponent,
     canActivate: []},
@@ -80,7 +81,8 @@ const appRoutes: Routes = [
     User,
     DynamoDBService,
     S3Service,
-    PublisherService],
+    PublisherService,
+    CognitoSessionStore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

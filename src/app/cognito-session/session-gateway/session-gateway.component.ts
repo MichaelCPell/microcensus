@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-session-gateway',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./session-gateway.component.css']
 })
 export class SessionGatewayComponent implements OnInit {
-
+  
   constructor() { }
 
   ngOnInit() {

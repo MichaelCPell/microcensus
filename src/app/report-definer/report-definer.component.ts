@@ -8,7 +8,6 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { ReportTypeService } from "../services/report-type.service";
 import { Store } from '@ngrx/store';
 import { ReportType } from '../models/report-type'
-
 import * as fromRoot from '../reducers'
 
 @Component({

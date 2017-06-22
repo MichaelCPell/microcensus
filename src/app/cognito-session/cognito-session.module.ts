@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SessionGatewayComponent } from './session-gateway/session-gateway.component';
 import { AuthGuard } from './auth-guard.service';
 import { RouterModule, Routes } from '@angular/router';
+import { CognitoSessionStore } from './cognito-session.store'
 
 const appRoutes: Routes = [
   { path: 'user', component: SessionGatewayComponent },
@@ -18,3 +19,4 @@ const appRoutes: Routes = [
   exports: [SessionGatewayComponent]
 })
 export class CognitoSessionModule { }
+export * from './cognito-session.store';
