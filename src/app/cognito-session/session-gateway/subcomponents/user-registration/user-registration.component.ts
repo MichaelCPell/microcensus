@@ -1,9 +1,9 @@
 import { Component, Inject, Injectable, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { UserRegistrationService } from "../cognito.service";
-import { RegistrationUser } from "../registration-user";
-import { CognitoCallback } from "../cognito.service";
-import { User } from "../../models/user"
+import { UserRegistrationService } from "../../../cognito.service";
+import { RegistrationUser } from "../../../registration-user";
+import { CognitoCallback } from "../../../cognito.service";
+import { CognitoUser } from "../../../cognito-user"
 import {PageScrollService, PageScrollInstance} from "ng2-page-scroll";
 import { DOCUMENT } from '@angular/platform-browser';
 
@@ -21,7 +21,7 @@ export class UserRegistrationComponent implements CognitoCallback, OnInit {
     constructor(public userRegistration:UserRegistrationService,
                 router:Router,
                 route:ActivatedRoute,
-                private user:User,
+                private user:CognitoUser,
                 private pageScrollService: PageScrollService,
                 @Inject(DOCUMENT) private document: any) {
         this.router = router;

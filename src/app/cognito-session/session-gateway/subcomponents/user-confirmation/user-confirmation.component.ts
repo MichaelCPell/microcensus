@@ -1,8 +1,8 @@
 import { Component, OnInit, ApplicationRef } from '@angular/core';
 import {Router} from "@angular/router";
-import { User } from "../../models/user"
-import { UserRegistrationService } from "../cognito.service";
-import { CognitoCallback } from "../cognito.service";
+import { User } from '../../../../models/user'
+import { UserRegistrationService } from "../../../cognito.service";
+import { CognitoCallback } from "../../../cognito.service";
 import * as AWS from "aws-sdk";
 @Component({
   selector: 'app-user-confirmation',

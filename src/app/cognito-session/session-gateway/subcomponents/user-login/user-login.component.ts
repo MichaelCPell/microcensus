@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RegistrationUser } from "../registration-user";
+import { RegistrationUser } from "../../../registration-user";
 import * as AWS from "aws-sdk";
 import { CognitoUserPool, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import { User } from "../../models/user";
+import { User } from "../../../../models/user";
 import { Router } from "@angular/router";
 
 @Component({
