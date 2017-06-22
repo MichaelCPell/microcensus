@@ -31,6 +31,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from "./reducers/";
 import { LocationListComponent } from './user-dashboard/subcomponents/location-list/location-list.component';
 import { CognitoSessionModule, CognitoSessionStore } from './cognito-session/cognito-session.module'
+import { UserService } from './services/user.service';
 
 
 
@@ -82,7 +83,8 @@ export const appRoutes: Routes = [
     DynamoDBService,
     S3Service,
     PublisherService,
-    CognitoSessionStore],
+    CognitoSessionStore,
+    UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

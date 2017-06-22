@@ -13,6 +13,7 @@ export const initialState: State = {
 export function reducer(state = initialState, action: user.Actions ): State {
   switch (action.type) {
     case user.ActionTypes.LOAD: {
+      console.log(action)
       const user = action.payload;
       return {current: user}
     }

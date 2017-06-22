@@ -4,6 +4,7 @@ import * as AWS from "aws-sdk";
 import { CognitoUserPool, CognitoUser} from "amazon-cognito-identity-js";
 import { Angulartics2GoogleAnalytics } from 'angulartics2';
 import { Store } from '@ngrx/store';
+import { UserService } from './services/user.service';
 import * as fromRoot from './reducers';
 import * as user from './actions/user';
 import * as reportTypes from './actions/report-type';
@@ -18,8 +19,8 @@ export class AppComponent implements OnInit{
   constructor(  
                 private user:User,
                 private angulartics:Angulartics2GoogleAnalytics,
-                private store: Store<fromRoot.State>) {
-    console.log("AppComponent: constructor");
+                private store: Store<fromRoot.State>,
+                private userService:UserService ) {
   }
 
 
