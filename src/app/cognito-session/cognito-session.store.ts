@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable'
 import { Injectable } from '@angular/core'
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/pluck';
+import { CognitoUser } from 'amazon-cognito-identity-js'
 
 export interface State{
     userPool: any | null;

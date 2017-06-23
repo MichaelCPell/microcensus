@@ -13,16 +13,16 @@
         <div class="form-group">
             <label class="control-label form-label" for="signupEmail">Email</label>
             <input id="signupEmail" type="email" maxlength="50" class="form-control"
-                   [(ngModel)]="registrationUser.email" [ngModelOptions]="{standalone: true}">
+                   [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
         </div>
         <div class="form-group">
           <label class="control-label form-label" for="signupPassword">Password</label>
           <input id="signupPassword" type="password" maxlength="25" class="form-control"
-                 placeholder="at least 8 characters" length="40" [(ngModel)]="registrationUser.password"
+                 placeholder="at least 8 characters" length="40" [(ngModel)]="password"
                  [ngModelOptions]="{standalone: true}">
         </div>
         <div class="form-group">
-          <button (click)="submit($event)" id="signupSubmit" type="submit" class="btn btn-cs-yellow">
+          <button (click)="submit()" id="signupSubmit" type="submit" class="btn btn-cs-yellow">
               Sign In
           </button>
         </div>
@@ -32,4 +32,3 @@
     </div>
   </div>
 </div>
-<app-footer></app-footer>

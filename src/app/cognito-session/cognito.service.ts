@@ -1,10 +1,10 @@
 import {Injectable, Inject} from "@angular/core";
 import {RegistrationUser} from "./registration-user";
-import {DynamoDBService} from "../shared/ddb.service";
-import {AwsUtil} from "./aws.service";
+// import {AwsUtil} from "./aws.service";
+import { CognitoSessionStore } from './cognito-session.store';
 import * as AWS from "aws-sdk";
 
-var CognitoJS = require('amazon-cognito-identity-js');
+import {CognitoUserPool, CognitoUser, CognitoUserAttribute, AuthenticationDetails } from 'amazon-cognito-identity-js';
 
 export interface CognitoCallback {
     cognitoCallback(message:string, result:any):void;
@@ -21,12 +21,10 @@ export interface Callback {
 
 @Injectable()
 export class CognitoUtil {
-
     public static _REGION = "us-east-1";
-
     public static _IDENTITY_POOL_ID = "us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658";
-    public static _USER_POOL_ID = "us-east-1_T2p3nd9xA";
-    public static _CLIENT_ID = "58qe0b7458eo9705kijc7hjhv6";
+    public static _USER_POOL_ID = 'us-east-1_T2p3nd9xA';
+    public static _CLIENT_ID = '58qe0b7458eo9705kijc7hjhv6';
 
     public static _POOL_DATA = {
         UserPoolId: CognitoUtil._USER_POOL_ID,
@@ -34,12 +32,15 @@ export class CognitoUtil {
     };
 
 
-    public static getAwsCognito():any {
-        return CognitoJS
+    // public static getAwsCognito():any {
+    //     return CognitoJS
+    // }
+
+    constructor(private store:CognitoSessionStore){
     }
 
     getUserPool() {
-        return new CognitoJS.CognitoUserPool(CognitoUtil._POOL_DATA);
+        return new CognitoUserPool(CognitoUtil._POOL_DATA);
     }
 
     getCurrentUser() {
@@ -116,16 +117,23 @@ export class CognitoUtil {
     }
 
     refresh():void {
-        this.getCurrentUser().getSession(function (err, session) {
+        let currentUser = this.getCurrentUser()
+
+        if(currentUser){
+            this.store.set("user", currentUser)
+        }
+
+        this.getCurrentUser().getSession((err, session) => {
             if (err) {
                 console.log("CognitoUtil: Can't set the credentials:" + err);
             }
 
             else {
                 if (session.isValid()) {
-                    console.log("CognitoUtil: refresshed successfully");
+                    this.store.set("session", session)
+                    console.log("CognitoUtil: refreshed successfully");
                 } else {
-                    console.log("CognitoUtil: refresshed but session is still not valid");
+                    console.log("CognitoUtil: refreshed but session is still not valid");
                 }
             }
         });
@@ -152,8 +160,8 @@ export class UserRegistrationService {
             Name: 'nickname',
             Value: user.name
         };
-        attributeList.push(new CognitoJS.CognitoUserAttribute(dataEmail));
-        attributeList.push(new CognitoJS.CognitoUserAttribute(dataNickname));
+        attributeList.push(new CognitoUserAttribute(dataEmail));
+        attributeList.push(new CognitoUserAttribute(dataNickname));
 
         this.cognitoUtil.getUserPool().signUp(user.email, user.password, attributeList, null, function (err, result) {
             if (err) {
@@ -173,7 +181,7 @@ export class UserRegistrationService {
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        let cognitoUser = new CognitoJS.CognitoUser(userData);
+        let cognitoUser = new CognitoUser(userData);
 
         cognitoUser.confirmRegistration(confirmationCode, true, function (err, result) {
             if (err) {
@@ -190,7 +198,7 @@ export class UserRegistrationService {
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        let cognitoUser = new CognitoJS.CognitoUser(userData);
+        let cognitoUser = new CognitoUser(userData);
 
         cognitoUser.resendConfirmationCode(function (err, result) {
             if (err) {
@@ -206,10 +214,12 @@ export class UserRegistrationService {
 @Injectable()
 export class UserLoginService {
 
-    constructor(public ddb:DynamoDBService, public cognitoUtil:CognitoUtil) {
+    constructor(public cognitoUtil:CognitoUtil, 
+                private store:CognitoSessionStore) {
+        this.cognitoUtil.refresh()
     }
 
-    authenticate(username:string, password:string, callback:CognitoCallback) {
+    authenticate(username:string, password:string) {
         console.log("UserLoginService: stgarting the authentication")
         // Need to provide placeholder keys unless unauthorised user access is enabled for user pool
         AWS.config.update({accessKeyId: 'anything', secretAccessKey: 'anything'})
@@ -218,18 +228,20 @@ export class UserLoginService {
             Username: username,
             Password: password,
         };
-        let authenticationDetails = new CognitoJS.AuthenticationDetails(authenticationData);
+        let authenticationDetails = new AuthenticationDetails(authenticationData);
 
         let userData = {
             Username: username,
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        console.log("UserLoginService: Params set...Authenticating the user");
-        let cognitoUser = new CognitoJS.CognitoUser(userData);
-        console.log("UserLoginService: config is " + AWS.config);
+        console.log(userData)
+        let cognitoUser = new CognitoUser(userData);
+
+
+
         cognitoUser.authenticateUser(authenticationDetails, {
-            onSuccess: function (result) {
+            onSuccess:  (result) => {
 
                 var loginKey = `cognito-idp.us-east-1.amazonaws.com/${CognitoUtil._USER_POOL_ID}`
                 // Add the User's Id Token to the Cognito credentials login map.
@@ -240,12 +252,10 @@ export class UserLoginService {
                     }
                 });
 
-                console.log("UserLoginService: set the AWS credentials - " + JSON.stringify(AWS.config.credentials));
-                console.log("UserLoginService: set the AWSCognito credentials - " + JSON.stringify(CognitoJS.credentials));
-                callback.cognitoCallback(null, result);
+                this.store.set("user", cognitoUser)
             },
             onFailure: function (err) {
-                callback.cognitoCallback(err.message, null);
+                console.log(err.message);
             },
         });
     }
@@ -256,19 +266,19 @@ export class UserLoginService {
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        let cognitoUser = new CognitoJS.CognitoUser(userData);
+        let cognitoUser = new CognitoUser(userData);
 
-        cognitoUser.forgotPassword({
-            onSuccess: function (result) {
+        // cognitoUser.forgotPassword({
+        //     onSuccess: function (result) {
 
-            },
-            onFailure: function (err) {
-                callback.cognitoCallback(err.message, null);
-            },
-            inputVerificationCode() {
-                callback.cognitoCallback(null, null);
-            }
-        });
+        //     },
+        //     onFailure: function (err) {
+        //         callback.cognitoCallback(err.message, null);
+        //     },
+        //     inputVerificationCode() {
+        //         callback.cognitoCallback(null, null);
+        //     }
+        // });
     }
 
     confirmNewPassword(email:string, verificationCode:string, password:string, callback:CognitoCallback) {
@@ -277,16 +287,16 @@ export class UserLoginService {
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        let cognitoUser = new CognitoJS.CognitoUser(userData);
+        let cognitoUser = new CognitoUser(userData);
 
-        cognitoUser.confirmPassword(verificationCode, password, {
-            onSuccess: function (result) {
-                callback.cognitoCallback(null, result);
-            },
-            onFailure: function (err) {
-                callback.cognitoCallback(err.message, null);
-            }
-        });
+        // cognitoUser.confirmPassword(verificationCode, password, {
+        //     onSuccess: function (result) {
+        //         callback.cognitoCallback(null, result);
+        //     },
+        //     onFailure: function (err) {
+        //         callback.cognitoCallback(err.message, null);
+        //     }
+        // });
     }
 
     logout() {

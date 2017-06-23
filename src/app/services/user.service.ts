@@ -8,11 +8,11 @@ import * as user from '../actions/user';
 export class UserService {
 
   constructor(private cognitoStore:CognitoSessionStore, private appStore:Store<fromRoot.State>) {
-    cognitoStore.select("user").subscribe( 
-      (data) => {
-        this.appStore.dispatch(new user.LoadAction(data))
-      }
-    )
+    // cognitoStore.select("user").subscribe( 
+    //   (data) => {
+    //     this.appStore.dispatch(new user.LoadAction(data))
+    //   }
+    // )
   }
 
 }
