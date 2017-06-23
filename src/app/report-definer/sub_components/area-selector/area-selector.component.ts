@@ -18,7 +18,7 @@ export class AreaSelectorComponent implements OnInit {
   editingName:boolean = false;
   areaInputType:string = "places";
 
-  constructor(public user:User) {}
+  constructor() {}
 
   ngOnInit():void {}
 

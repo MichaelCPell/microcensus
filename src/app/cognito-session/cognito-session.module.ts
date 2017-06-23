@@ -38,7 +38,8 @@ const appRoutes: Routes = [
     CognitoUtil
   ],
   bootstrap:[SessionGatewayComponent]
-
 })
-export class CognitoSessionModule { }
+export class CognitoSessionModule {
+  constructor(private login:UserLoginService){}
+ }
 export * from './cognito-session.store';

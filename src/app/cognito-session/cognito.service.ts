@@ -234,6 +234,7 @@ export class UserLoginService {
     logout() {
         this.store.set("activeComponent","login")
         this.cognitoUtil.getCurrentUser().signOut();
+        this.store.set("user", undefined)
         localStorage.clear();
     }
 

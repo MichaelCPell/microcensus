@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 declare var localStorage: any;
 import * as _ from 'lodash';
 
-@Injectable()
 export class User {
+  email
+  constructor(email){
+    this.email = email;
+  }
   // private _email: BehaviorSubject<string> = new BehaviorSubject("");
   // private _password:string;
   // private _paid:boolean;

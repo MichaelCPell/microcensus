@@ -11,7 +11,7 @@ export class MembershipSelectorComponent implements OnInit {
   public selectedLevel:string = "";
   private paid:boolean = false;
 
-  constructor(private http:Http, public user:User) { }
+  constructor(private http:Http) { }
 
   ngOnInit() {
   }

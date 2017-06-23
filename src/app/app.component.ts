@@ -16,7 +16,6 @@ import * as locations from './actions/locations';
 export class AppComponent implements OnInit{
 
   constructor(  
-                private user:User,
                 private angulartics:Angulartics2GoogleAnalytics,
                 private store: Store<fromRoot.State>,
                 private userService:UserService ) {

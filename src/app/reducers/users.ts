@@ -2,7 +2,7 @@ import { User } from "../models/user";
 import * as user from '../actions/user';
 
 export interface State {
-  current: User
+  current: User | undefined
 };
 
 export const initialState: State = {
@@ -13,9 +13,13 @@ export const initialState: State = {
 export function reducer(state = initialState, action: user.Actions ): State {
   switch (action.type) {
     case user.ActionTypes.LOAD: {
-      console.log(action)
       const user = action.payload;
       return {current: user}
+    }
+    case user.ActionTypes.SIGNOUT: {
+      console.log("SIGNOUT EVENT")
+      const user = action.payload;
+      return {current: undefined}
     }
     default: {
       return state;

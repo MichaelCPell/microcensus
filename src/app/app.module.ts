@@ -79,7 +79,6 @@ export const appRoutes: Routes = [
   providers: [
     COMPILER_PROVIDERS,
     ResearchAreaService,
-    User,
     DynamoDBService,
     S3Service,
     PublisherService,

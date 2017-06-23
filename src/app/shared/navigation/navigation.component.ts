@@ -21,10 +21,14 @@ export class NavigationComponent implements OnInit {
 
 
     this.user$
-      .filter(Boolean)
-      .map(user => user["Item"])
       .subscribe( (user) => {
-        this.email = user.email
+        console.log(`Navigation saw a user ${JSON.stringify(user)}`)
+        if(user){
+          this.email = user.email
+        }else{
+          console.log("Signout")
+          this.email = undefined;
+        }
       })
   }
 

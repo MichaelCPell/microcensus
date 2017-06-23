@@ -51,16 +51,8 @@ export class SessionGatewayComponent implements OnInit {
       this.email$ = this.store.select("credentials")
         .filter(Boolean)
         .map( credentials => {
-          console.log(credentials)
           return credentials["email"]
         })
-
-      this.store.select("session").subscribe(
-        (session) => {
-            console.log("New Session has been broadcast")
-            console.log(session)
-        }
-      )   
   }
 
   ngOnInit() {}

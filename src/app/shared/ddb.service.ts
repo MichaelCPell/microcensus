@@ -8,7 +8,7 @@ declare var AWSCognito:any;
 @Injectable()
 export class DynamoDBService {
 
-    constructor(private user:User) {
+    constructor() {
         console.log("DynamoDBService: constructor");
     }
 

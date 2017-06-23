@@ -37,7 +37,6 @@ export class ReportViewerComponent implements AfterViewInit {
     private http: Http,
     private route: ActivatedRoute,
     private researchArea: ResearchAreaService,
-    private user:User,
     private publisher:PublisherService) {
     this.route = route;
     this.geom = this.researchArea.researchArea.geometry;

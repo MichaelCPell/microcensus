@@ -12,7 +12,7 @@ export class CreditShopComponent implements OnInit {
   public choice:string;
   public loading:boolean = false;
 
-  constructor(private http:Http, private user:User, private router:Router) { }
+  constructor(private http:Http, private router:Router) { }
 
   ngOnInit() {
   }

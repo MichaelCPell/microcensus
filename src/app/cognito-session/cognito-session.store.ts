@@ -18,7 +18,6 @@ const state: State = {
 export class CognitoSessionStore {
 
     constructor(){
-        console.log("Session Store Loaded")
     }
 
       private subject = new BehaviorSubject<State>(state)

@@ -16,7 +16,7 @@ export class SubscriptionCreatorComponent implements OnInit {
   public loading:boolean = false;
 
   @Input() choice:string;
-  constructor(public user:User, private http:Http, private af: ApplicationRef, private router:Router) { }
+  constructor(private http:Http, private af: ApplicationRef, private router:Router) { }
 
   ngOnInit() {
 
