@@ -1,5 +1,25 @@
-<!--<app-navigation></app-navigation>-->
 <app-user-login
-  (loginSubmission)="login($event)"
+  *ngIf="activeComponent == 'login'"
+  (clickEvent)='handleClick($event)'  
+  (submitEvent)="login($event)"
   [email]="email">
-</app-user-login>/
+</app-user-login>
+
+<app-user-registration
+  *ngIf="activeComponent == 'register'"
+  (clickEvent)='handleClick($event)'
+  (submitEvent)='register($event)'>
+</app-user-registration>
+
+<app-user-confirmation
+  *ngIf="activeComponent == 'confirm'"
+  [email]="email$ | async"
+  (clickEvent)='handleClick($event)'
+  (submitEvent)='confirm($event)'>
+</app-user-confirmation>
+
+<div
+   *ngIf="activeComponent == 'loggedIn'">
+   You are already logged in.
+   <button (click)="logout()">Log Out</button>
+</div>

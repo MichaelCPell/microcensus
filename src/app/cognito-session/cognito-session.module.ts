@@ -5,8 +5,10 @@ import { AuthGuard } from './auth-guard.service';
 import { RouterModule, Routes } from '@angular/router';
 import { CognitoSessionStore } from './cognito-session.store';
 import { UserLoginComponent } from './session-gateway/subcomponents/user-login/user-login.component';
+import { UserRegistrationComponent } from './session-gateway/subcomponents/user-registration/user-registration.component';
+import { UserConfirmationComponent } from './session-gateway/subcomponents/user-confirmation/user-confirmation.component';
 import { FormsModule } from '@angular/forms';
-import { UserLoginService, CognitoUtil } from './cognito.service';
+import { UserLoginService, CognitoUtil, UserRegistrationService } from './cognito.service';
 
 const appRoutes: Routes = [
   { path: 'user', component: SessionGatewayComponent },
@@ -20,14 +22,19 @@ const appRoutes: Routes = [
   ],
   declarations: [
     SessionGatewayComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    UserRegistrationComponent,
+    UserConfirmationComponent
   ],
   exports: [
     SessionGatewayComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    UserRegistrationComponent,
+    UserConfirmationComponent
   ],
   providers: [
     UserLoginService,
+    UserRegistrationService,
     CognitoUtil
   ],
   bootstrap:[SessionGatewayComponent]

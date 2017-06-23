@@ -1,5 +1,4 @@
-import { Component, Inject, Injectable, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, Inject, Injectable, Output, EventEmitter } from "@angular/core";
 import { UserRegistrationService } from "../../../cognito.service";
 import { RegistrationUser } from "../../../registration-user";
 import { CognitoCallback } from "../../../cognito.service";
@@ -8,55 +7,24 @@ import {PageScrollService, PageScrollInstance} from "ng2-page-scroll";
 import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
-    selector: 'awscognito-angular2-app',
+    selector: 'app-user-registration',
     templateUrl: './user-registration.component.html',
     styleUrls: ['./user-registration.component.css']
 })
-export class UserRegistrationComponent implements CognitoCallback, OnInit {
+export class UserRegistrationComponent {
+    @Output() clickEvent = new EventEmitter<string>();
+    @Output() submitEvent = new EventEmitter<RegistrationUser>();
     registrationUser:RegistrationUser;
-    router:Router;
-    route:ActivatedRoute;
     errorMessage:string;
+    email:string;
+    password:string;
 
-    constructor(public userRegistration:UserRegistrationService,
-                router:Router,
-                route:ActivatedRoute,
-                private user:CognitoUser,
-                private pageScrollService: PageScrollService,
-                @Inject(DOCUMENT) private document: any) {
-        this.router = router;
-        this.route = route;
-        this.onInit();
+    constructor() {
     }
 
-    ngOnInit(){
-        this.route.fragment.subscribe((data) => {
-            let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this.document, `#${data}`);
-            this.pageScrollService.start(pageScrollInstance)
-        })
-    }
 
-    onInit() {
-        this.registrationUser = new RegistrationUser();
-        this.errorMessage = null;
-    }
 
-    onRegister() {
-        this.errorMessage = null;
-        this.userRegistration.register(this.registrationUser, this);
-    }
-
-    cognitoCallback(message:string, result:any) {
-        if (message != null) { //error
-            this.errorMessage = message;
-            console.log("result: " + this.errorMessage);
-        } else { //success
-            //move to the next step
-            console.log("redirecting");
-            localStorage.setItem("email", this.registrationUser.email)
-            localStorage.setItem("password", this.registrationUser.password)
-            // this.user.email = this.registrationUser.email;
-            this.router.navigate(['/users/confirmation']);
-        }
+    public submit(){
+        this.submitEvent.emit(new RegistrationUser(this.email, this.password));
     }
 }

@@ -1,5 +1,3 @@
-<app-navigation></app-navigation>
-
 <div class="container-fluid">
   <div class="row vertical-row-padding">
    <div class="col-md-12 centered">
@@ -19,6 +17,11 @@
        <div *ngIf="errorMessage!=null" class="alert alert-danger">
            {{ errorMessage }}
        </div>
+        <div class="form-group">
+           <label class="control-label form-label" for="confirmationCode">Email</label>
+           <input id="confirmationCode" type="text" maxlength="50" class="form-control"
+                  [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+        </div>
        <div class="form-group">
            <label class="control-label form-label" for="confirmationCode">Confirmation Code</label>
            <input id="confirmationCode" type="text" maxlength="50" class="form-control"
@@ -26,19 +29,18 @@
        </div>
        <div class="form-group">
            <button
-             (click)="onConfirmRegistration($event)" id="confirmRegistration" type="submit"
+             (click)="submit()" id="confirmRegistration" type="submit"
              class="btn btn-mc-dark"
              *ngIf="!inProgress">Confirm
            </button>
        </div>
        <hr>
-       <p class="form-text">Can't find your code? <a [routerLink]="['/home/resendCode']">
-        <i class="fa fa-share" aria-hidden="true"></i> Resend Code</a>
-           <a [routerLink]="['/home/register']"> <i class="fa fa-user-plus" aria-hidden="true"></i> Register</a> <a
-                   [routerLink]="['/home/login']"> <i class="fa fa-fw fa-user"></i> Login</a>
+       <p class="form-text">Can't find your code? 
+          <a (click)="this.clickEvent.emit('resendCode')"><i class="fa fa-share" aria-hidden="true"></i> Resend Code</a>
+          <a (click)="this.clickEvent.emit('gotoRegister')"> <i class="fa fa-user-plus" aria-hidden="true"></i> Register</a> 
+          <a (click)="this.clickEvent.emit('gotoLogin')"> <i class="fa fa-fw fa-user"></i> Login</a>
        </p>
      </form>
    </div>
   </div>
 </div>
-<app-footer></app-footer>

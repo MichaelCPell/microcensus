@@ -7,10 +7,12 @@ import { CognitoUser } from 'amazon-cognito-identity-js'
 
 export interface State{
     userPool: any | null;
+    activeComponent: string;
 }
 
 const state: State = {
-    userPool: null
+    userPool: null,
+    activeComponent: "login"
 }
 
 export class CognitoSessionStore {

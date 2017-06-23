@@ -10,7 +10,8 @@ import { User } from "../../../../models/user";
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
-    @Output() loginSubmission = new EventEmitter<RegistrationUser>();
+    @Output() clickEvent = new EventEmitter<string | RegistrationUser>();
+    @Output() submitEvent = new EventEmitter<RegistrationUser>();
     @Input() email:string;
     public password;
     
@@ -21,6 +22,8 @@ export class UserLoginComponent implements OnInit {
     }
 
     public submit(){
-        this.loginSubmission.emit(new RegistrationUser(this.email, this.password));
+        this.submitEvent.emit(new RegistrationUser(this.email, this.password));
     }
+
+
 }
