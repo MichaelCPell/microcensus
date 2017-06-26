@@ -153,9 +153,13 @@ thead {
   border-right: 3px solid #ddd;
 }
 
-.category-div {
+.img-div {
   display: flex;
   justify-content: center;
+}
+
+.category-div {
+  
 }
 
 /*.category-div img {
