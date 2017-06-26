@@ -152,8 +152,6 @@ export class CognitoUtil {
     }
 }
 
-
-
 @Injectable()
 export class UserLoginService {
 
@@ -186,8 +184,8 @@ export class UserLoginService {
                 this.store.set("user", cognitoUser)
                 this.cognitoUtil.refresh();
             },
-            onFailure: function (err) {
-                console.log(err.message);
+            onFailure:  (err) => {
+                this.store.set("notice", err.message)
             },
         });
     }
@@ -288,7 +286,7 @@ export class UserRegistrationService {
 
         this.cognitoUtil.getUserPool().signUp(user.email, user.password, attributeList, null, (err, result) => {
             if (err) {
-                console.log(err)
+                this.store.set("notice", err.message)
             } else {
                 this.store.set("activeComponent", "confirm")
             }
@@ -302,12 +300,14 @@ export class UserRegistrationService {
             Username: username,
             Pool: this.cognitoUtil.getUserPool()
         };
-
         let cognitoUser = new CognitoUser(userData);
+
+        this.store.set("notice", "Hang on while we confirm and finalize your account.  This may take up to 30 seconds.")
+
 
         cognitoUser.confirmRegistration(confirmationCode, true, (err, result) => {
             if (err) {
-                console.log(err)
+                 this.store.set("notice", err.message)
             } else {
                 console.log("Successfully Confirmed")
                 this.store.select("credentials").subscribe(
@@ -319,7 +319,7 @@ export class UserRegistrationService {
         });
     }
 
-    resendCode(username:string, callback:CognitoCallback):void {
+    resendCode(username:string):void {
         let userData = {
             Username: username,
             Pool: this.cognitoUtil.getUserPool()
@@ -327,11 +327,11 @@ export class UserRegistrationService {
 
         let cognitoUser = new CognitoUser(userData);
 
-        cognitoUser.resendConfirmationCode(function (err, result) {
+        cognitoUser.resendConfirmationCode( (err, result) => {
             if (err) {
-                callback.cognitoCallback(err.message, null);
+                this.store.set("notice", err.message)
             } else {
-                callback.cognitoCallback(null, result);
+                this.store.set("notice", "Message has been sent.")
             }
         });
     }

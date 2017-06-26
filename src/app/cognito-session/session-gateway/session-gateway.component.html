@@ -1,3 +1,5 @@
+{{notice$ | async}}
+
 <app-user-login
   *ngIf="activeComponent == 'login'"
   (clickEvent)='handleClick($event)'  
@@ -8,14 +10,16 @@
 <app-user-registration
   *ngIf="activeComponent == 'register'"
   (clickEvent)='handleClick($event)'
-  (submitEvent)='register($event)'>
+  (submitEvent)='register($event)'
+  [email]='email'>
 </app-user-registration>
 
 <app-user-confirmation
   *ngIf="activeComponent == 'confirm'"
   [email]="email$ | async"
   (clickEvent)='handleClick($event)'
-  (submitEvent)='confirm($event)'>
+  (submitEvent)='confirm($event)'
+  (resendCodeEvent)='resendCode($event)'>
 </app-user-confirmation>
 
 <div

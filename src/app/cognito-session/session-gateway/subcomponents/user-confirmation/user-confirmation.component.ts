@@ -17,15 +17,14 @@ export class UserConfirmationComponent {
     inProgress:boolean = false;
     @Output() clickEvent:EventEmitter<string> = new EventEmitter<string>();
     @Output() submitEvent:EventEmitter<{email:string, code:string}> = new EventEmitter<{email:string, code:string}>();
+    @Output() resendCodeEvent:EventEmitter<string | undefined> = new EventEmitter<string | undefined>();
 
     constructor(public regService:UserRegistrationService) {
     }
 
-
-    confirm(e){
-        console.log(e)
+    public resendCode(){
+        this.resendCodeEvent.emit(this.email)
     }
-
 
     public submit(){
         this.submitEvent.emit({
@@ -33,5 +32,4 @@ export class UserConfirmationComponent {
             code: this.confirmationCode
         })
     }
-
 }

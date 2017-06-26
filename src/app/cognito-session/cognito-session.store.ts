@@ -4,15 +4,20 @@ import { Injectable } from '@angular/core'
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/pluck';
 import { CognitoUser } from 'amazon-cognito-identity-js'
+import { RegistrationUser } from './registration-user'
 
 export interface State{
-    userPool: any | null;
+    userPool: any;
     activeComponent: string;
+    credentials: RegistrationUser;
+    notice:string;
 }
 
 const state: State = {
     userPool: null,
-    activeComponent: "login"
+    activeComponent: "confirm",
+    credentials: null,
+    notice: null
 }
 
 export class CognitoSessionStore {
@@ -29,7 +34,7 @@ export class CognitoSessionStore {
 
     // select<T>(name: string): Observable<T> {
       select<T>(name: string): Observable<{}> {
-          return this.store.pluck(name);
+          return this.store.pluck(name).distinctUntilChanged();
       }
 
       set(name:string, state:any){
