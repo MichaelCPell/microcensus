@@ -10,7 +10,6 @@
 
 .border-right {
   border-right: 2px solid #ddd;
-  height: 260px;
 }
 
 .border-top {
@@ -27,6 +26,6 @@
 }
 
 .quadrant {
-  padding-top: 45px;
-  padding-bottom: 45px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }

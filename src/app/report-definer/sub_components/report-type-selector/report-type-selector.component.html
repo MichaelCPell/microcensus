@@ -1,8 +1,52 @@
-<div class="input-group">
-  <input [(ngModel)]="search" type="text" class="form-control" placeholder="Find a report">
-  <span class="input-group-btn">
-   <button class="btn btn-cs-blue" type="button">Find</button>
-  </span>
+<div class="row categories-border">
+  <div class="col-md-3 col-sm-6 col-xs-3 border-right border-top">
+    <div class="category-div">
+      <img src="https://s3.amazonaws.com/cartoscope-assets/assets/economic_development.png" class="category-icon"/>
+    </div>
+    <p class="text-center category-name">
+      Economic Development
+    </p>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-3 border-right border-top">
+    <div class="category-div">
+      <img src="https://s3.amazonaws.com/cartoscope-assets/assets/business.png" class="category-icon" />
+    </div>
+    <p class="text-center category-name">
+      Business
+    </p>
+  </div>
+  <div class="col-md-3 col-sm-6 col-xs-3 border-right border-top">
+    <div class="category-div">
+      <img src="https://s3.amazonaws.com/cartoscope-assets/assets/real_estate.png" class="category-icon" />
+    </div>
+    <p class="text-center category-name">
+      Real Estate
+    </p>
+  </div>
+  <!-- <div class="col-md-2 col-sm-6 col-xs-6 border-right border-top">
+    <div class="category-div ">
+      <img src="https://s3.amazonaws.com/cartoscope-assets/assets/politics.png" class="" />
+    </div>
+    <p class="text-center category-name">
+      Politics
+    </p>
+  </div>
+  <div class="col-md-2 col-sm-6 col-xs-6 border-right border-top">
+    <div class="category-div">
+      <img src="https://s3.amazonaws.com/cartoscope-assets/assets/marketing.png" class="" />
+    </div>
+    <p class="text-center category-name">
+      Marketing
+    </p>
+  </div> -->
+  <div class="col-md-3 col-sm-6 col-xs-3 border-top">
+    <div class="category-div">
+      <img src="https://s3.amazonaws.com/cartoscope-assets/assets/everyone.png" class="category-icon" />
+    </div>
+    <p class="text-center category-name">
+      For Everybody
+    </p>
+  </div>
 </div>
 <div class="row table-border">
   <div class="col-md-6 col-sm-6 col-xs-6 standard-height table-border-preview padding-none-right padding-none-left">
@@ -24,4 +68,10 @@
       {{activeReportType.description}}
     </p>
   </div>
+</div>
+<div class="input-group">
+  <input [(ngModel)]="search" type="text" class="form-control" placeholder="Find a report">
+  <span class="input-group-btn">
+   <button class="btn btn-cs-blue" type="button" style="border: 3px solid #0A2E5C;">Find</button>
+  </span>
 </div>

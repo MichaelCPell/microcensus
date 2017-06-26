@@ -1,8 +1,8 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row vertical-row-padding">
     <div class="col-sm-8">
-      <div class ="row">
-        <div class="col-sm-12">
+      <div class ="row vertical-row-padding">
+        <div class="col-sm-8">
           <app-area-selector
             [activeArea]="area"
             (activeAreaChange)="onAreaChange($event)"
@@ -11,25 +11,22 @@
             [needsName]="needsName">
           </app-area-selector>
         </div>
+        <div class="col-sm-4">
+          <app-radius-selector
+            *ngIf="showRadiusSelector"
+            [activeRadius]="radius"
+            (activeRadiusChange)="onRadiusChange($event)">
+          </app-radius-selector>
+        </div>
       </div>
+      <br>
       <div class="row vertical-row-padding">
         <div class="col-sm-12">
-          <div class="row vertical-row-padding">
-            <div class="col-sm-4">
-              <app-radius-selector
-                *ngIf="showRadiusSelector"
-                [activeRadius]="radius"
-                (activeRadiusChange)="onRadiusChange($event)">
-              </app-radius-selector>
-            </div>
-            <div class="col-sm-8">
-              <app-report-type-selector
-                [activeReportType]="activeReportType$ | async"
-                [reportTypes] = "reportTypes$ | async"
-                (activeReportTypeChange)="onReportTypeChange($event)">
-              </app-report-type-selector>
-            </div>
-          </div>
+          <app-report-type-selector
+            [activeReportType]="activeReportType$ | async"
+            [reportTypes] = "reportTypes$ | async"
+            (activeReportTypeChange)="onReportTypeChange($event)">
+          </app-report-type-selector>
         </div>
       </div>
     </div>

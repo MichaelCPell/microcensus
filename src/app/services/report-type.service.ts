@@ -13,31 +13,36 @@ export class ReportTypeService {
     {
       name: "General Demographic Report",
       description: "This report shows general demographics for a region such as ages, education, races, household values and incomes.",
-      slug: "general_demographic"
+      slug: "general_demographic",
+      category: ["Economic_Development", "Business", "Real_Estate", "Politics", "Marketing"]
     },
     {
       name: "Longitudinal Population Report",
       description: "Population for the selected area according to the 1990, 2000 and 2010 Decennial census.",
-      slug: "longitudinal_population"
+      slug: "longitudinal_population",
+      category: ["Economic_Development", "Politics"]
     },
     {
       name: "Longitudinal House Value Report",
       description: "Displays the mediam house value for the research area across time.",
-      slug: "longitudinal_house_value"
+      slug: "longitudinal_house_value",
+      category: ["Economic_Development", "Real_Estate", "Marketing"]
     },
     {
       name: "Longitudinal Median Income Report",
       description: "Displays the median income for the research area across time.",
-      slug: "longitudinal_median_income"
+      slug: "longitudinal_median_income",
+      category: ["Economic_Development", "Business", "Politics", "Marketing"]
     },
     {
       name: "Age and Education Report",
       description: "Granular break downs of the various age groups and levels of educational attainment for the research area.",
-      slug: "age_and_education"
+      slug: "age_and_education",
+      category: ["Economic_Development", "Business", "Real_Estate", "Marketing"]
     }
   ];
 
-  constructor(private store:Store<fromRoot.State>) { 
+  constructor(private store:Store<fromRoot.State>) {
     this.store = store;
   }
 

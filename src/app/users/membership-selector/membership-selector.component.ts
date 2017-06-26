@@ -20,16 +20,17 @@ export class MembershipSelectorComponent implements OnInit {
   }
 
   get readyToProceed(){
-    switch(this.selectedLevel){
-      case "":
-      return false;
-      case 'regular':
-      return true;
-      case 'premium':
-      return this.user["paid"];
-      case 'unlimited':
-      return this.user["paid"];
-    }
+    return 'regular';
+    // switch(this.selectedLevel){
+    //   case "":
+    //   return false;
+    //   case 'regular':
+    //   return true;
+    //   case 'premium':
+    //   return this.user["paid"];
+    //   case 'unlimited':
+    //   return this.user["paid"];
+    // }
   }
 
   get needsToPay(){
