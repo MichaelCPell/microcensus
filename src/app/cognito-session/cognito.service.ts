@@ -190,7 +190,7 @@ export class UserLoginService {
         });
     }
 
-    forgotPassword(username:string, callback:CognitoCallback) {
+    forgotPassword(username:string) {
         let userData = {
             Username: username,
             Pool: this.cognitoUtil.getUserPool()
@@ -198,17 +198,14 @@ export class UserLoginService {
 
         let cognitoUser = new CognitoUser(userData);
 
-        // cognitoUser.forgotPassword({
-        //     onSuccess: function (result) {
-
-        //     },
-        //     onFailure: function (err) {
-        //         callback.cognitoCallback(err.message, null);
-        //     },
-        //     inputVerificationCode() {
-        //         callback.cognitoCallback(null, null);
-        //     }
-        // });
+        cognitoUser.forgotPassword({
+            onSuccess: () => {
+                this.store.set("notice", "Successfully reset, check your e-mail.")
+            },
+            onFailure: (err) => {
+                this.store.set("notice", err.message)
+            }
+        });
     }
 
     confirmNewPassword(email:string, verificationCode:string, password:string, callback:CognitoCallback) {

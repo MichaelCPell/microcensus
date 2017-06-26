@@ -4,6 +4,7 @@
   *ngIf="activeComponent == 'login'"
   (clickEvent)='handleClick($event)'  
   (submitEvent)="login($event)"
+  (resetPasswordEvent)="startResetPassword($event)"
   [email]="email">
 </app-user-login>
 
@@ -22,8 +23,20 @@
   (resendCodeEvent)='resendCode($event)'>
 </app-user-confirmation>
 
+<app-user-confirmation
+  *ngIf="activeComponent == 'confirm'"
+  [email]="email$ | async"
+  (clickEvent)='handleClick($event)'
+  (submitEvent)='confirm($event)'
+  (resendCodeEvent)='resendCode($event)'>
+</app-user-confirmation>
+
+<app-set-new-password
+  *ngIf="activeComponent == 'reset'"
+  (resetPasswordEvent)='resetPassword($event)'>
+</app-set-new-password>
+
 <div
    *ngIf="activeComponent == 'loggedIn'">
-   Logged In as {{email}}
    <button (click)="logout()">Log Out</button>
 </div>

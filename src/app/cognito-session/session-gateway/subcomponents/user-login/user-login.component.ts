@@ -12,6 +12,7 @@ import { User } from "../../../../models/user";
 export class UserLoginComponent implements OnInit {
     @Output() clickEvent = new EventEmitter<string | RegistrationUser>();
     @Output() submitEvent = new EventEmitter<RegistrationUser>();
+    @Output() resetPasswordEvent = new EventEmitter<string>();
     @Input() email:string;
     public password;
     
@@ -25,5 +26,8 @@ export class UserLoginComponent implements OnInit {
         this.submitEvent.emit(new RegistrationUser(this.email, this.password));
     }
 
+    public resetPassword(){
+        this.resetPasswordEvent.emit(this.email)
+    }
 
 }

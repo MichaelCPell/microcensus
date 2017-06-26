@@ -22,11 +22,9 @@ export class NavigationComponent implements OnInit {
 
     this.user$
       .subscribe( (user) => {
-        console.log(`Navigation saw a user ${JSON.stringify(user)}`)
         if(user){
           this.email = user.email
         }else{
-          console.log("Signout")
           this.email = undefined;
         }
       })

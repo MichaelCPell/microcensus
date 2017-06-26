@@ -83,8 +83,39 @@ export class SessionGatewayComponent implements OnInit {
       this.store.set("credentials", new RegistrationUser(email))
       this.registrationService.resendCode(email)
     }else{
-      this.store.set("error", "Please enter your e-mail address above.")            
+      this.store.set("notice", "Please enter your e-mail address first.")            
     }
   }
 
+  startResetPassword(email){
+    if(email){
+      this.loginService.forgotPassword(email)
+    }else{
+      this.store.set("notice", "Please enter your e-ng s  mail address first.")
+    }
+  }
+
+  resetPassword(creds){
+    this.store.set("notice", "")
+    console.log(creds)
+    if(!creds.email){
+      this.store.set("notice", "Please enter an e-mail address.")
+      return
+    }
+
+    if(!creds.resetCode){
+      this.store.set("notice", "Reset code is missing.")
+      return
+    }
+
+    if(!creds.password){
+      this.store.set("notice", "Password is missing.")
+      return
+    }
+
+    if(creds.password != creds.passwordConfirmation){
+      this.store.set("notice", "Passwords do not match.")
+      return
+    }
+  } 
 }

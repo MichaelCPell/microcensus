@@ -27,7 +27,6 @@ export class UserService {
         }else{
           this.appStore.dispatch(new user.SignoutAction(undefined))
         }
-
       }
     )
   }

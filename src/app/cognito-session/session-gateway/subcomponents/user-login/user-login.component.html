@@ -28,6 +28,12 @@
         </div>
         <hr>
         <p class="form-text">Don't have an account? <a (click)="this.clickEvent.emit('gotoRegister')">  <i class="fa fa-user-plus" aria-hidden="true"></i> Register</a></p>
+        <p class="form-text">Forgot your password? 
+          <a (click)="resetPassword()">  
+          <i class="fa fa-user-plus" aria-hidden="true"></i> 
+            Reset Your Password
+          </a>
+        </p>
       </form>
     </div>
   </div>
