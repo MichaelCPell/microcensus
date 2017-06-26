@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {User} from "../users/user";
+import {User} from "../models/user";
 import {Observable} from "rxjs/Observable";
 
 declare var AWS:any;
@@ -8,7 +8,7 @@ declare var AWSCognito:any;
 @Injectable()
 export class DynamoDBService {
 
-    constructor(private user:User) {
+    constructor() {
         console.log("DynamoDBService: constructor");
     }
 
@@ -39,9 +39,9 @@ export class DynamoDBService {
       db.update(params, ((err, data) => {
         if(err) console.log(err);
         else{
-          this.user.updateFromDdb(data["Attributes"])
+          // this.user.updateFromDdb(data["Attributes"])
         }
-      })
+      }))
     }
 
     public addReport(oData){

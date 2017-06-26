@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { User } from '../user';
+import { User } from '../../models/user';
 import { Router } from "@angular/router";
 
 @Component({
@@ -12,7 +12,7 @@ export class CreditShopComponent implements OnInit {
   public choice:string;
   public loading:boolean = false;
 
-  constructor(private http:Http, private user:User, private router:Router) { }
+  constructor(private http:Http, private router:Router) { }
 
   ngOnInit() {
   }
@@ -28,7 +28,7 @@ export class CreditShopComponent implements OnInit {
     //      }
     //    )
     // }else{
-      this.choice = 10;
+      this.choice = "10";
     // }
   }
 

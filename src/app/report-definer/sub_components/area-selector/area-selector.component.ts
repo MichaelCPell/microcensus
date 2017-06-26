@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {ResearchAreaService} from "../../../shared/research-area.service";
-import { User } from "../../../users/user";
+import { User } from "../../../models/user";
 
 @Component({
   selector: 'app-area-selector',
@@ -18,7 +18,7 @@ export class AreaSelectorComponent implements OnInit {
   editingName:boolean = false;
   areaInputType:string = "places";
 
-  constructor(public user:User) {}
+  constructor() {}
 
   ngOnInit():void {}
 

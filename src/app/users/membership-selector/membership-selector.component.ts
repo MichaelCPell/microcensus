@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { User } from '../user';
+import { User } from '../../models/user';
 import { Http } from '@angular/http';
 
 @Component({
@@ -11,7 +11,7 @@ export class MembershipSelectorComponent implements OnInit {
   public selectedLevel:string = "";
   private paid:boolean = false;
 
-  constructor(private http:Http, public user:User) { }
+  constructor(private http:Http) { }
 
   ngOnInit() {
   }
@@ -26,9 +26,9 @@ export class MembershipSelectorComponent implements OnInit {
       case 'regular':
       return true;
       case 'premium':
-      return this.user.paid;
+      return this.user["paid"];
       case 'unlimited':
-      return this.user.paid;
+      return this.user["paid"];
     }
   }
 

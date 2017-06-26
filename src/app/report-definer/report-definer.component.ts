@@ -1,91 +1,47 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {environment} from 'environments/environment';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { environment } from 'environments/environment';
 import { ResearchAreaService } from '../shared/research-area.service';
-import { User } from "../users/user";
+import { User } from "../models/user";
 import { Router } from "@angular/router";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { ReportTypeService } from "../services/report-type.service";
+import { Store } from '@ngrx/store';
+import { ReportType } from '../models/report-type'
+import * as fromRoot from '../reducers'
 
 @Component({
   selector: 'app-report-definer',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './report-definer.component.html',
-  styleUrls: ['./report-definer.component.css']
+  styleUrls: ['./report-definer.component.css'],
+  providers: [ ReportTypeService ]
 })
 export class ReportDefinerComponent implements OnInit {
   selectedReport:string;
   radius:number;
-  reportType:any;
   area:any;
   name:string;
   needsName:boolean = false;
   readyToAnalyze:boolean = false;
   showRadiusSelector = true;
+  user$: Observable<User>;
+  reportTypes$: Observable<ReportType[]>;
+  activeReportType$: Observable<ReportType>;
 
-  reportTypes:Array<any> = [
-    {
-      name: "General Demographic Report",
-      description: "This report shows general demographics for a region such as ages, education, races, household values and incomes.",
-      slug: "general_demographic"
-    },
-    {
-      name: "Longitudinal Population Report",
-      description: "Population for the selected area according to the 1990, 2000 and 2010 Decennial census.",
-      slug: "longitudinal_population"
-    },
-    {
-      name: "Longitudinal House Value Report",
-      description: "Displays the mediam house value for the research area across time.",
-      slug: "longitudinal_house_value"
-    },
-    {
-      name: "Longitudinal Median Income Report",
-      description: "Displays the median income for the research area across time.",
-      slug: "longitudinal_median_income"
-    },
-    // {
-    //   name: "NC Voter Plus Report",
-    //   description: "This report includes counts of political affiliation by party: REP, DEM, UNA (unaffiliated), and LIB (libertarian).  It also includes demographic data similar to the General Demographic Report.",
-    //   slug: "nc_voter_plus"
-    // },
-    {
-      name: "Age and Education Report",
-      description: "Granular break downs of the various age groups and levels of educational attainment for the research area.",
-      slug: "age_and_education"
-    },
-    // {
-    //   name: "Typeform Report",
-    //   description: "Just a demo of RealSmart talking to Typeform",
-    //   slug: "typeform_demo_report"
-    // },
-    // {
-    //   name: "Apparel Lead Generator",
-    //   description: "Just a demo of apparel_lead_generator",
-    //   slug: "apparel_lead_generator"
-    // },
-    // {
-    //   name: "Local Business Report",
-    //   description: "Captures businesses that are located with the radius and displays them on a map.",
-    //   slug: "business_report_builder"
-    // }
-  ];
-
-  constructor(public researchArea: ResearchAreaService, public user:User,
-    private router:Router) {
+  constructor(public researchArea: ResearchAreaService,
+              private router:Router, 
+              public reportTypeService:ReportTypeService, 
+              store: Store<fromRoot.State>) {
+      
+      this.user$ = store.select(fromRoot.getUser);
+      this.reportTypes$ = store.select(fromRoot.getReportTypes);
+      this.activeReportType$ = store.select(fromRoot.getActiveReportType);
 
   }
 
   ngOnInit():void {
     this.radius = this.researchArea.radius;
-
-    if(!this.reportType){
-      this.reportType = this.reportTypes[0]
-      this.researchArea.reportType = this.reportType;
-    }
-
-    this.user.privateReportTypes.subscribe(data => {
-      if(data){
-        this.reportTypes = this.reportTypes.concat(data)
-      }
-    })
 
     if(this.researchArea){
       this.name = this.researchArea.researchArea.name;
@@ -93,9 +49,8 @@ export class ReportDefinerComponent implements OnInit {
     }
   }
 
-  public addAndAnalyze(){
-    this.researchArea.storeLocation(this.user.email.getValue());
-    this.router.navigate(['/report_viewer/', this.reportType.slug])
+  public addAndAnalyze(): void{
+    this.activeReportType$.subscribe(rt => this.router.navigate(['/report_viewer/', rt.slug]))
   }
 
   onRadiusChange(newRadius){
@@ -104,7 +59,7 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   onReportTypeChange(reportType){
-    this.reportType = reportType;
+    this.reportTypeService.setActive(reportType);
   }
 
   onAreaChange(newArea){

@@ -11,16 +11,10 @@ import { COMPILER_PROVIDERS } from '@angular/compiler';
 import { AddressSelectorComponent } from './report-definer/sub_components/address-selector/address-selector.component';
 import { MapComponent } from './report-definer/sub_components/map/map.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
-import { User } from './users/user';
-import { UserRegistrationComponent } from "./users/user-registration/user-registration.component";
-import { UserConfirmationComponent } from "./users/user-confirmation/user-confirmation.component";
-import { UserDashboardComponent } from "./users/user-dashboard/user-dashboard.component";
-import {AwsUtil} from "./users/aws.service";
-import {UserRegistrationService, UserLoginService, UserParametersService, CognitoUtil} from "./users/cognito.service";
-import {DynamoDBService} from "./shared/ddb.service";
-import {S3Service} from "./shared/s3.service";
-import {AuthGuard} from "./users/auth-guard.service";
-import { UserLoginComponent } from './users/user-login/user-login.component';
+import { User } from './models/user';
+import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
+import { DynamoDBService } from "./shared/ddb.service";
+import { S3Service } from "./shared/s3.service";
 import { ValuesPipe } from './shared/values.pipe';
 import { CreditShopComponent } from './users/credit-shop/credit-shop.component';
 import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
@@ -32,21 +26,22 @@ import { AreaSelectorComponent } from './report-definer/sub_components/area-sele
 import { FooterComponent } from './shared/footer/footer.component';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { PublisherService } from './report-viewer/publisher.service';
-import {Ng2PageScrollModule} from 'ng2-page-scroll';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from "./reducers/";
+import { LocationListComponent } from './user-dashboard/subcomponents/location-list/location-list.component';
+import { CognitoSessionModule, CognitoSessionStore } from './cognito-session/cognito-session.module'
+import { UserService } from './services/user.service';
 
 
 
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: '',
     component: ReportDefinerComponent,
-    canActivate: [AuthGuard]},
+    canActivate: []},
   { path: 'report_viewer/:name', component: ReportViewerComponent },
-  { path: 'users/registration', component: UserRegistrationComponent},
-  { path: 'users/confirmation', component: UserConfirmationComponent},
-  { path: 'users/dashboard', component: UserDashboardComponent},
-  { path: 'users/login', component: UserLoginComponent},
-  { path: 'credits/new', component: CreditShopComponent}
+  { path: 'user', loadChildren: () => CognitoSessionModule},
 ]
 
 
@@ -58,10 +53,7 @@ const appRoutes: Routes = [
     AddressSelectorComponent,
     MapComponent,
     NavigationComponent,
-    UserRegistrationComponent,
-    UserConfirmationComponent,
     UserDashboardComponent,
-    UserLoginComponent,
     ValuesPipe,
     CreditShopComponent,
     SubscriptionCreatorComponent,
@@ -70,7 +62,9 @@ const appRoutes: Routes = [
     ReportTypeSelectorComponent,
     ReportTypeFilterPipe,
     AreaSelectorComponent,
-    FooterComponent
+    FooterComponent,
+    LocationListComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -78,21 +72,18 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     Angulartics2Module.forRoot([Angulartics2GoogleAnalytics]),
-    Ng2PageScrollModule.forRoot()
+    Ng2PageScrollModule.forRoot(),
+    StoreModule.provideStore(reducer),
+    CognitoSessionModule
   ],
   providers: [
     COMPILER_PROVIDERS,
     ResearchAreaService,
-    User,
-    AwsUtil,
-    CognitoUtil,
     DynamoDBService,
-    UserLoginService,
-    UserParametersService,
-    UserRegistrationService,
-    AuthGuard,
     S3Service,
-    PublisherService],
+    PublisherService,
+    CognitoSessionStore,
+    UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

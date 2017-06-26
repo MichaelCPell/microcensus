@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<div *ngIf="(user.remainingLocations | async) > 0">
+<div>
   <div *ngIf="areaInputType == 'places'">
     <div class="row">
       <div class="col-md-12">
@@ -47,9 +47,3 @@
     </div>
   </div>
 </div>
-
-<p class="form-text" *ngIf="(user.remainingLocations | async) <= 0">
-  <i>You are out of location credits.  To add a new location
-    <a routerLink="/credits/new" routerLinkActive="active">please purchase more.</a>
-  </i>
-</p>

@@ -12,26 +12,31 @@
       <a class="navbar-brand" routerLink="/" routerLinkActive="active"><img src="assets/images/cartoscope_logo.png" class="img-responsive" /></a>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-items" *ngIf="user.email | async">
-          <p class="navbar-text">{{user.remainingLocations | async}} Locations Remaining</p>
-        </li>
-        <li class="nav-sign-in" *ngIf="!(user.email | async)">
-          <a routerLink="/users/login" routerLinkActive="active">Sign In</a>
-        </li>
-        <li class="nav-email dropdown" *ngIf="user.email | async">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" routerLinkActive="active">{{user.email | async}} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a routerLink="/users/dashboard" routerLinkActive="active">Dashboard</a></li>
-            <li><a href="#">Account</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a (click)="signOut()">Sign Out</a></li>
-          </ul>
-        </li>
-        <li *ngIf="user.email | async" class="nav-demo"><a routerLink="/" routerLinkActive="active"><button class="btn btn-cs-blue">MAKE A REPORT</button></a></li>
+
+      <ul class="nav navbar-nav navbar-right" *ngIf="(user$ | async)">
+          <li class="nav-email dropdown" >
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" routerLinkActive="active">{{ email }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a routerLink="/users/dashboard" routerLinkActive="active">Dashboard</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a routerLink="/user" routerLinkActive="active">User Account</a></li>
+            </ul>
+          </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+
+      <ul class="nav navbar-nav navbar-right" *ngIf="!(user$ | async)">
+          <li class="nav-items" >
+          </li>
+
+        <li class="nav-sign-in">
+          <a routerLink="/user" routerLinkActive="active">Sign In</a>
+        </li>
+
+        <li  class="nav-demo"><a routerLink="/" routerLinkActive="active"><button class="btn btn-cs-blue">MAKE A REPORT</button></a></li>
+      </ul>
+
+
+    </div>
+  </div>
 </nav>
