@@ -14,7 +14,7 @@ export class UserService {
               private appStore:Store<fromRoot.State>,
               private router:Router) {
     
-    this.user$ = cognitoStore.select("user")//.distinctUntilChanged()
+    this.user$ = cognitoStore.select("user").distinctUntilChanged()
     
     
     this.user$.subscribe( 
@@ -27,7 +27,6 @@ export class UserService {
         }else{
           this.appStore.dispatch(new user.SignoutAction(undefined))
         }
-
       }
     )
   }
