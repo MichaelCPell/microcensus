@@ -1,4 +1,4 @@
-import { Component, Inject, Injectable, Output, EventEmitter } from "@angular/core";
+import { Component, Inject, Injectable, Output, EventEmitter, Input } from "@angular/core";
 import { UserRegistrationService } from "../../../cognito.service";
 import { RegistrationUser } from "../../../registration-user";
 import { CognitoCallback } from "../../../cognito.service";
@@ -12,11 +12,11 @@ import { DOCUMENT } from '@angular/platform-browser';
     styleUrls: ['./user-registration.component.css']
 })
 export class UserRegistrationComponent {
+    @Input() email:string;
     @Output() clickEvent = new EventEmitter<string>();
     @Output() submitEvent = new EventEmitter<RegistrationUser>();
     registrationUser:RegistrationUser;
     errorMessage:string;
-    email:string;
     password:string;
 
     constructor() {

@@ -16,17 +16,21 @@ export class SessionGatewayComponent implements OnInit {
   register;
   confirm;
   email:string;
+  error$:Observable<{}>;
   activeComponent:string;
   email$:Observable<string>;
+  notice$:Observable<string | {}>;
 
   constructor(private store:CognitoSessionStore, 
               private loginService:UserLoginService,
               private registrationService:UserRegistrationService) { 
       this.login = (credentials) => {
+        this.store.set("notice", "We are currently logging you in.  This may take a moment.")
         loginService.authenticate(credentials.email, credentials.password)
       }
 
       this.register = (credentials) => {
+        this.store.set("notice", "We are currently registering you.  This may take a moment.")
         registrationService.register(credentials)
       }
 
@@ -36,23 +40,19 @@ export class SessionGatewayComponent implements OnInit {
 
       this.store.select("activeComponent").subscribe(
         (next:string) => {
+          this.store.set("notice", "")
           this.activeComponent = next;
         }
       )
 
-      this.store.select("user")
-        .filter(Boolean)
-        .subscribe(
-          (user:ICognitoUserData) => {
-              this.email = user["username"];
-          }
-        )
-
       this.email$ = this.store.select("credentials")
         .filter(Boolean)
         .map( credentials => {
+          this.email = credentials["email"];
           return credentials["email"]
         })
+
+      this.notice$ = this.store.select("notice")
   }
 
   ngOnInit() {}
@@ -67,6 +67,10 @@ export class SessionGatewayComponent implements OnInit {
         this.store.set("activeComponent", "login");
         break;
       }
+      case "gotoConfirm": {
+        this.store.set("activeComponent", "confirm");
+        break;
+      }
     }
   }
 
@@ -74,4 +78,45 @@ export class SessionGatewayComponent implements OnInit {
     this.loginService.logout();
   }
 
+  resendCode(email?){
+    if(email){
+      this.store.set("credentials", new RegistrationUser(email))
+      this.registrationService.resendCode(email)
+    }else{
+      this.store.set("notice", "Please enter your e-mail address first.")            
+    }
+  }
+
+  startResetPassword(email){
+    if(email){
+      this.loginService.forgotPassword(email)
+    }else{
+      this.store.set("notice", "Please enter your e-mail address first.")
+    }
+  }
+
+  resetPassword(creds){
+    this.store.set("notice", "")
+    if(!creds.email){
+      this.store.set("notice", "Please enter an e-mail address.")
+      return
+    }
+
+    if(!creds.resetCode){
+      this.store.set("notice", "Reset code is missing.")
+      return
+    }
+
+    if(!creds.password){
+      this.store.set("notice", "Password is missing.")
+      return
+    }
+
+    if(creds.password != creds.passwordConfirmation){
+      this.store.set("notice", "Passwords do not match.")
+      return
+    }
+
+    this.loginService.confirmNewPassword(creds.email, creds.resetCode, creds.password);
+  } 
 }

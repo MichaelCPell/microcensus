@@ -9,6 +9,7 @@ import { UserRegistrationComponent } from './session-gateway/subcomponents/user-
 import { UserConfirmationComponent } from './session-gateway/subcomponents/user-confirmation/user-confirmation.component';
 import { FormsModule } from '@angular/forms';
 import { UserLoginService, CognitoUtil, UserRegistrationService } from './cognito.service';
+import { SetNewPasswordComponent } from './session-gateway/subcomponents/set-new-password/set-new-password.component';
 
 const appRoutes: Routes = [
   { path: 'user', component: SessionGatewayComponent },
@@ -24,7 +25,8 @@ const appRoutes: Routes = [
     SessionGatewayComponent,
     UserLoginComponent,
     UserRegistrationComponent,
-    UserConfirmationComponent
+    UserConfirmationComponent,
+    SetNewPasswordComponent
   ],
   exports: [
     SessionGatewayComponent,

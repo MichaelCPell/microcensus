@@ -1,25 +1,35 @@
+{{notice$ | async}}
+
 <app-user-login
   *ngIf="activeComponent == 'login'"
   (clickEvent)='handleClick($event)'  
   (submitEvent)="login($event)"
+  (resetPasswordEvent)="startResetPassword($event)"
   [email]="email">
 </app-user-login>
 
 <app-user-registration
   *ngIf="activeComponent == 'register'"
   (clickEvent)='handleClick($event)'
-  (submitEvent)='register($event)'>
+  (submitEvent)='register($event)'
+  [email]='email'>
 </app-user-registration>
 
 <app-user-confirmation
   *ngIf="activeComponent == 'confirm'"
   [email]="email$ | async"
   (clickEvent)='handleClick($event)'
-  (submitEvent)='confirm($event)'>
+  (submitEvent)='confirm($event)'
+  (resendCodeEvent)='resendCode($event)'>
 </app-user-confirmation>
+
+<app-set-new-password
+  *ngIf="activeComponent == 'reset'"
+  [email]="email$ | async"
+  (resetPasswordEvent)='resetPassword($event)'>
+</app-set-new-password>
 
 <div
    *ngIf="activeComponent == 'loggedIn'">
-   Logged In as {{email}}
    <button (click)="logout()">Log Out</button>
 </div>

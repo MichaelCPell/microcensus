@@ -14,20 +14,16 @@ export class UserService {
               private appStore:Store<fromRoot.State>,
               private router:Router) {
     
-    this.user$ = cognitoStore.select("user")//.distinctUntilChanged()
-    
+    this.user$ = cognitoStore.select("user").distinctUntilChanged()
     
     this.user$.subscribe( 
       (data) => {
         if(data){
-          console.log("Got A User")
-          console.log(data)
           this.appStore.dispatch(new user.LoadAction(new User(data.username)))
           this.router.navigate(["/"])
         }else{
           this.appStore.dispatch(new user.SignoutAction(undefined))
         }
-
       }
     )
   }
