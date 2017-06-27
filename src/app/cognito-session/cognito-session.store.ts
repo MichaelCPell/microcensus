@@ -15,7 +15,7 @@ export interface State{
 
 const state: State = {
     userPool: null,
-    activeComponent: "reset",
+    activeComponent: "login",
     credentials: null,
     notice: null
 }
