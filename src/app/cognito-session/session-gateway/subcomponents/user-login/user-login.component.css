@@ -1,5 +1,5 @@
 a {
-  color: #6882A4;
+  color: #1151A2;
 }
 
 .centered {
@@ -20,6 +20,12 @@ a {
   font-weight: 400;
   text-transform: uppercase;
   margin-top: 0;
+}
+
+.form-text {
+  color: #2a2a2a;
+  font-family:  'Lato', sans-serif;
+  font-weight: 500;
 }
 
 .btn.btn-cs-yellow {

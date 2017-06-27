@@ -1,8 +1,10 @@
-{{notice$ | async}}
+<div class="col-md-6">
+  <h4 class="alerts">{{notice$ | async}}</h4>
+</div>
 
 <app-user-login
   *ngIf="activeComponent == 'login'"
-  (clickEvent)='handleClick($event)'  
+  (clickEvent)='handleClick($event)'
   (submitEvent)="login($event)"
   (resetPasswordEvent)="startResetPassword($event)"
   [email]="email">

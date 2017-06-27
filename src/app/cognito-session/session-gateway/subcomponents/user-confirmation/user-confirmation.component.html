@@ -30,14 +30,14 @@
        <div class="form-group">
            <button
              (click)="submit()" id="confirmRegistration" type="submit"
-             class="btn btn-mc-dark"
+             class="btn btn-cs-yellow"
              *ngIf="!inProgress">Confirm
            </button>
        </div>
        <hr>
-       <p class="form-text">Can't find your code? 
+       <p class="form-text">Can't find your code?
           <a (click)="resendCode()"><i class="fa fa-share" aria-hidden="true"></i> Resend Code</a>
-          <a (click)="this.clickEvent.emit('gotoRegister')"> <i class="fa fa-user-plus" aria-hidden="true"></i> Register</a> 
+          <a (click)="this.clickEvent.emit('gotoRegister')"> <i class="fa fa-user-plus" aria-hidden="true"></i> Register</a>
           <a (click)="this.clickEvent.emit('gotoLogin')"> <i class="fa fa-fw fa-user"></i> Login</a>
        </p>
      </form>
