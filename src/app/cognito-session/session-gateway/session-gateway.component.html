@@ -23,14 +23,6 @@
   (resendCodeEvent)='resendCode($event)'>
 </app-user-confirmation>
 
-<app-user-confirmation
-  *ngIf="activeComponent == 'confirm'"
-  [email]="email$ | async"
-  (clickEvent)='handleClick($event)'
-  (submitEvent)='confirm($event)'
-  (resendCodeEvent)='resendCode($event)'>
-</app-user-confirmation>
-
 <app-set-new-password
   *ngIf="activeComponent == 'reset'"
   (resetPasswordEvent)='resetPassword($event)'>
