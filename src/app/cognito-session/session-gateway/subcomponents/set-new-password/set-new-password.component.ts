@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-set-new-password',
@@ -7,7 +7,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class SetNewPasswordComponent implements OnInit {
   @Output() resetPasswordEvent:EventEmitter<{}> = new EventEmitter()
-  email;
+  @Input() email;
   password;
   passwordConfirmation;
   resetCode;

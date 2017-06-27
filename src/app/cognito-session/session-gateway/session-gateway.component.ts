@@ -91,13 +91,12 @@ export class SessionGatewayComponent implements OnInit {
     if(email){
       this.loginService.forgotPassword(email)
     }else{
-      this.store.set("notice", "Please enter your e-ng s  mail address first.")
+      this.store.set("notice", "Please enter your e-mail address first.")
     }
   }
 
   resetPassword(creds){
     this.store.set("notice", "")
-    console.log(creds)
     if(!creds.email){
       this.store.set("notice", "Please enter an e-mail address.")
       return
@@ -117,5 +116,7 @@ export class SessionGatewayComponent implements OnInit {
       this.store.set("notice", "Passwords do not match.")
       return
     }
+
+    this.loginService.confirmNewPassword(creds.email, creds.resetCode, creds.password);
   } 
 }
