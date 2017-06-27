@@ -32,6 +32,7 @@ import { reducer } from "./reducers/";
 import { LocationListComponent } from './user-dashboard/subcomponents/location-list/location-list.component';
 import { CognitoSessionModule, CognitoSessionStore } from './cognito-session/cognito-session.module'
 import { UserService } from './services/user.service';
+import { AwsService } from './services/aws.service'
 
 
 
@@ -41,6 +42,7 @@ export const appRoutes: Routes = [
     component: ReportDefinerComponent,
     canActivate: []},
   { path: 'report_viewer/:name', component: ReportViewerComponent },
+  { path: 'dashboard', component: UserDashboardComponent },
   { path: 'user', loadChildren: () => CognitoSessionModule},
 ]
 
@@ -83,7 +85,8 @@ export const appRoutes: Routes = [
     S3Service,
     PublisherService,
     CognitoSessionStore,
-    UserService],
+    UserService,
+    AwsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

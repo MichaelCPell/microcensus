@@ -2,6 +2,7 @@ import {Injectable, Inject} from "@angular/core";
 import {RegistrationUser} from "./registration-user";
 // import {AwsUtil} from "./aws.service";
 import { CognitoSessionStore } from './cognito-session.store';
+import { environment } from '../../environments/environment'
 import * as AWS from "aws-sdk";
 
 import {CognitoUserPool, CognitoUser, CognitoUserAttribute, AuthenticationDetails } from 'amazon-cognito-identity-js';
@@ -22,9 +23,9 @@ export interface Callback {
 @Injectable()
 export class CognitoUtil {
     public static _REGION = "us-east-1";
-    public static _IDENTITY_POOL_ID = "us-east-1:6e4d0144-6a6b-4ccc-8c5e-66ddfd92c658";
-    public static _USER_POOL_ID = 'us-east-1_T2p3nd9xA';
-    public static _CLIENT_ID = '58qe0b7458eo9705kijc7hjhv6';
+    public static _IDENTITY_POOL_ID = environment.identityPoolId;
+    public static _USER_POOL_ID = environment.userPoolId;
+    public static _CLIENT_ID = environment.poolClientId;
 
     public static _POOL_DATA = {
         UserPoolId: CognitoUtil._USER_POOL_ID,
@@ -284,10 +285,15 @@ export class UserRegistrationService {
 
         attributeList.push(new CognitoUserAttribute(dataEmail));
 
+
+
         this.cognitoUtil.getUserPool().signUp(user.email, user.password, attributeList, null, (err, result) => {
+
             if (err) {
+                console.log(err)
                 this.store.set("notice", err.message)
             } else {
+                console.log(result)
                 this.store.set("activeComponent", "confirm")
             }
         });
