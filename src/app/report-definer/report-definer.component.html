@@ -32,7 +32,10 @@
       </div>
     </div>
     <div class="col-md-4 col-sm-4">
-      <app-map (polygonDrawn)="onPolygonDraw($event)" ></app-map>
+      <app-map 
+        (polygonDrawn)="onPolygonDraw($event)"
+        [reportSpecification$]="reportSpecification$">
+      </app-map>
     </div>
   </div>
   <div class="row last-row">
