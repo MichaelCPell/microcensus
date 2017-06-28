@@ -11,8 +11,9 @@ export class ReportGeneratorService{
     constructor(
         private store:Store<fromRoot.State>,
         private http: Http,
-        private router:Router){}
+        private router:Router){
 
+    }
     public generate(){
         this.store.select(fromRoot.getReportSpecification).subscribe(
             spec => {
@@ -25,24 +26,15 @@ export class ReportGeneratorService{
                 this.getReportData(rs)
             }
         ).unsubscribe()
-
-
-        this.store.select(fromRoot.getReport)
-        .filter( report => report.data)
-        .subscribe( report => {
-            console.log("New Report")
-            this.router.navigate(["/report_viewer"])
-        })
     }
 
     private getReportData(reportSpecification){
-        console.log(reportSpecification)
+        this.router.navigate(["/report_viewer"])
         this.http.post(environment.backend, reportSpecification)
             .map((res:Response) => res.json())
             // .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
             .subscribe(
                 data => {
-                    console.log(data)
                     let newReport = {
                         data: data,
                         reportSpecification: reportSpecification

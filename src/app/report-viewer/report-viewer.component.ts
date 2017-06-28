@@ -1,5 +1,4 @@
-import {Component, OnInit,
-  ViewChild, ViewContainerRef, NgModule, AfterViewInit } from '@angular/core';
+import {Component, ViewChild, ViewContainerRef, NgModule, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import {JitCompiler} from '@angular/compiler';
 import * as _ from 'lodash';
 import { Http, Response } from '@angular/http';
@@ -15,7 +14,8 @@ import { User } from "../models/user";
 import {PublisherService} from "./publisher.service"
 import * as jquery from 'jquery';
 import { Store } from "@ngrx/store";
-import * as fromRoot from "../reducers/"
+import * as fromRoot from "../reducers/";
+import { Report } from "../models/report"
 
 window['jQuery'] = window['$'] = jquery;
 
@@ -25,10 +25,10 @@ window['jQuery'] = window['$'] = jquery;
   styleUrls: ['./report-viewer-component.css']
 })
 
-export class ReportViewerComponent implements AfterViewInit {
-
+export class ReportViewerComponent implements AfterViewInit, OnDestroy, OnInit {
+  public dataLoaded:boolean = false;
   private report:any;
-
+  private report$:any;
   public publishButton:string = "Save this Report";
 
   @ViewChild('myDynamicContent', { read: ViewContainerRef })
@@ -41,19 +41,39 @@ export class ReportViewerComponent implements AfterViewInit {
     private researchArea: ResearchAreaService,
     private publisher:PublisherService,
     private store:Store<fromRoot.State>) {
-
   }
 
-  ngAfterViewInit() {
-    this.store.select(fromRoot.getReport).subscribe( report => {
-      console.log(report)
-      this.getHtml(report.reportSpecification.reportName)
-    }).unsubscribe()
-  };
+  ngOnInit(){
+    this.dynamicComponentTarget.clear()
+  }
 
-  private createComponentFactory(template: string, data:any, reportName:string)
+  ngAfterViewInit(){
+    this.report$ = this.store.select(fromRoot.getReport)
+          // .filter(report => report.data)
+          .skip(1)
+          .subscribe( (report) => {
+            console.log(report)
+            this.getHtml(report.reportSpecification.reportName).subscribe(
+              tmpl => {
+                console.log(1)
+                this.dataLoaded = true;
+                this.createComponentFactory(tmpl, report).then( factory => {
+                    this
+                      .dynamicComponentTarget
+                      .createComponent(factory)
+                })
+              }
+            )
+          })
+  }
+
+  ngOnDestroy(){
+    this.report$.unsubscribe();
+  }
+
+  private createComponentFactory(template: string, report:Report)
     : Promise<any>{
-    let type   = this.createNewComponent(template, data, reportName);
+    let type   = this.createNewComponent(template, report);
     let module = this.createComponentModule(type);
     let factory;
 
@@ -67,41 +87,35 @@ export class ReportViewerComponent implements AfterViewInit {
             });
     });
   }
-  private createNewComponent (tmpl:string, data:any, reportName:string) {
+  private createNewComponent (tmpl:string, report:Report) {
       @Component({
           selector: 'dynamic-component',
           template: tmpl
       })
       class CustomDynamicComponent implements OnInit{
-        public data:any = data;
-        public reportName:string = reportName
-
-        constructor(private http: Http, private researchArea:ResearchAreaService, private publisher:PublisherService){
+        public data:any = report.data;
+        public reportName:string = report.reportSpecification.reportName;
+        
+        constructor(private http: Http, private publisher:PublisherService){
         }
 
         ngOnInit(){
-          if(this.data){
-            this.http.get(environment.reportAssetBackend(this.reportName) + ".js")
+          const data = this.data;
+          this.http.get(environment.reportAssetBackend(this.reportName) + ".js")
             .subscribe(
-              ((response:any) => {
-                this.data.address = this.researchArea.researchArea.name;
-                this.data.geometry = this.researchArea.researchArea.geometry;
-                this.data.radius = this.researchArea.radius;
-                this.data.type = this.researchArea.researchArea.type;
+              ((response:Response) => {
+                // this.publisher.reportName = this.reportName;
+                // this.publisher.addReportData(this.data)
+                // this.publisher.addReportScript(response._body)
+                // this.publisher.addMapArea(this.data.geometry)
 
-                this.publisher.reportName = this.reportName;
-                this.publisher.addReportData(this.data)
-                this.publisher.addReportScript(response._body)
-                this.publisher.addMapArea(this.data.geometry)
-
-                eval(response._body)
+                eval(response.text())
 
                 window['$'](".share-buttons").remove()
                 window['$'](".share-this-report").remove()
                 window['$'](".promo").remove()
-              }).bind(this)
+              })
             );
-          }
         }
       };
 
@@ -122,32 +136,13 @@ export class ReportViewerComponent implements AfterViewInit {
   }
 
     public publish(){
+      // TODO: Scrape html from page
       // this.publisher.publish(this.researchArea.researchArea.name,this.researchArea.radius, this.user.email)
-      //       .subscribe(
-      //   (next) => {
-      //     console.log(next)
-      //     // this.user.updateFromDdb(next["Attributes"])
-
-      //     this.publishButton = "Saved to Dashboard!"
-      //   },
-      //   (error) => {
-      //     console.log(error)
-      //   }
-      // );
     }
 
-    private getHtml(reportName){
-      this.http.get(environment.reportAssetBackend(reportName) + ".html")
-        .subscribe(
-        (response:any) => {
-            this.publisher.addReportHtml(response._body);
-            this.createComponentFactory(response._body, this.report, reportName)
-            .then((factory) => {
-                this
-                .dynamicComponentTarget
-                .createComponent(factory)
-            })
-        });
+    private getHtml(reportName): Observable<string>{
+      return this.http.get(environment.reportAssetBackend(reportName) + ".html")
+                      .map( response => response.text())
     }
 }
 
