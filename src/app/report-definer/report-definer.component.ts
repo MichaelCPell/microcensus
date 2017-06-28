@@ -41,23 +41,13 @@ export class ReportDefinerComponent implements OnInit {
       this.reportTypes$ = store.select(fromRoot.getReportTypes);
       // this.activeReportType$ = store.select(fromRoot.getActiveReportType);
       this.reportSpecification$ = store.select(fromRoot.getReportSpecification);
-
-      this.reportSpecification$.subscribe (
-        data => console.log(data)
-      )
   }
 
   ngOnInit():void {
-    // this.radius = this.researchArea.radius;
 
-    // if(this.researchArea){
-    //   this.name = this.researchArea.researchArea.name;
-    //   this.readyToAnalyze = true;
-    // }
   }
 
   public submit(): void{
-    // this.store.dispatch()
   }
 
   onRadiusChange(newRadius:number){
@@ -66,21 +56,17 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   onReportTypeChange(reportType){
-    let action = new reportSpecifications.SetReportTypeAction(reportType)
+    let action = new reportSpecifications.SetReportTypeAction(reportType) 
     this.store.dispatch(action)
   }
 
   onAreaChange(newArea){
-    this.area = newArea;
-    if(newArea.areaType == "point"){
-      // this.researchArea.place = newArea;
-      this.showRadiusSelector = true;
-    }else{
-      // this.researchArea.shape = newArea;
-      this.showRadiusSelector = false;
+    let location = {
+      coordinates: [newArea.geometry.location.lng(), newArea.geometry.location.lat()],
+      address: newArea.formatted_address
     }
-    // this.name = this.researchArea.researchArea.name;
-    this.readyToAnalyze = true;
+    let action = new reportSpecifications.SetLocationAction(location)
+    this.store.dispatch(action)
   }
 
   onNameChange(newName){

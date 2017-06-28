@@ -32,7 +32,24 @@ export function reducer(state = initialState, action: reportSpecifications.Actio
       return {...state, 
               geoJSON: {
                 geometry: {
+                  coordinates: state.geoJSON.geometry.coordinates,
                   radius: action.payload
+                },
+                properties: state.geoJSON.properties
+              }
+            } 
+    }
+
+    case reportSpecifications.ActionTypes.SET_LOCATION: {
+
+      return {...state, 
+              geoJSON: {
+                geometry: {
+                  coordinates: action.payload.coordinates,
+                  radius: state.geoJSON.geometry.radius
+                },
+                properties: {
+                  address: action.payload.address
                 }
               }
             } 

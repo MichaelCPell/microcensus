@@ -11,7 +11,7 @@
         <tr
             *ngFor="let reportType of (reportTypes | reportTypeFilter  : search)"
             (click)="setReportType(reportType)"
-            [ngClass]="{active: activeReportType == reportType}"
+            [ngClass]="{active: reportSpecification.reportType == reportType}"
             class="hoverable">
           <td>{{reportType.name}}</td>
         </tr>
