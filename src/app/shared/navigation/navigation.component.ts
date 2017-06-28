@@ -12,31 +12,18 @@ import { Observable } from 'rxjs';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-  user$:Observable<User>
+  user$:Observable<string>
   creditsRemaining:number = 0;
   email:string;
 
   constructor(private store:Store<fromRoot.State>, private router:Router) {
-    this.user$ = store.select(fromRoot.getUser);
+    this.user$ = store.select(fromRoot.getUserEmail);
 
-
-    this.user$
-      .subscribe( (user) => {
-        if(user){
-          this.email = user.email
-        }else{
-          this.email = undefined;
-        }
-      })
+    this.user$.subscribe( email => {
+      console.log(email)
+    })
   }
 
   ngOnInit() {
   }
-
-  public signOut(){
-    // this.user.email = null
-    // this.userLogin.logout()
-    this.router.navigate(["/"]);
-  }
-
 }

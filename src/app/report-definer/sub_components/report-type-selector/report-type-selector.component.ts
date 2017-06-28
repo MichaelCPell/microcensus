@@ -6,7 +6,7 @@ import { ReportType } from '../../../models/report-type'
   styleUrls: ['./report-type-selector.component.css']
 })
 export class ReportTypeSelectorComponent implements OnInit {
-  @Input() activeReportType:ReportType;
+  @Input() reportSpecification:any;
   @Input() reportTypes:Array<ReportType>;
   @Output() activeReportTypeChange:EventEmitter<any> = new EventEmitter();
 

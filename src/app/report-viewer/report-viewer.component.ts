@@ -10,7 +10,7 @@ import 'rxjs/add/operator/concatMap';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { ResearchAreaService } from "../shared/research-area.service";
-import { DynamoDBService } from "../shared/ddb.service";
+import { DynamoDBService } from "../services/ddb.service";
 import { User } from "../models/user";
 import {PublisherService} from "./publisher.service"
 import * as jquery from 'jquery';

@@ -7,6 +7,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import * as fromUsers from './users';
 import * as fromReportTypes from './report-types';
 import * as fromLocation from './locations';
+import * as fromReportSpecifications from './report-specifications.reducer';
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
@@ -16,12 +17,14 @@ export interface State {
   user: fromUsers.State;
   reportTypes: fromReportTypes.State;
   location: fromLocation.State;
+  reportSpecification: fromReportSpecifications.State;
 }
 
 const reducers = {
   user: fromUsers.reducer,
   reportTypes: fromReportTypes.reducer,
-  location: fromLocation.reducer
+  location: fromLocation.reducer,
+  reportSpecification: fromReportSpecifications.reducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
@@ -53,14 +56,18 @@ export function reducer(state: any, action: any){
 export const getUserState = (state: State) => state.user
 export const getReportTypeState = (state: State) => state.reportTypes
 export const getLocationState = (state: State) => state.location
+export const getReportSpecificationState = (state: State) => state.reportSpecification
 
 // User Selectors
-export const getUser = createSelector(getUserState, fromUsers.getCurrent)
-
+export const getUserEmail = createSelector(getUserState, fromUsers.getEmail);
+export const getUserSub = createSelector(getUserState, fromUsers.getSub);
 
 // ReportType Selectors
-export const getReportTypes = createSelector(getReportTypeState, fromReportTypes.getAll)
+export const getReportTypes = createSelector(getUserState, fromUsers.getReportTypes)
 export const getActiveReportType = createSelector(getReportTypeState, fromReportTypes.getActive)
 
 // Location Selectors
 export const getLocations = createSelector(getLocationState, fromLocation.getAll)
+
+// ReportSpecification Selectors
+export const getReportSpecification = createSelector(getReportSpecificationState, fromReportSpecifications.get)

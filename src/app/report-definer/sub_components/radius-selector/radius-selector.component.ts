@@ -6,7 +6,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./radius-selector.component.css']
 })
 export class RadiusSelectorComponent implements OnInit {
-  @Input()  activeRadius:number;
+  @Input()  reportSpecification:any;
   @Output() activeRadiusChange = new EventEmitter<number>();
 
   constructor() { }

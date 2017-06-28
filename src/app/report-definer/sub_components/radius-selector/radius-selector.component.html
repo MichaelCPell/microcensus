@@ -1,18 +1,18 @@
 <div class="row vertical-row-padding">
   <div class="col-md-5 col-md-offset-1 col-sm-5 col-sm-offset-1 col-xs-5 col-xs-offset-1 border-right">
     <div class="row">
-      <div class="quadrant" [ngClass]="{active: 1 == activeRadius}" (click)="setRadius(1)"><h4 class="form-label centered">1 Mile </h4></div>
+      <div class="quadrant" [ngClass]="{active: 1600 == reportSpecification.geoJSON.geometry.radius}" (click)="setRadius(1600)"><h4 class="form-label centered">1 Mile </h4></div>
     </div>
     <div class="row border-top">
-      <div class="quadrant" [ngClass]="{active: 3 == activeRadius}" (click)="setRadius(3)"><h4 class="form-label centered">3 Mile</h4> </div>
+      <div class="quadrant" [ngClass]="{active: 4800 == reportSpecification.geoJSON.geometry.radius}" (click)="setRadius(4800)"><h4 class="form-label centered">3 Mile</h4> </div>
     </div>
   </div>
   <div class="col-md-5 col-sm-5 col-xs-5">
     <div class="row">
-      <div class="quadrant" [ngClass]="{active: 2 == activeRadius}" (click)="setRadius(2)"><h4 class="form-label centered">2 Mile</h4> </div>
+      <div class="quadrant" [ngClass]="{active: 3200 == reportSpecification.geoJSON.geometry.radius}" (click)="setRadius(3200)"><h4 class="form-label centered">2 Mile</h4> </div>
     </div>
     <div class="row border-top">
-      <div class="quadrant" [ngClass]="{active: 5 == activeRadius}" (click)="setRadius(5)"><h4 class="form-label centered">5 Mile</h4></div>
+      <div class="quadrant" [ngClass]="{active: 8000 == reportSpecification.geoJSON.geometry.radius}" (click)="setRadius(8000)"><h4 class="form-label centered">5 Mile</h4></div>
     </div>
   </div>
 </div>

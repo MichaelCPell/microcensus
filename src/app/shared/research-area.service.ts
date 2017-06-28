@@ -3,7 +3,7 @@ import { Subject }    from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import { ResearchArea } from "./research-area";
-import { DynamoDBService } from "./ddb.service";
+import { DynamoDBService } from "../services/ddb.service";
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/merge';
 import * as L from 'leaflet';
