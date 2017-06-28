@@ -1,14 +1,15 @@
 import { Location } from '../models/location';
-// import { ReportTypeService } from '../services/report-type.service';
+import { ReportType } from '../models/report-type';
+import { ReportTypeService } from '../services/report-type.service';
 import * as reportSpecifications from '../actions/report-specifications.actions';
 
 export interface State {
-  reportType: string
+  reportType: ReportType
   geoJSON: any;
 };
 
 export const initialState: State = {
-  reportType: undefined,
+  reportType: ReportTypeService.defaultReportTypes[0],
   geoJSON: {
       geometry: {
         radius: 1600,
@@ -22,7 +23,8 @@ export const initialState: State = {
 export function reducer(state = initialState, action: reportSpecifications.Actions ): State {
   switch (action.type) {
     case reportSpecifications.ActionTypes.SET_REPORT_TYPE: {
-      return state 
+      let reportType:ReportType = action.payload
+      return {...state, reportType: reportType}
     }
 
     case reportSpecifications.ActionTypes.SET_RADIUS: {

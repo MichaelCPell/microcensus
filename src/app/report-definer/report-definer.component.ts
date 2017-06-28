@@ -66,7 +66,8 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   onReportTypeChange(reportType){
-    this.reportTypeService.setActive(reportType);
+    let action = new reportSpecifications.SetReportTypeAction(reportType)
+    this.store.dispatch(action)
   }
 
   onAreaChange(newArea){

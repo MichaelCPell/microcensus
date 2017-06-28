@@ -1,6 +1,7 @@
 import { type } from '../util';
 import { Action } from '@ngrx/store';
 import { ReportSpecification } from '../models/report-specification';
+import { ReportType } from '../models/report-type';
 
 export const ActionTypes = {
   SET_REPORT_TYPE:             type('[ReportSpecification] Set Report Type'),
@@ -11,7 +12,7 @@ export const ActionTypes = {
 export class SetReportTypeAction implements Action {
   type = ActionTypes.SET_REPORT_TYPE;
 
-  constructor(public payload: string) { }
+  constructor(public payload: any) { }
 }
 
 export class SetGeometryAction implements Action {
