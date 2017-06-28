@@ -196,15 +196,27 @@ a {
   height: 80px;
 }*/
 
-@media only screen and (max-width : 992px) {
-  .category-icon {
+/*br {
+  display: none;
+}*/
+
+@media only screen and (max-width : 480px) {
+  .category-icon-2 {
     height: 50px;
   }
-  .category-icon {
-    height: 50px;
+
+  .category-icon-3 {
+      height: 50px;
   }
+  .category-icon-1{
+    height: 36px;
+  }
+
+  .category-icon-4  {
+    height: 36px;
+  }
+
   .category-name {
     font-size: 10px;
   }
-
 }
