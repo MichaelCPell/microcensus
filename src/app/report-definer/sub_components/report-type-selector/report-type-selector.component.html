@@ -1,54 +1,38 @@
 <div class="row categories-border">
-  <div class="col-md-3 col-sm-6 col-xs-3 border-right border-top category-div">
+  <div class="col-md-3 col-sm-6 col-xs-3 border-right border-top category-div" [ngClass]="{active: 1 == activeCategory}">
     <a href="#">
       <div class="img-div">
-        <img src="https://s3.amazonaws.com/cartoscope-assets/assets/economic_development.png" class="category-icon"/>
+        <img src="https://s3.amazonaws.com/cartoscope-assets/assets/economic_dev.png" class="category-icon"/>
       </div>
       <p class="text-center category-name">
         Economic Development
       </p>
     </a>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-3 border-right border-top category-div">
+  <div class="col-md-3 col-sm-6 col-xs-3 border-right border-top category-div" [ngClass]="{active: 2 == activeCategory}">
     <a href="#">
       <div class="img-div">
-        <img src="https://s3.amazonaws.com/cartoscope-assets/assets/business.png" class="category-icon" />
+        <img src="https://s3.amazonaws.com/cartoscope-assets/assets/small_business.png" class="category-icon" />
       </div>
       <p class="text-center category-name">
         Business
       </p>
     </a>
   </div>
-  <div class="col-md-3 col-sm-6 col-xs-3 border-right border-top category-div">
+  <div class="col-md-3 col-sm-6 col-xs-3 border-right border-top category-div" [ngClass]="{active: 3 == activeCategory}">
     <a href="#">
       <div class="img-div">
-        <img src="https://s3.amazonaws.com/cartoscope-assets/assets/real_estate.png" class="category-icon" />
+        <img src="https://s3.amazonaws.com/cartoscope-assets/assets/housing.png" class="category-icon" />
       </div>
       <p class="text-center category-name">
         Real Estate
       </p>
     </a>
   </div>
-  <!-- <div class="col-md-2 col-sm-6 col-xs-6 border-right border-top">
-    <div class="category-div ">
-      <img src="https://s3.amazonaws.com/cartoscope-assets/assets/politics.png" class="" />
-    </div>
-    <p class="text-center category-name">
-      Politics
-    </p>
-  </div>
-  <div class="col-md-2 col-sm-6 col-xs-6 border-right border-top">
-    <div class="category-div">
-      <img src="https://s3.amazonaws.com/cartoscope-assets/assets/marketing.png" class="" />
-    </div>
-    <p class="text-center category-name">
-      Marketing
-    </p>
-  </div> -->
-  <div class="col-md-3 col-sm-6 col-xs-3 border-top category-div">
+  <div class="col-md-3 col-sm-6 col-xs-3 border-top category-div" [ngClass]="{active: 4 == activeCategory}">
     <a href="#">
       <div class="img-div">
-        <img src="https://s3.amazonaws.com/cartoscope-assets/assets/everyone.png" class="category-icon" />
+        <img src="https://s3.amazonaws.com/cartoscope-assets/assets/everyone_people.png" class="category-icon" />
       </div>
       <p class="text-center category-name">
         For Everybody
