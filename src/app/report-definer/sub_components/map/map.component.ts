@@ -23,8 +23,8 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.map = L.map('map').setView([35.7796, -78.6382], 13);
 
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
     }).addTo(this.map);
 
     this.researchArea.mappable.subscribe(
@@ -65,7 +65,7 @@ export class MapComponent implements OnInit {
 
     this.map.on(L.Draw.Event.CREATED, (e:any) => {
       if (e.layerType === 'polygon') {
-        this.polygonDrawn.emit(e.layer.toGeoJSON());     
+        this.polygonDrawn.emit(e.layer.toGeoJSON());
       }
     });
 
