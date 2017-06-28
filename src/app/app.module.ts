@@ -34,7 +34,7 @@ import { CognitoSessionModule, CognitoSessionStore } from './cognito-session/cog
 import { UserService } from './services/user.service';
 import { AwsService } from './services/aws.service'
 import { ReportSpecificationService } from './services/report-specification.service'
-
+import { ReportGeneratorService } from './services/report-generator.service'
 
 
 
@@ -42,7 +42,7 @@ export const appRoutes: Routes = [
   { path: '',
     component: ReportDefinerComponent,
     canActivate: []},
-  { path: 'report_viewer/:name', component: ReportViewerComponent },
+  { path: 'report_viewer', component: ReportViewerComponent },
   { path: 'dashboard', component: UserDashboardComponent },
   { path: 'user', loadChildren: () => CognitoSessionModule},
 ]
@@ -88,7 +88,8 @@ export const appRoutes: Routes = [
     CognitoSessionStore,
     UserService,
     AwsService,
-    ReportSpecificationService],
+    ReportSpecificationService,
+    ReportGeneratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

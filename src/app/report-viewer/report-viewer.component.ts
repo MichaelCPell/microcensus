@@ -14,6 +14,8 @@ import { DynamoDBService } from "../services/ddb.service";
 import { User } from "../models/user";
 import {PublisherService} from "./publisher.service"
 import * as jquery from 'jquery';
+import { Store } from "@ngrx/store";
+import * as fromRoot from "../reducers/"
 
 window['jQuery'] = window['$'] = jquery;
 
@@ -24,11 +26,11 @@ window['jQuery'] = window['$'] = jquery;
 })
 
 export class ReportViewerComponent implements AfterViewInit {
-  public reportName:string;
-  public errorMessage:string;
-  public report:any;
-  public geom:any;
+
+  private report:any;
+
   public publishButton:string = "Save this Report";
+
   @ViewChild('myDynamicContent', { read: ViewContainerRef })
   protected dynamicComponentTarget: ViewContainerRef;
 
@@ -37,60 +39,16 @@ export class ReportViewerComponent implements AfterViewInit {
     private http: Http,
     private route: ActivatedRoute,
     private researchArea: ResearchAreaService,
-    private publisher:PublisherService) {
-    this.route = route;
-    this.geom = this.researchArea.researchArea.geometry;
+    private publisher:PublisherService,
+    private store:Store<fromRoot.State>) {
+
   }
 
   ngAfterViewInit() {
-    this.route.params
-      .subscribe((params: Params) =>  this.reportName = params["name"])
-
-    let html;
-    let tempReport;
-    if(this.researchArea.researchArea.type == "point"){
-      this.geom.radius = this.researchArea.radiusInMeters;
-    }else{
-      this.geom.radius = 0;
-    }
-
-    let reportSpecification = {
-        reportName: this.reportName,
-        geoJSON: {
-          type: "Feature",
-          geometry: this.geom,
-          properties: {
-            address: this.researchArea.researchArea.name
-          }
-        }
-      }
-
-    this.http.post(environment.backend, reportSpecification)
-      .map((res:Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
-      .subscribe(
-        (data => {
-          this.publisher.addReportData(data);
-          this["dataLoaded"] = true;
-          tempReport = data;
-        }).bind(this),
-        error =>  this.errorMessage = <any>error,
-        () => {
-          this.report = tempReport;
-          this.http.get(environment.reportAssetBackend(this.reportName) + ".html")
-            .subscribe(
-              (response:any) => {
-                this.publisher.addReportHtml(response._body);
-                this.createComponentFactory(response._body, this.report, this.reportName)
-                  .then((factory) => {
-                    this
-                      .dynamicComponentTarget
-                      .createComponent(factory)
-                  })
-              }
-            );
-        }
-      );
+    this.store.select(fromRoot.getReport).subscribe( report => {
+      console.log(report)
+      this.getHtml(report.reportSpecification.reportName)
+    }).unsubscribe()
   };
 
   private createComponentFactory(template: string, data:any, reportName:string)
@@ -178,5 +136,21 @@ export class ReportViewerComponent implements AfterViewInit {
       // );
     }
 
-
+    private getHtml(reportName){
+      this.http.get(environment.reportAssetBackend(reportName) + ".html")
+        .subscribe(
+        (response:any) => {
+            this.publisher.addReportHtml(response._body);
+            this.createComponentFactory(response._body, this.report, reportName)
+            .then((factory) => {
+                this
+                .dynamicComponentTarget
+                .createComponent(factory)
+            })
+        });
+    }
 }
+
+
+
+

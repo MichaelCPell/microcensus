@@ -11,7 +11,8 @@ import { ReportType } from '../models/report-type'
 import * as fromRoot from '../reducers'
 import { ReportSpecificationService } from '../services/report-specification.service' 
 import { ReportSpecification } from "../models/report-specification";
-import * as reportSpecifications from "../actions/report-specifications.actions"
+import * as reportSpecifications from "../actions/report-specifications.actions";
+import { ReportGeneratorService } from "../services/report-generator.service"
 
 @Component({
   selector: 'app-report-definer',
@@ -35,6 +36,7 @@ export class ReportDefinerComponent implements OnInit {
 
   constructor(public reportTypeService:ReportTypeService,
               public reportSpecificationService:ReportSpecificationService, 
+              private reportGeneratorService:ReportGeneratorService,
               private store: Store<fromRoot.State>) {
       
       // this.user$ = store.select(fromRoot.getUser);
@@ -48,6 +50,7 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   public submit(): void{
+    this.reportGeneratorService.generate()
   }
 
   onRadiusChange(newRadius:number){
