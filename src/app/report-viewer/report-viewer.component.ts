@@ -49,13 +49,10 @@ export class ReportViewerComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngAfterViewInit(){
     this.report$ = this.store.select(fromRoot.getReport)
-          // .filter(report => report.data)
-          .skip(1)
+          .skip(1) //Skip the initial, undefined report.  Then skip the current report on subsequent loads.
           .subscribe( (report) => {
-            console.log(report)
             this.getHtml(report.reportSpecification.reportName).subscribe(
               tmpl => {
-                console.log(1)
                 this.dataLoaded = true;
                 this.createComponentFactory(tmpl, report).then( factory => {
                     this
