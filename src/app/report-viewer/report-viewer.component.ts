@@ -1,12 +1,11 @@
 import { Component, ViewChild, ViewContainerRef, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { JitCompiler } from '@angular/compiler';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Store } from "@ngrx/store";
 import * as fromRoot from "../reducers/";
 import { Report } from "../models/report";
-import * as dynamicComponent from './dynamic_component_helpers'
+import { DynamicComponentFactoryService } from './dynamic_component_factory.service'
 
 @Component({
   selector: 'app-report-view',
@@ -23,9 +22,9 @@ export class ReportViewerComponent implements AfterViewInit, OnDestroy, OnInit {
   protected dynamicComponentTarget: ViewContainerRef;
 
   constructor(
-    protected compiler: JitCompiler,
     private http: Http,
-    private store:Store<fromRoot.State>) {
+    private store:Store<fromRoot.State>,
+    private dynamicComponentFactory:DynamicComponentFactoryService) {
   }
 
   ngOnInit(){
@@ -33,13 +32,14 @@ export class ReportViewerComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngAfterViewInit(){
+
     this.report$ = this.store.select(fromRoot.getReport)
           .skip(1) //Skip the initial, undefined report.  Then skip the current report on subsequent loads.
           .subscribe( (report) => {
             this.getHtml(report.reportSpecification.reportName).subscribe(
               tmpl => {
                 this.dataLoaded = true;
-                dynamicComponent.createComponentFactory(tmpl, report).then( factory => {
+                this.dynamicComponentFactory.createComponentFactory(tmpl, report).then( factory => {
                     this
                       .dynamicComponentTarget
                       .createComponent(factory)

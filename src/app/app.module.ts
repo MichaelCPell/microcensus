@@ -35,6 +35,7 @@ import { UserService } from './services/user.service';
 import { AwsService } from './services/aws.service'
 import { ReportSpecificationService } from './services/report-specification.service'
 import { ReportGeneratorService } from './services/report-generator.service'
+import { DynamicComponentFactoryService } from './report-viewer/dynamic_component_factory.service'
 
 
 
@@ -89,7 +90,8 @@ export const appRoutes: Routes = [
     UserService,
     AwsService,
     ReportSpecificationService,
-    ReportGeneratorService],
+    ReportGeneratorService,
+    DynamicComponentFactoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
