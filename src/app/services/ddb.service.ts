@@ -5,6 +5,7 @@ import { Store } from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import * as AWS from 'aws-sdk';
 import * as fromUser from '../reducers/users';
+import * as user from '../actions/user';
 
 @Injectable()
 export class DynamoDBService {
@@ -13,25 +14,35 @@ export class DynamoDBService {
     constructor(private store:Store<fromRoot.State>) {
         console.log("DynamoDBService: constructor");
 
-        this.store.select("user")
-          .filter( user => user['current'])
-          .subscribe( (user:fromUser.State) => {
-          console.log(`ddb got the user`)
-          console.log(user)
-          this.db.get({
-            TableName: "users",
-            Key: {email: user.current.email},
-            AttributesToGet: ['locations', 'reportTypes']
-          }, (err, data) => {
-            console.log(err)
-            console.log(data)
-          })
-        })
+        this.store.select(fromRoot.getUserSub)
+          .filter(Boolean).subscribe(
+          sub => {
+            this.db.get({
+              TableName: "cartoscope_users_dev",
+              Key: {sub: sub},
+              AttributesToGet: ['email', 'locations', 'reportTypes']
+            }, (err, data) => {
+              if(err){
+                console.log(err)
+                return
+              }
+
+              let newUser = new User(data.Item.email, data.Item.locations, data.Item.reportTypes)
+              this.store.dispatch(new user.LoadAction(newUser))
+            })
+          }
+        )
+
+        //   .subscribe( (user:fromUser.State) => {
+        //   console.log(`ddb got the user`)
+        //   console.log(user)
+
+        // })
     }
 
     public addLocation(researchArea, email){
       var params = {
-        TableName: 'users',
+        TableName: 'users_dev',
         Key: { email: email},
         ConditionExpression: 'attribute_not_exists(#a.#id)',
         UpdateExpression: 'set #a.#id = :z',

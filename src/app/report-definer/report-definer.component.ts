@@ -9,6 +9,10 @@ import { ReportTypeService } from "../services/report-type.service";
 import { Store } from '@ngrx/store';
 import { ReportType } from '../models/report-type'
 import * as fromRoot from '../reducers'
+import { ReportSpecificationService } from '../services/report-specification.service' 
+import { ReportSpecification } from "../models/report-specification";
+import * as reportSpecifications from "../actions/report-specifications.actions";
+import { ReportGeneratorService } from "../services/report-generator.service"
 
 @Component({
   selector: 'app-report-definer',
@@ -28,61 +32,54 @@ export class ReportDefinerComponent implements OnInit {
   user$: Observable<User>;
   reportTypes$: Observable<ReportType[]>;
   activeReportType$: Observable<ReportType>;
+  reportSpecification$: Observable<ReportSpecification>;
 
-  constructor(public researchArea: ResearchAreaService,
-              private router:Router, 
-              public reportTypeService:ReportTypeService, 
-              store: Store<fromRoot.State>) {
+  constructor(public reportTypeService:ReportTypeService,
+              public reportSpecificationService:ReportSpecificationService, 
+              private reportGeneratorService:ReportGeneratorService,
+              private store: Store<fromRoot.State>) {
       
-      this.user$ = store.select(fromRoot.getUser);
+      // this.user$ = store.select(fromRoot.getUser);
       this.reportTypes$ = store.select(fromRoot.getReportTypes);
-      this.activeReportType$ = store.select(fromRoot.getActiveReportType);
-
+      // this.activeReportType$ = store.select(fromRoot.getActiveReportType);
+      this.reportSpecification$ = store.select(fromRoot.getReportSpecification);
   }
 
   ngOnInit():void {
-    this.radius = this.researchArea.radius;
 
-    if(this.researchArea){
-      this.name = this.researchArea.researchArea.name;
-      this.readyToAnalyze = true;
-    }
   }
 
-  public addAndAnalyze(): void{
-    this.activeReportType$.subscribe(rt => this.router.navigate(['/report_viewer/', rt.slug]))
+  public submit(): void{
+    this.reportGeneratorService.generate()
   }
 
-  onRadiusChange(newRadius){
-    this.radius = newRadius;
-    this.researchArea.radius = newRadius;
+  onRadiusChange(newRadius:number){
+    let action = new reportSpecifications.SetRadiusAction(newRadius)
+    this.store.dispatch(action)
   }
 
   onReportTypeChange(reportType){
-    this.reportTypeService.setActive(reportType);
+    let action = new reportSpecifications.SetReportTypeAction(reportType) 
+    this.store.dispatch(action)
   }
 
   onAreaChange(newArea){
-    this.area = newArea;
-    if(newArea.areaType == "point"){
-      this.researchArea.place = newArea;
-      this.showRadiusSelector = true;
-    }else{
-      this.researchArea.shape = newArea;
-      this.showRadiusSelector = false;
+    let location = {
+      coordinates: [newArea.geometry.location.lng(), newArea.geometry.location.lat()],
+      address: newArea.formatted_address
     }
-    this.name = this.researchArea.researchArea.name;
-    this.readyToAnalyze = true;
+    let action = new reportSpecifications.SetLocationAction(location)
+    this.store.dispatch(action)
   }
 
   onNameChange(newName){
-    this.researchArea.researchArea.name = newName;
-    this.name = this.researchArea.researchArea.name;
+    // this.researchArea.researchArea.name = newName;
+    // this.name = this.researchArea.researchArea.name;
   }
 
   onPolygonDraw(polygon){
-    this.researchArea.shape = polygon;
-    this.name = this.researchArea.researchArea.name;
+    // this.researchArea.shape = polygon;
+    // this.name = this.researchArea.researchArea.name;
     this.needsName = true;
   }
 };

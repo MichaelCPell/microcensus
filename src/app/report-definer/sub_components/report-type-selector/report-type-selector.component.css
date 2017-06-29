@@ -28,24 +28,6 @@ thead th {
   text-align: left;
 }
 
-/*tbody {
-  height: 8em;
-  overflow-y: auto;
-}
-
-@media only screen and (max-width : 768px){
-  tbody {
-    height: 15em;
-    overflow-y: auto;
-  }
-}
-
-@media only screen and (max-width : 480px){
-  tbody {
-    height: 20em;
-    overflow-y: auto;
-  }
-}*/
 
 thead {
   background-color: #6C87AB;
@@ -62,7 +44,6 @@ thead {
 }
 
 .table-border {
-  border-bottom: 3px solid #ddd;
   border-left: 3px solid #ddd;
   border-right: 3px solid #ddd;
   border-top: 0px solid #ddd;
@@ -122,10 +103,6 @@ thead {
     border-radius: 0px;
 }
 
-.active{
-  color: #316fc2;
-  background-color: #F1F1F1;
-}
 
 .standard-height{
   height: 15em;
@@ -135,3 +112,97 @@ thead {
 .hoverable:hover{
   cursor: pointer;
 }
+
+.categories-border {
+  /*border-bottom: 3px solid #ddd;*/
+  border-left: 3px solid #ddd;
+  border-right: 3px solid #ddd;
+  border-top: 0px solid #ddd;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+
+.img-div {
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.category-div {
+  border-bottom: 3px solid #ddd;
+  /*border-left: 3px solid #ddd;
+  border-right: 3px solid #ddd;*/
+  border-top: 3px solid #ddd;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.activeCategory {
+  color: #ffffff;
+  background-color: #5291DF;
+}
+
+
+
+.category-name {
+  color: #2a2a2a;
+  font-family:  'Lato', sans-serif;
+  font-weight: 400;
+}
+
+
+@media only screen and (max-width : 480px) {
+
+  .category-icon{
+    height: 50px;
+  }
+
+  .category-icon:first-of-type, .category-icon:last-of-type{
+    height: 36px;
+  }
+
+  /*.category-icon-1{
+    height: 36px;
+  }
+
+  .category-icon-2 {
+    height: 50px;
+  }
+
+  .category-icon-3 {
+      height: 50px;
+  }
+
+  .category-icon-4  {
+    height: 36px;
+  }*/
+
+  .category-name {
+    font-size: 10px;
+  }
+}
+
+/*@media only screen and (max-width : 480px) {
+  .category-icon-2 {
+    height: 50px;
+  }
+
+  .category-icon-3 {
+      height: 50px;
+  }
+  .category-icon-1{
+    height: 36px;
+  }
+
+  .category-icon-4  {
+    height: 36px;
+  }
+
+  .category-name {
+    font-size: 10px;
+  }
+}*/

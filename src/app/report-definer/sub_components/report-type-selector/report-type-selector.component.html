@@ -1,17 +1,18 @@
-<div class="input-group">
-  <input [(ngModel)]="search" type="text" class="form-control" placeholder="Find a report">
-  <span class="input-group-btn">
-   <button class="btn btn-cs-blue" type="button">Find</button>
-  </span>
+<div class="row categories-border">
+  <app-category-filter *ngFor='let category of categories'
+    [category]= "category"
+    (select) = "setActiveCategory($event)"
+    [active]="activeCategory">
+  </app-category-filter>
 </div>
 <div class="row table-border">
   <div class="col-md-6 col-sm-6 col-xs-6 standard-height table-border-preview padding-none-right padding-none-left">
     <table class="table table-hover">
       <tbody>
         <tr
-            *ngFor="let reportType of (reportTypes | reportTypeFilter  : search)"
+            *ngFor="let reportType of (reportTypes | reportTypeFilter  : search : activeCategory)"
             (click)="setReportType(reportType)"
-            [ngClass]="{active: activeReportType == reportType}"
+            [ngClass]="{active: reportSpecification.reportType == reportType}"
             class="hoverable">
           <td>{{reportType.name}}</td>
         </tr>
@@ -19,9 +20,15 @@
     </table>
   </div>
   <div class="col-md-6 col-sm-6 col-xs-6 standard-height">
-    <h4 class="subtitle-new-area">{{activeReportType.name}}</h4>
+    <h4 class="subtitle-new-area">{{reportSpecification.reportType.name}}</h4>
     <p class="form-text">
-      {{activeReportType.description}}
+      {{reportSpecification.reportType.description}}
     </p>
   </div>
+</div>
+<div class="input-group">
+  <input [(ngModel)]="search" type="text" class="form-control" placeholder="Find a report">
+  <span class="input-group-btn">
+   <button class="btn btn-cs-blue" type="button" style="border: 3px solid #0A2E5C;">Find</button>
+  </span>
 </div>

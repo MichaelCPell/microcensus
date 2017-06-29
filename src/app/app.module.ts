@@ -13,7 +13,7 @@ import { MapComponent } from './report-definer/sub_components/map/map.component'
 import { NavigationComponent } from './shared/navigation/navigation.component';
 import { User } from './models/user';
 import { UserDashboardComponent } from "./user-dashboard/user-dashboard.component";
-import { DynamoDBService } from "./shared/ddb.service";
+import { DynamoDBService } from "./services/ddb.service";
 import { S3Service } from "./shared/s3.service";
 import { ValuesPipe } from './shared/values.pipe';
 import { CreditShopComponent } from './users/credit-shop/credit-shop.component';
@@ -33,7 +33,10 @@ import { LocationListComponent } from './user-dashboard/subcomponents/location-l
 import { CognitoSessionModule, CognitoSessionStore } from './cognito-session/cognito-session.module'
 import { UserService } from './services/user.service';
 import { AwsService } from './services/aws.service'
-
+import { ReportSpecificationService } from './services/report-specification.service'
+import { ReportGeneratorService } from './services/report-generator.service'
+import { DynamicComponentFactoryService } from './report-viewer/dynamic_component_factory.service';
+import { CategoryFilterComponent } from './category-filter/category-filter.component'
 
 
 
@@ -41,7 +44,7 @@ export const appRoutes: Routes = [
   { path: '',
     component: ReportDefinerComponent,
     canActivate: []},
-  { path: 'report_viewer/:name', component: ReportViewerComponent },
+  { path: 'report_viewer', component: ReportViewerComponent },
   { path: 'dashboard', component: UserDashboardComponent },
   { path: 'user', loadChildren: () => CognitoSessionModule},
 ]
@@ -66,7 +69,8 @@ export const appRoutes: Routes = [
     AreaSelectorComponent,
     FooterComponent,
     LocationListComponent,
-    
+    CategoryFilterComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -86,7 +90,10 @@ export const appRoutes: Routes = [
     PublisherService,
     CognitoSessionStore,
     UserService,
-    AwsService],
+    AwsService,
+    ReportSpecificationService,
+    ReportGeneratorService,
+    DynamicComponentFactoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

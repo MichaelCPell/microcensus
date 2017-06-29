@@ -6,12 +6,16 @@ import * as _ from "lodash";
 })
 export class ReportTypeFilterPipe implements PipeTransform {
 
-  transform(reports: any[], value:any): any {
+  transform(reports: any[], searchQuery:string, category:string): any {
     if (!reports) return [];
     return Array.from(reports).filter(report => {
-      let nameTest = new RegExp(value, "i").test(report.name)
-      let descriptionTest = new RegExp(value, "i").test(report.description)
-      return (nameTest || descriptionTest)
+      if(report){
+        let nameTest = new RegExp(searchQuery, "i").test(report.name)
+        let descriptionTest = new RegExp(searchQuery, "i").test(report.description)
+
+        let categoryTest = report.category.indexOf(category) != -1
+        return (nameTest || descriptionTest) && categoryTest
+      }
     });
   }
 

@@ -6,8 +6,13 @@ import * as _ from 'lodash';
 
 export class User {
   email
-  constructor(email){
+  reportTypes:any[];
+  sub;
+  locations;
+  constructor(email, locations, reportTypes?){
     this.email = email;
+    this.reportTypes = reportTypes;
+    this.locations = locations
   }
   // private _email: BehaviorSubject<string> = new BehaviorSubject("");
   // private _password:string;

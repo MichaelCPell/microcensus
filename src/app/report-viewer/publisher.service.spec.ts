@@ -3,7 +3,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { PublisherService } from './publisher.service';
 import { ResearchAreaService } from "../shared/research-area.service";
-import { DynamoDBService } from "../shared/ddb.service";
+import { DynamoDBService } from "../services/ddb.service";
 import { S3Service } from "../shared/s3.service";
 import { HttpModule } from '@angular/http';
 

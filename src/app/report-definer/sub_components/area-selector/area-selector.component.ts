@@ -8,12 +8,9 @@ import { User } from "../../../models/user";
   styleUrls: ['./area-selector.component.css']
 })
 export class AreaSelectorComponent implements OnInit {
-  @Input()  activeArea:any;
+  @Input()  reportSpecification:any;
   @Output() activeAreaChange = new EventEmitter<number>();
-
-  @Input() activeName:string = "";
   @Output() activeNameChange:EventEmitter<string> = new EventEmitter<string>();
-  @Input() needsName:boolean;
 
   editingName:boolean = false;
   areaInputType:string = "places";
@@ -24,7 +21,6 @@ export class AreaSelectorComponent implements OnInit {
 
   editName(){
     if(this.editingName){
-      this.activeNameChange.emit(this.activeName);
       this.editingName = false;
     }else{
       this.editingName = true;
@@ -40,7 +36,6 @@ export class AreaSelectorComponent implements OnInit {
     let file = event.target.files[0]
     let read = new FileReader();
     read.readAsBinaryString(file);
-    this.needsName = true;
 
     read.onloadend = () => {
       let json = JSON.parse(read.result);
@@ -50,6 +45,6 @@ export class AreaSelectorComponent implements OnInit {
   }
 
   onNameInputChange(value){
-    this.activeName = value
+
   }
 }

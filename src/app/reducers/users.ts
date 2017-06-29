@@ -1,44 +1,53 @@
 import { User } from "../models/user";
 import * as user from '../actions/user';
+import { ReportTypeService} from '../services/report-type.service'
+import { ReportType } from "../models/report-type";
+// import {} from '../services/d
 
 export interface State {
-  current: User | undefined
+  email: string;
+  reportTypes: ReportType[];
+  sub:string;
+  locations: any[];
 };
 
 export const initialState: State = {
-  current: undefined
+  email: undefined,
+  reportTypes: ReportTypeService.defaultReportTypes,
+  sub: undefined,
+  locations: []
 };
 
 // reducer, think of it as a table in the db
 export function reducer(state = initialState, action: user.Actions ): State {
   switch (action.type) {
     case user.ActionTypes.LOAD: {
-      const user = action.payload;
-      return {current: user}
+      let user:User = action.payload
+
+      return {
+        ...state,
+        email: user.email,
+        locations: state.locations.concat(user.email),
+        reportTypes: state.reportTypes.concat(user.reportTypes)
+      }
     }
     case user.ActionTypes.SIGNOUT: {
       console.log("SIGNOUT EVENT")
       const user = action.payload;
-      return {current: undefined}
+      return initialState
     }
+    case user.ActionTypes.SET_SUB: {
+      console.log("SET SUB EVENT")
+      return {...initialState, sub: action.payload.sub}
+    }
+
     default: {
       return state;
     }
   }
 }
 
-export const getCurrent = (state: State) => state.current
-// Selectors (think of them as queries)
-// export const getEntities = (state: State) => state.entities;
-
-// export const getIds = (state: State) => state.ids;
-
-// export const getSelectedId = (state: State) => state.selectedBookId;
-
-// export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
-//   return entities[selectedId];
-// });
-
-// export const getAll = createSelector(getEntities, getIds, (entities, ids) => {
-//   return ids.map(id => entities[id]);
-// });
+export const get = (state: State) => state;
+export const getEmail = (state: State) => state.email;
+export const getReportTypes = (state: State) => state.reportTypes;
+export const getSub = (state: State) => state.sub;
