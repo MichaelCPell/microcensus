@@ -9,6 +9,7 @@ export class ReportTypeSelectorComponent implements OnInit {
   @Input() reportSpecification:any;
   @Input() reportTypes:Array<ReportType>;
   @Output() activeReportTypeChange:EventEmitter<any> = new EventEmitter();
+  category:string = "economic_development"
 
   constructor() { }
 

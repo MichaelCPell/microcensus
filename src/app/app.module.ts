@@ -35,7 +35,8 @@ import { UserService } from './services/user.service';
 import { AwsService } from './services/aws.service'
 import { ReportSpecificationService } from './services/report-specification.service'
 import { ReportGeneratorService } from './services/report-generator.service'
-import { DynamicComponentFactoryService } from './report-viewer/dynamic_component_factory.service'
+import { DynamicComponentFactoryService } from './report-viewer/dynamic_component_factory.service';
+import { CategoryFilterComponent } from './category-filter/category-filter.component'
 
 
 
@@ -68,6 +69,7 @@ export const appRoutes: Routes = [
     AreaSelectorComponent,
     FooterComponent,
     LocationListComponent,
+    CategoryFilterComponent,
 
   ],
   imports: [
