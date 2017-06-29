@@ -47,7 +47,6 @@ export class DynamicComponentFactoryService{
           this.http.get(environment.reportAssetBackend(this.reportName) + ".js")
             .subscribe(
               ((response:Response) => {
-
                 eval(response.text())
 
                 window['$'](".share-buttons").remove()
@@ -72,7 +71,5 @@ export class DynamicComponentFactoryService{
       class RuntimeComponentModule{}
       return RuntimeComponentModule;
   }
-
-
 }
 

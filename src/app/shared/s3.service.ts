@@ -1,15 +1,19 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import * as AWS from "aws-sdk";
+import { AwsService } from "../services/aws.service";
 
 @Injectable()
 export class S3Service{
+
+  constructor(private aws:AwsService){}
+
   private s3 = new AWS.S3({
     apiVersion: '2006-03-01',
     params: {Bucket: "deletelater123"}
   });
 
-  public publishReport(file, reportName, address, radius, email){
+  public publishReport(file){
     return Observable.create((observer) => {
       this.s3.upload({
         Bucket: "carto.report",
@@ -22,10 +26,6 @@ export class S3Service{
           console.log(err)
           return
         }
-        data.reportName = reportName
-        data.address = address
-        data.radius = radius
-        data.email = email
 
         observer.next(data)
       });
