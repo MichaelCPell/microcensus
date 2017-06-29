@@ -8,10 +8,10 @@ import { S3Service } from "../shared/s3.service";
 export class PublisherService {
   private _reportName:string;
   private _head:Array<string> = [];
-  private _body:Array<string> = []; 
+  private _body:Array<string> = [];
   private _reportData:any;
 
-  constructor(private researchArea:ResearchAreaService,private ddb: DynamoDBService, private s3: S3Service) { 
+  constructor(private researchArea:ResearchAreaService,private ddb: DynamoDBService, private s3: S3Service) {
     this.resetReportArrays();
   }
 
@@ -74,8 +74,8 @@ export class PublisherService {
     }else if(ra.radius > 1000){
       zoomLevel = 13;
     }
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        attribution:  '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
     }).addTo(map);
     if(ra.type == "Point"){
       var marker = L.marker([ra.coordinates[1], ra.coordinates[0]]).addTo(map);
@@ -101,7 +101,7 @@ export class PublisherService {
 
       fileName = `${reportName}_${address}_${buffer}`
     }
-    
+
     var f = new File(["<html>", this.head.join(""), "<body>", this.body.join(""),"</body>", "</html>"], fileName ,{type: "text/html"});
 
     return this.s3
@@ -120,13 +120,13 @@ export class PublisherService {
     this._head.push('<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.min.js"></script>');
     this._head.push('<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.js"></script>');
     this._head.push('<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>');
-    
+
     this._head.push('<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">');
     this._head.push('<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">');
     this._head.push('<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />');
     this._head.push('<link rel="stylesheet" href="https://s3.amazonaws.com/cartoscope-assets/report-styles/print.css" rel="stylesheet">')
     this._head.push('<link rel="stylesheet" href="https://s3.amazonaws.com/cartoscope-assets/report-styles/reports.css" rel="stylesheet">')
-    
+
     this._head.push("</head>")
 
   }

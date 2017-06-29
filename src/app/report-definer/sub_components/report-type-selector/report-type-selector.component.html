@@ -1,4 +1,4 @@
-<div class="row categories-border">
+<div class="row categories-container">
   <app-category-filter *ngFor='let category of categories'
     [category]= "category"
     (select) = "setActiveCategory($event)"
