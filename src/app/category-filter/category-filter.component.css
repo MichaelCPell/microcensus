@@ -54,6 +54,7 @@
 
   .category-name {
     font-size: 10px;
+    text-transform: none;
   }
 
   .category-icon{
