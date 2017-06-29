@@ -1,28 +1,8 @@
 <div class="row categories-border">
-  <app-category-filter
-    imageSource= 'https://s3.amazonaws.com/cartoscope-assets/assets/everyone_people.png'
-    categoryLabel= 'Journalists & Scientists'
-    (click) = 'category = "for_everybody"'
-    [active]="category == 'for_everybody'">
-  </app-category-filter>
-  <app-category-filter
-    imageSource= 'https://s3.amazonaws.com/cartoscope-assets/assets/small_business.png'
-    categoryLabel= 'Business'
-    (click) = 'category = "business"'
-    [active]="category == 'business'">
-  </app-category-filter>
-  <app-category-filter
-    imageSource= 'https://s3.amazonaws.com/cartoscope-assets/assets/housing.png'
-    categoryLabel= 'Real Estate'
-    (click) = 'category = "real_estate"'
-    [active]="category == 'real_estate'">
-  </app-category-filter>
-  <app-category-filter
-    imageSource= 'https://s3.amazonaws.com/cartoscope-assets/assets/economic_dev.png'
-    categoryLabel= 'Government'
-    (click) = 'category = "government"'
-    [active]="category == 'government'"
-    >
+  <app-category-filter *ngFor='let category of categories'
+    [category]= "category"
+    (select) = "setActiveCategory($event)"
+    [active]="activeCategory">
   </app-category-filter>
 </div>
 <div class="row table-border">
@@ -30,7 +10,7 @@
     <table class="table table-hover">
       <tbody>
         <tr
-            *ngFor="let reportType of (reportTypes | reportTypeFilter  : search)"
+            *ngFor="let reportType of (reportTypes | reportTypeFilter  : search : activeCategory)"
             (click)="setReportType(reportType)"
             [ngClass]="{active: reportSpecification.reportType == reportType}"
             class="hoverable">

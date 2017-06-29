@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-category-filter',
@@ -6,12 +6,16 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./category-filter.component.css']
 })
 export class CategoryFilterComponent implements OnInit {
-  @Input() imageSource:string;
-  @Input() categoryLabel:string;
-  @Input() active:boolean = true;
+  @Input() category:any;
+  @Input() active:string;
+  @Output() select = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
 
+
+  selectEvent(){
+    this.select.emit(this.category.slug)
+  }
 }
