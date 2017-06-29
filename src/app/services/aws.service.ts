@@ -11,6 +11,10 @@ export class AwsService {
 
     constructor() {
         AWS.config.region = "us-east-1"
+
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: AwsService._IDENTITY_POOL_ID
+        })
     }
 
     configAWS(token?:string){

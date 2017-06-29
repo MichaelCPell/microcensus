@@ -62,18 +62,15 @@ export const getLocationState = (state: State) => state.location
 export const getReportSpecificationState = (state: State) => state.reportSpecification
 export const getReportState = (state: State) => state.report
 
-// User Selectors
 export const getUserEmail = createSelector(getUserState, fromUsers.getEmail);
 export const getUserSub = createSelector(getUserState, fromUsers.getSub);
 
-// ReportType Selectors
 export const getReportTypes = createSelector(getUserState, fromUsers.getReportTypes)
 export const getActiveReportType = createSelector(getReportTypeState, fromReportTypes.getActive)
 
-// Location Selectors
 export const getLocations = createSelector(getLocationState, fromLocation.getAll)
 
-// ReportSpecification Selectors
 export const getReportSpecification = createSelector(getReportSpecificationState, fromReportSpecifications.get)
 
 export const getReport = createSelector(getReportState, fromReport.get)
+export const getReportUrl = createSelector(getReportState, fromReport.getUrl)

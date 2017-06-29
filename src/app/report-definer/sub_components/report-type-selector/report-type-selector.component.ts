@@ -44,7 +44,6 @@ export class ReportTypeSelectorComponent implements OnInit {
   }
 
   public setActiveCategory(category){
-    console.log(category)
     this.activeCategory = category
   }
 }

@@ -2,7 +2,6 @@ import { User } from "../models/user";
 import * as user from '../actions/user';
 import { ReportTypeService} from '../services/report-type.service'
 import { ReportType } from "../models/report-type";
-// import {} from '../services/d
 
 export interface State {
   email: string;
@@ -32,12 +31,10 @@ export function reducer(state = initialState, action: user.Actions ): State {
       }
     }
     case user.ActionTypes.SIGNOUT: {
-      console.log("SIGNOUT EVENT")
       const user = action.payload;
       return initialState
     }
     case user.ActionTypes.SET_SUB: {
-      console.log("SET SUB EVENT")
       return {...initialState, sub: action.payload.sub}
     }
 
