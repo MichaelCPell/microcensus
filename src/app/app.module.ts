@@ -68,7 +68,7 @@ export const appRoutes: Routes = [
     AreaSelectorComponent,
     FooterComponent,
     LocationListComponent,
-    
+
   ],
   imports: [
     BrowserModule,

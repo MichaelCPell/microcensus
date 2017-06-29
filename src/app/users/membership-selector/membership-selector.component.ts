@@ -20,7 +20,7 @@ export class MembershipSelectorComponent implements OnInit {
   }
 
   get readyToProceed(){
-    return 'stub'
+    return 'regular';
     // switch(this.selectedLevel){
     //   case "":
     //   return false;

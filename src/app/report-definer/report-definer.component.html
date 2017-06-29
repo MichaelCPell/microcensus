@@ -1,38 +1,35 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row vertical-row-padding">
     <div class="col-sm-8">
-      <div class ="row">
-        <div class="col-sm-12">
+      <div class ="row vertical-row-padding">
+        <div class="col-sm-8">
           <app-area-selector
             [reportSpecification]="reportSpecification$ | async"
             (activeAreaChange)="onAreaChange($event)"
             (activeNameChange)="onNameChange($event)">
           </app-area-selector>
         </div>
+        <div class="col-sm-4">
+          <app-radius-selector
+            *ngIf="showRadiusSelector"
+            [reportSpecification]="reportSpecification$ | async"
+            (activeRadiusChange)="onRadiusChange($event)">
+          </app-radius-selector>
+        </div>
       </div>
+      <br>
       <div class="row vertical-row-padding">
         <div class="col-sm-12">
-          <div class="row vertical-row-padding">
-            <div class="col-sm-4">
-              <app-radius-selector
-                *ngIf="showRadiusSelector"
-                [reportSpecification]="reportSpecification$ | async"
-                (activeRadiusChange)="onRadiusChange($event)">
-              </app-radius-selector>
-            </div>
-            <div class="col-sm-8">
-              <app-report-type-selector
-                [reportSpecification]="reportSpecification$ | async"
-                [reportTypes] = "reportTypes$ | async"
-                (activeReportTypeChange)="onReportTypeChange($event)">
-              </app-report-type-selector>
-            </div>
-          </div>
+          <app-report-type-selector
+            [reportSpecification]="reportSpecification$ | async"
+            [reportTypes] = "reportTypes$ | async"
+            (activeReportTypeChange)="onReportTypeChange($event)">
+          </app-report-type-selector>
         </div>
       </div>
     </div>
     <div class="col-md-4 col-sm-4">
-      <app-map 
+      <app-map
         (polygonDrawn)="onPolygonDraw($event)"
         [reportSpecification$]="reportSpecification$">
       </app-map>
