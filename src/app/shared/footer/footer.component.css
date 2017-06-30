@@ -1,7 +1,11 @@
 @import 'https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Open+Sans:300,400,600,700';
 
+.vertical-row-padding {
+  padding-top: 1%;
+  /*padding-bottom: 2%;*/
+}
 
-footer {
+.footer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -12,7 +16,7 @@ footer {
 }
 
 .footer-text {
-  padding-top: 2%;
+  /*padding-top: 2%;*/
   color: #fff;
   font-family: 'Lato', sans-serif;
   font-weight: 300;
