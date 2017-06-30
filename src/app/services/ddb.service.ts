@@ -5,8 +5,7 @@ import { Store } from "@ngrx/store";
 import { AwsService } from './aws.service'
 import * as fromRoot from '../reducers';
 import * as fromUser from '../reducers/user.reducer';
-import * as locations from '../actions/locations';
-import * as user from '../actions/user';
+import * as userActions from '../actions/user';
 
 @Injectable()
 export class DynamoDBService {
@@ -31,19 +30,30 @@ export class DynamoDBService {
                 }
 
                 let newUser = new User(data.Item.email, data.Item.locations, data.Item.reportTypes)
-                this.store.dispatch(new user.LoadAction(newUser))
+                this.store.dispatch(new userActions.LoadAction(newUser))
               })
             })
 
           this.store.select(fromRoot.getReport)
             .filter( (report, i) => !!report.url)
-            .combineLatest(this.store.select(fromRoot.getUserState))
+            .withLatestFrom(this.store.select(fromRoot.getUserState))
+            .filter( (report, i) => !!report[1].email)
             .subscribe(
               report => {
                 this.db = new awsService.AWS.DynamoDB.DocumentClient();
-                this.addLocation(this.db, report[0], report[1])
+                this.addLocation(this.db, report[0], report[1]).subscribe(
+                  user => {
+                    this.addReport(this.db, report[0], report[1]).subscribe(
+                      data => {
+                        let action = new userActions.SetLocationsAction(data.Attributes.locations)
+                        this.store.dispatch(action)
+                      }
+                    )
+                  }
+                )
               }
             )
+
 
     }
 
@@ -70,37 +80,40 @@ export class DynamoDBService {
       }
 
 
-      return client.update(params, (err, data) => {
-        if(err){
-          console.log(err);
-        } 
-        else{
-          const action = new locations.SetAction(data.Attributes.locations)
-          this.store.dispatch(action)
-        }
+
+      return Observable.create( observer => {
+        client.update(params, (err, data) => {
+          if(err){
+            if(err.code == "ConditionalCheckFailedException"){
+              //Location already exists for user, do not overwrite
+            }else{
+              console.log(err);
+            }
+          } 
+          else{
+            observer.next(data)
+          }
+        })
       })
     }
 
-    public addReport(oData){
-      var humanName = (oData.reportName + `(${oData.radius}_mi_radius)`).replace(/_/g, ' ')
-          .replace(/(\w+)/g, function(match) {
-            return match.charAt(0).toUpperCase() + match.slice(1);
-          });
+    public addReport(client, report, user){
+      const reportName = `${report.reportSpecification.reportName} ${report.reportSpecification.geoJSON.geometry.radius}`
       
       var params = {
-        TableName: 'users',
-        Key: { email: oData.email},
+        TableName: 'cartoscope_users_dev',
+        Key: { sub: user.sub},
         UpdateExpression: 'set #a.#id.#b.#reportName = :z',
         ExpressionAttributeNames: {
           '#a' : 'locations',
-          '#id' : oData.address,
+          '#id' : report.reportSpecification.geoJSON.properties.address,
           '#b' : 'reports',
-          '#reportName' : oData.reportName + `(${oData.radius}_mi_radius)`
+          '#reportName' : reportName
         },
         ExpressionAttributeValues: {
           ':z': {
-            reportName: humanName,
-            publicUrl: `http://${oData.Bucket}/${oData.key}`,
+            report: report,
+            publicUrl: report.url,
             createdAt: Date.now()
           }
         },
@@ -108,7 +121,7 @@ export class DynamoDBService {
       };
 
       return Observable.create( observer => {
-        this.db.update(params, (err, data) => {
+        client.update(params, (err, data) => {
           if(err) console.log(err);
           else{
             observer.next(data)

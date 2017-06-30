@@ -135,7 +135,6 @@ export class UserLoginService {
     }
 
     authenticate(username:string, password:string) {
-        console.log("UserLoginService: stgarting the authentication")
         // Need to provide placeholder keys unless unauthorised user access is enabled for user pool
         AWS.config.update({accessKeyId: 'anything', secretAccessKey: 'anything'})
 
