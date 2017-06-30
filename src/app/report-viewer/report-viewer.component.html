@@ -1,5 +1,5 @@
 <div *ngIf="dataLoaded" class="row vertical-row-padding save-report-row hidden-print">
-  <div class="col-sm-2 col-sm-offset-10">
+  <div *ngIf="!url" class="col-sm-2 col-sm-offset-10">
     <button
       (click)="publish()"
       class="btn btn-mc-dark"
@@ -7,9 +7,16 @@
       {{publishButton}}
     </button>
   </div>
+  <div *ngIf="url" class="col-sm-11">
+    <a [href]="url" 
+        class="btn btn-mc-dark pull-right"
+        target="_blank">
+      {{url}}
+    </a>
+  </div>
 </div>
 
-<div id="publishableContent">
+<div>
   <div class="row">
     <div *ngIf="!dataLoaded" class="col-md-6 col-md-offset-3">
       <img src="assets/images/spin.gif"
