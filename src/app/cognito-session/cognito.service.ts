@@ -119,36 +119,9 @@ export class CognitoUtil {
 
     refresh():void {
         let currentUser  = this.getCurrentUser();
-
+        this.store.set("user", currentUser) 
         if(currentUser){
-            this.store.set("user", currentUser)
-
-            currentUser.getSession((err, session) => {
-                if (err) {
-                    console.log("CognitoUtil: Can't set the credentials:" + err);
-                }
-
-                else {
-                    if (session.isValid()) {
-                        this.store.set("activeComponent", "loggedIn")
-                        this.store.set("session", session)
-
-                        var loginKey = `cognito-idp.us-east-1.amazonaws.com/${CognitoUtil._USER_POOL_ID}`
-                        // Add the User's Id Token to the Cognito credentials login map.
-                        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                            IdentityPoolId: CognitoUtil._IDENTITY_POOL_ID,
-                            Logins: {
-                                loginKey: session.getIdToken().getJwtToken()
-                            }
-                        });
-
-
-                        console.log("CognitoUtil: refreshed successfully");
-                    } else {
-                        console.log("CognitoUtil: refreshed but session is still not valid");
-                    }
-                }
-            });
+            this.store.set("activeComponent", "loggedIn");
         }
     }
 }
@@ -177,12 +150,10 @@ export class UserLoginService {
             Pool: this.cognitoUtil.getUserPool()
         };
 
-        console.log(userData)
         let cognitoUser = new CognitoUser(userData);
 
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess:  (result) => {
-                this.store.set("user", cognitoUser)
                 this.cognitoUtil.refresh();
             },
             onFailure:  (err) => {

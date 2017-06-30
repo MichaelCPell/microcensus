@@ -4,7 +4,7 @@ import { ActionReducer, combineReducers } from '@ngrx/store';
 import { compose } from '@ngrx/core/compose';
 import { storeFreeze } from 'ngrx-store-freeze';
 
-import * as fromUsers from './users';
+import * as fromUsers from './user.reducer';
 import * as fromReportTypes from './report-types';
 import * as fromLocation from './locations';
 import * as fromReportSpecifications from './report-specifications.reducer';

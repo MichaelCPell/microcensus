@@ -2,42 +2,39 @@ import {Injectable} from "@angular/core";
 import {User} from "../models/user";
 import {Observable} from "rxjs/Observable";
 import { Store } from "@ngrx/store";
+import { AwsService } from './aws.service'
 import * as fromRoot from '../reducers';
-import * as AWS from 'aws-sdk';
-import * as fromUser from '../reducers/users';
+import * as fromUser from '../reducers/user.reducer';
 import * as user from '../actions/user';
 
 @Injectable()
 export class DynamoDBService {
-    db = new AWS.DynamoDB.DocumentClient();
+    private db;
     
-    constructor(private store:Store<fromRoot.State>) {
-        console.log("DynamoDBService: constructor");
+    constructor(
+        private awsService:AwsService,
+        private store:Store<fromRoot.State>) {
 
-        this.store.select(fromRoot.getUserSub)
-          .filter(Boolean).subscribe(
-          sub => {
-            this.db.get({
-              TableName: "cartoscope_users_dev",
-              Key: {sub: sub},
-              AttributesToGet: ['email', 'locations', 'reportTypes']
-            }, (err, data) => {
-              if(err){
-                console.log(err)
-                return
-              }
+          console.log("Initializing DynamoDBService Service")
+          this.store.select(fromRoot.getUserSub)
+            .filter(Boolean).subscribe(
+            sub => {
+              this.db = new awsService.AWS.DynamoDB.DocumentClient();
+              this.db.get({
+                TableName: "cartoscope_users_dev",
+                Key: {sub: sub},
+                AttributesToGet: ['email', 'locations', 'reportTypes']
+              }, (err, data) => {
+                if(err){
+                  console.log(err)
+                  return
+                }
 
-              let newUser = new User(data.Item.email, data.Item.locations, data.Item.reportTypes)
-              this.store.dispatch(new user.LoadAction(newUser))
-            })
-          }
+                let newUser = new User(data.Item.email, data.Item.locations, data.Item.reportTypes)
+                this.store.dispatch(new user.LoadAction(newUser))
+              })
+            }
         )
-
-        //   .subscribe( (user:fromUser.State) => {
-        //   console.log(`ddb got the user`)
-        //   console.log(user)
-
-        // })
     }
 
     public addLocation(researchArea, email){
@@ -77,7 +74,6 @@ export class DynamoDBService {
             return match.charAt(0).toUpperCase() + match.slice(1);
           });
       
-      var db = new AWS.DynamoDB.DocumentClient();
       var params = {
         TableName: 'users',
         Key: { email: oData.email},
@@ -99,7 +95,7 @@ export class DynamoDBService {
       };
 
       return Observable.create( observer => {
-        db.update(params, (err, data) => {
+        this.db.update(params, (err, data) => {
           if(err) console.log(err);
           else{
             observer.next(data)

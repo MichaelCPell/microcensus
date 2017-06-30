@@ -8,12 +8,10 @@ export class S3Service{
 
   constructor(private aws:AwsService){}
 
-  private s3 = new AWS.S3({
-    apiVersion: '2006-03-01',
-    params: {Bucket: "deletelater123"}
-  });
+  private s3;
 
   public publishReport(file){
+    this.s3 = new AWS.S3();
     return Observable.create((observer) => {
       this.s3.upload({
         Bucket: "carto.report",
