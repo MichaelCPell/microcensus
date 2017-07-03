@@ -97,5 +97,5 @@ export const appRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-  constructor(private ddbInitializer:DynamoDBService){}
-}
+  constructor(private ddbInitializer:DynamoDBService){} 
+} 

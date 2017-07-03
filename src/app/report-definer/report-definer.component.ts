@@ -41,6 +41,14 @@ export class ReportDefinerComponent implements OnInit {
       
       this.reportTypes$ = store.select(fromRoot.getReportTypes);
       this.reportSpecification$ = store.select(fromRoot.getReportSpecification);
+
+      this.reportSpecification$.subscribe(
+        rs => {
+          if(rs.geoJSON.geometry.type == "Polygon"){
+            this.showRadiusSelector = false;
+          }
+        }
+      )
   }
 
   ngOnInit():void {
@@ -71,13 +79,12 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   onNameChange(newName){
-    // this.researchArea.researchArea.name = newName;
-    // this.name = this.researchArea.researchArea.name;
+    let action = new reportSpecifications.SetAddressAction(newName)
+    this.store.dispatch(action)
   }
 
   onPolygonDraw(polygon){
-    // this.researchArea.shape = polygon;
-    // this.name = this.researchArea.researchArea.name;
-    this.needsName = true;
+    let action = new reportSpecifications.SetGeoJSONAction(polygon)
+    this.store.dispatch(action)
   }
 };
