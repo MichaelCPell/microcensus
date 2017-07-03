@@ -25,4 +25,8 @@ export class AreaSelectorComponent implements OnInit {
   setName(){
     this.activeNameChange.emit(this.nameInput.nativeElement.value)
   }
+
+  clearAddress(){
+    this.activeAreaChange.emit(undefined)
+  }
 }
