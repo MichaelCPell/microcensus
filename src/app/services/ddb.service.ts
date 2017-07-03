@@ -12,10 +12,11 @@ export class DynamoDBService {
     db = new AWS.DynamoDB.DocumentClient();
     
     constructor(private store:Store<fromRoot.State>) {
+      AWS.config.region = "us-east-1"
         console.log("DynamoDBService: constructor");
 
         this.store.select(fromRoot.getUserSub)
-          .filter(Boolean).subscribe(
+          .subscribe(
           sub => {
             this.db.get({
               TableName: "cartoscope_users_dev",
@@ -32,12 +33,6 @@ export class DynamoDBService {
             })
           }
         )
-
-        //   .subscribe( (user:fromUser.State) => {
-        //   console.log(`ddb got the user`)
-        //   console.log(user)
-
-        // })
     }
 
     public addLocation(researchArea, email){
@@ -65,9 +60,6 @@ export class DynamoDBService {
 
       this.db.update(params, ((err, data) => {
         if(err) console.log(err);
-        else{
-          // this.user.updateFromDdb(data["Attributes"])
-        }
       }))
     }
 

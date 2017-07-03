@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import { environment } from '../../environments/environment';
 import * as AWS from 'aws-sdk';
+import { DynamoDBService } from '../services/ddb.service'
 
 
 @Injectable()
@@ -9,7 +10,7 @@ export class AwsService {
     public static _IDENTITY_POOL_ID = environment.identityPoolId;
     public static _USER_POOL_ID = environment.userPoolId;
 
-    constructor() {
+    constructor(private ddb:DynamoDBService) {
         AWS.config.region = "us-east-1"
 
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -20,7 +21,7 @@ export class AwsService {
     configAWS(token?:string){
         let logins = {}
         logins[`cognito-idp.${AwsService._REGION}.amazonaws.com/${AwsService._USER_POOL_ID}`] = token;
-
+        AWS.config.region = "us-east-1"
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
             IdentityPoolId: AwsService._IDENTITY_POOL_ID,
             Logins: logins
