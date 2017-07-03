@@ -92,7 +92,7 @@ export class ResearchAreaService {
 
 // Public Methods
 storeLocation(email:string){
-  this.ddb.addLocation(this.researchArea, email);
+  // this.ddb.addLocation(this.researchArea, email);
 }
 
 

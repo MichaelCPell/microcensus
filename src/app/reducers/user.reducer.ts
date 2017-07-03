@@ -14,19 +14,17 @@ export const initialState: State = {
   email: undefined,
   reportTypes: ReportTypeService.defaultReportTypes,
   sub: undefined,
-  locations: []
+  locations: undefined
 };
 
-// reducer, think of it as a table in the db
 export function reducer(state = initialState, action: user.Actions ): State {
   switch (action.type) {
     case user.ActionTypes.LOAD: {
       let user:User = action.payload
-
       return {
         ...state,
         email: user.email,
-        locations: state.locations.concat(user.email),
+        locations: user.locations,
         reportTypes: state.reportTypes.concat(user.reportTypes)
       }
     }
@@ -36,6 +34,11 @@ export function reducer(state = initialState, action: user.Actions ): State {
     }
     case user.ActionTypes.SET_SUB: {
       return {...initialState, sub: action.payload.sub}
+    }
+
+    case user.ActionTypes.SET_LOCATIONS: {
+      const locations:any = action.payload;
+      return {...state, locations: locations } 
     }
 
     default: {
@@ -48,3 +51,4 @@ export const get = (state: State) => state;
 export const getEmail = (state: State) => state.email;
 export const getReportTypes = (state: State) => state.reportTypes;
 export const getSub = (state: State) => state.sub;
+export const getLocations = (state: State) => state.locations;
