@@ -48,6 +48,18 @@ export class DynamoDBService {
                         this.store.dispatch(action)
                       }
                     )
+                  },
+                  err => {
+                    if(err == "Location Exists"){
+                      this.addReport(this.db, report[0], report[1]).subscribe(
+                        data => {
+                          let action = new userActions.SetLocationsAction(data.Attributes.locations)
+                          this.store.dispatch(action)
+                        }
+                      )
+                    }else{
+                      console.log("Unexpected Error");
+                    }
                   }
                 )
               }
@@ -81,6 +93,7 @@ export class DynamoDBService {
           if(err){
             if(err.code == "ConditionalCheckFailedException"){
               //Location already exists for user, do not overwrite
+              observer.error("Location Exists")
               console.log(err)
             }else{
               console.log(err);
