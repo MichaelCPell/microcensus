@@ -70,11 +70,17 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   onAreaChange(newArea){
-    let location = {
-      coordinates: [newArea.geometry.location.lng(), newArea.geometry.location.lat()],
-      address: newArea.formatted_address
+    let action;
+    if(newArea == undefined){
+      action = new reportSpecifications.SetLocationAction(undefined)
+    }else{
+      let location = {
+        coordinates: [newArea.geometry.location.lng(), newArea.geometry.location.lat()],
+        address: newArea.formatted_address
+      }
+      action = new reportSpecifications.SetLocationAction(location)
     }
-    let action = new reportSpecifications.SetLocationAction(location)
+
     this.store.dispatch(action)
   }
 

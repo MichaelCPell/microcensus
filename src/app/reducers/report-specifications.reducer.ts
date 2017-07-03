@@ -43,6 +43,10 @@ export function reducer(state = initialState, action: reportSpecifications.Actio
     }
 
     case reportSpecifications.ActionTypes.SET_LOCATION: {
+      if(action.payload == undefined){
+        return initialState;
+      }
+
       return {...state, 
               geoJSON: {
                 geometry: {
