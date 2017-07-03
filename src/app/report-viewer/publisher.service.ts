@@ -5,6 +5,7 @@ import { S3Service } from "../shared/s3.service";
 import { Store } from "@ngrx/store";
 import * as fromRoot from "../reducers/"
 import * as reportActions from "../actions/report.actions"
+import { Report } from "../models/report"
 
 @Injectable()
 export class PublisherService {
@@ -21,11 +22,11 @@ export class PublisherService {
 
   publish(html){
     this.store.select(fromRoot.getReport).subscribe(
-      report => {
+      (report:Report) => {
         if(report.reportSpecification.geoJSON.geometry.type == "Point"){
           let radius = report.reportSpecification.geoJSON.geometry.radius / 1600
           
-          let fileName = `${report.reportSpecification.reportName}_${report.reportSpecification.geoJSON.properties.address}_${radius}_mile_radius`    
+          let fileName = `${report.reportSpecification.reportType.name}_${report.reportSpecification.geoJSON.properties.address}_${radius}_mile_radius`    
 
           let f = new File([this.dataVarSnippet(report), html], fileName ,{type: "text/html"});
         

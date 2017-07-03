@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewContainerRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Store } from "@ngrx/store";
 import * as fromRoot from "../reducers/";
@@ -16,10 +16,11 @@ import { PublisherService } from "./publisher.service";
 
 export class ReportViewerComponent implements AfterViewInit, OnDestroy {
   public dataLoaded:boolean = false;
-  private report$:any;
+  private report$:Observable<Report>;
   public publishButton:string = "Save this Report";
   public url:string;
   private tmpl:string;
+  private reportSubscription:Subscription;
 
   @ViewChild('myDynamicContent', { read: ViewContainerRef })
   protected dynamicComponentTarget: ViewContainerRef;
@@ -38,25 +39,26 @@ export class ReportViewerComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(){
     this.report$ = this.store.select(fromRoot.getReport)
-          .skip(1) //Skip the initial, undefined report.  Then skip the current report on subsequent loads.
-          .take(1)
-          .subscribe( (report) => {
-            this.getHtml(report.reportSpecification.reportName).subscribe(
-              tmpl => {
-                this.tmpl = tmpl;
-                this.dataLoaded = true;
-                this.dynamicComponentFactory.createComponentFactory(tmpl, report).then( factory => {
-                    this
-                      .dynamicComponentTarget
-                      .createComponent(factory)
-                })
-              }
-            )
-          })
+    this.reportSubscription = this.report$
+      .skip(1) //Skip the initial, undefined report.  Then skip the current report on subsequent loads.
+      .take(1)
+      .subscribe( (report) => {
+        this.getHtml(report.reportSpecification.reportType.slug).subscribe(
+          tmpl => {
+            this.tmpl = tmpl;
+            this.dataLoaded = true;
+            this.dynamicComponentFactory.createComponentFactory(tmpl, report).then( factory => {
+                this
+                  .dynamicComponentTarget
+                  .createComponent(factory)
+            })
+          }
+        )
+      })
   }
 
   ngOnDestroy(){
-    this.report$.unsubscribe();
+    this.reportSubscription.unsubscribe();
     this.url = undefined;
     this.dynamicComponentTarget.clear()
   }

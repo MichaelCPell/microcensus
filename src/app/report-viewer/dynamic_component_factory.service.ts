@@ -37,14 +37,13 @@ export class DynamicComponentFactoryService{
       })
       class CustomDynamicComponent implements OnInit{
         public data:any = report.data;
-        public reportName:string = report.reportSpecification.reportName;
         
         constructor(private http: Http){
         }
 
         ngOnInit(){
           const data = this.data;
-          this.http.get(environment.reportAssetBackend(this.reportName) + ".js")
+          this.http.get(environment.reportAssetBackend(report.reportSpecification.reportType.slug) + ".js")
             .subscribe(
               ((response:Response) => {
                 eval(response.text())
