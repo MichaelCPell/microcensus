@@ -36,7 +36,8 @@ import { AwsService } from './services/aws.service'
 import { ReportSpecificationService } from './services/report-specification.service'
 import { ReportGeneratorService } from './services/report-generator.service'
 import { DynamicComponentFactoryService } from './report-viewer/dynamic_component_factory.service';
-import { CategoryFilterComponent } from './category-filter/category-filter.component'
+import { CategoryFilterComponent } from './category-filter/category-filter.component';
+import { ToLabelPipe } from './user-dashboard/to-label.pipe'
 
 
 
@@ -70,6 +71,7 @@ export const appRoutes: Routes = [
     FooterComponent,
     LocationListComponent,
     CategoryFilterComponent,
+    ToLabelPipe,
 
   ],
   imports: [
