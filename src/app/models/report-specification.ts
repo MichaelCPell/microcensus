@@ -1,6 +1,6 @@
 import { ReportType } from "./report-type"
 
-interface ReportSpecification {
+export interface ReportSpecification {
   geoJSON:geoJSONFeature,
   keywords?: Array<string>,
   reportType: ReportType;
