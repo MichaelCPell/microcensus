@@ -21,16 +21,17 @@ export class UserService {
     this.user$.subscribe( 
       (data) => {
         if(data){
-          data.getUserAttributes( (err, data) => {
-            this.appStore.dispatch(new user.SetSubAction({sub: data[0].getValue()}))
-          })
-
           data.getSession( (err, session) => {
             this.aws.configAWS(session.getIdToken().getJwtToken())
+
+            data.getUserAttributes( (err, data) => {
+              this.appStore.dispatch(new user.SetSubAction({sub: data[0].getValue()}))
+            })
           })
           
           this.router.navigate(["/"])
         }else{
+          this.aws.configUnauthUser();
           this.appStore.dispatch(new user.SignoutAction(undefined))
         }
       }

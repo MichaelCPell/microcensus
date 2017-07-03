@@ -4,9 +4,8 @@ import { ActionReducer, combineReducers } from '@ngrx/store';
 import { compose } from '@ngrx/core/compose';
 import { storeFreeze } from 'ngrx-store-freeze';
 
-import * as fromUsers from './users';
+import * as fromUsers from './user.reducer';
 import * as fromReportTypes from './report-types';
-import * as fromLocation from './locations';
 import * as fromReportSpecifications from './report-specifications.reducer';
 import * as fromReport from './report.reducer';
 
@@ -17,7 +16,6 @@ import * as fromReport from './report.reducer';
 export interface State {
   user: fromUsers.State;
   reportTypes: fromReportTypes.State;
-  location: fromLocation.State;
   reportSpecification: fromReportSpecifications.State;
   report: fromReport.State;
 }
@@ -25,7 +23,6 @@ export interface State {
 const reducers = {
   user: fromUsers.reducer,
   reportTypes: fromReportTypes.reducer,
-  location: fromLocation.reducer,
   reportSpecification: fromReportSpecifications.reducer,
   report: fromReport.reducer
 };
@@ -58,7 +55,6 @@ export function reducer(state: any, action: any){
  */
 export const getUserState = (state: State) => state.user
 export const getReportTypeState = (state: State) => state.reportTypes
-export const getLocationState = (state: State) => state.location
 export const getReportSpecificationState = (state: State) => state.reportSpecification
 export const getReportState = (state: State) => state.report
 
@@ -68,7 +64,7 @@ export const getUserSub = createSelector(getUserState, fromUsers.getSub);
 export const getReportTypes = createSelector(getUserState, fromUsers.getReportTypes)
 export const getActiveReportType = createSelector(getReportTypeState, fromReportTypes.getActive)
 
-export const getLocations = createSelector(getLocationState, fromLocation.getAll)
+export const getLocations = createSelector(getUserState, fromUsers.getLocations)
 
 export const getReportSpecification = createSelector(getReportSpecificationState, fromReportSpecifications.get)
 

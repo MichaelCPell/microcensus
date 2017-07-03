@@ -8,22 +8,28 @@ export class AwsService {
     public static _REGION = "us-east-1";
     public static _IDENTITY_POOL_ID = environment.identityPoolId;
     public static _USER_POOL_ID = environment.userPoolId;
+    public AWS = AWS;
 
     constructor() {
-        AWS.config.region = "us-east-1"
-
-        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        this.AWS.config.region = "us-east-1"
+        this.AWS.config.credentials = new AWS.CognitoIdentityCredentials({
             IdentityPoolId: AwsService._IDENTITY_POOL_ID
         })
     }
 
-    configAWS(token?:string){
+    configAWS(token:string):void{
         let logins = {}
         logins[`cognito-idp.${AwsService._REGION}.amazonaws.com/${AwsService._USER_POOL_ID}`] = token;
-
-        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+        this.AWS.config.credentials = new AWS.CognitoIdentityCredentials({
             IdentityPoolId: AwsService._IDENTITY_POOL_ID,
-            Logins: logins
+            Logins: logins,
+        })
+    }
+
+    configUnauthUser():void{
+        this.AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+
+            IdentityPoolId: AwsService._IDENTITY_POOL_ID,
         })
     }
 }

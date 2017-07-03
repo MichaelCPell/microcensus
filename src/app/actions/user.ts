@@ -4,8 +4,9 @@ import { User } from '../models/user';
 
 export const ActionTypes = {
   LOAD:             type('[User] Load'),
-  SIGNOUT:             type('[User] Signout'),
-  SET_SUB:          type('[User] Set Sub')
+  SIGNOUT:          type('[User] Signout'),
+  SET_SUB:          type('[User] Set Sub'),
+  SET_LOCATIONS:    type('[User] Set Locations')
 };
 
 export class LoadAction implements Action {
@@ -16,6 +17,11 @@ export class LoadAction implements Action {
 
 export class SetSubAction implements Action {
   type = ActionTypes.SET_SUB;
+
+  constructor(public payload) { }
+}
+export class SetLocationsAction implements Action {
+  type = ActionTypes.SET_LOCATIONS;
 
   constructor(public payload) { }
 }
@@ -32,4 +38,5 @@ export class SignoutAction implements Action {
  * so that reducers can easily compose action types
  */
 export type Actions
-  = LoadAction | SignoutAction | SetSubAction
+  = LoadAction | SignoutAction | SetSubAction 
+  | SetLocationsAction

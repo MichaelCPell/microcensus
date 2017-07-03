@@ -18,10 +18,6 @@ export class NavigationComponent implements OnInit {
 
   constructor(private store:Store<fromRoot.State>, private router:Router) {
     this.user$ = store.select(fromRoot.getUserEmail);
-
-    this.user$.subscribe( email => {
-      console.log(email)
-    })
   }
 
   ngOnInit() {

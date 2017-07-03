@@ -33,11 +33,7 @@ export class ReportViewerComponent implements AfterViewInit, OnDestroy {
 
     this.store.select(fromRoot.getReportUrl)
       .skip(1)
-      .subscribe(
-      url => {
-        this.url = url
-      }
-    )
+      .subscribe(url => this.url = url)
   }
 
   ngAfterViewInit(){
