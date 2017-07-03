@@ -24,52 +24,23 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.map = L.map('map').setView([35.7796, -78.6382], 13);    
 
-    this.reportSpecification$.subscribe( rs => {
-      if(rs.geoJSON.geometry.coordinates){
-        this.updateMapPoint(rs)
+    this.reportSpecification$
+      .map( rs => rs.geoJSON)
+      .subscribe( geoJSON => {
+      if(geoJSON.geometry.type == "Point"){
+        if(geoJSON.geometry.coordinates){
+          this.updateMapPoint(geoJSON)
+        }
+      }
+
+      if(geoJSON.geometry.type == "Polygon"){
+        this.updateMapPolygon(geoJSON)
       }
     })
 
     L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
     }).addTo(this.map);
-
-
-
-
-    // this.researchArea.mappable.subscribe(
-    //   ra => {
-    //     if(this.shapeLayer){
-    //       this.map.removeLayer(this.shapeLayer);
-    //     }
-    //     if(this.marker){
-    //       this.map.removeLayer(this.marker);
-    //     }
-    //     if(ra.type == "point"){
-    //       let radius = ra.radius;
-    //       let view = 13;
-
-    //       if(radius > 15000){
-    //         view = 10;
-    //       }else if(radius > 8000){
-    //         view = 11;
-    //       }else if(radius > 3000){
-    //         view = 12;
-    //       }else if(radius > 1000){
-    //         view = 13;
-    //       }
-    //       this.marker = L.marker(ra.coordinates).addTo(this.map);
-    //       this.shapeLayer = L.circle(ra.coordinates, radius).addTo(this.map);
-    //       this.map.setView(this.marker.getLatLng(), view);
-    //     }else if(ra.type == "polygon" || ra.type == "Polygon"){
-    //       this.shapeLayer = L.geoJSON(ra.geometry).addTo(this.map);
-    //       this.map.fitBounds(this.shapeLayer.getBounds());
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error)
-    //   }
-    // )
 
     this.activateDraw();
 
@@ -82,12 +53,12 @@ export class MapComponent implements OnInit {
   }
 
 
-  private updateMapPoint(rs){
+  private updateMapPoint(geoJSON){
     if(this.shapeLayer){
         this.map.removeLayer(this.shapeLayer);
     }
-    let coordinates = L.latLng(rs.geoJSON.geometry.coordinates[1],rs.geoJSON.geometry.coordinates[0])
-    let radius = rs.geoJSON.geometry.radius;
+    let coordinates = L.latLng(geoJSON.geometry.coordinates[1],geoJSON.geometry.coordinates[0])
+    let radius = geoJSON.geometry.radius;
     let view = 13;
 
     if(radius >= 8000){
@@ -98,9 +69,17 @@ export class MapComponent implements OnInit {
       view = 13;
     }
     this.marker = L.marker(coordinates).addTo(this.map);
-    this.shapeLayer = L.circle(coordinates, rs.geoJSON.geometry.radius).addTo(this.map);
+    this.shapeLayer = L.circle(coordinates, geoJSON.geometry.radius).addTo(this.map);
     this.map.setView(this.marker.getLatLng(), view);
+  }
 
+
+  private updateMapPolygon(geoJSON){
+    if(this.shapeLayer){
+        this.map.removeLayer(this.shapeLayer);
+    }
+    this.shapeLayer = L.geoJSON(geoJSON.geometry).addTo(this.map);
+    this.map.fitBounds(this.shapeLayer.getBounds());
   }
 
   activateDraw(){

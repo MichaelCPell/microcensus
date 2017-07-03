@@ -24,7 +24,7 @@
       <tr *ngFor="let report of (location.reports | values)">
         <td>
           <div class="row" >
-            <div class="col-sm-7 col-md-7"><p class="table-text">{{report.report.reportSpecification.reportType.name}} -- {{report.report.reportSpecification.geoJSON.geometry.radius/1600}} Mile Radius</p></div>
+            <div class="col-sm-7 col-md-7"><p class="table-text">{{report.report | toLabel}}</p></div>
             <div class="col-sm-3 col-md-3"><p class="table-text"><small>{{report.createdAt | date:'shortDate'}}</small></p></div>
             <div class="col-sm-2 col-md-2">
               <a target="_blank" href="{{report.publicUrl}}"><p class="table-text">View</p></a>

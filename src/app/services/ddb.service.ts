@@ -94,7 +94,6 @@ export class DynamoDBService {
             if(err.code == "ConditionalCheckFailedException"){
               //Location already exists for user, do not overwrite
               observer.error("Location Exists")
-              console.log(err)
             }else{
               console.log(err);
             }
