@@ -1,15 +1,15 @@
-import { NgModule, Component, OnInit, Injectable } from '@angular/core';
+import { NgModule, Component, OnInit, Injectable, Compiler } from '@angular/core';
 import { Report } from "../models/report";
 import { Http, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 import * as _ from 'lodash';
-import { JitCompiler } from '@angular/compiler';
+import { JitCompilerFactory } from '@angular/compiler'
 
 @Injectable()
 export class DynamicComponentFactoryService{
-
-  constructor(private compiler:JitCompiler){
-
+  private compiler: Compiler 
+  constructor(){
+    this.compiler = new JitCompilerFactory([{useDebug: false, useJit: true}]).createCompiler();
   }
 
   createComponentFactory = (template: string, report:Report)

@@ -13,7 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class UserDashboardComponent implements OnInit {
   locations$:Observable<any[]>;
-  
+  public search:string = "";
+
   constructor(private router:Router, 
               private researchArea: ResearchAreaService,
               private store:Store<fromRoot.State>) { 
