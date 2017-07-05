@@ -56,6 +56,7 @@ export class MapComponent implements OnInit {
   private updateMapPoint(geoJSON){
     if(this.shapeLayer){
         this.map.removeLayer(this.shapeLayer);
+        this.map.removeLayer(this.marker);
     }
     let coordinates = L.latLng(geoJSON.geometry.coordinates[1],geoJSON.geometry.coordinates[0])
     let radius = geoJSON.geometry.radius;
@@ -77,6 +78,9 @@ export class MapComponent implements OnInit {
   private updateMapPolygon(geoJSON){
     if(this.shapeLayer){
         this.map.removeLayer(this.shapeLayer);
+        if(this.marker){
+          this.map.removeLayer(this.marker);
+        }
     }
     this.shapeLayer = L.geoJSON(geoJSON.geometry).addTo(this.map);
     this.map.fitBounds(this.shapeLayer.getBounds());
