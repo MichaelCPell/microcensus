@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { Store } from '@ngrx/store'
 import * as fromRoot from '../reducers/'
 import { Observable } from 'rxjs';
+import * as reportSpecification from '../actions/report-specifications.actions'
 
 @Component({
   selector: 'app-user-dashboard',
@@ -25,8 +26,8 @@ export class UserDashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  public makeReportWithLocation(location){
-    this.researchArea.object = location
-    this.router.navigate(["/"]);
+  public setReportSpecificationTo(location){
+    let action = new reportSpecification.SetGeoJSONAction(location);
+    this.store.dispatch(action);
   }
 }

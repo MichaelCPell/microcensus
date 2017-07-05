@@ -37,13 +37,15 @@ export class ReportDefinerComponent implements OnInit {
   constructor(public reportTypeService:ReportTypeService,
               public reportSpecificationService:ReportSpecificationService, 
               private reportGeneratorService:ReportGeneratorService,
-              private store: Store<fromRoot.State>) {
+              private store: Store<fromRoot.State>,
+              private router:Router) {
       
       this.reportTypes$ = store.select(fromRoot.getReportTypes);
       this.reportSpecification$ = store.select(fromRoot.getReportSpecification);
 
       this.reportSpecification$.subscribe(
         rs => {
+          this.router.navigate(["/"]);
           if(rs.geoJSON.geometry.type == "Polygon"){
             this.showRadiusSelector = false;
           }

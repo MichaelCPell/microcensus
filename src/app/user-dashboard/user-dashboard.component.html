@@ -15,7 +15,8 @@
   <div class="row vertical-row-padding">
     <app-location-list 
       [locations]="locations$ | async"
-      [filterQuery]="search"></app-location-list>
+      [filterQuery]="search"
+      (setReportSpecification)="setReportSpecificationTo($event)"></app-location-list>
   </div>
 </div>
 <app-footer></app-footer>

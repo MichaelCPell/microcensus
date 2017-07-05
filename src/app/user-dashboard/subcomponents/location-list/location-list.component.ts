@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Location } from '../../../models/location';
+import { GeoJSONFeature } from "../../../models/geoJSON-feature";
 
 @Component({
   selector: 'app-location-list',
@@ -9,10 +10,14 @@ import { Location } from '../../../models/location';
 export class LocationListComponent implements OnInit {
   @Input() locations:Location[];
   @Input() filterQuery:string;
+  @Output() setReportSpecification = new EventEmitter<GeoJSONFeature>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  setReportSpecificationTo(location){
+    this.setReportSpecification.emit(location)
+  }
 }
