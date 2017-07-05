@@ -81,6 +81,9 @@ export class DynamoDBService {
             name: report.reportSpecification.geoJSON.properties.address,
             type: report.reportSpecification.geoJSON.geometry.type,
             geometry: report.reportSpecification.geoJSON.geometry,
+            properties: {
+              address: report.reportSpecification.geoJSON.properties.address
+            },
             createdAt: Date.now(),
             reports: {}
           }
