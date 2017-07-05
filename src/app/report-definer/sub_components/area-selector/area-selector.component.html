@@ -1,49 +1,30 @@
+<div class="row address-row">
+  <div>
+    <h4  class="subtitle-new-area">Current Address: {{reportSpecification.geoJSON.properties.address}}</h4>
+  </div>
+</div>
 
-<div class="container">
-  <div class="row address-row">
-    <div>
-      <h4 *ngIf="!editingName" class="subtitle-new-area">Current Address: {{activeName}}</h4>
-      {{newName}}
-    </div>
-    <div>
+<div class="row">
+  <div class="col-md-12">
+    <div 
+      *ngIf="(reportSpecification.geoJSON.geometry.type == 'Polygon') && !reportSpecification.geoJSON.properties.address">
       <form>
+        Please Name the Polygon:
         <input
-          *ngIf="editingName"
           type="text"
-          [value]="activeName"
-          (input)="onNameInputChange(nameEditor.value)"
-          #nameEditor/>
-        <input type="submit" class="btn btn-mc-link" *ngIf="needsName" (click)="editName()" value= "Change Name"/>
+          #nameInput
+        />
+        <input type="submit" class="btn btn-mc-link" (click)="setName(polygonName)" value= "Set Name"/>
       </form>
     </div>
+
+    <app-address-selector
+      *ngIf="reportSpecification.geoJSON.geometry.type == 'Point'"
+      [activePlace]="place"
+      (activePlaceChange)="onPlaceChange($event)"></app-address-selector>
   </div>
+</div>
+<div class="row">
+  <button class="btn-cs-blue" (click)="clearAddress()">Clear Address</button>
 </div>
 
-<div>
-  <div *ngIf="areaInputType == 'places'">
-    <div class="row">
-      <div class="col-md-12">
-        <app-address-selector
-          [activePlace]="place"
-          (activePlaceChange)="onPlaceChange($event)"></app-address-selector>
-      </div>
-    </div>
-    <div class="row vertical-row-padding">
-      <div class="col-md-8">
-        <button class="btn btn-cs-blue"(click)="areaInputType = 'file'"><i class="fa fa-file-o" aria-hidden="true"></i> Upload a GeoJSON File</button>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="areaInputType == 'file'">
-    <div class="row">
-      <div class="col-md-4">
-        <input type="file" (change)="onFileChange($event)"/>
-      </div>
-    </div>
-    <div class="row vertical-row-padding">
-      <div class="col-md-8">
-        <button class="btn btn-cs-blue" (click)="areaInputType = 'places'; editingName = false"><i class="fa fa-map-marker" aria-hidden="true"></i> Pick an Address</button>
-      </div>
-    </div>
-  </div>
-</div>

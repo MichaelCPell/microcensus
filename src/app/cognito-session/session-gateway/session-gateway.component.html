@@ -26,6 +26,7 @@
 <app-set-new-password
   *ngIf="activeComponent == 'reset'"
   [email]="email$ | async"
+  (clickEvent)='handleClick($event)'
   (resetPasswordEvent)='resetPassword($event)'>
 </app-set-new-password>
 

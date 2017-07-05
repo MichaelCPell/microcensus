@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { ReportDefinerComponent } from './report-definer/report-definer.component';
 import { ReportViewerComponent } from './report-viewer/report-viewer.component';
 import { ResearchAreaService } from './shared/research-area.service';
-import { COMPILER_PROVIDERS } from '@angular/compiler';
 import { AddressSelectorComponent } from './report-definer/sub_components/address-selector/address-selector.component';
 import { MapComponent } from './report-definer/sub_components/map/map.component';
 import { NavigationComponent } from './shared/navigation/navigation.component';
@@ -16,8 +15,6 @@ import { UserDashboardComponent } from "./user-dashboard/user-dashboard.componen
 import { DynamoDBService } from "./services/ddb.service";
 import { S3Service } from "./shared/s3.service";
 import { ValuesPipe } from './shared/values.pipe';
-import { CreditShopComponent } from './users/credit-shop/credit-shop.component';
-import { SubscriptionCreatorComponent } from './users/payments/subscription-creator/subscription-creator.component';
 import { LocationFilterPipe } from './shared/location-filter.pipe';
 import { RadiusSelectorComponent } from './report-definer/sub_components/radius-selector/radius-selector.component';
 import { ReportTypeSelectorComponent } from './report-definer/sub_components/report-type-selector/report-type-selector.component';
@@ -36,7 +33,8 @@ import { AwsService } from './services/aws.service'
 import { ReportSpecificationService } from './services/report-specification.service'
 import { ReportGeneratorService } from './services/report-generator.service'
 import { DynamicComponentFactoryService } from './report-viewer/dynamic_component_factory.service';
-import { CategoryFilterComponent } from './category-filter/category-filter.component'
+import { CategoryFilterComponent } from './category-filter/category-filter.component';
+import { ToLabelPipe } from './user-dashboard/to-label.pipe'
 
 
 
@@ -46,7 +44,7 @@ export const appRoutes: Routes = [
     canActivate: []},
   { path: 'report_viewer', component: ReportViewerComponent },
   { path: 'dashboard', component: UserDashboardComponent },
-  { path: 'user', loadChildren: () => CognitoSessionModule},
+  { path: 'user', loadChildren: './cognito-session/cognito-session.module#CognitoSessionModule'},
 ]
 
 
@@ -60,8 +58,6 @@ export const appRoutes: Routes = [
     NavigationComponent,
     UserDashboardComponent,
     ValuesPipe,
-    CreditShopComponent,
-    SubscriptionCreatorComponent,
     LocationFilterPipe,
     RadiusSelectorComponent,
     ReportTypeSelectorComponent,
@@ -70,6 +66,7 @@ export const appRoutes: Routes = [
     FooterComponent,
     LocationListComponent,
     CategoryFilterComponent,
+    ToLabelPipe,
 
   ],
   imports: [
@@ -83,7 +80,6 @@ export const appRoutes: Routes = [
     CognitoSessionModule
   ],
   providers: [
-    COMPILER_PROVIDERS,
     ResearchAreaService,
     DynamoDBService,
     S3Service,
@@ -97,5 +93,5 @@ export const appRoutes: Routes = [
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-  constructor(private ddbInitializer:DynamoDBService){}
-}
+  constructor(private ddbInitializer:DynamoDBService){} 
+} 

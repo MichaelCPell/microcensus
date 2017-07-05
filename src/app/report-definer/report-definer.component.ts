@@ -37,12 +37,20 @@ export class ReportDefinerComponent implements OnInit {
   constructor(public reportTypeService:ReportTypeService,
               public reportSpecificationService:ReportSpecificationService, 
               private reportGeneratorService:ReportGeneratorService,
-              private store: Store<fromRoot.State>) {
+              private store: Store<fromRoot.State>,
+              private router:Router) {
       
-      // this.user$ = store.select(fromRoot.getUser);
       this.reportTypes$ = store.select(fromRoot.getReportTypes);
-      // this.activeReportType$ = store.select(fromRoot.getActiveReportType);
       this.reportSpecification$ = store.select(fromRoot.getReportSpecification);
+
+      this.reportSpecification$.subscribe(
+        rs => {
+          this.router.navigate(["/"]);
+          if(rs.geoJSON.geometry.type == "Polygon"){
+            this.showRadiusSelector = false;
+          }
+        }
+      )
   }
 
   ngOnInit():void {
@@ -64,22 +72,27 @@ export class ReportDefinerComponent implements OnInit {
   }
 
   onAreaChange(newArea){
-    let location = {
-      coordinates: [newArea.geometry.location.lng(), newArea.geometry.location.lat()],
-      address: newArea.formatted_address
+    let action;
+    if(newArea == undefined){
+      action = new reportSpecifications.SetLocationAction(undefined)
+    }else{
+      let location = {
+        coordinates: [newArea.geometry.location.lng(), newArea.geometry.location.lat()],
+        address: newArea.formatted_address
+      }
+      action = new reportSpecifications.SetLocationAction(location)
     }
-    let action = new reportSpecifications.SetLocationAction(location)
+
     this.store.dispatch(action)
   }
 
   onNameChange(newName){
-    // this.researchArea.researchArea.name = newName;
-    // this.name = this.researchArea.researchArea.name;
+    let action = new reportSpecifications.SetAddressAction(newName)
+    this.store.dispatch(action)
   }
 
   onPolygonDraw(polygon){
-    // this.researchArea.shape = polygon;
-    // this.name = this.researchArea.researchArea.name;
-    this.needsName = true;
+    let action = new reportSpecifications.SetGeoJSONAction(polygon)
+    this.store.dispatch(action)
   }
 };

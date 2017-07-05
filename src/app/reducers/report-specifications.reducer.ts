@@ -15,7 +15,8 @@ export const initialState: State = {
         radius: 1600,
         type: "Point"
       },
-      type: "Feature"
+      type: "Feature",
+      properties: {}
   }
 };
 
@@ -42,16 +43,36 @@ export function reducer(state = initialState, action: reportSpecifications.Actio
     }
 
     case reportSpecifications.ActionTypes.SET_LOCATION: {
+      if(action.payload == undefined){
+        return initialState;
+      }
 
       return {...state, 
               geoJSON: {
                 geometry: {
                   coordinates: action.payload.coordinates,
                   radius: state.geoJSON.geometry.radius,
-                  type: "Point"
+                  type: state.geoJSON.geometry.type
                 },
                 properties: {
                   address: action.payload.address
+                }
+              }
+            } 
+    }
+
+
+    case reportSpecifications.ActionTypes.SET_GEOJSON: {
+      return {...state, 
+              geoJSON: action.payload
+            } 
+    }
+
+    case reportSpecifications.ActionTypes.SET_ADDRESS: {
+      return {...state, 
+              geoJSON: {...state.geoJSON,
+                properties: {
+                  address: action.payload
                 }
               }
             } 
@@ -64,17 +85,3 @@ export function reducer(state = initialState, action: reportSpecifications.Actio
 }
 
 export const get = (state: State) => state
-// Selectors (think of them as queries)
-// export const getEntities = (state: State) => state.entities;
-
-// export const getIds = (state: State) => state.ids;
-
-// export const getSelectedId = (state: State) => state.selectedBookId;
-
-// export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
-//   return entities[selectedId];
-// });
-
-// export const getAll = createSelector(getEntities, getIds, (entities, ids) => {
-//   return ids.map(id => entities[id]);
-// });

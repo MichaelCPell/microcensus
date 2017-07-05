@@ -48,6 +48,18 @@ export class DynamoDBService {
                         this.store.dispatch(action)
                       }
                     )
+                  },
+                  err => {
+                    if(err == "Location Exists"){
+                      this.addReport(this.db, report[0], report[1]).subscribe(
+                        data => {
+                          let action = new userActions.SetLocationsAction(data.Attributes.locations)
+                          this.store.dispatch(action)
+                        }
+                      )
+                    }else{
+                      console.log("Unexpected Error");
+                    }
                   }
                 )
               }
@@ -69,6 +81,9 @@ export class DynamoDBService {
             name: report.reportSpecification.geoJSON.properties.address,
             type: report.reportSpecification.geoJSON.geometry.type,
             geometry: report.reportSpecification.geoJSON.geometry,
+            properties: {
+              address: report.reportSpecification.geoJSON.properties.address
+            },
             createdAt: Date.now(),
             reports: {}
           }
@@ -81,7 +96,7 @@ export class DynamoDBService {
           if(err){
             if(err.code == "ConditionalCheckFailedException"){
               //Location already exists for user, do not overwrite
-              console.log(err)
+              observer.error("Location Exists")
             }else{
               console.log(err);
             }

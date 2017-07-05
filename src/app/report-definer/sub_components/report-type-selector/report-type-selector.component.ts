@@ -9,7 +9,8 @@ export class ReportTypeSelectorComponent implements OnInit {
   @Input() reportSpecification:any;
   @Input() reportTypes:Array<ReportType>;
   @Output() activeReportTypeChange:EventEmitter<any> = new EventEmitter();
-  activeCategory:string = "for_everybody"
+  activeCategory:string = "for_everybody";
+  search:string = "";
 
   categories = [
     {

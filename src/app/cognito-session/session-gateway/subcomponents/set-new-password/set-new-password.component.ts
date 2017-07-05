@@ -6,7 +6,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./set-new-password.component.css']
 })
 export class SetNewPasswordComponent implements OnInit {
-  @Output() resetPasswordEvent:EventEmitter<{}> = new EventEmitter()
+  @Output() resetPasswordEvent:EventEmitter<{}> = new EventEmitter();
+  @Output() clickEvent = new EventEmitter<string>();
   @Input() email;
   password;
   passwordConfirmation;

@@ -5,6 +5,7 @@ import * as report from '../actions/report.actions'
 import { Http, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router'
+import { ReportSpecification } from '../models/report-specification'
 
 @Injectable()
 export class ReportGeneratorService{
@@ -17,13 +18,7 @@ export class ReportGeneratorService{
     public generate(){
         this.store.select(fromRoot.getReportSpecification).subscribe(
             spec => {
-                // TODO: Standardize Report Specification
-                let rs = {
-                    reportName: spec.reportType.slug,
-                    geoJSON: spec.geoJSON
-                }
-
-                this.getReportData(rs)
+                this.getReportData(spec)
             }
         ).unsubscribe()
     }
