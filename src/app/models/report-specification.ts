@@ -1,17 +1,8 @@
 import { ReportType } from "./report-type"
+import { GeoJSONFeature } from "./geoJSON-feature"
 
 export interface ReportSpecification {
-  geoJSON:geoJSONFeature,
+  geoJSON:GeoJSONFeature,
   keywords?: Array<string>,
   reportType: ReportType;
-}
-
-interface geoJSONFeature{
-  type: "Feature"
-  geometry:   {
-    coordinates: Array<number>
-    radius?: number
-    type: "Point" | "Polygon"
-  }
-  properties?: any
 }
