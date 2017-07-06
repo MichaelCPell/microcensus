@@ -1,0 +1,11 @@
+@import 'https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Open+Sans:300,400,600,700';
+
+
+.alerts {
+  color: #EF5632;
+  font-weight: 400;
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  /*background-color: #EF5632;*/
+  /*padding: 1%;*/
+}
