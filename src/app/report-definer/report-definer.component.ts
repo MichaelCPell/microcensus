@@ -13,6 +13,7 @@ import { ReportSpecificationService } from '../services/report-specification.ser
 import { ReportSpecification } from "../models/report-specification";
 import * as reportSpecifications from "../actions/report-specifications.actions";
 import { ReportGeneratorService } from "../services/report-generator.service"
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
   selector: 'app-report-definer',
@@ -38,17 +39,16 @@ export class ReportDefinerComponent implements OnInit {
               public reportSpecificationService:ReportSpecificationService, 
               private reportGeneratorService:ReportGeneratorService,
               private store: Store<fromRoot.State>,
-              private router:Router) {
-      
+              private router:Router,
+              private angulartics:Angulartics2GoogleAnalytics) {
+      angulartics.pageTrack("/report_definer")
+
       this.reportTypes$ = store.select(fromRoot.getReportTypes);
       this.reportSpecification$ = store.select(fromRoot.getReportSpecification);
 
       this.reportSpecification$.subscribe(
         rs => {
           this.router.navigate(["/"]);
-          if(rs.geoJSON.geometry.type == "Polygon"){
-            this.showRadiusSelector = false;
-          }
         }
       )
   }

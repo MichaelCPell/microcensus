@@ -7,6 +7,7 @@ import * as fromRoot from "../reducers/";
 import { Report } from "../models/report";
 import { DynamicComponentFactoryService } from './dynamic_component_factory.service'
 import { PublisherService } from "./publisher.service";
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
   selector: 'app-report-view',
@@ -30,7 +31,8 @@ export class ReportViewerComponent implements AfterViewInit, OnDestroy {
     private http: Http,
     private store:Store<fromRoot.State>,
     private dynamicComponentFactory:DynamicComponentFactoryService,
-    private publisher:PublisherService) {
+    private publisher:PublisherService,
+    private angulartics:Angulartics2GoogleAnalytics) {
 
     this.store.select(fromRoot.getReportUrl)
       .skip(1)
@@ -64,6 +66,9 @@ export class ReportViewerComponent implements AfterViewInit, OnDestroy {
   }
 
   public publish(){
+    this.angulartics.eventTrack("new_publish", {
+      category: 'Publish'
+    })
     this.publisher.publish(this.tmpl)
   }
 

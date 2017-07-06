@@ -6,7 +6,8 @@ import { Router } from '@angular/router'
 import * as fromRoot from '../reducers';
 import * as user from '../actions/user';
 import { User } from './../models/user';
-import { AwsService } from  './aws.service'
+import { AwsService } from  './aws.service';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Injectable()
 export class UserService {
@@ -14,13 +15,19 @@ export class UserService {
   constructor(private cognitoStore:CognitoSessionStore, 
               private appStore:Store<fromRoot.State>,
               private router:Router,
-              private aws:AwsService) {
+              private aws:AwsService,
+              private angulartics:Angulartics2GoogleAnalytics) {
     
     this.user$ = cognitoStore.select("user").distinctUntilChanged()
     
     this.user$.subscribe( 
       (data) => {
         if(data){
+
+          this.angulartics.eventTrack("New Session Event", {
+            category: 'User'
+          });
+
           data.getSession( (err, session) => {
             this.aws.configAWS(session.getIdToken().getJwtToken())
 

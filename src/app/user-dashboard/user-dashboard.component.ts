@@ -5,7 +5,8 @@ import { FormsModule } from "@angular/forms";
 import { Store } from '@ngrx/store'
 import * as fromRoot from '../reducers/'
 import { Observable } from 'rxjs';
-import * as reportSpecification from '../actions/report-specifications.actions'
+import * as reportSpecification from '../actions/report-specifications.actions';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -18,8 +19,9 @@ export class UserDashboardComponent implements OnInit {
 
   constructor(private router:Router, 
               private researchArea: ResearchAreaService,
-              private store:Store<fromRoot.State>) { 
-
+              private store:Store<fromRoot.State>,
+              private angulartics:Angulartics2GoogleAnalytics) { 
+      angulartics.pageTrack("/dashboard")
       this.locations$ = store.select(fromRoot.getLocations)
   }
 
@@ -27,6 +29,9 @@ export class UserDashboardComponent implements OnInit {
   }
 
   public setReportSpecificationTo(location){
+    this.angulartics.eventTrack("set_report_type", {
+      category: 'Dashboard'
+    })
     let action = new reportSpecification.SetGeoJSONAction(location);
     this.store.dispatch(action);
   }

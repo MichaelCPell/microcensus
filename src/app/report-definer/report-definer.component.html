@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-4">
           <app-radius-selector
-            *ngIf="showRadiusSelector"
+            *ngIf="(reportSpecification$ | async).geoJSON.geometry.type == 'Point'"
             [reportSpecification]="reportSpecification$ | async"
             (activeRadiusChange)="onRadiusChange($event)">
           </app-radius-selector>

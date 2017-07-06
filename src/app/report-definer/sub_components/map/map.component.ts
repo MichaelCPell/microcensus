@@ -2,7 +2,8 @@ import { Component, OnInit, EventEmitter, Output, ViewEncapsulation, Input } fro
 import * as L from 'leaflet';
 var leafletDraw = require('leaflet-draw');
 import { Observable } from "rxjs"
-import { Store } from '@ngrx/store'
+import { Store } from '@ngrx/store';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 @Component({
   selector: 'app-map',
@@ -18,7 +19,7 @@ export class MapComponent implements OnInit {
   private coordinates$:Observable<string[]>
   @Output() polygonDrawn = new EventEmitter<object>();
 
-  constructor() {
+  constructor(private angulartics:Angulartics2GoogleAnalytics) {
   }
 
   ngOnInit() {
@@ -54,9 +55,15 @@ export class MapComponent implements OnInit {
 
 
   private updateMapPoint(geoJSON){
+    this.angulartics.eventTrack("Point", {
+      category: 'Add Geometry',
+    })
+
     if(this.shapeLayer){
         this.map.removeLayer(this.shapeLayer);
-        this.map.removeLayer(this.marker);
+    }
+    if(this.marker){
+      this.map.removeLayer(this.marker);
     }
     let coordinates = L.latLng(geoJSON.geometry.coordinates[1],geoJSON.geometry.coordinates[0])
     let radius = geoJSON.geometry.radius;
@@ -76,6 +83,9 @@ export class MapComponent implements OnInit {
 
 
   private updateMapPolygon(geoJSON){
+    this.angulartics.eventTrack("Polygon", {
+      category: 'Add Geometry',
+    })
     if(this.shapeLayer){
         this.map.removeLayer(this.shapeLayer);
         if(this.marker){
