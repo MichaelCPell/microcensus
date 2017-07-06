@@ -21,9 +21,9 @@ export class SessionGatewayComponent implements OnInit {
   email$:Observable<string>;
   notice$:Observable<string | {}>;
 
-  constructor(private store:CognitoSessionStore, 
+  constructor(private store:CognitoSessionStore,
               private loginService:UserLoginService,
-              private registrationService:UserRegistrationService) { 
+              private registrationService:UserRegistrationService) {
       this.login = (credentials) => {
         this.store.set("notice", "We are currently logging you in.  This may take a moment.")
         loginService.authenticate(credentials.email, credentials.password)
@@ -83,7 +83,7 @@ export class SessionGatewayComponent implements OnInit {
       this.store.set("credentials", new RegistrationUser(email))
       this.registrationService.resendCode(email)
     }else{
-      this.store.set("notice", "Please enter your e-mail address first.")            
+      this.store.set("notice", "Please enter your e-mail address first.")
     }
   }
 
@@ -118,5 +118,5 @@ export class SessionGatewayComponent implements OnInit {
     }
 
     this.loginService.confirmNewPassword(creds.email, creds.resetCode, creds.password);
-  } 
+  }
 }
