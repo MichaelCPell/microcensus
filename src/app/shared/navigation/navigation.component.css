@@ -7,6 +7,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  
 }
 
 .footer {
@@ -16,6 +17,9 @@ body {
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #f5f5f5;
+}
+li{
+  font-family: 'Lato', sans-serif;
 }
 
 
@@ -164,7 +168,7 @@ nav a.router-link-active {
 }
 
 
-.btn.btn-cs-blue {
+.cs-blue {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     font-weight: 300;
@@ -172,9 +176,10 @@ nav a.router-link-active {
     color: #fff;
     border-color: #0A2E5C;
     border-radius: 0px;
+    padding: 0 10px;
 }
 
-.btn.btn-cs-blue:hover {
+.cs-blue:hover {
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     font-weight: 300;
@@ -387,6 +392,10 @@ nav a.router-link-active {
   color: #2a2a2a;
   font-weight: 400;
   font-size: 14px;
+}
+
+.navbar-brand{
+  padding-top: 0px; 
 }
 
 @media (min-width: 768px) {
