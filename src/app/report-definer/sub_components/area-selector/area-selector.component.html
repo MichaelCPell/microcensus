@@ -1,12 +1,12 @@
 <div class="row address-row">
-  <div>
+  <div class="col-sm-12"> 
     <h4  class="subtitle-new-area">Current Address: {{reportSpecification.geoJSON.properties.address}}</h4>
   </div>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <div 
+    <div
       *ngIf="(reportSpecification.geoJSON.geometry.type == 'Polygon') && !reportSpecification.geoJSON.properties.address">
       <form>
         Please Name the Polygon:
@@ -14,7 +14,7 @@
           type="text"
           #nameInput
         />
-        <input type="submit" class="btn btn-mc-link" (click)="setName(polygonName)" value= "Set Name"/>
+        <input type="submit" class="btn btn-cs-blue" (click)="setName(polygonName)" value= "Set Name"/>
       </form>
     </div>
 
@@ -25,6 +25,7 @@
   </div>
 </div>
 <div class="row">
-  <button class="btn-cs-blue" (click)="clearAddress()">Clear Address</button>
+  <div class="col-sm-3">
+    <button class="btn btn-cs-clear" (click)="clearAddress()">Clear</button>
+  </div>
 </div>
-
